@@ -83,3 +83,11 @@ ggplot() +
   geom_sf(data = sa3, aes(fill = zx2)) +
   scale_fill_viridis()
 
+
+###
+library(nullabor)
+
+sa3_ng <- sf::st_set_geometry()
+
+null_d <- lineup(null_permute("zx2"), sa3)
+
