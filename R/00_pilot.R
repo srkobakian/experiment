@@ -1,46 +1,50 @@
 # Create maps for pilot study
+# This script considers the sa3 areas of Australia.
+# It creates lineups by simulating a null model spatial for 20 plots,
+# It then adds a data with a spatial trend to a randomly selected plot 
 
-
-# experiment libraries
+# libraries
+library(gstat)
+library(purrr)
 library(sp)
 library(sf)
-library(purrr)
-library(gstat)
+library(sugarbag)
 library(tidyverse)
 library(viridis)
 
 set.seed(19941030)
 
 ###########################################################
+####################     DATA    ##########################
 # Geography of sa3 areas
 sa3 <- absmapsdata::sa32016
+sa3 <- st_simplify(sa3, preserveTopology = TRUE, dTolerance = 0.001)
 
 # filter out Islands
-sa3 <- sa3 %>% filter(cent_long > 109, cent_long < 155)
+Islands <- c("Cocos (Keeling) Islands",	"Christmas Island", "Norfolk Island", "Lord Howe Island")
+sa3 <- sa3 %>% 
+  filter(!is.na(cent_long)) %>% 
+  filter(!(sa3_name_2016 %in% Islands))
 
 # plot with area sqkm
 ggplot(sa3) + geom_sf(aes(fill = areasqkm_2016))
 
-
 ###########################################################
 # Create hexagon map of sa3
-library(sugarbag)
-
-# hexmap
 # Centroids
 sa3_centroids <- sa3 %>% 
   select(sa3_name_2016, longitude = cent_long, latitude = cent_lat) %>% 
   sf::st_drop_geometry() %>% filter(!is.na(longitude))
 
 # Create hexagon location grid
-grid <- create_grid(centroids = sa3_centroids, hex_size = 0.35, buffer_dist = 2)
+grid <- create_grid(centroids = sa3_centroids, hex_size = 0.45, buffer_dist = 2)
 
 # Allocate polygon centroids to hexagon grid points
 allocated <- allocate(
   centroids = sa3_centroids,
   sf_id = "sa3_name_2016",
   hex_grid = grid,
-  hex_size = 0.35, # same size used in create_grid
+  hex_size = 0.45, # same size used in create_grid
   hex_filter = 10,
   width = 30,
   focal_points = capital_cities,
@@ -48,147 +52,233 @@ allocated <- allocate(
 )
 
 # same column used in create_centroids
-hexagons <- fortify_hexagon(data = allocated, sf_id = "sa3_name_2016", hex_size = 0.35)
+hexagons <- fortify_hexagon(data = allocated, sf_id = "sa3_name_2016", hex_size = 0.45)
 
 # Convert hexagons to polygons for plotting
+# This will order the areas by the sf_id, this results in alphabetical order
 hexagons_sf <- hexagons %>% 
-  select(sa3_name_2016, long, lat) %>% 
+  select(sa3_name_2016, sa3_code_2016, long, lat) %>% 
   sf::st_as_sf(coords = c("long", "lat"), crs = 4283) %>%
-  group_by(sa3_name_2016) %>% 
+  group_by(sa3_code_2016) %>% 
   summarise(do_union = FALSE) %>%
   st_cast("POLYGON")
 
-hexagons_plot <- sa3 %>% mutate(geometry = hexagons_sf$geometry)
+# Remove geometry of sa3 geographic areas
+sa3_ng <- sf::st_drop_geometry(sa3)
+
+hex <- sa3 %>% 
+  # ensure correct order by ordering alphabetically
+  arrange(sa3_name_2016) %>% 
+  mutate(geometry = hexagons_sf$geometry)
 
 # Plot hexagons
-ggplot(hexagons_plot) + geom_sf(aes(fill = areasqkm_2016), colour = NA)
+ggplot(hex) + geom_sf(aes(fill = areasqkm_2016), colour = NA)
 
-# generate spatial coordinates in a grid for Australia
-x <- seq(min(sa3$cent_long, na.rm= TRUE), max(sa3$cent_long, na.rm= TRUE), 1)
-y <- seq(min(sa3$cent_lat, na.rm= TRUE), max(sa3$cent_lat, na.rm= TRUE), 1)
-ll <- expand.grid(x, y)
-
-# create dataframe
-spdf <- data.frame(id = 1:nrow(ll),
-  x = ll$Var1,
-  y = ll$Var2)
-
-# convert to spatial points dataframe
-coordinates(spdf) <- c("x", "y")
-proj4string(spdf) <- CRS("+proj=longlat +datum=WGS84")
 
 ###########################################################
+# Apply a Spatial Relationships z~1 constant errors ( for all null plots )
+# Convert to SPDF using coordinates for spatial dependency model
+coordinates(sa3_ng) <- ~ cent_long + cent_lat
 
-# Spatial Relationships z~1 constant errors
-cov.Decay <- 0.5 # play with this parameter to change strength of spatial dependency
-var.g.dummy <- gstat(formula=z~1, locations=~x+y, dummy=T, beta=1,
+# Change this parameter to change strength of spatial dependency
+cov.Decay <- 0.5
+# Specify the spatial model
+var.g.dummy <- gstat(formula=z~1, 
+  locations=~x+y, 
+  dummy=T, beta=1,
   model=vgm(psill=1, model="Gau", range=cov.Decay),
   nmax=20)
-var.sim <- predict(var.g.dummy, newdata=spdf, nsim=1)
+var.sim <- predict(var.g.dummy, newdata=sa3_ng, nsim=1)
 
-mysim <- data.frame(id = 1:nrow(ll),
-  x = ll$Var1,
-  y = ll$Var2, 
-  z = var.sim@data$sim1)
+# pair coordinates with the simulated spatially dependent null model
+var_sf <- as_tibble(var.sim)
 
-ggplot(mysim, aes(x=x, y=y, fill = z)) + 
-  geom_tile() +
-  scale_fill_viridis()
+ggplot(var_sf, aes(x=cent_long, y=cent_lat, colour = sim1)) + 
+  geom_point() +
+  scale_fill_viridis_c()
 
 
-# Add a trend model
-# error ranges from -2 to 5, so use a linear trend, north to south
-# use + mysim$z*y to scale the errors for size of plot area
-mysim$yz <- mysim$y + mysim$z
-ggplot(mysim, aes(x=x, y=y, fill = yz)) + 
-  geom_tile() +
-  scale_fill_viridis()
+###########################################################
+# Create a set of spatial trend data relationships
 
-# Play with trend parameter
-# Also X+Y trend via + mysim$y*mysim$x
-# use mysim$y*mysim$x*mysim$z to scale the errors for size of plot area
-mysim$zx2 <- mysim$y*2 + mysim$x + mysim$y*mysim$z
-ggplot(mysim, aes(x=x, y=y, fill = zx2)) + 
-  geom_tile() +
-  scale_fill_viridis()
+# Manual null data creation
+# Change this parameter to change strength of spatial dependency
+cov.Decay <- 0.5
+# Specify the spatial model
+var.g.dummy <- gstat(formula=z~1, 
+  locations=~longitude+latitude, 
+  dummy=T, beta=1,
+  model=vgm(psill=1, model="Gau", range=cov.Decay),
+  nmax=20)
 
-# Also outlier model (a value different from neighbour)
-# And a cluster model - for which you may need to look for an 
-# approach for this, that will add k modes of similar values at 
-# different locations
+# Create underlying spatially dependent data for 20 null plots
+var.sim <- predict(var.g.dummy, newdata=sa3_centroids, nsim=16)
 
-# Use a north to south trend of 2
+# add trend models to simulated errors
+sa3_centroids$size <- (sa3$areasqkm_2016)/10000
+
+sa3_centroids <- sa3_centroids %>% 
+  as_tibble %>% 
+  mutate(ns = latitude/10, # North to south trend
+    ns = (-longitude + latitude)/10) # North west to south east trend
 
 
 ###########################################################
 # Create data sets for plotting
 # Add spatial relationship to geography and hexagons
 # Match to sa3 areas
+var.sim <- left_join(sa3_centroids, as_tibble(var.sim), 
+by = c("longitude","latitude")) 
 
-mysim_sf <- sf::st_as_sf(mysim, coords = c("x", "y"),  crs = 4283) 
-mysim_ints <- sf::st_nearest_feature(sa3, mysim_sf)
-
-# Join sa3 areas to mysim
-sa3$point <- mysim_ints
-sa3 <- left_join(sa3, mysim, by = c("point" = "id"))
-
-# Join hexagons to mysim
-hexagons_plot$point <- mysim_ints
-hexagons_plot <- left_join(hexagons_plot, mysim, by = c("point" = "id"))
+# Join simulations and true data models 
+sa3_sims <- left_join(sa3, as_tibble(var.sim))
+hex_sims <- left_join(hex, as_tibble(var.sim))
 
 
-tile_yz <- ggplot() + 
-  geom_tile(aes(x=x, y=y, fill = yz),
-    data = mysim) +
+###############################################################################
+######################    NORTH WEST TO SOUTH EAST    #########################
+
+sf_ns <- ggplot() + 
+  geom_sf(data = sa3_sims, aes(fill = ns), colour = NA) +
   scale_fill_viridis()
-ggsave(filename = "figures/tile_sa3_yz.png", 
-  plot = tile_yz, device = "png", width = 12, height = 6)
+ggsave(filename = "figures/geo_sa3_ns.png", 
+  plot = sf_ns, dpi=300, device = "png", width = 12, height = 6)
 
-sf_yz <- ggplot() + 
-  geom_sf(data = sa3, aes(fill = yz), colour = NA) +
+hex_ns <- ggplot() + 
+  geom_sf(data = hex_sims, aes(fill = ns), colour = NA) +
   scale_fill_viridis()
-ggsave(filename = "figures/geo_sa3_yz.png", 
-  plot = sf_yz, device = "png", width = 12, height = 6)
+ggsave(filename = "figures/hex_sa3_ns.png", 
+  plot = hex_ns, dpi=300, device = "png", width = 12, height = 6)
 
-hex_yz <- ggplot() + 
-  geom_sf(data = hexagons_plot, aes(fill = yz), colour = NA) +
-  scale_fill_viridis()
-ggsave(filename = "figures/hex_sa3_yz.png", 
-  plot = hex_yz, device = "png", width = 12, height = 6)
+gridExtra::grid.arrange(sf_ns, hex_ns, nrow=1)
 
 
-###
-library(nullabor)
+# Choose a location for the true data in the plot
+pos <- sample(1:16, 1)
 
-sa3_ng <- sf::st_drop_geometry(sa3)
-
-null_d <- lineup(null_permute("yz"), sa3_ng)
-#attr(null_d, "pos")
-
-# Line up geography (sf) plots
-null_sa3 <- null_d %>%
-  arrange(sa3_name_2016) %>% 
-    group_by(.sample) %>%
-  mutate(sa3$geometry) %>% 
-  sf::st_as_sf() %>% 
-  ungroup()
-
+# Create data set to plot
+# all plots will be null plots except the one with additional true trend model
+sa3_long <- sa3_sims %>% 
+  mutate(true = ns) %>% 
+  gather("simulation", "value", starts_with("sim")) %>% 
+  mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
+  # add the trend model to the null data plot
+  # scale the null data around the mean of the data
+  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
 
 ggplot() + 
-  geom_point(data = null_sa3, aes(x = cent_long,
-    y = cent_lat, colour = yz)) +
-  scale_colour_viridis() + facet_wrap(~ .sample)
-ggsave(filename = "figures/null_sa3_yz.png", plot = plot_yz, device = "png", width = 12, height = 6)
+  geom_sf(data = sa3_long, aes(fill = value), colour = NA) +
+  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  facet_wrap(~ simulation) + theme_minimal()
+ggsave(filename = "figures/lineups/sa3_ns_geo.png", dpi=300, device = "png", width = 12, height = 6)
+
 
 # Line up hexagons (sf) plot
-null_hex <- null_d %>%
-  arrange(sa3_name_2016) %>% 
-  group_by(.sample) %>%
-  mutate(hexagons_sf$geometry) %>% 
-  sf::st_as_sf() %>% 
-  ungroup()
+# all plots will be null plots except the one with additional true trend model
+hex_long <- hex_sims %>% 
+  mutate(true = ns) %>% 
+  gather("simulation", "value", starts_with("sim")) %>% 
+  mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
+  # add the trend model to the null data plot
+  # scale the null data around the mean of the data
+  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
 
 ggplot() + 
-  geom_sf(data = null_hex, aes(fill = yz), colour = NA) +
-  scale_fill_viridis() + facet_wrap(~ .sample)
-ggsave(filename = "figures/null_hex_yz.png", plot = plot_yz, device = "png", width = 12, height = 6)
+  geom_sf(data = hex_long, aes(fill = value), colour = NA) +
+  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  facet_wrap(~ simulation) + theme_minimal()
+ggsave(filename = "figures/lineups/sa3_ns_hex.png", dpi=300, device = "png", width = 12, height = 6)
+
+###############################################################################
+######################         NORTH TO SOUTH         #########################
+# Choose a location for the true data in the plot
+pos <- sample(1:16, 1)
+
+# Create data set to plot
+# all plots will be null plots except the one with additional true trend model
+sa3_long <- sa3_sims %>% 
+  mutate(true = ns) %>% 
+  gather("simulation", "value", starts_with("sim")) %>% 
+  mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
+  # add the trend model to the null data plot
+  # scale the null data around the mean of the data
+  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
+
+ggplot() + 
+  geom_sf(data = sa3_long, aes(fill = value), colour = NA) +
+  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  facet_wrap(~ simulation) + theme_minimal()
+ggsave(filename = "figures/lineups/sa3_ns_geo.png", dpi=300, device = "png", width = 12, height = 6)
+
+
+# Line up hexagons (sf) plot
+# all plots will be null plots except the one with additional true trend model
+hex_long <- hex_sims %>% 
+  mutate(true = ns) %>% 
+  gather("simulation", "value", starts_with("sim")) %>% 
+  mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
+  # add the trend model to the null data plot
+  # scale the null data around the mean of the data
+  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
+
+ggplot() + 
+  geom_sf(data = hex_long, aes(fill = value), colour = NA) +
+  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  facet_wrap(~ simulation) + theme_minimal()
+ggsave(filename = "figures/lineups/sa3_ns_hex.png", dpi=300, device = "png", width = 12, height = 6)
+
+
+
+###############################################################################
+######################              SIZE              #########################
+
+sf_size <- ggplot() + 
+  geom_sf(data = sa3_sims, aes(fill = size), colour = NA) +
+  scale_fill_viridis()
+ggsave(filename = "figures/geo_sa3_size.png", 
+  plot = sf_size, dpi=300, device = "png", width = 12, height = 6)
+
+hex_size <- ggplot() + 
+  geom_sf(data = hex_sims, aes(fill = size), colour = NA) +
+  scale_fill_viridis()
+ggsave(filename = "figures/hex_sa3_size.png", 
+  plot = hex_size, dpi=300, device = "png", width = 12, height = 6)
+
+gridExtra::grid.arrange(sf_size, hex_size, nrow=1)
+
+
+# Choose a location for the true data in the plot
+pos <- sample(1:16, 1)
+
+# Create data set to plot
+# all plots will be null plots except the one with additional true trend model
+sa3_long <- sa3_sims %>% 
+  mutate(true = size) %>% 
+  gather("simulation", "value", starts_with("sim")) %>% 
+  mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
+  # add the trend model to the null data plot
+  # scale the null data around the mean of the data
+  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
+
+ggplot() + 
+  geom_sf(data = sa3_long, aes(fill = value), colour = NA) +
+  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  facet_wrap(~ simulation) + theme_minimal()
+ggsave(filename = "figures/lineups/sa3_size_geo.png", dpi=300, device = "png", width = 12, height = 6)
+
+
+# Line up hexagosize (sf) plot
+# all plots will be null plots except the one with additional true trend model
+hex_long <- hex_sims %>% 
+  mutate(true = size) %>% 
+  gather("simulation", "value", starts_with("sim")) %>% 
+  mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
+  # add the trend model to the null data plot
+  # scale the null data around the mean of the data
+  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
+
+ggplot() + 
+  geom_sf(data = hex_long, aes(fill = value), colour = NA) +
+  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  facet_wrap(~ simulation) + theme_minimal()
+ggsave(filename = "figures/lineups/sa3_size_hex.png", dpi=300, device = "png", width = 12, height = 6)
