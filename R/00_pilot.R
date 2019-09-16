@@ -37,14 +37,14 @@ sa3_centroids <- sa3 %>%
   sf::st_drop_geometry() %>% filter(!is.na(longitude))
 
 # Create hexagon location grid
-grid <- create_grid(centroids = sa3_centroids, hex_size = 0.45, buffer_dist = 2)
+grid <- create_grid(centroids = sa3_centroids, hex_size = 0.5, buffer_dist = 2)
 
 # Allocate polygon centroids to hexagon grid points
 allocated <- allocate(
   centroids = sa3_centroids,
   sf_id = "sa3_name_2016",
   hex_grid = grid,
-  hex_size = 0.45, # same size used in create_grid
+  hex_size = 0.5, # same size used in create_grid
   hex_filter = 10,
   width = 30,
   focal_points = capital_cities,
@@ -57,9 +57,9 @@ hexagons <- fortify_hexagon(data = allocated, sf_id = "sa3_name_2016", hex_size 
 # Convert hexagons to polygons for plotting
 # This will order the areas by the sf_id, this results in alphabetical order
 hexagons_sf <- hexagons %>% 
-  select(sa3_name_2016, sa3_code_2016, long, lat) %>% 
+  select(sa3_name_2016, long, lat) %>% 
   sf::st_as_sf(coords = c("long", "lat"), crs = 4283) %>%
-  group_by(sa3_code_2016) %>% 
+  group_by(sa3_name_2016) %>% 
   summarise(do_union = FALSE) %>%
   st_cast("POLYGON")
 
@@ -117,10 +117,19 @@ var.sim <- predict(var.g.dummy, newdata=sa3_centroids, nsim=16)
 # add trend models to simulated errors
 sa3_centroids$size <- (sa3$areasqkm_2016)/10000
 
+
+
+###########################################################
+###########################################################
+              # CREATE SPATIAL RELATIONSHIPS #
+###########################################################
+
+
 sa3_centroids <- sa3_centroids %>% 
   as_tibble %>% 
   mutate(ns = latitude/10, # North to south trend
-    ns = (-longitude + latitude)/10) # North west to south east trend
+    nw_se = ((longitude - min(longitude))^2 + abs(latitude)^2/100
+      )) # North west to south east trend
 
 
 ###########################################################
@@ -168,7 +177,7 @@ sa3_long <- sa3_sims %>%
 
 ggplot() + 
   geom_sf(data = sa3_long, aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  scale_fill_distiller(type = "div", palette = "Spectral") + 
   facet_wrap(~ simulation) + theme_minimal()
 ggsave(filename = "figures/lineups/sa3_ns_geo.png", dpi=300, device = "png", width = 12, height = 6)
 
@@ -185,7 +194,7 @@ hex_long <- hex_sims %>%
 
 ggplot() + 
   geom_sf(data = hex_long, aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  scale_fill_distiller(type = "div", palette = "Spectral") + 
   facet_wrap(~ simulation) + theme_minimal()
 ggsave(filename = "figures/lineups/sa3_ns_hex.png", dpi=300, device = "png", width = 12, height = 6)
 
@@ -206,7 +215,7 @@ sa3_long <- sa3_sims %>%
 
 ggplot() + 
   geom_sf(data = sa3_long, aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  scale_fill_distiller(type = "div", palette = "Spectral") + 
   facet_wrap(~ simulation) + theme_minimal()
 ggsave(filename = "figures/lineups/sa3_ns_geo.png", dpi=300, device = "png", width = 12, height = 6)
 
@@ -223,7 +232,7 @@ hex_long <- hex_sims %>%
 
 ggplot() + 
   geom_sf(data = hex_long, aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  scale_fill_distiller(type = "div", palette = "Spectral") + 
   facet_wrap(~ simulation) + theme_minimal()
 ggsave(filename = "figures/lineups/sa3_ns_hex.png", dpi=300, device = "png", width = 12, height = 6)
 
@@ -234,13 +243,15 @@ ggsave(filename = "figures/lineups/sa3_ns_hex.png", dpi=300, device = "png", wid
 
 sf_size <- ggplot() + 
   geom_sf(data = sa3_sims, aes(fill = size), colour = NA) +
-  scale_fill_viridis()
+  scale_fill_distiller(type = "div", palette = "Spectral", trans = "log10") +
+  theme_minimal()
 ggsave(filename = "figures/geo_sa3_size.png", 
   plot = sf_size, dpi=300, device = "png", width = 12, height = 6)
 
 hex_size <- ggplot() + 
   geom_sf(data = hex_sims, aes(fill = size), colour = NA) +
-  scale_fill_viridis()
+  scale_fill_distiller(type = "div", palette = "Spectral", trans = "log10") + 
+  theme_minimal()
 ggsave(filename = "figures/hex_sa3_size.png", 
   plot = hex_size, dpi=300, device = "png", width = 12, height = 6)
 
@@ -262,7 +273,7 @@ sa3_long <- sa3_sims %>%
 
 ggplot() + 
   geom_sf(data = sa3_long, aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  scale_fill_distiller(type = "div", palette = "Spectral", trans = "log10") + 
   facet_wrap(~ simulation) + theme_minimal()
 ggsave(filename = "figures/lineups/sa3_size_geo.png", dpi=300, device = "png", width = 12, height = 6)
 
@@ -279,6 +290,6 @@ hex_long <- hex_sims %>%
 
 ggplot() + 
   geom_sf(data = hex_long, aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "BrBG") + 
+  scale_fill_distiller(type = "div", palette = "Spectral", trans = "log10") + 
   facet_wrap(~ simulation) + theme_minimal()
 ggsave(filename = "figures/lineups/sa3_size_hex.png", dpi=300, device = "png", width = 12, height = 6)
