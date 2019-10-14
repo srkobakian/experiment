@@ -3,26 +3,37 @@
 ######################         NORTH TO SOUTH         #########################
 
 # First source the simulated points
-source('~/experiment/R/00_pilot.R', echo = TRUE)
+#source('~/experiment/R/00_pilot.R', echo = TRUE)
+
+# only use the most smoothed
+sa3_min <- sa3_long %>% 
+  filter(groups == "smooth5") %>%
+  pull(value) %>% min()
+sa3_max <- sa3_long %>% 
+  filter(groups == "smooth5") %>%
+  pull(value) %>% max()
 
 # use an underlying spatial covariance model
 # add a north to south model
-sa3_ns_pop <- sa3_centroids %>% mutate(ns = abs(latitude-min(latitude)))
+sa3_ns <- sa3_centroids %>% 
+  mutate(ns = abs(latitude-min(latitude))) %>% 
+  mutate(ns = scales::rescale(ns, to = c(sa3_min,sa3_max)))
 
 ### Start with shapes - geographies
-aus_geo_ns_pop <- sa3 %>% 
+aus_geo_ns <- sa3 %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
   left_join(., sa3_long) %>% 
-  left_join(., sa3_ns_pop)
+  left_join(., sa3_ns)
 
 ### Start with shapes - hexagons
-aus_hex_ns_pop <- hexagons_sf %>% 
+aus_hex_ns <- hexagons_sf %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
   left_join(., sa3_long) %>% 
-  left_join(., sa3_ns_pop)
+  left_join(., sa3_ns)
 
+  
 ############################################################################### 
 
 # Add the distribution will be added to one of the null plots
@@ -30,14 +41,14 @@ aus_hex_ns_pop <- hexagons_sf %>%
 # Choose a location for the true data in the plot
 pos <- sample(1:16, 1)
 
-aus_geo_sa3 <- aus_geo_ns_pop %>%
+aus_geo_sa3 <- aus_geo_ns %>%
   mutate(true = ns) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
   mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
 
-aus_hex_sa3 <- aus_hex_ns_pop %>% 
+aus_hex_sa3 <- aus_hex_ns %>% 
   mutate(true = ns) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
@@ -59,7 +70,7 @@ aus_geo_ns <- aus_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_geo_ns.png", plot = aus_geo_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/ns/aus_geo_ns.png", plot = aus_geo_ns, device = "png", dpi = 300,
   height = 9, width = 18)
 
 
@@ -73,7 +84,7 @@ aus_hex_ns <- aus_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_hex_ns.png", plot = aus_hex_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/ns/aus_hex_ns.png", plot = aus_hex_ns, device = "png", dpi = 300,
   height = 9, width = 18)
 
 
@@ -91,7 +102,7 @@ aus_geo_ns <- aus_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_geo_ns.png", plot = aus_geo_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/ns/aus_geo_ns.png", plot = aus_geo_ns, device = "png", dpi = 300,
   height = 12, width = 12)
 
 
@@ -105,7 +116,7 @@ aus_hex_ns <- aus_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_hex_ns.png", plot = aus_hex_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/ns/aus_hex_ns.png", plot = aus_hex_ns, device = "png", dpi = 300,
   height = 12, width = 12)
 
 
@@ -117,16 +128,16 @@ ggsave(filename = "figures/pop/aus_hex_ns.png", plot = aus_hex_ns, device = "png
 
 
 tas_geo_sa3 <- aus_geo_sa3 %>%
-  filter(state_name_2016 == "Tasmania")
+  filter(sa3_name_2016 %in% Tasmania)
 
 tas_hex_sa3 <- aus_hex_sa3 %>%
-  filter(state_name_2016 == "Tasmania")
+  filter(sa3_name_2016 %in% Tasmania)
 
 ###############################################################################
 tas_geo_sa3 %>% 
   ggplot() + geom_density(aes(x = ns)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn")
-ggsave(filename = "figures/pop/density.png", plot = tas_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/ns/density.png", plot = tas_ns, device = "png", dpi = 300,
   height = 6, width = 6)
 
 
@@ -144,7 +155,7 @@ tas_ns <- tas_geo_sa3 %>%
   geom_sf(aes(fill = ns)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
   facet_wrap(~iteration)
-ggsave(filename = "figures/pop/tas_ns.png", plot = tas_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/ns/tas_ns.png", plot = tas_ns, device = "png", dpi = 300,
   height = 6, width = 6)
 
 
@@ -152,7 +163,7 @@ hex_ns <- tas_hex_sa3 %>%
   ggplot() + geom_sf(aes(fill = ns)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
   facet_wrap(~iteration)
-ggsave(filename = "figures/pop/hex_ns.png", plot = hex_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/ns/hex_ns.png", plot = hex_ns, device = "png", dpi = 300,
   height = 6, width = 6)
 
 gridExtra::grid.arrange(tas_ns, hex_ns)
@@ -201,7 +212,7 @@ tas_ns <- tas_geo_sa3 %>%
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
 ggsave(filename = "figures/lineups/ns_tas.png", 
-  plot = tas_ns, dpi=300, device = "png", width = 12, height = 6)
+  plot = tas_ns, dpi=300, device = "png", width = 12, height = 12)
 
 hex_ns <- tas_hex_sa3 %>% 
   ggplot() + 
@@ -214,4 +225,4 @@ hex_ns <- tas_hex_sa3 %>%
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
 ggsave(filename = "figures/lineups/ns_hex.png", 
-  plot = hex_ns, dpi=300, device = "png", width = 12, height = 6)
+  plot = hex_ns, dpi=300, device = "png", width = 12, height = 12)

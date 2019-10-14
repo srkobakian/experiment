@@ -2,7 +2,15 @@
 ######################       POPULATION DENSITY       #########################
 
 # First source the simulated points
-source('~/experiment/R/00_pilot.R', echo = TRUE)
+#source('~/experiment/R/00_pilot.R', echo = TRUE)
+
+# only use the most smoothed
+ sa3_min <- sa3_long %>% 
+  filter(groups == "smooth5") %>%
+  pull(value) %>% min()
+ sa3_max <- sa3_long %>% 
+   filter(groups == "smooth5") %>%
+   pull(value) %>% max()
 
 # use an underlying spatial covariance model
 # add a population density model
@@ -17,8 +25,8 @@ ERP_sa3_16 <- sa3 %>% st_drop_geometry() %>% select(sa3_name_2016, areasqkm_2016
   left_join(., ERP_sa3_16)
 
 ERP_sa3_16 <- ERP_sa3_16 %>% 
-  mutate(pop_density = (ERP/areasqkm_2016),
-    pop_density_scaled = pop_density/max(pop_density))
+  mutate(pop_density = (ERP/areasqkm_2016))  %>% 
+  mutate(pop_density = scales::rescale(pop_density, to = c(sa3_min,sa3_max)))
 
 ###########################################################
 ################# Smooth pop density ######################
@@ -149,10 +157,10 @@ ggsave(filename = "figures/pop/aus_hex_popdens.png", plot = aus_hex_popdens, dev
 
 
 tas_geo_sa3 <- aus_geo_sa3 %>%
-  filter(state_name_2016 == "Tasmania")
+  filter(sa3_name_2016 %in% Tasmania)
 
 tas_hex_sa3 <- aus_hex_sa3 %>%
-  filter(state_name_2016 == "Tasmania")
+  filter(sa3_name_2016 %in% Tasmania)
 
 ###############################################################################
 tas_geo_sa3 %>% 

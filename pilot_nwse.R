@@ -3,14 +3,24 @@
 ######################    NORTH WEST TO SOUTH EAST    #########################
 
 # First source the simulated points
-source('~/experiment/R/00_pilot.R', echo = TRUE)
+#source('~/experiment/R/00_pilot.R', echo = TRUE)
+
+# only use the most smoothed
+sa3_min <- sa3_long %>% 
+  filter(groups == "smooth5") %>%
+  pull(value) %>% min()
+sa3_max <- sa3_long %>% 
+  filter(groups == "smooth5") %>%
+  pull(value) %>% max()
 
 # use an underlying spatial covariance model
 # add a north to south model
-sa3_nwse_pop <- sa3_centroids %>% 
+sa3_nwse <- sa3_centroids %>% 
   mutate(lat = abs(latitude-min(latitude)),
     long = abs(longitude-min(longitude)),
-    nwse = lat*long) %>% select(-lat, -long)
+    nwse = lat*long) %>% 
+  mutate(nwse = scales::rescale(nwse, to = c(sa3_min, sa3_max))) %>%
+  select(-lat, -long)
 
 ###############################################################################
 ######################         NORTH TO SOUTH         #########################
@@ -20,21 +30,21 @@ source('~/experiment/R/00_pilot.R', echo = TRUE)
 
 # use an underlying spatial covariance model
 # add a north to south model
-sa3_nwse_pop <- sa3_centroids %>% mutate(nwse = abs(latitude-min(latitude)))
+sa3_nwse <- sa3_centroids %>% mutate(nwse = abs(latitude-min(latitude)))
 
 ### Start with shapes - geographies
-aus_geo_nwse_pop <- sa3 %>% 
+aus_geo_nwse <- sa3 %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
   left_join(., sa3_long) %>% 
-  left_join(., sa3_nwse_pop)
+  left_join(., sa3_nwse)
 
 ### Start with shapes - hexagons
-aus_hex_nwse_pop <- hexagonwse_sf %>% 
+aus_hex_nwse <- hexagonwse_sf %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
   left_join(., sa3_long) %>% 
-  left_join(., sa3_nwse_pop)
+  left_join(., sa3_nwse)
 
 ############################################################################### 
 
@@ -43,14 +53,14 @@ aus_hex_nwse_pop <- hexagonwse_sf %>%
 # Choose a location for the true data in the plot
 pos <- sample(1:16, 1)
 
-aus_geo_sa3 <- aus_geo_nwse_pop %>%
+aus_geo_sa3 <- aus_geo_nwse %>%
   mutate(true = nwse) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
   mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
 
-aus_hex_sa3 <- aus_hex_nwse_pop %>% 
+aus_hex_sa3 <- aus_hex_nwse %>% 
   mutate(true = nwse) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
@@ -72,7 +82,7 @@ aus_geo_nwse <- aus_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_geo_nwse.png", plot = aus_geo_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/nwse/aus_geo_nwse.png", plot = aus_geo_nwse, device = "png", dpi = 300,
   height = 9, width = 18)
 
 
@@ -86,7 +96,7 @@ aus_hex_nwse <- aus_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_hex_nwse.png", plot = aus_hex_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/nwse/aus_hex_nwse.png", plot = aus_hex_nwse, device = "png", dpi = 300,
   height = 9, width = 18)
 
 
@@ -104,7 +114,7 @@ aus_geo_nwse <- aus_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_geo_nwse.png", plot = aus_geo_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/nwse/aus_geo_nwse.png", plot = aus_geo_nwse, device = "png", dpi = 300,
   height = 12, width = 12)
 
 
@@ -118,7 +128,7 @@ aus_hex_nwse <- aus_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/pop/aus_hex_nwse.png", plot = aus_hex_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/nwse/aus_hex_nwse.png", plot = aus_hex_nwse, device = "png", dpi = 300,
   height = 12, width = 12)
 
 
@@ -130,16 +140,16 @@ ggsave(filename = "figures/pop/aus_hex_nwse.png", plot = aus_hex_nwse, device = 
 
 
 tas_geo_sa3 <- aus_geo_sa3 %>%
-  filter(state_name_2016 == "Tasmania")
+  filter(sa3_name_2016 %in% Tasmania)
 
 tas_hex_sa3 <- aus_hex_sa3 %>%
-  filter(state_name_2016 == "Tasmania")
+  filter(sa3_name_2016 %in% Tasmania)
 
 ###############################################################################
 tas_geo_sa3 %>% 
   ggplot() + geom_density(aes(x = nwse)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn")
-ggsave(filename = "figures/pop/density.png", plot = tas_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/nwse/density.png", plot = tas_nwse, device = "png", dpi = 300,
   height = 6, width = 6)
 
 spop_plot <- tas_geo_sa3 %>%
@@ -156,7 +166,7 @@ tas_nwse <- tas_geo_sa3 %>%
   geom_sf(aes(fill = nwse)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
   facet_wrap(~iteration)
-ggsave(filename = "figures/pop/tas_nwse.png", plot = tas_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/nwse/tas_nwse.png", plot = tas_nwse, device = "png", dpi = 300,
   height = 6, width = 6)
 
 
@@ -164,7 +174,7 @@ hex_nwse <- tas_hex_sa3 %>%
   ggplot() + geom_sf(aes(fill = nwse)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
   facet_wrap(~iteration)
-ggsave(filename = "figures/pop/hex_nwse.png", plot = hex_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/nwse/hex_nwse.png", plot = hex_nwse, device = "png", dpi = 300,
   height = 6, width = 6)
 
 gridExtra::grid.arrange(tas_nwse, hex_nwse)

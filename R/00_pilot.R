@@ -26,6 +26,11 @@ sa3 <- sa3 %>%
   filter(!is.na(cent_long)) %>% 
   filter(!(sa3_name_2016 %in% Islands))
 
+# Make list of Tasmanian sa3 areas
+Tasmania <- sa3 %>% st_drop_geometry() %>% 
+  filter(state_name_2016 == "Tasmania") %>%
+  select(sa3_name_2016) %>% pull()
+
 # derive centroids
 sa3_centroids <- sa3 %>%
   select(sa3_name_2016, longitude = cent_long, latitude = cent_lat) %>%
@@ -212,10 +217,9 @@ tas <- tas_sims %>%
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
   facet_wrap(~simulation) + 
   transition_states(states = groups, wrap = FALSE)
-tas_anim <- animate(tas, nframes = 20, duration = 15)
+#tas_anim <- animate(tas, nframes = 20, duration = 15)
 
-anim_save(filename = "figures/tas_simulation.gif", 
-  animation = tas_anim)
+#anim_save(filename = "figures/tas_simulation.gif", animation = tas_anim)
 
 ###########################################################
 
