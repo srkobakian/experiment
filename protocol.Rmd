@@ -13,21 +13,13 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The following document is a template for the study protocol.
-Guiding principles for a project protocol for human research
- - The purpose of a research proposal/protocol is to provide the scientific and academic background and context of a research project.
- - Not all headings or sub-headings in this template are relevant for each research project.
- - Clinical trial proposals may use alternative protocol templates e.g. SPIRIT statement.
- - Use language that is understandable to non-technical reviewers.
- - If conducting research involving biospecimens and children ensure the relevant aspects of the Transplantation and Anatomy Act are applied.
 
 
-
-##	Title
+#	Title
 Assessing the effectiveness of different visualisation methods for Australian spatial data.
  - Including acronym (if appropriate) and version number
 
-##	Project team roles & responsibilities
+#	Project team roles & responsibilities
 
 |          Researcher          |    Role                    |    Affiliation                                                                |   |   |
 |:----------------------------:|----------------------------|-------------------------------------------------------------------------------|---|---|
@@ -35,69 +27,69 @@ Assessing the effectiveness of different visualisation methods for Australian sp
 |    Prof. Kerrie Mengersen    |    Principal Supervisor    | Faculty of Science and Engineering (QUT)                                      |   |   |
 |    Dr. Earl Duncan           |    Associate Supervisor    | Faculty of Science and Engineering (QUT)                                      |   |   |
 |    Prof. Dianne Cook         |    External Supervisor     |    Department of Econometrics and   Business Statistics, Monash University    |   |   |
-|                              |                            |                                                                               |   |   |
-|                              |                            |                                                                               |   |   |
+|                              |                            |                                     
 
- - Names, affiliations, positions and responsibilities of investigators and other key project team members (as required in addition to that outlined in your ethics application)
+
  
-##	Background information
+#	Background information
 
-###	Project outline
+##	Project outline
 
 This project will test the effectiveness of two types of spatial displays: a choropleth map, and a hexagon map. It will contrast the effectiveness of communicating information when each geographic region is represented by a hexagon, rather than its geographical shape. The purpose of these displays is to convey the spatial distribution of the disease occurrence, or incidence. This can allow for detecting hot spots corresponding to outbreaks, or spatial trends, for example, indicating occurrence is related to latitude or even rural vs urban differences. Effectiveness of the display will be measured by accurate and efficient perception of these patterns.
 
-###	Introduction/background information
+##	Introduction/background information
 
 Dorling (2011) suggests alternative map displays that aim for ‘equitable representation design’ present each member of a society equally. They are considered more ‘socially just’ but also help to present an honest display of the experiences of the whole population (Dent, 1972). This work aims to determine if using a coloured hexagon display is a more effective method of communicating the spatial relationship between a set of areas on a map. 
 
-###	Rationale/justification (i.e. how the research will fill any gaps, contribute to the field of research or contribute to existing or improved practice)
+##	Rationale/justification (i.e. how the research will fill any gaps, contribute to the field of research or contribute to existing or improved practice)
 
 This work is motivated by the newly developed Australian Cancer Atlas where information regarding cancer incidence and mortality is provided to the community through a web page. We are interested to know whether providing the spatial distribution in a hexagon map is more effective for communication than the traditional choropleth map.
 The responses of participants will be contrasted when shown the same information in both a geographic and hexagon map display and asked to find the same real distribution in a collection of maps arranged in a line up. The rate of participants who pick the maps in the line ups that display the true spatial relationship will be used to contrast the effectiveness of the displays. We hope that this will show a hexagon map is an effective method for communicating spatial relationships.
 
-##	Study objectives
+#	Study objectives
 
-###	Hypotheses
+##	Hypotheses
 
 Participants will pick the map of a true distribution in a line up of null maps more often when the information is presented in a hexagon map, as opposed to a geographic map line up.
 
-###	Research questions/ aims
+##	Research questions/ aims
 
 1.	Measure the accuracy in spotting a real spatial distribution from a line-up of null maps
 2.	Contrast the accuracy when participants pick from geographic or hexagon maps
 
-###	Outcome measures 
+##	Outcome measures 
 
 Experiment information collected:
- - Choice of plot in each line up
- - Reason for choice of plot
- - Time taken to answer
- - Perceived difficulty of question
+
+- Choice of plot in each line up
+- Reason for choice of plot
+- Time taken to answer
+- Perceived difficulty of question
  
 Factors:
- - Plot type ( Hexagon/ Geographic )
- - Spatial dependence structure (Normal errors / Chi-squared errors )
+
+- Plot type ( Hexagon/ Geographic )
+- Spatial dependence structure (Normal errors / Chi-squared errors )
  
 We will record demographic information to consider the impacts of:
- - gender (female / male / other),
- - degree education level achieved (high school / bachelors / masters / doctorate / other),
- - age range (18-25 / 25-35 / 35-45 / 45-55 / 55+ / other)
- - lived in Australia (Yes / No / Other)
 
- - These measures form the main data that will be analysed and will be linked to your aims and hypotheses
- - An outcome measure might be the change that is attributable to an intervention; or the means by which you will judge whether your research question has been addressed.  
- - In qualitative research an outcome measure, still linked to the aims, could be specific insights, an explanation or understanding, a perspective or theoretical standpoint derived from interpretation of the data.  
+- gender (female / male / other),
+- degree education level achieved (high school / bachelors / masters / doctorate / other),
+- age range (18-25 / 25-35 / 35-45 / 45-55 / 55+ / other)
+- lived in Australia (Yes / No / Other)
+
  
 #	Study design
 
 Each participant will first see three test displays, they will then undertake an online survey linked to them through the online crowdsource platform Figure-Eight.
 Within the experiment:
 A line up protocol will be used to arrange 20 maps into one display. Each display will be created by a combination of plot type, error distribution and spatial dependence, the possible levels of the factors are:
-- Plot type: Geography, Hexagons
-- Error distribution: Normal, Chi-Square
-- Spatial Dependence: Rurality level, North to South, East to West
+
+ - Plot type: Geography, Hexagons
+ - Error distribution: Normal, Chi-Square
+ - Spatial Dependence: Rurality level, North to South, East to West
+
 Allowing each factor combination to be considered will provide 12 (2x2x3) line up displays to be seen by all participants.
-The order of these displays will be randomised for each participant. ??
 
  - Study type/design
  - Randomisation
@@ -106,81 +98,97 @@ The order of these displays will be randomised for each participant. ??
 
 #	Study population
 
-###	Participants (who, how many)
+##	Participants
 We will aim to survey 100 participants.
 Participants will be approached via their dashboard through their Figure-Eight accounts. 
 
-###	Inclusions and exclusion criteria
+##	Inclusions and exclusion criteria
 The platform will advertise this survey to participants that fulfill the following:
  - level 2 or level 3 on the Figure-Eight Platform. 
  - at least 18 years old
  - trained and qualified to annotating images. 
 
-###	Recruitment strategies, timeframe (as required in addition to that outlined in your ethics application)
+##	Recruitment strategies, timeframe (as required in addition to that outlined in your ethics application)
 Recruitment will take place via advertising on the Figure-Eight dashboards.
 The Figure-Eight platform will advertise this as a “job” to potential participants, they will not be under any obligation to complete this task. We will have the opportunity to wait until enough participants have completed the survey and provided their judgements.
 
 
 
-###	Consent approach/es (to provision of information to participants and/or consent (as required in addition to that outlined in the HREA), if necessary, the type of consent provided to different participant groups, when and where, and any arrangements to confirm that consent, if necessary, details of who will be confirming or re-negotiating consent with participants and the process/es that will be undertaken)
+##	Consent approaches
+
 Participants will be shown instructions which will provide sufficient information about the task when they select to do the survey. These instructions will explain the survey to participants, and give them an example of the questions they will answer. 
 Contact information for the researchers will be made available to the participants.
-Their continuation to the survey, and completion of the test questions will be considered consent.
+Participants will be asked to provide consent via a checkbox question.
+They will then continue to the survey, and complete the test questions.
 This page will also explain the use and storage of the data they contribute. The data will be the answers they provide, which will be publicly available on github at https://github.com/srkobakian/experiment. 
 
-###	Participant withdrawal
-Participants will not be able to withdraw the 
+##	Participant withdrawal
+Participants will be able to withdraw by leaving the survey at any time.
+XXX will they still be paid?
 
-##	Procedures
+#	Procedures
 
-###	Screening of participants
-Yes. Participants will need to have achieved contributor level two on the Figure-Eight platofrm, this is a smaller group of more experienced, higher accuracy contributors.
+##	Screening of participants
+Participants will need to have achieved contributor level two on the Figure-Eight platofrm, this is a smaller group of more experienced, higher accuracy contributors.
 Test questions are the most important quality control mechanism in the Figure-Eight Platform. Participants will complete them to practice and prepare for the experiment questions, they will need to reach an accuracy threshold we will set, to be allowed to participate in answering the experiment survey questions.
 
 Contributors that fail quiz mode are not paid and are permanently disqualified from working on your job. Participants will need to reach an accuracy threshold we will set to be allowed to answer the questions in our survey. Test questions will also be included as the job progresses so we can be sure quality remains high.
 
-###	Data collection (what information are you going to collect, as required in addition to that outlined in your ethics application) 
-As the survey is conducted through the Figure-Eight platform, the human data will be collected in the form of an IP address, Contributor ID, Trust Score and Channel. Some sources believe an IP address is identifiable information, as such it will not be held publicly online when the data is held on github. We will also ask for information regarding gender, education level achieved, and age range to understand perception of different groups.
+##	Data collection
+As the survey is conducted through the Figure-Eight platform, the human data will also be collected in the form of an IP address, Contributor ID, Trust Score and Channel. Some sources believe an IP address is identifiable information, as such it will not be held publicly online when the data is held on github. We will also ask for information regarding gender, education level achieved, and age range to understand perception of different groups.
 
-###	Data collection/gathering techniques: How will you collect/gather the information?
+##	Data collection/gathering techniques: 
+Data will be collected through survey distribution via a web application.
+Participants will access the application via link from a Figure-Eight "job".
 
-###	Impact of and response to missing data e.g. extrapolation; participant withdrawal
+##	Impact of, and response to, missing data
 If participants want to provide and "I don't know" answer they will be able to select this.
-If there are more than 50% XXX of questions that are skipped we will remove this survey and consider this withdrawal.
+If there are more than 50% of questions that are incomplete we will remove this survey and consider this withdrawal.
 
-##	Statistical plan
+ XXX
+ 
+#	Statistical plan
 XXX
-###	Sample size determination and power; or how will determine that data saturation has occurred or data are sufficient for the purpose.
 
-###	Data analysis and Statistical methods (including how will you measure, manipulate and/or analyse the information that you collect/gather, matching and sampling strategies, accounting for potential bias, confounding factors and missing information)
+##	Sample size determination and power; or how will determine that data saturation has occurred or data are sufficient for the purpose.
 
-##	Outcome measures An expansion of the various observations, data and measures that will be made during the study and which will contribute to establishing success or otherwise in addressing the research question.
 
-##	Data management and record keeping
+
+##	Data analysis and Statistical methods
+
+(including how will you measure, manipulate and/or analyse the information that you collect/gather, matching and sampling strategies, accounting for potential bias, confounding factors and missing information)
+
+
+
+#	Outcome measures
+
+An expansion of the various observations, data and measures that will be made during the study and which will contribute to establishing success or otherwise in addressing the research question.
+
+#	Data management and record keeping
 As the data will be held publicly online, it will be accessible under a license for people to reuse. It will also be held accessible to QUT researchers
 
-###	Confidentially and privacy (including linkages)
+##	Confidentially and privacy (including linkages)
 All data will be deidentified, there is no need to protect confidentiality when the data has been anonymised.
 
-###	Data security (including how will you store)
+##	Data security (including how will you store)
 
-###	Training
+##	Training
 
-###	Record retention (how you will archive/destroy the information that you collect)
+##	Record retention (how you will archive/destroy the information that you collect)
 
-###	Secondary use (including providing access, disclosing)
+##	Secondary use (including providing access, disclosing)
 
-##	Resources
+#	Resources
 ACEMS funding - $500 to pay 100 participants equally.
 
-##	Results, outcomes and future plans
+#	Results, outcomes and future plans
  - Plans for return of results of research to participants
  - Publication plan
  - Other potential uses of the data at the end of the project
  - Project closure processes 
  - Plans for sharing and/or future use of data and/or follow-up research 
 
-##	References
+#	References
 
-##	Appendices 
+#	Appendices 
  - These may include surveys, questionnaires, interview schedules, recruitment materials, manual of operations, etc 
