@@ -78,13 +78,13 @@ ggsave(filename = "figures/pop/aus_hex_ns.png", plot = aus_hex_ns, device = "png
 
 
 ############################################################################### 
-#########################    Population density ns    #########################
+#########################                             #########################
 ############################################################################### 
 
 aus_geo_ns <- aus_geo_sa3 %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
+  scale_fill_distiller(type = "div", palette = "RdYlGn") +
   facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
@@ -98,7 +98,7 @@ ggsave(filename = "figures/pop/aus_geo_ns.png", plot = aus_geo_ns, device = "png
 aus_hex_ns <- aus_hex_sa3 %>%
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
+  scale_fill_distiller(type = "div", palette = "RdYlGn") +
   facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),

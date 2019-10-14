@@ -79,7 +79,7 @@ ggsave(filename = "figures/pop/aus_geo_nwse.png", plot = aus_geo_nwse, device = 
 aus_hex_nwse <- aus_hex_sa3 %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
+ scale_fill_distiller(type = "div", palette = "RdYlGn") + 
   facet_grid(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),

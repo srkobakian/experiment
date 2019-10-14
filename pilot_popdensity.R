@@ -157,7 +157,7 @@ tas_hex_sa3 <- aus_hex_sa3 %>%
 ###############################################################################
 tas_geo_sa3 %>% 
   ggplot() + geom_density(aes(x = smoother_density)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn")
+  scale_fill_distiller(type = "div", palette = "RdYlGn")+
 ggsave(filename = "figures/pop/density.png", plot = tas_smoothed, device = "png", dpi = 300,
   height = 6, width = 6)
 
