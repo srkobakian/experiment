@@ -96,7 +96,7 @@ A line up protocol will be used to arrange 20 maps into one display. Each displa
 - Plot type: Geography, Hexagons
 - Error distribution: Normal, Chi-Square
 - Spatial Dependence: Rurality level, North to South, East to West
-Allowing each factor combination to be considered will provide 12 (2*2*3) line up displays to be seen by all participants.
+Allowing each factor combination to be considered will provide 12 (2x2x3) line up displays to be seen by all participants.
 The order of these displays will be randomised for each participant. ??
 
  - Study type/design
