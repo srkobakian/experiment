@@ -83,7 +83,12 @@ We will record demographic information to consider the impacts of:
 
 Each participant will first see three test displays, they will then undertake an online survey linked to them through the online crowdsource platform Figure-Eight.
 Within the experiment:
-A line up protocol will be used to arrange 20 maps into one display. Each display will be created by a combination of plot type, error distribution and spatial dependence, the possible levels of the factors are:
+A line up protocol will be used to arrange 20 maps into one display.
+Each display will be created by a combination of plot type, error distribution and spatial dependence.
+We will contrast the sets of different plot designs, hexagon tilemap and geography in the lineups created using the same data, and same null positions within the lineup. 
+We will compare the length of time taken and the accuracy with which participants report their choice.
+
+The possible levels of the factors are:
 
  - Plot type: Geography, Hexagons
  - Error distribution: Normal, Chi-Square
@@ -150,24 +155,68 @@ If there are more than 50% of questions that are incomplete we will remove this 
 #	Statistical plan
 XXX
 
+The design of this study is based on work by Hofmann, Follett, Majumder and Cook. 
+
+> The probability that an observer picks the data plot just by chance, i.e. when it is really *not* different from the other null plots, is 1=m. If an observer is able to identify the data plot from the lineup, we reject the null hypothesis. This sets our Type I error rate, a, at a level of 1=m.
+
 ##	Sample size determination and power; or how will determine that data saturation has occurred or data are sufficient for the purpose.
+
+To be able to effectively evaluate the use of a hexagon tilemap we will contrast the proportion of times the real data plot was chosen in a line up of maps.
+The same data will be used to create 19 null data plots and one real data plot. This data will be displayed to users in both geographic maps and hexagon tile maps.
+
+We will have aim to collect results from 100 participants (n=100), who will have tried to pick the real data in a line up of simulated data. 
+
+Let X be the corresponding random variable X, where i.e. X = # times out of n independent repetitions that the data plot is picked from the lineup.
+
+Under the null hypothesis, X has a Binomial distribution: $X ~ B_{n,1=m}$. 
+The p-value of a lineup is the probability to have x or more observers picking the data plot, under the assumption that the null hypothesis is true:
+$p-value = P(X \geq x|H_0) = 1- B_{n,1/m}(x-1)$
+
+The authors also define how to estimate the power of a lineup: the ratio of correct identifications of the real data, x, out of n viewings.
 
 
 
 ##	Data analysis and Statistical methods
 
+Information will be collected regarding the design
 (including how will you measure, manipulate and/or analyse the information that you collect/gather, matching and sampling strategies, accounting for potential bias, confounding factors and missing information)
 
+This will be analysed using a generalised linear model, with random effects capturing the differences between the 100 participants.
+The main effects used will consider the spatial distribution of the errors, gender, degree education level achieved, age range and whether the participant has lived in Australia.
+
+
+Each lineup will have similar hypotheses:
+$H_0:$ there is no real structure visible in the data plot
+$H_1:$ there is real structure visible in the data plot
+
+Each lineup is a set of m = 20 plots.
+One plot contains data with a real structure.
+The probability that an observer picks the data plot when it is really *not* different from the 19 null plots, is $1/m = 1/20$.
+
+If a participant is able to identify the data plot from the lineup, we reject the null hypothesis.
+Type I error rate, $\alpha$, is set to a level of $1/m = 1/20 = 0.05$.
+
+
+Compare the percentage of times users select the real data in a lineup for the same set of data presented in choropleth maps and hexagon tile maps.
+Compare percentages of correct responses $\hat{\pi}_C$ and $\hat{\pi}_H$:
+
+Where $C$ denotes the use of choropleth maps and $H$ denotes the use of hexagon tile maps.
+
+The percentage of correct responses where the respondent identified the real data in a choropleth map is denoted by $\hat{\pi}_C = (x_C +1)/(n_{100} + 1)$, similarly for hexagon tile maps: $\hat{\pi}_H = (x_H +1)/(n_{100} + 1)$.
 
 
 #	Outcome measures
 
 An expansion of the various observations, data and measures that will be made during the study and which will contribute to establishing success or otherwise in addressing the research question.
 
+
+The collection of multiple responses from each person as they complete
+several different lineup tasks, allows estimates of their perceptual ability and allows them to correct power differences between competing designs: by modeling power using a subject-specific random intercept in a generalized linear model.
+
 #	Data management and record keeping
 As the data will be held publicly online, it will be accessible under a license for people to reuse. It will also be held accessible to QUT researchers
 
-##	Confidentially and privacy (including linkages)
+##	Confidentially and privacy
 All data will be deidentified, there is no need to protect confidentiality when the data has been anonymised.
 
 ##	Data security (including how will you store)
@@ -179,7 +228,7 @@ All data will be deidentified, there is no need to protect confidentiality when 
 ##	Secondary use (including providing access, disclosing)
 
 #	Resources
-ACEMS funding - $500 to pay 100 participants equally.
+This work will be supported by ACEMS funding - $500 to pay 100 participants equally.
 
 #	Results, outcomes and future plans
  - Plans for return of results of research to participants

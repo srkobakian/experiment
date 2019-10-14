@@ -28,7 +28,7 @@ aus_hex_ns_pop <- hexagons_sf %>%
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
-pos <- sample(1:16, 1)
+pos <- sample(1:20, 1)
 
 aus_geo_sa3 <- aus_geo_ns_pop %>%
   mutate(true = ns) %>% 
