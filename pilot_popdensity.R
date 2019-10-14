@@ -56,7 +56,7 @@ aus_geo_smooth_pop <- sa3 %>%
 ### Start with shapes - hexagons
 aus_hex_smooth_pop <- hexagons_sf %>% 
   select(sa3_name_2016) %>% 
-  # Add the 16 simulated values for each area
+  # Add the 20 simulated values for each area
   left_join(., sa3_long) %>% 
   left_join(., sa3_smooth_pop) %>% 
   gather("iteration", "smoother_density", contains("popdens"))
@@ -66,7 +66,7 @@ aus_hex_smooth_pop <- hexagons_sf %>%
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
-pos <- sample(1:16, 1)
+pos <- sample(1:20, 1)
 
 aus_geo_sa3 <- aus_geo_smooth_pop %>%
   mutate(true = smoother_density) %>% 

@@ -35,14 +35,14 @@ sa3_nwse <- sa3_centroids %>% mutate(nwse = abs(latitude-min(latitude)))
 ### Start with shapes - geographies
 aus_geo_nwse <- sa3 %>% 
   select(sa3_name_2016) %>% 
-  # Add the 16 simulated values for each area
+  # Add the 20 simulated values for each area
   left_join(., sa3_long) %>% 
   left_join(., sa3_nwse)
 
 ### Start with shapes - hexagons
 aus_hex_nwse <- hexagonwse_sf %>% 
   select(sa3_name_2016) %>% 
-  # Add the 16 simulated values for each area
+  # Add the 20 simulated values for each area
   left_join(., sa3_long) %>% 
   left_join(., sa3_nwse)
 

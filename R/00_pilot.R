@@ -88,7 +88,7 @@ var.g.dummy <- gstat(formula = z ~ 1,
   nmax = 20)
 
 # Create underlying spatially dependent data for 16 null plots
-var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 16) %>% 
+var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 20) %>% 
   left_join(sa3_centroids, ., by=c("longitude", "latitude"))
 
 
