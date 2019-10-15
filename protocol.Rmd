@@ -1,12 +1,13 @@
 ---
 title: "Project Protocol"
-author: "Stephanie"
-date: "27/08/2019"
 output:
   pdf_document:
     toc: yes
-    toc_depth: '3'
     number_sections: yes
+  word_document:
+    toc: yes
+bibliography: protocol.bib
+link-citations: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -17,7 +18,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #	Title
 Assessing the effectiveness of different visualisation methods for Australian spatial data.
- - Including acronym (if appropriate) and version number
 
 #	Project team roles & responsibilities
 
@@ -39,9 +39,9 @@ This project will test the effectiveness of two types of spatial displays: a cho
 
 ##	Introduction/background information
 
-Dorling (2011) suggests alternative map displays that aim for ‘equitable representation design’ present each member of a society equally. They are considered more ‘socially just’ but also help to present an honest display of the experiences of the whole population (Dent, 1972). This work aims to determine if using a coloured hexagon display is a more effective method of communicating the spatial relationship between a set of areas on a map. 
+@ACTUC suggests alternative map displays that aim for ‘equitable representation design’ present each member of a society equally. They are considered more ‘socially just’ but also help to present an honest display of the experiences of the whole population [@NISCC]. This work aims to determine if using a coloured hexagon display is a more effective method of communicating the spatial relationship between a set of areas on a map. 
 
-##	Rationale/justification (i.e. how the research will fill any gaps, contribute to the field of research or contribute to existing or improved practice)
+##	Rationale/justification
 
 This work is motivated by the newly developed Australian Cancer Atlas where information regarding cancer incidence and mortality is provided to the community through a web page. We are interested to know whether providing the spatial distribution in a hexagon map is more effective for communication than the traditional choropleth map.
 The responses of participants will be contrasted when shown the same information in both a geographic and hexagon map display and asked to find the same real distribution in a collection of maps arranged in a line up. The rate of participants who pick the maps in the line ups that display the true spatial relationship will be used to contrast the effectiveness of the displays. We hope that this will show a hexagon map is an effective method for communicating spatial relationships.
@@ -96,11 +96,6 @@ The possible levels of the factors are:
 
 Allowing each factor combination to be considered will provide 12 (2x2x3) line up displays to be seen by all participants.
 
- - Study type/design
- - Randomisation
- - Study methodology (eg rationale for choices of method/s; tied to project aims/objectives)
- - Research project setting (physical sites, online forums and alternatives)
-
 #	Study population
 
 ##	Participants
@@ -113,7 +108,7 @@ The platform will advertise this survey to participants that fulfill the followi
  - at least 18 years old
  - trained and qualified to annotating images. 
 
-##	Recruitment strategies, timeframe (as required in addition to that outlined in your ethics application)
+##	Recruitment strategies, timeframe 
 Recruitment will take place via advertising on the Figure-Eight dashboards.
 The Figure-Eight platform will advertise this as a “job” to potential participants, they will not be under any obligation to complete this task. We will have the opportunity to wait until enough participants have completed the survey and provided their judgements.
 
@@ -150,14 +145,10 @@ Participants will access the application via link from a Figure-Eight "job".
 If participants want to provide and "I don't know" answer they will be able to select this.
 If there are more than 50% of questions that are incomplete we will remove this survey and consider this withdrawal.
 
- XXX
  
 #	Statistical plan
-XXX
 
-The design of this study is based on work by Hofmann, Follett, Majumder and Cook. 
-
-> The probability that an observer picks the data plot just by chance, i.e. when it is really *not* different from the other null plots, is 1=m. If an observer is able to identify the data plot from the lineup, we reject the null hypothesis. This sets our Type I error rate, a, at a level of 1=m.
+The design of this study is based on work by Hofmann, Follett, Majumder and Cook [-@GTPCCD]. 
 
 ##	Sample size determination and power; or how will determine that data saturation has occurred or data are sufficient for the purpose.
 
@@ -172,6 +163,7 @@ Under the null hypothesis, X has a Binomial distribution: $X ~ B_{n,1=m}$.
 The p-value of a lineup is the probability to have x or more observers picking the data plot, under the assumption that the null hypothesis is true:
 $p-value = P(X \geq x|H_0) = 1- B_{n,1/m}(x-1)$
 
+This sets our Type I error rate, $\alpha$, at a level of $1/m$.
 The authors also define how to estimate the power of a lineup: the ratio of correct identifications of the real data, x, out of n viewings.
 
 
@@ -210,8 +202,7 @@ The percentage of correct responses where the respondent identified the real dat
 An expansion of the various observations, data and measures that will be made during the study and which will contribute to establishing success or otherwise in addressing the research question.
 
 
-The collection of multiple responses from each person as they complete
-several different lineup tasks, allows estimates of their perceptual ability and allows them to correct power differences between competing designs: by modeling power using a subject-specific random intercept in a generalized linear model.
+The collection of multiple responses from each person as they complete several different lineup tasks, allows estimates of their perceptual ability and allows them to correct power differences between competing designs: by modeling power using a subject-specific random intercept in a generalized linear model.
 
 #	Data management and record keeping
 As the data will be held publicly online, it will be accessible under a license for people to reuse. It will also be held accessible to QUT researchers
@@ -219,13 +210,15 @@ As the data will be held publicly online, it will be accessible under a license 
 ##	Confidentially and privacy
 All data will be deidentified, there is no need to protect confidentiality when the data has been anonymised.
 
-##	Data security (including how will you store)
+##	Data security
+All the survey information will be stored on github, a publicly available site, as well as on site at QUT.
 
-##	Training
 
-##	Record retention (how you will archive/destroy the information that you collect)
+##	Record retention
+The records of data and analysis undertaken will be stored on github as well as on site at QUT.
 
-##	Secondary use (including providing access, disclosing)
+##	Secondary use 
+The analysis scripts and the data collected will be available for secondary use. Thisn their consent form. will be disclosed to participants 
 
 #	Resources
 This work will be supported by ACEMS funding - $500 to pay 100 participants equally.

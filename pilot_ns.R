@@ -3,7 +3,7 @@
 ######################         NORTH TO SOUTH         #########################
 
 # First source the simulated points
-#source('~/experiment/R/00_pilot.R', echo = TRUE)
+# source('~/experiment/R/00_pilot.R', echo = TRUE)
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
@@ -13,6 +13,7 @@ sa3_max <- sa3_long %>%
   filter(groups == "smooth5") %>%
   pull(value) %>% max()
 
+
 # use an underlying spatial covariance model
 # add a north to south model
 sa3_ns <- sa3_centroids %>% 
@@ -20,7 +21,7 @@ sa3_ns <- sa3_centroids %>%
   mutate(ns = scales::rescale(ns, to = c(sa3_min,sa3_max)))
 
 ### Start with shapes - geographies
-aus_geo_ns <- sa3 %>% 
+aus_geo_ns <- sa3 %>%
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
   left_join(., sa3_long) %>% 
@@ -46,14 +47,18 @@ aus_geo_sa3 <- aus_geo_ns %>%
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
-  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
+  mutate(value = ifelse(simulation == pos,
+    scales::rescale((value+true), c(sa3_min, sa3_max)), 
+    scales::rescale((value), c(sa3_min, sa3_max))))
 
 aus_hex_sa3 <- aus_hex_ns %>% 
   mutate(true = ns) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
-  # scale the null data around the mean of the data
-  mutate(value = ifelse(simulation == pos, true + value, (mean(true) + value*sd(true))))
+  # scale the new data around the distribution of null data
+  mutate(value = ifelse(simulation == pos,
+    scales::rescale((value+true), c(sa3_min, sa3_max)), 
+    scales::rescale((value), c(sa3_min, sa3_max))))
 
 
 ############################################################################### 
@@ -64,7 +69,7 @@ aus_geo_ns <- aus_geo_sa3 %>%
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_grid(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
@@ -78,7 +83,7 @@ aus_hex_ns <- aus_hex_sa3 %>%
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_grid(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
@@ -102,7 +107,7 @@ aus_geo_ns <- aus_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/ns/aus_geo_ns.png", plot = aus_geo_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/lineups/aus_geo_ns.png", plot = aus_geo_ns, device = "png", dpi = 300,
   height = 12, width = 12)
 
 
@@ -116,7 +121,7 @@ aus_hex_ns <- aus_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/ns/aus_hex_ns.png", plot = aus_hex_ns, device = "png", dpi = 300,
+ggsave(filename = "figures/lineups/aus_hex_ns.png", plot = aus_hex_ns, device = "png", dpi = 300,
   height = 12, width = 12)
 
 
@@ -177,7 +182,7 @@ gridExtra::grid.arrange(tas_ns, hex_ns)
 tas_ns <- ggplot(tas_geo_sa3) + 
   geom_sf(aes(fill = value), colour = NA) +
   scale_fill_distiller(type = "div", palette = "Spectral") + 
-  facet_grid(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
@@ -188,7 +193,7 @@ ggsave(filename = "figures/lineups/tas_ns.png", plot = tas_ns, dpi=300, device =
 hex_ns <- ggplot(tas_hex_sa3) + 
   geom_sf(aes(fill = value), colour = NA) +
   scale_fill_distiller(type = "div", palette = "Spectral") + 
-  facet_grid(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
@@ -211,7 +216,7 @@ tas_ns <- tas_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/ns_tas.png", 
+ggsave(filename = "figures/lineups/tas/ns_geo.png", 
   plot = tas_ns, dpi=300, device = "png", width = 12, height = 12)
 
 hex_ns <- tas_hex_sa3 %>% 
@@ -224,5 +229,6 @@ hex_ns <- tas_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/ns_hex.png", 
+ggsave(filename = "figures/lineups/tas/ns_hex.png", 
   plot = hex_ns, dpi=300, device = "png", width = 12, height = 12)
+

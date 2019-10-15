@@ -18,7 +18,8 @@ set.seed(19941030)
 ####################     DATA    ##########################
 # Geography of sa3 areas
 sa3 <- absmapsdata::sa32016
-sa3 <- st_simplify(sa3, preserveTopology = TRUE, dTolerance = 0.001)
+sa3 <- rmapshaper::ms_simplify(sa3, 
+  keep = 0.5, keep_shapes = TRUE, explode = FALSE, drop_null_geometries = TRUE)
 
 # filter out Islands
 Islands <- c("Cocos (Keeling) Islands",	"Christmas Island", "Norfolk Island", "Lord Howe Island")
@@ -80,7 +81,7 @@ hex <- left_join(hexagons_sf, sa3_centroids)
 
 # Manual null data creation
 # Change this parameter to change strength of spatial dependency
-cov.Decay <- 0.5
+cov.Decay <- 0.7
 # Specify the spatial model
 var.g.dummy <- gstat(formula = z ~ 1, 
   locations = ~ longitude + latitude, 
@@ -118,7 +119,7 @@ spatial_smoother <- function(area_number, values_vector, area_weight = 0.5, neig
   return(smoothed_value)
 }
 
-sims <- colnames(var.sim)[5:20]
+sims <- colnames(var.sim)[5:24]
 
 
 ###########################################################
@@ -155,7 +156,8 @@ smoothing <- bind_rows(
 
 sa3_long <- smoothing %>%
   select(-longitude, -latitude, -logsize) %>% 
-  gather(key = "simulation", value = "value", -sa3_name_2016, -groups)
+  gather(key = "simulation", value = "value", -sa3_name_2016, -groups) %>%
+  mutate(simulation = as.numeric(gsub("sim", "", simulation)))
 
 smoothed_alpha <- c(
     smooth1 = "#7a0177",
@@ -175,11 +177,11 @@ s_plot <- sa3_long %>%
   scale_fill_manual(values = smoothed_alpha)
 
 s_plot
-ggsave(filename = "figures/simulation.png", 
+ggsave(filename = "figures/simulation_densities.png", 
   plot = s_plot, device = "png", dpi = 300,
   height = 12, width = 12)
 
-###########################################################
+##########################################################
 
 ## Tasmania plots
 library(gganimate)
@@ -189,34 +191,20 @@ tas_sims <- sa3 %>%
   select(sa3_name_2016) %>% 
   left_join(., sa3_long)
 
-tas1 <- tas_sims %>% 
-  filter(groups == "smooth1") %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~simulation)
-ggsave(filename = "figures/tas1_simulation.png", plot = tas1, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-tas3 <- tas_sims %>% 
-  filter(groups == "smooth3") %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~simulation)
-ggsave(filename = "figures/tas3_simulation.png", plot = tas3, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-tas5 <- tas_sims %>% 
-  filter(groups == "smooth5") %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~simulation)
-ggsave(filename = "figures/tas5_simulation.png",  plot = tas5, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-
 tas <- tas_sims %>% 
-  ggplot() + 
-  geom_sf(aes(fill = value)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~simulation) + 
-  transition_states(states = groups, wrap = FALSE)
+  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
+  facet_grid(groups~simulation)
+ggsave(filename = "figures/tas_simulation.png", plot = tas, device = "png", dpi = 300,
+  height = 6, width = 6)
+
+
+
+#tas <- tas_sims %>% 
+#  ggplot() + 
+#  geom_sf(aes(fill = value)) + 
+#  scale_fill_distiller(type = "div", palette = "RdYlGn") +
+#  facet_wrap(~simulation) + 
+#  transition_states(states = groups, wrap = FALSE)
 #tas_anim <- animate(tas, nframes = 20, duration = 15)
 
 #anim_save(filename = "figures/tas_simulation.gif", animation = tas_anim)
@@ -229,28 +217,12 @@ hex_sims <- hexagons_sf %>%
   select(sa3_name_2016) %>% 
   left_join(., sa3_long)
 
-hex1 <- hex_sims %>% 
-  filter(groups == "smooth1") %>% 
+hex <- hex_sims %>% 
   ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~simulation)
-ggsave(filename = "figures/hex1_simulation.png", plot = hex1, device = "png", dpi = 300,
+  facet_grid(groups~simulation)
+ggsave(filename = "figures/hex_simulation.png", plot = hex, device = "png", dpi = 300,
   height = 6, width = 6)
 
-hex3 <- hex_sims %>% 
-  filter(groups == "smooth3") %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~simulation)
-ggsave(filename = "figures/hex3_simulation.png", plot = hex3, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-hex5 <- hex_sims %>% 
-  filter(groups == "smooth5") %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~simulation)
-ggsave(filename = "figures/hex5_simulation.png",  plot = hex5, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-gridExtra::grid.arrange(tas1, tas3, tas5, hex1, hex3, hex5, nrow = 2)
 
 ###############################################################################
 ####### ANIMATION ##############
