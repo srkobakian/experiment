@@ -7,11 +7,15 @@
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
-  filter(groups == "smooth5") %>%
+  filter(groups == "smooth3") %>%
   pull(value) %>% min()
 sa3_max <- sa3_long %>% 
-  filter(groups == "smooth5") %>%
+  filter(groups == "smooth3") %>%
   pull(value) %>% max()
+
+sa3_mean <- sa3_long %>% 
+  filter(groups == "smooth3") %>%
+  pull(value) %>% mean()
 
 
 # use an underlying spatial covariance model
@@ -40,7 +44,8 @@ aus_hex_ns <- hexagons_sf %>%
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
-pos <- sample(1:20, 1)
+set.seed(19941030)
+pos <- sample(1:12, 1)
 
 aus_geo_sa3 <- aus_geo_ns %>%
   mutate(true = ns) %>% 
@@ -120,7 +125,7 @@ spop_plot <- tas_geo_sa3 %>%
   ggplot() + 
   geom_density(aes(x= ns, fill = groups), alpha = 0.3) +
   geom_vline(aes(xintercept = mean_value), colour = "black") + 
-  scale_fill_manual(values = ns_alpha)
+  scale_fill_manual(values = smoothed_alpha)
 spop_plot
 
 tas_ns <- tas_geo_sa3 %>% 
@@ -185,7 +190,7 @@ tas_ns <- tas_geo_sa3 %>%
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
 ggsave(filename = "figures/lineups/tas/ns_geo.png", 
-  plot = tas_ns, dpi=300, device = "png", width = 12, height = 12)
+  plot = tas_ns, dpi=300, device = "png", height = 18, width = 18)
 
 hex_ns <- tas_hex_sa3 %>% 
   ggplot() + 
@@ -198,5 +203,5 @@ hex_ns <- tas_hex_sa3 %>%
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
 ggsave(filename = "figures/lineups/tas/ns_hex.png", 
-  plot = hex_ns, dpi=300, device = "png", width = 12, height = 12)
+  plot = hex_ns, dpi=300, device = "png", height = 18, width = 18)
 

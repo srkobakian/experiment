@@ -7,14 +7,14 @@
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
-  filter(groups == "smooth5") %>%
+  filter(groups == "smooth3") %>%
   pull(value) %>% min()
 sa3_max <- sa3_long %>% 
-  filter(groups == "smooth5") %>%
+  filter(groups == "smooth3") %>%
   pull(value) %>% max()
 
 sa3_mean <- sa3_long %>% 
-  filter(groups == "smooth5") %>%
+  filter(groups == "smooth3") %>%
   pull(value) %>% mean()
 
 
@@ -25,7 +25,8 @@ max_dist <- 1478314 # furthest area with Brisbane focal point
 
 sa3_single <- allocated %>% 
   select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
-  mutate(single = ifelse(points == "Brisbane", scales::rescale(sqrt(max_dist - focal_dist), to = c(sa3_mean, sa3_max)), NA))
+  mutate(single = ifelse(points == "Brisbane", scales::rescale(
+    (max_dist - focal_dist)^10, to = c(sa3_mean, sa3_max)), NA))
     
     
 ### Start with shapes - geographies
@@ -48,30 +49,38 @@ aus_hex_single <- hexagons_sf %>%
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
+set.seed(19941030)
 pos <- sample(1:12, 1)
 
-aus_geo_sa3 <- aus_geo_single %>%
+aus_geo_sa3_single <- aus_geo_single %>%
   mutate(true = single) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
-  mutate(value = ifelse(simulation == pos, ifelse(!is.na(true), true, value), 
+  mutate(value = ifelse(
+    simulation == pos, ifelse(!is.na(true), true, value), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
-aus_hex_sa3 <- aus_hex_single %>% 
+aus_hex_sa3_single <- aus_hex_single %>% 
   mutate(true = single) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the new data around the distribution of null 
-  mutate(value = ifelse(simulation == pos, ifelse(!is.na(true), true, value), 
+  mutate(value = ifelse(
+    simulation == pos, ifelse(!is.na(true), true, value), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
+############################################################################### 
+############################                       ############################
+############################################################################### 
+
+ggplot(aus_hex_sa3_single) + geom_histogram(aes(x=value)) + facet_wrap(~simulation)
 
 ############################################################################### 
-############################   Population ns       ############################
+############################                       ############################
 ############################################################################### 
 
-aus_geo_single_plot <- aus_geo_sa3 %>% 
+aus_geo_single_plot <- aus_geo_sa3_single %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlBu") + 
@@ -83,22 +92,20 @@ aus_geo_single_plot <- aus_geo_sa3 %>%
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
 ggsave(filename = "figures/single/aus_geo_single.png", plot = aus_geo_single_plot, device = "png", dpi = 300,
-  height = 9, width = 9)
+  height = 18, width = 18)
+aus_geo_single_plot
 
-
-aus_hex_single_plot <- aus_hex_sa3 %>% 
+aus_hex_single_plot <- aus_hex_sa3_single %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlBu") + 
   facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    strip.text.x = element_text(colour = "white"),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
+        panel.background = element_rect(fill = "black", colour = NA),
+        strip.background = element_rect(fill = "black", colour = NA),
+        strip.text.x = element_text(colour = "white"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
 ggsave(filename = "figures/single/aus_hex_single.png", plot = aus_hex_single_plot, device = "png", dpi = 300,
-  height = 9, width = 9)
-
-
-
+       height = 18, width = 18)
+aus_hex_single_plot

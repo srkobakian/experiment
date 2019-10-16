@@ -12,7 +12,7 @@ library(sugarbag)
 library(tidyverse)
 library(viridis)
 
-set.seed(19941030)
+set.seed(19941031)
 
 ###########################################################
 ####################     DATA    ##########################
@@ -42,20 +42,26 @@ sa3_centroids$logsize <- log(sa3$areasqkm_2016)
 
 
 ###########################################################
+################    AUSTRALIA    ##########################
+
+aus_underlay <- st_union(sa3$geometry)
+
+
+###########################################################
 ####################    HEXMAP   ##########################
 # Create hexagon map of sa3
 allocated <- create_hexmap(
   shp = sa3,
   buffer_dist = 2,
   sf_id = "sa3_name_2016",
-  hex_size = 0.5, # same size used in create_grid
+  hex_size = 0.6, # same size used in create_grid
   hex_filter = 10,
   f_width = 30,
   focal_points = capital_cities,
   verbose = TRUE)
 
 # same column used in create_hexmap
-hexagons <- fortify_hexagon(data = allocated, sf_id = "sa3_name_2016", hex_size = 0.5)
+hexagons <- fortify_hexagon(data = allocated, sf_id = "sa3_name_2016", hex_size = 0.6)
 
 # Convert hexagons to polygons for plotting
 # This will order the areas by the sf_id, this results in alphabetical order
@@ -81,11 +87,10 @@ hex <- left_join(hexagons_sf, sa3_centroids)
 
 # Manual null data creation
 # Change this parameter to change strength of spatial dependency
-cov.Decay <- 0.5
 # Specify the spatial model
 var.g.dummy <- gstat(formula = z ~ 1, 
   locations = ~ longitude + latitude, 
-  dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = cov.Decay),
+  dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = 0.5),
   nmax = 12)
 
 # Create underlying spatially dependent data for 16 null plots
@@ -137,21 +142,11 @@ sa3_sims3 <- sa3_sims2 %>%
   mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
     values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
 
-sa3_sims4 <- sa3_sims3 %>% 
-  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
-    values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
-
-sa3_sims5 <- sa3_sims4 %>% 
-  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
-    values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
-
 
 smoothing <- bind_rows(
   "smooth1" = sa3_sims1,
   "smooth2" = sa3_sims2, 
-  "smooth3" = sa3_sims3,
-  "smooth4" = sa3_sims4, 
-  "smooth5" = sa3_sims5, .id = "groups")
+  "smooth3" = sa3_sims3, .id = "groups")
 
 
 sa3_long <- smoothing %>%
@@ -167,7 +162,7 @@ smoothed_alpha <- c(
     smooth5 = "#feebe2")
 
 s_plot <- sa3_long %>% 
-  mutate(groups = factor(groups, levels = c("smooth1", "smooth2", "smooth3", "smooth4", "smooth5"))) %>% 
+  mutate(groups = factor(groups, levels = c("smooth1", "smooth2", "smooth3"))) %>% 
   group_by(groups, simulation) %>% 
   mutate(mean_value  = mean(value)) %>% 
   ggplot() + 
@@ -220,7 +215,7 @@ hex_sims <- hexagons_sf %>%
 hex_sims <- hex_sims %>% 
   ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlBu") +
   facet_grid(groups~simulation)
-ggsave(filename = "figures/hex_simulation.png", plot = hex_Sims, device = "png", dpi = 300,
+ggsave(filename = "figures/hex_simulation.png", plot = hex_sims, device = "png", dpi = 300,
   height = 6, width = 6)
 
 
