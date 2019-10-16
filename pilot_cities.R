@@ -81,7 +81,6 @@ aus_geo_cities_plot <- aus_geo_sa3 %>%
 ggsave(filename = "figures/cities/aus_geo_cities.png", plot = aus_geo_cities_plot, device = "png", dpi = 300,
   height = 9, width = 9)
 
-
 aus_hex_cities_plot <- aus_hex_sa3 %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
