@@ -21,9 +21,9 @@ max_dist <- 1478314 # furthest area from any focal point
 
 sa3_cities <- allocated %>% 
   select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
-  mutate(cities = sqrt(max_dist - focal_dist)) %>%
+  mutate(cities = (scales::rescale(max_dist - focal_dist,to = c(0,1))^10)) %>%
   # keep a reasonable scale to match null plots
-  mutate(cities = scales::rescale(cities, to = c(sa3_mean, sa3_max)))
+  mutate(cities = scales::rescale(cities, to = c(sa3_min, sa3_max)))
 
 ### Start with shapes - geographies
 aus_geo_cities <- sa3 %>%

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 #	Title
-Assessing the effectiveness of visualisation methods for spatial distributions affected by small areas with high population densities.
+Assessing the effectiveness of hexagon tile maps for communicating spatial distribution of disease for Australia.
 
 #	Project team roles & responsibilities
 
