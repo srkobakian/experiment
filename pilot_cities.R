@@ -29,6 +29,7 @@ sa3_cities <- allocated %>%
          cities = ifelse(dist_rank == 50, -2, 
                          scales::rescale(cities, to = c(mean(c(sa3_min, sa3_mean)), sa3_max))))
 
+
 ggplot(sa3_cities) + geom_histogram(aes(x = cities))
 
 ### Start with shapes - geographies
