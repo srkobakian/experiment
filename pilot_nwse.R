@@ -18,9 +18,10 @@ sa3_max <- sa3_long %>%
 sa3_nwse <- sa3_centroids %>% 
   mutate(lat = abs(latitude-min(latitude)),
     long = abs(longitude-min(longitude)),
-    nwse = lat*long) %>% 
+    nwse = (2*lat)-long) %>% 
   mutate(nwse = scales::rescale(nwse, to = c(sa3_min, sa3_max))) %>%
   select(-lat, -long)
+
 
 ###############################################################################
 ######################         NORTH TO SOUTH         #########################
@@ -78,7 +79,7 @@ aus_geo_nwse <- aus_geo_sa3 %>%
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_grid(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
@@ -92,7 +93,7 @@ aus_hex_nwse <- aus_hex_sa3 %>%
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_grid(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
@@ -100,39 +101,6 @@ aus_hex_nwse <- aus_hex_sa3 %>%
     panel.grid.minor = element_blank())
 ggsave(filename = "figures/lineups/aus_hex_nwse.png", plot = aus_hex_nwse, device = "png", dpi = 300,
   height = 9, width = 18)
-
-
-############################################################################### 
-#########################    Population density ns    #########################
-############################################################################### 
-
-aus_geo_nwse <- aus_geo_sa3 %>% 
-  ggplot() + 
-  geom_sf(aes(fill = value), colour = NA) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_wrap(~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/aus_geo_nwse.png", plot = aus_geo_nwse, device = "png", dpi = 300,
-  height = 12, width = 12)
-
-
-aus_hex_nwse <- aus_hex_sa3 %>%
-  ggplot() + 
-  geom_sf(aes(fill = value), colour = NA) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_wrap(~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/aus_hex_nwse.png", plot = aus_hex_nwse, device = "png", dpi = 300,
-  height = 12, width = 12)
-
 
 
 
@@ -155,7 +123,7 @@ ggsave(filename = "figures/lineups/tas/density.png", plot = tas_nwse, device = "
   height = 6, width = 6)
 
 spop_plot <- tas_geo_sa3 %>%
-  group_by(iteration) %>% 
+  group_by(groups) %>% 
   mutate(mean_value  = mean(ns)) %>% 
   ggplot() + 
   geom_density(aes(x= nwse, fill = groups), alpha = 0.3) +
@@ -167,7 +135,7 @@ tas_nwse <- tas_geo_sa3 %>%
   ggplot() + 
   geom_sf(aes(fill = nwse)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~iteration)
+  facet_grid(groups~simulation)
 ggsave(filename = "figures/lineups/tas/geo_nwse.png", plot = tas_nwse, device = "png", dpi = 300,
   height = 6, width = 6)
 
@@ -175,7 +143,7 @@ ggsave(filename = "figures/lineups/tas/geo_nwse.png", plot = tas_nwse, device = 
 hex_nwse <- tas_hex_sa3 %>% 
   ggplot() + geom_sf(aes(fill = nwse)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~iteration)
+  facet_grid(groups~simulation)
 ggsave(filename = "figures/lineups/tas/hex_nwse.png", plot = hex_nwse, device = "png", dpi = 300,
   height = 6, width = 6)
 

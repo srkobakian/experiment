@@ -51,7 +51,7 @@ aus_geo_smooth_pop <- sa3 %>%
   # Add the 16 simulated values for each area
   left_join(., sa3_long) %>% 
   left_join(., sa3_smooth_pop) %>% 
-  gather("iteration", "smoother_density", contains("popdens"))
+  gather("groups", "smoother_density", contains("popdens"))
 
 ### Start with shapes - hexagons
 aus_hex_smooth_pop <- hexagons_sf %>% 
@@ -59,7 +59,7 @@ aus_hex_smooth_pop <- hexagons_sf %>%
   # Add the 20 simulated values for each area
   left_join(., sa3_long) %>% 
   left_join(., sa3_smooth_pop) %>% 
-  gather("iteration", "smoother_density", contains("popdens"))
+  gather("groups", "smoother_density", contains("popdens"))
 
 ############################################################################### 
 
@@ -182,8 +182,8 @@ smoothed_alpha <- c(
   s6_popdens16 = "#ffffff")         
 
 spop_plot <- tas_geo_sa3 %>%
-  mutate(groups = factor(iteration, levels = c("s1_popdens16", "s2_popdens16", "s3_popdens16","s4_popdens16", "s5_popdens16", "s6_popdens16"))) %>% 
-  group_by(groups, iteration) %>% 
+  mutate(groups = factor(groups, levels = c("s1_popdens16", "s2_popdens16", "s3_popdens16","s4_popdens16", "s5_popdens16", "s6_popdens16"))) %>% 
+  group_by(groups, groups) %>% 
   mutate(mean_value  = mean(smoother_density)) %>% 
   ggplot() + 
   geom_density(aes(x= smoother_density, fill = groups), alpha = 0.3) +
@@ -195,7 +195,7 @@ tas_smoothed <- tas_geo_sa3 %>%
   ggplot() + 
   geom_sf(aes(fill = smoother_density)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~iteration)
+  facet_wrap(~groups)
 ggsave(filename = "figures/pop/tas_smoothed.png", plot = tas_smoothed, device = "png", dpi = 300,
   height = 6, width = 6)
 
@@ -203,7 +203,7 @@ ggsave(filename = "figures/pop/tas_smoothed.png", plot = tas_smoothed, device = 
 hex_smoothed <- tas_hex_sa3 %>% 
   ggplot() + geom_sf(aes(fill = smoother_density)) + 
   scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~iteration)
+  facet_wrap(~groups)
 ggsave(filename = "figures/pop/hex_smoothed.png", plot = hex_smoothed, device = "png", dpi = 300,
   height = 6, width = 6)
 

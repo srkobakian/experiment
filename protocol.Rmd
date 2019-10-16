@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 #	Title
-Assessing the effectiveness of different visualisation methods for Australian spatial data.
+Assessing the effectiveness of visualisation methods for spatial distributions affected by small areas with high population densities.
 
 #	Project team roles & responsibilities
 
@@ -35,7 +35,7 @@ Assessing the effectiveness of different visualisation methods for Australian sp
 
 ##	Project outline
 
-This project will test the effectiveness of two types of spatial displays: a choropleth map, and a hexagon map. It will contrast the effectiveness of communicating information when each geographic region is represented by a hexagon, rather than its geographical shape. The purpose of these displays is to convey the spatial distribution of the disease occurrence, or incidence. This can allow for detecting hot spots corresponding to outbreaks, or spatial trends, for example, indicating occurrence is related to latitude or even rural vs urban differences. Effectiveness of the display will be measured by accurate and efficient perception of these patterns.
+This project will test the effectiveness of two types of spatial displays: a choropleth map, and a hexagon map. It will contrast the effectiveness of communicating information when each geographic region is represented by a hexagon, rather than its geographical shape. The purpose of these displays is to convey the spatial distribution of the disease occurrence, or incidence. This can allow for detecting hot spots corresponding to outbreaks, or spatial trends, for example, indicating occurrence is related to rural vs urban differences or localised to a single population dense region. Effectiveness of the display will be measured by accurate and efficient detection of these patterns.
 
 ##	Introduction/background information
 
@@ -50,12 +50,12 @@ The responses of participants will be contrasted when shown the same information
 
 ##	Hypotheses
 
-Participants will pick the map of a true distribution in a line up of null maps more often when the information is presented in a hexagon map, as opposed to a geographic map line up.
+When participants see the same data set displayed a line up as a hexagon tile map and geographic map, participants will pick the map that displays a pattern influenced by population density more often when the information is presented in a hexagon tile map.
 
 ##	Research questions/ aims
 
-1.	Measure the accuracy in spotting a real spatial distribution from a line-up of null maps
-2.	Contrast the accuracy when participants pick from geographic or hexagon maps
+1.	Measure the accuracy in spotting a real population density related spatial distribution from a line-up of null maps
+2.	Contrast the accuracy and efficiency when participants pick from geographic or hexagon maps
 
 ##	Outcome measures 
 
@@ -68,8 +68,8 @@ Experiment information collected:
  
 Factors:
 
-- Plot type ( Hexagon/ Geographic )
-- Spatial dependence structure (Normal errors / Chi-squared errors )
+- Plot type ( Hexagon / Geographic )
+- Spatial dependence structure ( Difference in a single city / Related to population density / North to South )
  
 We will record demographic information to consider the impacts of:
 
@@ -91,8 +91,7 @@ We will compare the length of time taken and the accuracy with which participant
 The possible levels of the factors are:
 
  - Plot type: Geography, Hexagons
- - Error distribution: Normal, Chi-Square
- - Spatial Dependence: Rurality level, North to South, East to West
+ - Spatial Dependence: Difference in a single city, Related to population density, North to South
 
 Allowing each factor combination to be considered will provide 12 (2x2x3) line up displays to be seen by all participants.
 
@@ -124,7 +123,6 @@ This page will also explain the use and storage of the data they contribute. The
 
 ##	Participant withdrawal
 Participants will be able to withdraw by leaving the survey at any time.
-XXX will they still be paid?
 
 #	Procedures
 
@@ -170,8 +168,6 @@ The authors also define how to estimate the power of a lineup: the ratio of corr
 
 ##	Data analysis and Statistical methods
 
-Information will be collected regarding the design
-(including how will you measure, manipulate and/or analyse the information that you collect/gather, matching and sampling strategies, accounting for potential bias, confounding factors and missing information)
 
 This will be analysed using a generalised linear model, with random effects capturing the differences between the 100 participants.
 The main effects used will consider the spatial distribution of the errors, gender, degree education level achieved, age range and whether the participant has lived in Australia.
