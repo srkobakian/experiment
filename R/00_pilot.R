@@ -60,7 +60,7 @@ hexagons <- fortify_hexagon(data = allocated, sf_id = "sa3_name_2016", hex_size 
 # Convert hexagons to polygons for plotting
 # This will order the areas by the sf_id, this results in alphabetical order
 hexagons_sf <- hexagons %>% 
-  select(sa3_name_2016, long, lat) %>% 
+  select(sa3_name_2016, long, lat, points, focal_dist) %>% 
   sf::st_as_sf(coords = c("long", "lat"), crs = 4283) %>%
   group_by(sa3_name_2016) %>% 
   summarise(do_union = FALSE) %>%
@@ -81,15 +81,15 @@ hex <- left_join(hexagons_sf, sa3_centroids)
 
 # Manual null data creation
 # Change this parameter to change strength of spatial dependency
-cov.Decay <- 0.7
+cov.Decay <- 0.5
 # Specify the spatial model
 var.g.dummy <- gstat(formula = z ~ 1, 
   locations = ~ longitude + latitude, 
   dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = cov.Decay),
-  nmax = 20)
+  nmax = 12)
 
 # Create underlying spatially dependent data for 16 null plots
-var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 20) %>% 
+var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 12) %>% 
   left_join(sa3_centroids, ., by=c("longitude", "latitude"))
 
 
@@ -119,7 +119,7 @@ spatial_smoother <- function(area_number, values_vector, area_weight = 0.5, neig
   return(smoothed_value)
 }
 
-sims <- colnames(var.sim)[5:24]
+sims <- colnames(var.sim)[5:length(colnames(var.sim))]
 
 
 ###########################################################
@@ -192,7 +192,7 @@ tas_sims <- sa3 %>%
   left_join(., sa3_long)
 
 tas <- tas_sims %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
+  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlBu") +
   facet_grid(groups~simulation)
 ggsave(filename = "figures/tas_simulation.png", plot = tas, device = "png", dpi = 300,
   height = 6, width = 6)
@@ -202,10 +202,10 @@ ggsave(filename = "figures/tas_simulation.png", plot = tas, device = "png", dpi 
 #tas <- tas_sims %>% 
 #  ggplot() + 
 #  geom_sf(aes(fill = value)) + 
-#  scale_fill_distiller(type = "div", palette = "RdYlGn") +
+#  scale_fill_distiller(type = "div", palette = "RdYlBu") +
 #  facet_wrap(~simulation) + 
 #  transition_states(states = groups, wrap = FALSE)
-#tas_anim <- animate(tas, nframes = 20, duration = 15)
+#tas_anim <- animate(tas, nframes = 12, duration = 15)
 
 #anim_save(filename = "figures/tas_simulation.gif", animation = tas_anim)
 
@@ -217,20 +217,20 @@ hex_sims <- hexagons_sf %>%
   select(sa3_name_2016) %>% 
   left_join(., sa3_long)
 
-hex <- hex_sims %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
+hex_sims <- hex_sims %>% 
+  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlBu") +
   facet_grid(groups~simulation)
-ggsave(filename = "figures/hex_simulation.png", plot = hex, device = "png", dpi = 300,
+ggsave(filename = "figures/hex_simulation.png", plot = hex_Sims, device = "png", dpi = 300,
   height = 6, width = 6)
 
 
 ###############################################################################
 ####### ANIMATION ##############
 # hex <- hex_sims %>% 
-#   ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlGn") +
+#   ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlBu") +
 #   facet_wrap(~simulation) + 
 #   transition_states(states = groups, wrap = FALSE)
-#hex_anim <- animate(hex, nframes = 20, duration = 15)
+#hex_anim <- animate(hex, nframes = 12, duration = 15)
 
 #anim_save(filename = "figures/hex_simulation.gif", 
 #  animation = hex_anim)
