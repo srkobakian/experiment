@@ -73,135 +73,28 @@ aus_hex_sa3 <- aus_hex_ns %>%
 aus_geo_ns <- aus_geo_sa3 %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_wrap(~ simulation) + theme_minimal() +
+  scale_fill_distiller(type = "div", palette = "RdYlBu") + 
+  facet_wrap(~ simulation) + theme_minimal() + guides(fill = FALSE) +
   theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/ns/aus_geo_ns.png", plot = aus_geo_ns, device = "png", dpi = 300,
+        panel.background = element_rect(fill = "black", colour = NA),
+        strip.background = element_rect(fill = "black", colour = NA),
+        strip.text.x = element_text(colour = "white", size = 40),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+ggsave(filename = "figures/ns/aus_geo_ns.pdf", plot = aus_geo_ns, device = "pdf", dpi = 300,
   height = 9, width = 18)
 
 
 aus_hex_ns <- aus_hex_sa3 %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") + 
-  facet_wrap(~ simulation) + theme_minimal() +
+  scale_fill_distiller(type = "div", palette = "RdYlBu") + 
+  facet_wrap(~ simulation) + theme_minimal() + guides(fill = FALSE) +
   theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/ns/aus_hex_ns.png", plot = aus_hex_ns, device = "png", dpi = 300,
+        panel.background = element_rect(fill = "black", colour = NA),
+        strip.background = element_rect(fill = "black", colour = NA),
+        strip.text.x = element_text(colour = "white", size = 40),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+ggsave(filename = "figures/ns/aus_hex_ns.pdf", plot = aus_hex_ns, device = "pdf", dpi = 300,
   height = 9, width = 18)
-
-
-
-
-############################################################################### 
-############################       Tasmania        ############################
-############################################################################### 
-
-
-tas_geo_sa3 <- aus_geo_sa3 %>%
-  filter(sa3_name_2016 %in% Tasmania)
-
-tas_hex_sa3 <- aus_hex_sa3 %>%
-  filter(sa3_name_2016 %in% Tasmania)
-
-###############################################################################
-tas_geo_sa3 %>% 
-  ggplot() + geom_density(aes(x = ns)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn")
-ggsave(filename = "figures/ns/density.png", plot = tas_ns, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-
-spop_plot <- tas_geo_sa3 %>%
-  group_by(groups) %>% 
-  mutate(mean_value  = mean(ns)) %>% 
-  ggplot() + 
-  geom_density(aes(x= ns, fill = groups), alpha = 0.3) +
-  geom_vline(aes(xintercept = mean_value), colour = "black") + 
-  scale_fill_manual(values = smoothed_alpha)
-spop_plot
-
-tas_ns <- tas_geo_sa3 %>% 
-  ggplot() + 
-  geom_sf(aes(fill = ns)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~groups)
-ggsave(filename = "figures/ns/tas_ns.png", plot = tas_ns, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-
-hex_ns <- tas_hex_sa3 %>% 
-  ggplot() + geom_sf(aes(fill = ns)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_wrap(~groups)
-ggsave(filename = "figures/ns/hex_ns.png", plot = hex_ns, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-gridExtra::grid.arrange(tas_ns, hex_ns)
-
-
-###############################################################################
-##########################    Population density    ###########################
-
-# Add Tasmania population density to null model
-
-tas_ns <- ggplot(tas_geo_sa3) + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "RdYlBu") + 
-  facet_wrap(~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/tas_ns.png", plot = tas_ns, dpi=300, device = "png", width = 12, height = 6)
-
-hex_ns <- ggplot(tas_hex_sa3) + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "RdYlBu") + 
-  facet_wrap(~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/hex_ns.png", plot = hex_ns, dpi=300, device = "png", width = 12, height = 6)
-
-
-
-# Line up hexagons (sf) plot
-# all plots will be null plots except the one with additional true trend model
-
-tas_ns <- tas_geo_sa3 %>% 
-  ggplot() + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "RdYlBu") + 
-  facet_wrap( ~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/tas/ns_geo.png", 
-  plot = tas_ns, dpi=300, device = "png", height = 18, width = 18)
-
-hex_ns <- tas_hex_sa3 %>% 
-  ggplot() + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "RdYlBu") + 
-  facet_wrap( ~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/tas/ns_hex.png", 
-  plot = hex_ns, dpi=300, device = "png", height = 18, width = 18)
-

@@ -2,18 +2,20 @@
 ###############################################################################
 ######################          CITY DIFFERENCE       #########################
 
+# Which map shows the most areas coloured red?
+
 # First source the simulated points
 # source('~/experiment/R/00_pilot.R', echo = TRUE)
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
-  filter(groups == "smooth3") %>%
+  filter(groups == "smooth1") %>%
   pull(value) %>% min()
 sa3_max <- sa3_long %>% 
-  filter(groups == "smooth3") %>%
+  filter(groups == "smooth1") %>%
   pull(value) %>% max()
 sa3_mean <- sa3_long %>% 
-  filter(groups == "smooth3") %>%
+  filter(groups == "smooth1") %>%
   pull(value) %>% mean()
 
 
@@ -24,10 +26,12 @@ max_dist <- 1478314 # furthest area from any focal point
 
 sa3_cities <- allocated %>% 
   select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
-  mutate(cities = (max_dist - focal_dist)^8,
-         dist_rank = rank(focal_dist),
-         cities = ifelse(dist_rank == 50, -2, 
-                         scales::rescale(cities, to = c(mean(c(sa3_min, sa3_mean)), sa3_max))))
+  mutate(city_distance = (max_dist - focal_dist)^8,
+         dist = scales::rescale(city_distance,
+                                     to = c(0,1)),
+         cities = ifelse(dist < 0.92, NA, 
+                         scales::rescale(city_distance,
+                        to = c(sa3_mean, sa3_max))))
 
 
 ggplot(sa3_cities) + geom_histogram(aes(x = cities))
@@ -61,8 +65,10 @@ aus_geo_sa3_cities <- aus_geo_cities %>%
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
   mutate(value = ifelse(simulation == pos, 
-                        scales::rescale((value+true), c(1, sa3_max)), 
-                        scales::rescale((value), c(sa3_min, sa3_max))))
+         # for the true data plot, keep random values if not close enough to cities
+         ifelse(is.na(cities), value, true),
+         # for all others rescale to the same range
+         scales::rescale((value), c(sa3_min, sa3_max))))
 
 aus_hex_sa3_cities <- aus_hex_cities %>% 
   mutate(true = cities) %>% 
@@ -70,9 +76,10 @@ aus_hex_sa3_cities <- aus_hex_cities %>%
   # add the spatial trend model to the null data plot
   # scale the new data around the distribution of null data
   mutate(value = ifelse(simulation == pos, 
-                        scales::rescale((value+true), c(1, sa3_max)), 
+                        # for the true data plot, keep random values if not close enough to cities
+                        ifelse(is.na(cities), value, true),
+                        # for all others rescale to the same range
                         scales::rescale((value), c(sa3_min, sa3_max))))
-
 
 ############################################################################### 
 ############################                       ############################
@@ -88,16 +95,16 @@ aus_geo_cities_plot <- aus_geo_sa3_cities %>%
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlBu") + 
-  facet_wrap(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() + guides(fill = FALSE) +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
-    strip.text.x = element_text(colour = "white"),
+    strip.text.x = element_text(colour = "white", size = 40),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
 aus_geo_cities_plot
 
-ggsave(filename = "figures/cities/aus_geo_cities.png", plot = aus_geo_cities_plot, device = "png", dpi = 300,
+ggsave(filename = "figures/cities/aus_geo_cities.pdf", plot = aus_geo_cities_plot, device = "pdf", dpi = 300,
   height = 18, width = 18)
 
 aus_hex_cities_plot <- aus_hex_sa3_cities %>% 
@@ -105,15 +112,15 @@ aus_hex_cities_plot <- aus_hex_sa3_cities %>%
   geom_sf(data = aus_underlay, colour = "lightgrey", fill = NA, size = 0.01) + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlBu") + 
-  facet_wrap(~ simulation) + theme_minimal() +
+  facet_wrap(~ simulation) + theme_minimal() + guides(fill = FALSE) +
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
-    strip.text.x = element_text(colour = "white"),
+    strip.text.x = element_text(colour = "white", size = 40),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
 aus_hex_cities_plot
 
-ggsave(filename = "figures/cities/aus_hex_cities.png", plot = aus_hex_cities_plot, device = "png", dpi = 300,
+ggsave(filename = "figures/cities/aus_hex_cities.pdf", plot = aus_hex_cities_plot, device = "pdf", dpi = 300,
   height = 18, width = 18)
 

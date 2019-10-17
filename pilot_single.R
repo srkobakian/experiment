@@ -7,14 +7,14 @@
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
-  filter(groups == "smooth3") %>%
+  filter(groups == "smooth1") %>%
   pull(value) %>% min()
 sa3_max <- sa3_long %>% 
-  filter(groups == "smooth3") %>%
+  filter(groups == "smooth1") %>%
   pull(value) %>% max()
 
 sa3_mean <- sa3_long %>% 
-  filter(groups == "smooth3") %>%
+  filter(groups == "smooth1") %>%
   pull(value) %>% mean()
 
 
@@ -76,6 +76,7 @@ aus_hex_sa3_single <- aus_hex_single %>%
 
 ggplot(aus_hex_sa3_single) + geom_histogram(aes(x=value)) + facet_wrap(~simulation)
 
+
 ############################################################################### 
 ############################                       ############################
 ############################################################################### 
@@ -88,12 +89,12 @@ aus_geo_single_plot <- aus_geo_sa3_single %>%
   theme(plot.background = element_rect(fill = "black"),
     panel.background = element_rect(fill = "black", colour = NA),
     strip.background = element_rect(fill = "black", colour = NA),
-    strip.text.x = element_text(colour = "white"),
+    strip.text.x = element_text(colour = "white", size = 40),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/single/aus_geo_single.png", plot = aus_geo_single_plot, device = "png", dpi = 300,
-  height = 18, width = 18)
 aus_geo_single_plot
+ggsave(filename = "figures/single/aus_geo_single.pdf", plot = aus_geo_single_plot, device = "pdf", dpi = 300,
+  height = 18, width = 18)
 
 aus_hex_single_plot <- aus_hex_sa3_single %>% 
   ggplot() + 
@@ -103,9 +104,9 @@ aus_hex_single_plot <- aus_hex_sa3_single %>%
   theme(plot.background = element_rect(fill = "black"),
         panel.background = element_rect(fill = "black", colour = NA),
         strip.background = element_rect(fill = "black", colour = NA),
-        strip.text.x = element_text(colour = "white"),
+        strip.text.x = element_text(colour = "white", size = 40),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
-ggsave(filename = "figures/single/aus_hex_single.png", plot = aus_hex_single_plot, device = "png", dpi = 300,
-       height = 18, width = 18)
 aus_hex_single_plot
+ggsave(filename = "figures/single/aus_hex_single.pdf", plot = aus_hex_single_plot, device = "pdf", dpi = 300,
+       height = 18, width = 18)

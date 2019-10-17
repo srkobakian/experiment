@@ -12,7 +12,7 @@ library(sugarbag)
 library(tidyverse)
 library(viridis)
 
-set.seed(19941031)
+set.seed(19941030)
 
 ###########################################################
 ####################     DATA    ##########################
@@ -90,7 +90,7 @@ hex <- left_join(hexagons_sf, sa3_centroids)
 # Specify the spatial model
 var.g.dummy <- gstat(formula = z ~ 1, 
   locations = ~ longitude + latitude, 
-  dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = 0.5),
+  dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = 0.3),
   nmax = 12)
 
 # Create underlying spatially dependent data for 16 null plots
@@ -172,60 +172,7 @@ s_plot <- sa3_long %>%
   scale_fill_manual(values = smoothed_alpha)
 
 s_plot
+
 ggsave(filename = "figures/simulation_densities.png", 
   plot = s_plot, device = "png", dpi = 300,
   height = 12, width = 12)
-
-##########################################################
-
-## Tasmania plots
-library(gganimate)
-
-tas_sims <- sa3 %>% 
-  filter(state_name_2016 == "Tasmania") %>% 
-  select(sa3_name_2016) %>% 
-  left_join(., sa3_long)
-
-tas <- tas_sims %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlBu") +
-  facet_grid(groups~simulation)
-ggsave(filename = "figures/tas_simulation.png", plot = tas, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-
-
-#tas <- tas_sims %>% 
-#  ggplot() + 
-#  geom_sf(aes(fill = value)) + 
-#  scale_fill_distiller(type = "div", palette = "RdYlBu") +
-#  facet_wrap(~simulation) + 
-#  transition_states(states = groups, wrap = FALSE)
-#tas_anim <- animate(tas, nframes = 12, duration = 15)
-
-#anim_save(filename = "figures/tas_simulation.gif", animation = tas_anim)
-
-###########################################################
-
-
-hex_sims <- hexagons_sf %>% 
-  filter(sa3_name_2016 %in% tas_sims$sa3_name_2016) %>% 
-  select(sa3_name_2016) %>% 
-  left_join(., sa3_long)
-
-hex_sims <- hex_sims %>% 
-  ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlBu") +
-  facet_grid(groups~simulation)
-ggsave(filename = "figures/hex_simulation.png", plot = hex_sims, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-
-###############################################################################
-####### ANIMATION ##############
-# hex <- hex_sims %>% 
-#   ggplot() + geom_sf(aes(fill = value)) + scale_fill_distiller(type = "div", palette = "RdYlBu") +
-#   facet_wrap(~simulation) + 
-#   transition_states(states = groups, wrap = FALSE)
-#hex_anim <- animate(hex, nframes = 12, duration = 15)
-
-#anim_save(filename = "figures/hex_simulation.gif", 
-#  animation = hex_anim)
