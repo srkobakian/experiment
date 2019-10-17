@@ -4,22 +4,57 @@
 
 # Which map shows the most areas coloured red?
 
-# First source the simulated points
-# source('~/experiment/R/00_pilot.R', echo = TRUE)
+set.seed(2015)
+var.g.dummy <- gstat(formula = z ~ 1, 
+                     locations = ~ longitude + latitude, 
+                     dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = 0.3),
+                     nmax = 12)
 
-# only use the most smoothed
+# Create underlying spatially dependent data for 12 null plots
+var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 12) %>% 
+  left_join(sa3_centroids, ., by=c("longitude", "latitude"))
+
+# use an underlying spatial covariance model
+
+sa3_sims1 <- as_tibble(var.sim) %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+sa3_sims2 <- sa3_sims1 %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+sa3_sims3 <- sa3_sims2 %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+
+smoothing <- bind_rows(
+  "smooth1" = sa3_sims1,
+  "smooth2" = sa3_sims2, 
+  "smooth3" = sa3_sims3, .id = "groups")
+
+
+sa3_long <- smoothing %>%
+  select(-longitude, -latitude, -logsize) %>% 
+  gather(key = "simulation", value = "value", -sa3_name_2016, -groups) %>%
+  mutate(simulation = as.numeric(gsub("sim", "", simulation)))
+
+
+# only use the least smoothed
 sa3_min <- sa3_long %>% 
   filter(groups == "smooth1") %>%
   pull(value) %>% min()
 sa3_max <- sa3_long %>% 
   filter(groups == "smooth1") %>%
   pull(value) %>% max()
+
 sa3_mean <- sa3_long %>% 
   filter(groups == "smooth1") %>%
   pull(value) %>% mean()
 
+#####################################################################
 
-# use an underlying spatial covariance model
 # increase the values of Brisbane, depending on distance from Brisbane city
 # allocated: the data set containing the allocated hexagon centroid for each sa3
 max_dist <- 1478314 # furthest area from any focal point
@@ -56,8 +91,7 @@ aus_hex_cities <- hexagons_sf %>%
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
-set.seed(19941031)
-pos <- sample(1:12, 1)
+pos <- 6
 
 aus_geo_sa3_cities <- aus_geo_cities %>%
   mutate(true = cities) %>% 
@@ -69,6 +103,8 @@ aus_geo_sa3_cities <- aus_geo_cities %>%
          ifelse(is.na(cities), value, true),
          # for all others rescale to the same range
          scales::rescale((value), c(sa3_min, sa3_max))))
+
+pos <- 1
 
 aus_hex_sa3_cities <- aus_hex_cities %>% 
   mutate(true = cities) %>% 
@@ -105,11 +141,11 @@ aus_geo_cities_plot <- aus_geo_sa3_cities %>%
 aus_geo_cities_plot
 
 ggsave(filename = "figures/cities/aus_geo_cities.pdf", plot = aus_geo_cities_plot, device = "pdf", dpi = 300,
-  height = 18, width = 18)
+  height = 14, width = 18)
 
 aus_hex_cities_plot <- aus_hex_sa3_cities %>% 
   ggplot() + 
-  geom_sf(data = aus_underlay, colour = "lightgrey", fill = NA, size = 0.01) + 
+  geom_sf(data = aus_underlay, colour = "grey", fill = NA, size = 0.01) + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlBu") + 
   facet_wrap(~ simulation) + theme_minimal() + guides(fill = FALSE) +
@@ -122,5 +158,5 @@ aus_hex_cities_plot <- aus_hex_sa3_cities %>%
 aus_hex_cities_plot
 
 ggsave(filename = "figures/cities/aus_hex_cities.pdf", plot = aus_hex_cities_plot, device = "pdf", dpi = 300,
-  height = 18, width = 18)
+  height = 14, width = 18)
 

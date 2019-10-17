@@ -2,8 +2,45 @@
 ###############################################################################
 ######################         NORTH TO SOUTH         #########################
 
-# First source the simulated points
-# source('~/experiment/R/00_pilot.R', echo = TRUE)
+# Are areas located in the north more blue than areas in the south?
+
+set.seed(2017)
+var.g.dummy <- gstat(formula = z ~ 1, 
+                     locations = ~ longitude + latitude, 
+                     dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = 0.3),
+                     nmax = 12)
+
+# Create underlying spatially dependent data for 12 null plots
+var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 12) %>% 
+  left_join(sa3_centroids, ., by=c("longitude", "latitude"))
+
+# use an underlying spatial covariance model
+
+sa3_sims1 <- as_tibble(var.sim) %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+sa3_sims2 <- sa3_sims1 %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+sa3_sims3 <- sa3_sims2 %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+
+smoothing <- bind_rows(
+  "smooth1" = sa3_sims1,
+  "smooth2" = sa3_sims2, 
+  "smooth3" = sa3_sims3, .id = "groups")
+
+
+sa3_long <- smoothing %>%
+  select(-longitude, -latitude, -logsize) %>% 
+  gather(key = "simulation", value = "value", -sa3_name_2016, -groups) %>%
+  mutate(simulation = as.numeric(gsub("sim", "", simulation)))
+
+
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
@@ -17,12 +54,14 @@ sa3_mean <- sa3_long %>%
   filter(groups == "smooth3") %>%
   pull(value) %>% mean()
 
+#####################################################################
 
-# use an underlying spatial covariance model
 # add a north to south model
 sa3_ns <- sa3_centroids %>% 
-  mutate(ns = abs(latitude-min(latitude))) %>% 
-  mutate(ns = scales::rescale(ns, to = c(sa3_min,sa3_max)))
+  mutate(ns = log(abs(latitude))) %>% 
+  mutate(ns = scales::rescale(ns, to = c(sa3_mean,sa3_max)))
+
+ggplot(sa3_ns) + geom_histogram(aes(ns))
 
 ### Start with shapes - geographies
 aus_geo_ns <- sa3 %>%
@@ -38,31 +77,33 @@ aus_hex_ns <- hexagons_sf %>%
   left_join(., sa3_long) %>% 
   left_join(., sa3_ns)
 
+
   
 ############################################################################### 
 
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
-set.seed(19941030)
-pos <- sample(1:12, 1)
+pos <- 10
 
-aus_geo_sa3 <- aus_geo_ns %>%
+aus_geo_sa3_ns <- aus_geo_ns %>%
   mutate(true = ns) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value+true), c(sa3_min, sa3_max)), 
+    scales::rescale((value), c(sa3_min, sa3_max)+true), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
-aus_hex_sa3 <- aus_hex_ns %>% 
+pos <- 8
+
+aus_hex_sa3_ns <- aus_hex_ns %>% 
   mutate(true = ns) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the new data around the distribution of null data
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value+true), c(sa3_min, sa3_max)), 
+    scales::rescale((value), c(sa3_min, sa3_max)+true), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
 
@@ -70,7 +111,7 @@ aus_hex_sa3 <- aus_hex_ns %>%
 ############################   Population ns       ############################
 ############################################################################### 
 
-aus_geo_ns <- aus_geo_sa3 %>% 
+aus_geo_ns <- aus_geo_sa3_ns %>% 
   ggplot() + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlBu") + 
@@ -82,11 +123,12 @@ aus_geo_ns <- aus_geo_sa3 %>%
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 ggsave(filename = "figures/ns/aus_geo_ns.pdf", plot = aus_geo_ns, device = "pdf", dpi = 300,
-  height = 9, width = 18)
+  height = 14, width = 18)
 
 
-aus_hex_ns <- aus_hex_sa3 %>% 
+aus_hex_ns <- aus_hex_sa3_ns %>% 
   ggplot() + 
+  geom_sf(data = aus_underlay, colour = "grey", fill = NA, size = 0.01) + 
   geom_sf(aes(fill = value), colour = NA) + 
   scale_fill_distiller(type = "div", palette = "RdYlBu") + 
   facet_wrap(~ simulation) + theme_minimal() + guides(fill = FALSE) +
@@ -97,4 +139,4 @@ aus_hex_ns <- aus_hex_sa3 %>%
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 ggsave(filename = "figures/ns/aus_hex_ns.pdf", plot = aus_hex_ns, device = "pdf", dpi = 300,
-  height = 9, width = 18)
+  height = 14, width = 18)
