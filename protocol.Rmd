@@ -227,6 +227,9 @@ Accuracy and Efficiency
 Design:
 We will model the difference between the accuracy and efficiency when evaluating hexagon tile maps and geographic maps.
 
+Main Effects:
+Spatial trend
+
 Random Effects:
 The collection of multiple responses from each person as they complete several different lineup tasks, allows estimates of their perceptual ability using a subject-specific random intercept in a generalized linear model.
 
@@ -234,7 +237,9 @@ Cofactors:
 responses to the questions regarding the difficulty of making a choice and the reason for the choice of plot in the line up.
 
 Interactions:
+Design and Difficulty: The interaction between the perceived difficulty of evaluating hexagon tile maps and geographic maps will be included to measure whether particiants feel differently about the designs.
 
+Spatial Trend and Difficulty: The interaction between the spatial trend used in the lineup of hexagon tile maps and geographic maps will be included to measure whether particiants feel differently about finding different spatial trends.
 
 #	Data management and record keeping
 
