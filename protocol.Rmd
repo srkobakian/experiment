@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 #	Title
-Assessing the effectiveness of hexagon tile maps for communicating spatial distribution of disease for Australia.
+Assessing the effectiveness of hexagon tile maps for communicating spatial distributions of disease for Australia.
 
 #	Project team roles & responsibilities
 
@@ -197,24 +197,32 @@ The percentage of correct responses where the respondent identified the real dat
 
 An expansion of the various observations, data and measures that will be made during the study and which will contribute to establishing success or otherwise in addressing the research question.
 
-
 The collection of multiple responses from each person as they complete several different lineup tasks, allows estimates of their perceptual ability and allows them to correct power differences between competing designs: by modeling power using a subject-specific random intercept in a generalized linear model.
 
 #	Data management and record keeping
-As the data will be held publicly online, it will be accessible under a license for people to reuse. It will also be held accessible to QUT researchers
+
+During the project, datasets produced from the project and that are approved for public access will be made available via QUT's Research Data Finder. These will be deidentified and require only the necessary answers for the research to be reproducible.
+
 
 ##	Confidentially and privacy
-All data will be deidentified, there is no need to protect confidentiality when the data has been anonymised.
+Datasets produced from the project and that will not be available for public access will contain demographic information about the participants. If there are participants with unique sets of demographics, their data will be combined with larger categories to minimise the risks of reidentification.
 
 ##	Data security
-All the survey information will be stored on github, a publicly available site, as well as on site at QUT.
 
+Responses to the survey will be stored securely using a private google drive accessible only to the researchers during the study through their password protected google drive accounts. This will contain potentially identifiable information if the respondents provide personal demographic information.
 
 ##	Record retention
-The records of data and analysis undertaken will be stored on github as well as on site at QUT.
+
+To ensure records are retained during and following the study the responses will be stored on the google drive immediately following the submission by participants. At the conclusion of the survey, the data will remain in the password protected google drive account.
+
+During the analysis phase the researchers Stephanie and Dianne will make copies of the survey responses to their work devices (laptop computers), that are password protected.
+
+This data set will also be deidentified and saved on the QUT network drives, which are automatically backed-up nightly in two physical locations. 
+The records of data analysis undertaken and the deidentified data will be stored on github as well as on QUT network drives. 
 
 ##	Secondary use 
-The analysis scripts and the data collected will be available for secondary use. Thisn their consent form. will be disclosed to participants 
+
+The analysis scripts and the data collected will be available for secondary use by other researchers to reproduce these results and also be used in future studies. This will be communicated to participants in their consent form.  
 
 #	Resources
 This work will be supported by ACEMS funding - $500 to pay 100 participants equally.
