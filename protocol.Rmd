@@ -205,41 +205,32 @@ The percentage of correct responses where the respondent identified the real dat
 
 To measure the accuracy of the detections, the plot chosen for each lineup evaluated will be compared to the position of the real spatial trend plot in the lineup.
 
-A correct result occurs when the chosen plot matches the position of the real plot, this will be recorded in an additional binary variable called $collect$.
-
-The accuracy of the choices for each display will be calculated as a proportion: 
-$accuracy = number correct/number shown$.
+A correct result occurs when the chosen plot matches the position of the real plot, this will be recorded in an additional binary variable; $1 = correct;~ 0 = incorrect$.
 
 
 ### Efficiency
 
 High efficiency occurs when a small amount of time is taken to evaluate each lineup.
-This will be measured as the inverse of the numeric variable measuring the length of time taken to submit the answers to the evaluation of each line up.
-
-The efficiency of the choices for each display will be calculated by the time taken as a fraction of the maximum time taken by all respondents to respond:
-$efficiency = time taken/maximumtime taken$.
+This will be measured as the numeric variable measuring the length of time taken to submit the answers to the evaluation of each line up.
 
 ## Model
+
+A multilevel linear model with be fitted to the data with elements as specified below. 
 
 Response Variables:
 Accuracy and Efficiency 
 
-Design:
-We will model the difference between the accuracy and efficiency when evaluating hexagon tile maps and geographic maps.
-
 Main Effects:
-Spatial trend
+Design, Trend
 
 Random Effects:
 The collection of multiple responses from each person as they complete several different lineup tasks, allows estimates of their perceptual ability using a subject-specific random intercept in a generalized linear model.
 
-Cofactors:
-responses to the questions regarding the difficulty of making a choice and the reason for the choice of plot in the line up.
+Possible Interactions:
+Design and Trend, Design and Difficulty, Design and Reason
 
-Interactions:
-Design and Difficulty: The interaction between the perceived difficulty of evaluating hexagon tile maps and geographic maps will be included to measure whether particiants feel differently about the designs.
-
-Spatial Trend and Difficulty: The interaction between the spatial trend used in the lineup of hexagon tile maps and geographic maps will be included to measure whether particiants feel differently about finding different spatial trends.
+Possible covariates:
+Responses to the questions regarding the difficulty of making a choice and the reason for the choice of plot in the line up.
 
 #	Data management and record keeping
 
