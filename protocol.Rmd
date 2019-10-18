@@ -205,7 +205,12 @@ During the project, datasets produced from the project and that are approved for
 
 
 ##	Confidentially and privacy
-Datasets produced from the project and that will not be available for public access will contain demographic information about the participants. If there are participants with unique sets of demographics, their data will be combined with larger categories to minimise the risks of reidentification.
+
+Datasets produced from the project and that will *not* be available for public access will contain original demographic information about the participants and their Figure-Eight contributor ID. 
+
+Datasets produced from the project and that *will be* available for public access on github will be deidentified and only contain the responses to survey.
+If there are participants with unique sets of demographics, their data will be combined with larger categories to minimise the risks of reidentification.
+
 
 ##	Data security
 
