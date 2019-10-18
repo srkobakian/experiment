@@ -50,35 +50,24 @@ The responses of participants will be contrasted when shown the same information
 
 ##	Hypotheses
 
-When participants see the same data set displayed a line up as a hexagon tile map and geographic map, participants will pick the map that displays a pattern influenced by population density more often when the information is presented in a hexagon tile map.
+A hexagon tile map display allows people to detect the impact of a disease in highly populated small areas with higher accuracy and efficiency, in comparison to the accuracy and efficiency of detections made when viewing a choropleth map.
 
 ##	Research questions/ aims
 
-1.	Measure the accuracy in spotting a real population density related spatial distribution from a line-up of null maps
-2.	Contrast the accuracy and efficiency when participants pick from geographic or hexagon maps
+1. Show that spatial disease trends, that impact highly populated small areas, are detected with higher accuracy when viewed in a hexagon tile map display.
+
+
+
 
 ##	Outcome measures 
 
-Experiment information collected:
+For each plot evaluation the subject will provide these responses:
 
-- Choice of plot in each line up
+- Their choice of plot from a lineup
 - Reason for choice of plot
-- Time taken to answer
-- Perceived difficulty of question
- 
-Factors:
+- Time taken to respond
+- Perceived difficulty in making a choice
 
-- Plot type ( Hexagon / Geographic )
-- Spatial dependence structure ( Difference in a single city / Related to population density / North to South )
- 
-We will record demographic information to consider the impacts of:
-
-- gender (female / male / other),
-- degree education level achieved (high school / bachelors / masters / doctorate / other),
-- age range (18-25 / 25-35 / 35-45 / 45-55 / 55+ / other)
-- lived in Australia (Yes / No / Other)
-
- 
 #	Study design
 
 Each participant will first see three test displays, they will then undertake an online survey linked to them through the online crowdsource platform Figure-Eight.
@@ -88,7 +77,7 @@ Each display will be created by a combination of plot type, error distribution a
 We will contrast the sets of different plot designs, hexagon tilemap and geography in the lineups created using the same data, and same null positions within the lineup. 
 We will compare the length of time taken and the accuracy with which participants report their choice.
 
-The possible levels of the factors are:
+The levels of the factors are:
 
  - Plot type: Geography, Hexagons
  - Spatial Dependence: Difference in a single city, Related to population density, North to South
@@ -133,7 +122,22 @@ Test questions are the most important quality control mechanism in the Figure-Ei
 Contributors that fail quiz mode are not paid and are permanently disqualified from working on your job. Participants will need to reach an accuracy threshold we will set to be allowed to answer the questions in our survey. Test questions will also be included as the job progresses so we can be sure quality remains high.
 
 ##	Data collection
-As the survey is conducted through the Figure-Eight platform, the human data will also be collected in the form of an IP address, Contributor ID, Trust Score and Channel. Some sources believe an IP address is identifiable information, as such it will not be held publicly online when the data is held on github. We will also ask for information regarding gender, education level achieved, and age range to understand perception of different groups.
+
+As the survey is conducted through the Figure-Eight platform, IP Address Contributor ID, Trust Score and Channel(add link to Figure 8 details page ) will be provided. In addition to the experimental design and response variables:
+ 
+- Plot type ( Hexagon / Geographic )
+- Trend model ( Two hotspots / Multiple hotspots / spatial trend )
+- Choice of plot in each line up
+- Reason for choice of plot
+- Time taken to answer
+- Perceived difficulty of question
+ 
+the survey of participants will provide this demographic information:
+
+- Gender (female / male / other),
+- Degree education level achieved (high school / bachelors / masters / doctorate / other),
+- Age range (18-24 / 25-34 / 35-44 / 45-54 / 55+ / other)
+- Lived in Australia (Yes / No / other)
 
 ##	Data collection/gathering techniques: 
 Data will be collected through survey distribution via a web application.
@@ -195,9 +199,42 @@ The percentage of correct responses where the respondent identified the real dat
 
 #	Outcome measures
 
-An expansion of the various observations, data and measures that will be made during the study and which will contribute to establishing success or otherwise in addressing the research question.
+## Response variables 
 
-The collection of multiple responses from each person as they complete several different lineup tasks, allows estimates of their perceptual ability and allows them to correct power differences between competing designs: by modeling power using a subject-specific random intercept in a generalized linear model.
+### Accuracy
+
+To measure the accuracy of the detections, the plot chosen for each lineup evaluated will be compared to the position of the real spatial trend plot in the lineup.
+
+A correct result occurs when the chosen plot matches the position of the real plot, this will be recorded in an additional binary variable called $collect$.
+
+The accuracy of the choices for each display will be calculated as a proportion: 
+$accuracy = number correct/number shown$.
+
+
+### Efficiency
+
+High efficiency occurs when a small amount of time is taken to evaluate each lineup.
+This will be measured as the inverse of the numeric variable measuring the length of time taken to submit the answers to the evaluation of each line up.
+
+The efficiency of the choices for each display will be calculated by the time taken as a fraction of the maximum time taken by all respondents to respond:
+$efficiency = time taken/maximumtime taken$.
+
+## Model
+
+Response Variables:
+Accuracy and Efficiency 
+
+Design:
+We will model the difference between the accuracy and efficiency when evaluating hexagon tile maps and geographic maps.
+
+Random Effects:
+The collection of multiple responses from each person as they complete several different lineup tasks, allows estimates of their perceptual ability using a subject-specific random intercept in a generalized linear model.
+
+Cofactors:
+responses to the questions regarding the difficulty of making a choice and the reason for the choice of plot in the line up.
+
+Interactions:
+
 
 #	Data management and record keeping
 
