@@ -58,10 +58,16 @@ sa3_mean <- sa3_long %>%
 # allocated: the data set containing the allocated hexagon centroid for each sa3
 max_dist <- 1478314 # furthest area with Brisbane focal point
 
+city_list1 <- c("Brisbane", "Sydney", "Perth")
+  
 sa3_single <- allocated %>% 
   select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
-  mutate(single = ifelse(points == "Brisbane", scales::rescale(
-    (max_dist - focal_dist)^10, to = c(sa3_mean, sa3_max)), NA))
+  mutate(city_distance = (max_dist - focal_dist)^8,
+         # only for desired cities
+         dist = ifelse(points %in% city_list1, 
+                       scales::rescale(city_distance, to = c(0,1)), NA),
+         single = ifelse(dist < 0.85, NA,
+                         scales::rescale(city_distance, to = c(sa3_mean, sa3_max))))
     
     
 ### Start with shapes - geographies

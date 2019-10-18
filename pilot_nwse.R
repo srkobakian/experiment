@@ -2,16 +2,57 @@
 ###############################################################################
 ######################    NORTH WEST TO SOUTH EAST    #########################
 
-# First source the simulated points
-#source('~/experiment/R/00_pilot.R', echo = TRUE)
+
+set.seed(2017)
+var.g.dummy <- gstat(formula = z ~ 1, 
+                     locations = ~ longitude + latitude, 
+                     dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = 0.3),
+                     nmax = 12)
+
+# Create underlying spatially dependent data for 12 null plots
+var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 12) %>% 
+  left_join(sa3_centroids, ., by=c("longitude", "latitude"))
+
+# use an underlying spatial covariance model
+
+sa3_sims1 <- as_tibble(var.sim) %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+sa3_sims2 <- sa3_sims1 %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+sa3_sims3 <- sa3_sims2 %>% 
+  mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
+                           values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
+
+
+smoothing <- bind_rows(
+  "smooth1" = sa3_sims1,
+  "smooth2" = sa3_sims2, 
+  "smooth3" = sa3_sims3, .id = "groups")
+
+
+sa3_long <- smoothing %>%
+  select(-longitude, -latitude, -logsize) %>% 
+  gather(key = "simulation", value = "value", -sa3_name_2016, -groups) %>%
+  mutate(simulation = as.numeric(gsub("sim", "", simulation)))
+
+
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
-  filter(groups == "smooth5") %>%
+  filter(groups == "smooth3") %>%
   pull(value) %>% min()
 sa3_max <- sa3_long %>% 
-  filter(groups == "smooth5") %>%
+  filter(groups == "smooth3") %>%
   pull(value) %>% max()
+
+sa3_mean <- sa3_long %>% 
+  filter(groups == "smooth3") %>%
+  pull(value) %>% mean()
+
 
 # use an underlying spatial covariance model
 # add a north to south model
@@ -25,9 +66,6 @@ sa3_nwse <- sa3_centroids %>%
 
 ###############################################################################
 ######################         NORTH TO SOUTH         #########################
-
-# First source the simulated points
-source('~/experiment/R/00_pilot.R', echo = TRUE)
 
 # use an underlying spatial covariance model
 # add a north to south model
@@ -51,7 +89,7 @@ aus_hex_nwse <- hexagons_sf %>%
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
-pos <- sample(1:16, 1)
+pos <- 9
 
 aus_geo_sa3 <- aus_geo_nwse %>%
   mutate(true = nwse) %>% 
@@ -72,7 +110,7 @@ aus_hex_sa3 <- aus_hex_nwse %>%
     scales::rescale((value), c(sa3_min, sa3_max))))
 
 ############################################################################### 
-############################   Population ns       ############################
+############################   Population nwse     ############################
 ############################################################################### 
 
 aus_geo_nwse <- aus_geo_sa3 %>% 
@@ -85,7 +123,7 @@ aus_geo_nwse <- aus_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/aus_geo_nwse.png", plot = aus_geo_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/lineups/aus_geo_nwse.pdf", plot = aus_geo_nwse, device = "pdf", dpi = 300,
   height = 9, width = 18)
 
 
@@ -99,111 +137,5 @@ aus_hex_nwse <- aus_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/aus_hex_nwse.png", plot = aus_hex_nwse, device = "png", dpi = 300,
+ggsave(filename = "figures/lineups/aus_hex_nwse.pdf", plot = aus_hex_nwse, device = "pdf", dpi = 300,
   height = 9, width = 18)
-
-
-
-############################################################################### 
-############################       Tasmania        ############################
-############################################################################### 
-
-
-tas_geo_sa3 <- aus_geo_sa3 %>%
-  filter(sa3_name_2016 %in% Tasmania)
-
-tas_hex_sa3 <- aus_hex_sa3 %>%
-  filter(sa3_name_2016 %in% Tasmania)
-
-###############################################################################
-tas_geo_sa3 %>% 
-  ggplot() + geom_density(aes(x = nwse)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn")
-ggsave(filename = "figures/lineups/tas/density.png", plot = tas_nwse, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-spop_plot <- tas_geo_sa3 %>%
-  group_by(groups) %>% 
-  mutate(mean_value  = mean(ns)) %>% 
-  ggplot() + 
-  geom_density(aes(x= nwse, fill = groups), alpha = 0.3) +
-  geom_vline(aes(xintercept = mean_value), colour = "black") + 
-  scale_fill_manual(values = nwse_alpha)
-spop_plot
-
-tas_nwse <- tas_geo_sa3 %>% 
-  ggplot() + 
-  geom_sf(aes(fill = nwse)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_grid(groups~simulation)
-ggsave(filename = "figures/lineups/tas/geo_nwse.png", plot = tas_nwse, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-
-hex_nwse <- tas_hex_sa3 %>% 
-  ggplot() + geom_sf(aes(fill = nwse)) + 
-  scale_fill_distiller(type = "div", palette = "RdYlGn") +
-  facet_grid(groups~simulation)
-ggsave(filename = "figures/lineups/tas/hex_nwse.png", plot = hex_nwse, device = "png", dpi = 300,
-  height = 6, width = 6)
-
-gridExtra::grid.arrange(tas_nwse, hex_nwse)
-
-
-###############################################################################
-##########################    Population density    ###########################
-
-# Add Tasmania population density to null model
-
-tas_nwse <- ggplot(tas_geo_sa3) + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "Spectral") + 
-  facet_grid(groups~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/tas/geo_nwse.png", plot = tas_nwse, dpi=300, device = "png", width = 12, height = 6)
-
-hex_nwse <- ggplot(tas_hex_sa3) + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "Spectral") + 
-  facet_grid(~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/tas/hex_nwse.png", plot = hex_nwse, dpi=300, device = "png", width = 12, height = 6)
-
-
-
-# Line up hexagons (sf) plot
-# all plots will be null plots except the one with additional true trend model
-
-tas_nwse <- tas_geo_sa3 %>% 
-  ggplot() + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "Spectral") + 
-  facet_wrap( ~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/tas/nwse_tas.png", 
-  plot = tas_nwse, dpi=300, device = "png", width = 12, height = 6)
-
-hex_nwse <- tas_hex_sa3 %>%  
-  ggplot() + 
-  geom_sf(aes(fill = value), colour = NA) +
-  scale_fill_distiller(type = "div", palette = "Spectral") + 
-  facet_wrap( ~ simulation) + theme_minimal() +
-  theme(plot.background = element_rect(fill = "black"),
-    panel.background = element_rect(fill = "black", colour = NA),
-    strip.background = element_rect(fill = "black", colour = NA),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/tas/nwse_hex.png", 
-  plot = hex_nwse, dpi=300, device = "png", width = 12, height = 6)
