@@ -59,7 +59,7 @@ sa3_mean <- sa3_long %>%
 sa3_nwse <- sa3_centroids %>% 
   mutate(lat = abs(latitude-min(latitude)),
     long = abs(longitude-min(longitude)),
-    nwse = (2*lat)-long) %>% 
+    nwse = (-2*lat)+long) %>% 
   mutate(nwse = scales::rescale(nwse, to = c(sa3_min, sa3_max))) %>%
   select(-lat, -long)
 
@@ -96,8 +96,9 @@ aus_geo_sa3 <- aus_geo_nwse %>%
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
+  group_by(simulation) %>% 
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value+true), c(sa3_min, sa3_max)), 
+    scales::rescale((value+true), c(sa3_mean, sa3_max)), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
 aus_hex_sa3 <- aus_hex_nwse %>% 
@@ -105,8 +106,9 @@ aus_hex_sa3 <- aus_hex_nwse %>%
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
+  group_by(simulation) %>% 
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value+true), c(sa3_min, sa3_max)), 
+    scales::rescale((value+true), c(sa3_mean, sa3_max)), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
 ############################################################################### 
@@ -123,7 +125,7 @@ aus_geo_nwse <- aus_geo_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/aus_geo_nwse.pdf", plot = aus_geo_nwse, device = "pdf", dpi = 300,
+ggsave(filename = "figures/nwse/aus_geo_nwse.pdf", plot = aus_geo_nwse, device = "pdf", dpi = 300,
   height = 9, width = 18)
 
 
@@ -137,5 +139,5 @@ aus_hex_nwse <- aus_hex_sa3 %>%
     strip.background = element_rect(fill = "black", colour = NA),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank())
-ggsave(filename = "figures/lineups/aus_hex_nwse.pdf", plot = aus_hex_nwse, device = "pdf", dpi = 300,
+ggsave(filename = "figures/nwse/aus_hex_nwse.pdf", plot = aus_hex_nwse, device = "pdf", dpi = 300,
   height = 9, width = 18)
