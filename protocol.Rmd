@@ -54,9 +54,11 @@ A hexagon tile map display allows people to detect the impact of a disease in hi
 
 ##	Research questions/ aims
 
-1. Show that spatial disease trends, that impact highly populated small areas, are detected with higher accuracy when viewed in a hexagon tile map display.
-
-
+1. Are spatial disease trends, that impact highly populated small areas,  detected with higher accuracy when viewed in a hexagon tile map display?
+2. Are people faster in detecting spatial disease trends, that impact highly populated small areas, when using a hexagon tile map display?
+3. Do people find hexagon tile maps more difficult to read than choropleth maps?
+4. Are the reasons for choosing a plot different depending on the type of display?
+5. Does an Australian resident find the choropleth map easier to read than the hexagon tile map?
 
 
 ##	Outcome measures 
@@ -88,7 +90,7 @@ Allowing each factor combination to be considered will provide 12 (2x2x3) line u
 
 ##	Participants
 We will aim to survey 100 participants.
-Participants will be approached via their dashboard through their Figure-Eight accounts. 
+It will be advertised to potential participants via their dashboard through their Figure-Eight accounts. 
 
 ##	Inclusions and exclusion criteria
 The platform will advertise this survey to participants that fulfill the following:
