@@ -64,7 +64,7 @@ sa3_cities <- allocated %>%
   mutate(city_distance = (max_dist - focal_dist)^8,
          dist = scales::rescale(city_distance,
                                      to = c(0,1)),
-         cities = ifelse(dist < 0.85, NA, 
+         cities = ifelse(dist < 0.9, NA, 
                          scales::rescale(city_distance,
                         to = c(sa3_mean, sa3_max))))
 
