@@ -64,7 +64,7 @@ sa3_cities <- allocated %>%
   mutate(city_distance = (max_dist - focal_dist)^8,
          dist = scales::rescale(city_distance,
                                      to = c(0,1)),
-         cities = ifelse(dist < 0.92, NA, 
+         cities = ifelse(dist < 0.85, NA, 
                          scales::rescale(city_distance,
                         to = c(sa3_mean, sa3_max))))
 
@@ -98,19 +98,21 @@ aus_geo_sa3_cities <- aus_geo_cities %>%
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
+  group_by(simulation) %>% 
   mutate(value = ifelse(simulation == pos, 
          # for the true data plot, keep random values if not close enough to cities
          ifelse(is.na(cities), value, true),
          # for all others rescale to the same range
          scales::rescale((value), c(sa3_min, sa3_max))))
 
-pos <- 1
+pos <- 6
 
 aus_hex_sa3_cities <- aus_hex_cities %>% 
   mutate(true = cities) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the new data around the distribution of null data
+  group_by(simulation) %>% 
   mutate(value = ifelse(simulation == pos, 
                         # for the true data plot, keep random values if not close enough to cities
                         ifelse(is.na(cities), value, true),

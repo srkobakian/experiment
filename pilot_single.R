@@ -85,13 +85,14 @@ aus_hex_single <- hexagons_sf %>%
 # Add the distribution will be added to one of the null plots
 
 # Choose a location for the true data in the plot
-pos <- 4
+pos <- 11
 
 aus_geo_sa3_single <- aus_geo_single %>%
   mutate(true = single) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
+  group_by(simulation) %>% 
   mutate(value = ifelse(
     simulation == pos, ifelse(!is.na(true), true, value), 
     scales::rescale((value), c(sa3_min, sa3_max))))
@@ -102,6 +103,7 @@ aus_hex_sa3_single <- aus_hex_single %>%
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
   # add the spatial trend model to the null data plot
   # scale the new data around the distribution of null 
+  group_by(simulation) %>% 
   mutate(value = ifelse(
     simulation == pos, ifelse(!is.na(true), true, value), 
     scales::rescale((value), c(sa3_min, sa3_max))))
@@ -110,7 +112,8 @@ aus_hex_sa3_single <- aus_hex_single %>%
 ############################                       ############################
 ############################################################################### 
 
-ggplot(aus_hex_sa3_single) + geom_histogram(aes(x=value)) + facet_wrap(~simulation)
+ggplot(aus_hex_sa3_single %>%  filter(groups == "smooth3")) + 
+  geom_histogram(aes(x=value)) + facet_wrap(~simulation)
 
 
 ############################################################################### 

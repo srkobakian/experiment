@@ -92,7 +92,7 @@ aus_geo_sa3_ns <- aus_geo_ns %>%
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value), c(sa3_min, sa3_max)+true), 
+    scales::rescale((value+true), c(sa3_min, sa3_max)), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
 pos <- 8
@@ -103,7 +103,7 @@ aus_hex_sa3_ns <- aus_hex_ns %>%
   # add the spatial trend model to the null data plot
   # scale the new data around the distribution of null data
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value), c(sa3_min, sa3_max)+true), 
+    scales::rescale((value+true), c(sa3_min, sa3_max)), 
     scales::rescale((value), c(sa3_min, sa3_max))))
 
 
