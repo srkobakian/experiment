@@ -8,7 +8,7 @@ set.seed(2016)
 var.g.dummy <- gstat(formula = z ~ 1, 
                      locations = ~ longitude + latitude, 
                      dummy = T, beta = 1, model = vgm(psill = 1, model = "Gau", range = 0.3),
-                     nmax = 12)
+                     nmax = 6)
 
 # Create underlying spatially dependent data for 12 null plots
 var.sim <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 12) %>% 
@@ -39,6 +39,18 @@ sa3_long <- smoothing %>%
   select(-longitude, -latitude, -logsize) %>% 
   gather(key = "simulation", value = "value", -sa3_name_2016, -groups) %>%
   mutate(simulation = as.numeric(gsub("sim", "", simulation)))
+
+sims <- paste0("sim", 1:24)
+
+#####################################################################
+#### Split into two groups
+
+sa3_long_single1 <- sa3_long_single %>% 
+  filter(simulation < 13)
+
+sa3_long_single2 <- sa3_long_single %>% 
+  filter(simulation > 12) %>% mutate(simulation = simulation-12)
+
 
 # only use the most smoothed
 sa3_min <- sa3_long %>% 
