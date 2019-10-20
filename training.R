@@ -144,3 +144,67 @@ aus_hex_red <- aus_hex_sa3_red %>%
         panel.grid.minor = element_blank())
 ggsave(filename = "figures/red/aus_hex_red.pdf", plot = aus_hex_red, device = "pdf", dpi = 300,
        height = 9, width = 18)
+
+lineup_questions <- taipanQuestions(
+  demographics =
+    div(
+      # Contributor ID
+      textInput("contributor", label = "For payment, provide Figure Eight Contributor ID:", 
+                placeholder = "id"),
+      # Question 1, gender
+      selectInput("gender",
+                  h3("Select your gender:"),
+                  choices = list("Choose one" = 1, 
+                                 "Female" = 2, 
+                                 "Male" = 3), 
+                  selected = 1),
+      # Question 2, education
+      selectInput("education",
+                  h3("Select the highest level of education achieved:"),
+                  choices = list("Choose one" = 1, 
+                                 "High School Diploma" = 2,
+                                 "Bachelors Degree" = 3,
+                                 "Master Degree" = 4,
+                                 "Doctorate" = 4
+                  ), 
+                  selected = 1),
+      # Question 3, age range
+      selectInput("education",
+                  h3("Select your age range:"),
+                  choices = list("Choose one" = 1, 
+                                 "18 - 24" = 2,
+                                 "25 - 34" = 3,
+                                 "35 - 44" = 4,
+                                 "45 - 54" = 5,
+                                 "55+" = 6
+                  ), 
+                  selected = 1),
+      # Question 4, Australia
+      selectInput("australia",
+                  h3("Have you lived in Australia?"),
+                  choices = list("Choose one" = 1, 
+                                 "Yes" = 2,
+                                 "No" = 3), 
+                  selected = 1)
+    ),
+  scene =
+    div(
+      # Question 1, the choice of plot
+      selectInput("select",
+                  h3("Which map is most different from the others?"),
+                  choices = list("Choice 1" = 1, "Choice 2" = 2,
+                                 "Choice 3" = 3), selected = 1),
+      # Question 2, reason for their choice
+      checkboxGroupInput("reason",
+                         h3("What makes your chosen map different?:"),
+                         choices = list(
+                           "more red areas" = 1,
+                           "more blue areas" = 2,
+                           "greater range of colours" = 3,
+                           "other" = 4)),
+      # Question 3, certainty around their choice
+      sliderInput("certainty", h3("How certain are you that the chosen map is different? in percentage (%)"),
+                  min = 0, max = 100, value = 50)
+    )
+)
+
