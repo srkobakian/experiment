@@ -31,7 +31,7 @@ shinyUI(
         tabItem(tabName = "Questions",
                 includeScript("www/img_size.js"),
                 includeCSS("www/taipan.css"),
-                column(6,
+                column(8,
                        box(
                          title = textOutput("out_img_info"),
                          div(class = "taipan_image_div",
@@ -43,13 +43,12 @@ shinyUI(
                          collapsible = FALSE
                        )),
                 
-                column(6,
+                column(4,
                        box(
                          title = "Questions",
                          questions$scene,
                          div(
                            uiOutput("ui_btn_prev"),
-                           uiOutput("ui_save"),
                            uiOutput("ui_btn_next")),
                          width = 12,
                          status = "info",
