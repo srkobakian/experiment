@@ -78,7 +78,7 @@ For each plot evaluation the subject will provide these responses:
 
 Each participant will first see three test displays, they will then undertake an online survey linked to them through the online crowdsource platform Figure-Eight.
 Within the experiment:
-A line up protocol will be used to arrange 20 maps into one display.
+A line up protocol will be used to arrange 12 maps into one display.
 Each display will be created by a combination of plot type, spatial error distribution and spatial trend model.
 We will contrast the sets of different plot designs, hexagon tilemap and geography in the lineups created using the same data, and same null positions within the lineup. 
 We will compare the length of time taken and the accuracy with which participants report their choice.
@@ -219,12 +219,12 @@ Each lineup has the same hypotheses:
 $H_0:$ there is no real structure visible in the data plot
 $H_1:$ there is real structure visible in the data plot
 
-Each lineup is a set of m = 20 plots.
+Each lineup is a set of m = 12 plots.
 One plot contains data with a real structure.
-The probability that an observer picks the data plot when it is really *not* different from the 19 null plots, is $1/m = 1/20$.
+The probability that an observer picks the data plot when it is really *not* different from the 11 null plots, is $1/m = 1/12$.
 
 If a participant is able to identify the data plot from the lineup, we reject the null hypothesis.
-Type I error rate, $\alpha$, is set to a level of $1/m = 1/20 = 0.05$.
+Type I error rate, $\alpha$, is set to a level of $1/m = 1/12 = 0.083$.
 
 
 Compare the percentage of times users select the real data in a lineup for the same set of data presented in choropleth maps and hexagon tile maps.

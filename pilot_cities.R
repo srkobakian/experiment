@@ -184,7 +184,7 @@ sa3_cities <- allocated %>%
                                 to = c(0,1)),
          cities = ifelse(dist < 0.85, NA, 
                          scales::rescale(city_distance,
-                                         to = c(-1, 3))))
+                                         to = c(1, 3))))
 
 
 ### Start with shapes - geographies
@@ -268,9 +268,9 @@ geo_plot_cities <- function(data, position, min, max) {
           panel.grid.minor = element_blank())
   
   
-  ggsave(filename = paste0("figures/final/aus_geo_cities_", position, ".pdf"), 
+  ggsave(filename = paste0("figures/final/aus_geo_cities_", position, ".png"), 
          plot = aus_geo_cities_plot,
-         device = "pdf", dpi = 300,
+         device = "png", dpi = 300,
          height = 14, width = 18)
   return(aus_geo_cities_plot)
 }
@@ -301,9 +301,9 @@ hex_plot_cities <- function(data, position, min, max) {
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank()) 
   
-  ggsave(filename = paste0("figures/final/aus_hex_cities_", position, ".pdf"), 
+  ggsave(filename = paste0("figures/final/aus_hex_cities_", position, ".png"), 
          plot = aus_hex_cities_plot,
-         device = "pdf", dpi = 300,
+         device = "png", dpi = 300,
          height = 14, width = 18)
   return(aus_hex_cities_plot)
 }
