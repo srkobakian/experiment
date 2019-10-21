@@ -125,30 +125,32 @@ The Figure Eight procedures are followed: *Contributors that fail quiz mode are 
 
 ##	Data collection
 
-As the survey is conducted through the Figure-Eight platform, IP Address Contributor ID, Trust Score and Channel(add link to Figure 8 details page ) will be provided. In addition to the experimental design and response variables:
+As the survey is conducted through the Figure-Eight platform, which will record IP Address of computer used to access the survey, Contributor ID, Trust Score and Channel. In addition, we will record the responses of participants:
  
-- Plot type ( Hexagon / Geographic )
-- Trend model ( Two hotspots / Multiple hotspots / spatial trend )
 - Choice of plot in each line up
 - Reason for choice of plot
 - Time taken to answer
 - Perceived difficulty of question
  
-the survey of participants will provide this demographic information:
+and participants will be asked provide this demographic information:
 
 - Gender (female / male / other),
 - Degree education level achieved (high school / bachelors / masters / doctorate / other),
 - Age range (18-24 / 25-34 / 35-44 / 45-54 / 55+ / other)
-- Lived in Australia (Yes / No / other)
+- Lived at least for one year in Australia (Yes / No )
 
-##	Data collection/gathering techniques: 
+The experimental design variables, Plot Type, Trend Model and simulation number will also be saved for each display shown to participants. 
+
+##	Data collection/gathering techniques
+
 Data will be collected through survey distribution via a web application.
-Participants will access the application via link from a Figure-Eight "job".
+Participants will access the application via a link from the Figure-Eight "job".
 
 ##	Impact of, and response to, missing data
-If participants want to provide and "I don't know" answer they will be able to select this.
-If there are more than 50% of questions that are incomplete we will remove this survey and consider this withdrawal.
 
+Participants have the option to not respond to any question. 
+
+If there are 50% or more of unanswered survey questions (excluding demographic information) we will remove this participant's responses before data analysis.
  
 #	Statistical plan
 
