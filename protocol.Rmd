@@ -156,13 +156,22 @@ If there are 50% or more of unanswered survey questions (excluding demographic i
 
 The design of this study is based on work by Hofmann, Follett, Majumder and Cook [-@GTPCCD]. 
 
-##	Sample size determination and power; or how will determine that data saturation has occurred or data are sufficient for the purpose.
+##	Sample size determination and power
+<!--; or how will determine that data saturation has occurred or data are sufficient for the purpose.-->
 
-To be able to effectively evaluate the use of a hexagon tilemap we will contrast the proportion of times the real data plot was chosen in a line up of maps.
-The same data will be used to create 19 null data plots and one real data plot. This data will be displayed to users in both geographic maps and hexagon tile maps.
+To be able to effectively evaluate the use of a hexagon tilemap we will contrast the proportion of times the plot of the data was chosen from the field of null plots. 
 
-We will have aim to collect results from 100 participants (n=100), who will have tried to pick the real data in a line up of simulated data. 
+The same data will be used to create 11 null data plots and one data plot. This data will be displayed to users in both geographic maps and hexagon tile maps.
 
+We will have aim to collect results from 100 participants ($n=100$), who been asked to choose the plot that is most different from the others. Each participant will evaluate 12 lineups. 
+
+By chance, the data plot will be detected with probability, $1/12=0.083$. This corresponds to about 2 detections out of 20, generally this would be $n/12$ detections. Let's suppose the alternative hypothesis has probability of detection $p_A (>1/12)$. If we expect the data to be detected twice as often as by chance, $p_A=1/6$. To determine the probability of observing $n/12$ detections, given $p_A$, we can use a binomial distribution, where $k=ceiling(n/12)$, to calculate the power:
+
+$$P(X>k|p=p_A,n) = {n \choose k} p_A^k (1-p_A)^{n-k}$$
+
+If $p_A=1/6$ we would need almost 100 evaluations for each lineup to expect at least $n/12$ detections. With $p_A=0.25$ approximately 50 evaluations should yield sufficient detections. We will use a pilot study to estimate $p_A$. 
+
+<!--
 Let X be the corresponding random variable X, where i.e. X = # times out of n independent repetitions that the data plot is picked from the lineup.
 
 Under the null hypothesis, X has a Binomial distribution: $X ~ B_{n,1=m}$. 
@@ -171,8 +180,24 @@ $p-value = P(X \geq x|H_0) = 1- B_{n,1/m}(x-1)$
 
 This sets our Type I error rate, $\alpha$, at a level of $1/m$.
 The authors also define how to estimate the power of a lineup: the ratio of correct identifications of the real data, x, out of n viewings.
+-->
 
-
+```{r echo=FALSE, eval=FALSE}
+# Code to compute the power for given sample size and alternative p
+library(tidyverse)
+library(nullabor)
+library(viridis)
+n <- 20:100
+k <- ceiling(n/12)
+pA <- seq(1/12, 1/2, 0.01)
+g <- expand.grid(n, k, pA)
+pow <- tibble(n=g[,1], k=g[,2], pA=g[,3]) 
+pow <- pow %>% 
+  mutate(prob = pbinom(k, n, pA, lower.tail=FALSE)) 
+ggplot(pow, aes(x=n, y=pA, colour=prob, group=pA)) + 
+  geom_point() +
+  scale_colour_viridis_c()
+```
 
 ##	Data analysis and Statistical methods
 
