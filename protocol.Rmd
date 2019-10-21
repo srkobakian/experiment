@@ -89,17 +89,18 @@ Factor combinations to be examined by each participant amount to 6 (2x3) lineup 
 #	Study population
 
 ##	Participants
-We plan to collect responses from 100 participants. It will be advertised to potential participants via their dashboard through their Figure-Eight accounts. 
+We plan to collect responses from 100 participants.  
 
 ##	Inclusions and exclusion criteria
 The platform will advertise this survey to participants that fulfill the following:
+
  - level 2 or level 3 on the Figure-Eight Platform. 
  - at least 18 years old
  - trained and qualified to annotate images. 
 
 ##	Recruitment strategies, timeframe 
 Recruitment will take place via advertising on the Figure-Eight dashboards.
-The Figure-Eight platform will advertise this as a “job” to potential participants, they will not be under any obligation to complete this task. We will have the opportunity to wait until enough participants have completed the survey and provided their judgements.
+The Figure-Eight platform will advertise this as a “job” to potential participants, they will not be under any obligation to complete this task. We will have the opportunity to wait until enough participants have completed the survey and provided their responses.
 
 
 
