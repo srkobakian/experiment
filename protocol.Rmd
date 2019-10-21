@@ -100,9 +100,7 @@ The platform will advertise this survey to participants that fulfill the followi
 
 ##	Recruitment strategies, timeframe 
 Recruitment will take place via advertising on the Figure-Eight dashboards.
-The Figure-Eight platform will advertise this as a “job” to potential participants, they will not be under any obligation to complete this task. We will have the opportunity to wait until enough participants have completed the survey and provided their responses.
-
-
+The Figure-Eight platform will advertise this as a "job" to potential participants, they will not be under any obligation to complete this task. We keep advertising until enough participants have completed the survey, then remove the advertisements and close the survey.
 
 ##	Consent approaches
 
@@ -113,15 +111,17 @@ They will then continue to the survey, and complete the test questions.
 This page will also explain the use and storage of the data they contribute. The data will be the answers they provide, which will be publicly available on github at https://github.com/srkobakian/experiment. 
 
 ##	Participant withdrawal
-Participants will be able to withdraw by leaving the survey at any time.
+Participants can withdraw from the experiment at any time by quitting the survey.
 
 #	Procedures
 
 ##	Screening of participants
+
 Participants will need to have achieved contributor level two on the Figure-Eight platofrm, this is a smaller group of more experienced, higher accuracy contributors.
+
 Test questions are the most important quality control mechanism in the Figure-Eight Platform. Participants will complete them to practice and prepare for the experiment questions, they will need to reach an accuracy threshold we will set, to be allowed to participate in answering the experiment survey questions.
 
-Contributors that fail quiz mode are not paid and are permanently disqualified from working on your job. Participants will need to reach an accuracy threshold we will set to be allowed to answer the questions in our survey. Test questions will also be included as the job progresses so we can be sure quality remains high.
+The Figure Eight procedures are followed: *Contributors that fail quiz mode are not paid and are permanently disqualified from working on your job. Participants will need to achieve a pre-determined accuracy threshold to be allowed to answer the questions in our survey.*
 
 ##	Data collection
 
