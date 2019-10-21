@@ -199,14 +199,12 @@ ggplot(pow, aes(x=n, y=pA, colour=prob, group=pA)) +
   scale_colour_viridis_c()
 ```
 
-##	Data analysis and Statistical methods
+##	Data analysis and statistical methods
 
 
-This will be analysed using a generalised linear model, with random effects capturing the differences between the 100 participants.
-The main effects used will consider the spatial distribution of the errors, gender, degree education level achieved, age range and whether the participant has lived in Australia.
+The results will be analysed using a generalised linear model, with a subject random effect. There will be two main effects: plot type and trend model.
 
-
-Each lineup will have similar hypotheses:
+Each lineup has the same hypotheses:
 $H_0:$ there is no real structure visible in the data plot
 $H_1:$ there is real structure visible in the data plot
 
