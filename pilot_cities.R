@@ -74,18 +74,20 @@ geo_list <- sample(1:8, 4)
 hex_list <- seq(1:8)[-geo_list]
 
 ### Start with shapes - geographies
-aus_geo_cities <- map(sa3_cities[geo_list], ~sa3 %>%
-                        select(sa3_name_2016) %>% 
-                        # Add the 16 simulated values for each area
-                        left_join(., sa3_long, by = c("sa3_name_2016")) %>% 
-                        left_join(., .x, by = c("sa3_name_2016")))
+aus_geo_cities <- map(1:4, function(num) {
+  sa3 %>%
+    select(sa3_name_2016) %>% 
+    # Add the 16 simulated values for each area
+    left_join(sa3_long_cities[geo_list][[num]], ., by = c("sa3_name_2016")) %>% 
+    left_join(., sa3_cities[geo_list][[num]], by = c("sa3_name_2016"))})
 
 ### Start with shapes - hexagons
-aus_hex_cities <- map(sa3_cities[hex_list], ~hexagons_sf %>%
-                        select(sa3_name_2016) %>% 
-                        # Add the 16 simulated values for each area
-                        left_join(., sa3_long, by = c("sa3_name_2016")) %>% 
-                        left_join(., .x, by = c("sa3_name_2016")))
+aus_hex_cities <- map(1:4, function(num) {
+  hexagons_sf %>%
+    select(sa3_name_2016) %>% 
+    # Add the 16 simulated values for each area
+    left_join(sa3_long_cities[hex_list][[num]], ., by = c("sa3_name_2016")) %>% 
+    left_join(., sa3_cities[hex_list][[num]], by = c("sa3_name_2016"))})
 
 
 ############################################################################### 
@@ -123,7 +125,7 @@ ggplot(map_dfr(aus_hex_sa3_cities, as_tibble)) + geom_histogram(aes(x=value)) + 
 ############################################################################### 
 
 geo_plot <- function(data, pos, plotnum){
-  plota <- ggplot(data) + 
+  plota <- st_as_sf(data) %>% ungroup() %>% ggplot() + 
     geom_sf(aes(fill = value), colour = NA) + 
     scale_fill_distiller(type = "div", palette = "RdYlBu") + 
     facet_wrap(~ simulation) + theme_minimal() + guides(fill = FALSE) +
@@ -147,7 +149,7 @@ geo_plots <- map2(aus_geo_sa3_cities, 1:4, ~geo_plot(.x, geo_pos[.y], .y))
 
 
 hex_plot <- function(data, pos, plotnum){
-  plota <- ggplot(data) + 
+  plota <- st_as_sf(data) %>% ungroup() %>% ggplot() + 
     geom_sf(data = aus_underlay, colour = "grey", fill = NA, size = 0.01) + 
     geom_sf(aes(fill = value), colour = NA) + 
     scale_fill_distiller(type = "div", palette = "RdYlBu") + 
