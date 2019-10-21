@@ -184,7 +184,7 @@ sa3_cities <- allocated %>%
                                 to = c(0,1)),
          cities = ifelse(dist < 0.85, NA, 
                          scales::rescale(city_distance,
-                                         to = c(-1, 3))))
+                                         to = c(1, 3))))
 
 
 ### Start with shapes - geographies

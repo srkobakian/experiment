@@ -315,8 +315,7 @@ hex_plot_three <- function(data, position, min, max) {
   return(aus_hex_three_plot)
 }
 
-
-three_positions <- c(12,3,9,4)
+three_positions <- c(8, 9, 5, 12)
 min_list <- list(sa3_min1,sa3_min2,sa3_min3,sa3_min4)
 max_list <- list(sa3_max1,sa3_max2,sa3_max3,sa3_max4)
 geo_list <- list(aus_geo_three1, aus_geo_three2, aus_geo_three3, aus_geo_three4)
