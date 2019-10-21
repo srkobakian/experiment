@@ -14,8 +14,19 @@ getInputID <- function(input){
 
 shinyServer(
   function(input, output, session) {
+    
+    # Load survey questions
     questions <- readRDS("data/questions.Rds")
-    image_list <- list.files("www/app_images", full.names = TRUE)
+    
+    # Load survey images
+    if (TRUE){
+      image_list <-list.files("www/app_images/groupA", full.names = TRUE)
+      image_list <- sample(image_list, length(image_list))
+    } else {
+      image_list <- list.files("www/app_images/groupB", full.names = TRUE)
+      image_list <- sample(image_list, length(image_list))
+    }
+    
     
     v <- reactiveValues(
       imageNum = 1,
@@ -51,7 +62,7 @@ shinyServer(
         "btn_saveImage",
         box(
           "Save Image",
-          width = 4,
+          width = 6,
           background = "blue"
           
         )
@@ -76,7 +87,7 @@ shinyServer(
           "btn_next",
           box(
             "Next Image",
-            width = 4,
+            width = 6,
             background = "green"
           )
         )
@@ -92,7 +103,7 @@ shinyServer(
           "btn_prev",
           box(
             "Previous Image",
-            width = 4,
+            width = 6,
             background = "green"
           )
         )
@@ -159,6 +170,8 @@ shinyServer(
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
     })
     
+    
+    # change this to upload rows to survey google spreadsheet
     output$btn_export <- downloadHandler(
       filename = function() {
         paste('experiment-export-', Sys.Date(), '.csv', sep='')

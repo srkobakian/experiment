@@ -267,9 +267,9 @@ geo_plot_nwse <- function(data, position, min, max) {
           panel.grid.minor = element_blank())
   
   
-  ggsave(filename = paste0("figures/final/aus_geo_nwse_", position, ".pdf"), 
+  ggsave(filename = paste0("figures/final/aus_geo_nwse_", position, ".png"), 
          plot = aus_geo_nwse_plot,
-         device = "pdf", dpi = 300,
+         device = "png", dpi = 300,
          height = 14, width = 18)
   return(aus_geo_nwse_plot)
 }
@@ -300,9 +300,9 @@ hex_plot_nwse <- function(data, position, min, max) {
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank()) 
   
-  ggsave(filename = paste0("figures/final/aus_hex_nwse_", position, ".pdf"), 
+  ggsave(filename = paste0("figures/final/aus_hex_nwse_", position, ".png"), 
          plot = aus_hex_nwse_plot,
-         device = "pdf", dpi = 300,
+         device = "png", dpi = 300,
          height = 14, width = 18)
   return(aus_hex_nwse_plot)
 }
