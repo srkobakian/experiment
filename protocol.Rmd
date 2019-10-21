@@ -75,28 +75,27 @@ For each plot evaluation the subject will provide these responses:
 Each participant will first see three test displays, they will then undertake an online survey linked to them through the online crowdsource platform Figure-Eight.
 Within the experiment:
 A line up protocol will be used to arrange 20 maps into one display.
-Each display will be created by a combination of plot type, error distribution and spatial dependence.
+Each display will be created by a combination of plot type, spatial error distribution and spatial trend model.
 We will contrast the sets of different plot designs, hexagon tilemap and geography in the lineups created using the same data, and same null positions within the lineup. 
 We will compare the length of time taken and the accuracy with which participants report their choice.
 
 The levels of the factors are:
 
  - Plot type: Geography, Hexagons
- - Spatial Dependence: Difference in a single city, Related to population density, North to South
+ - Trend: Locations in two population centres, Locations in multiple population centres, South-East to North-West
 
-Allowing each factor combination to be considered will provide 12 (2x2x3) line up displays to be seen by all participants.
+Factor combinations to be examined by each participant amount to 6 (2x3) lineup displays. A participant cannot see the same data for both plot types. Four simulated sets of data will be generated for each treatment. This will generate 24 lineups (12 will be geographic maps, and 12 will be hexagon tile maps). Participants will evaluate 12 lineups, 6 of each plot type. 
 
 #	Study population
 
 ##	Participants
-We will aim to survey 100 participants.
-It will be advertised to potential participants via their dashboard through their Figure-Eight accounts. 
+We plan to collect responses from 100 participants. It will be advertised to potential participants via their dashboard through their Figure-Eight accounts. 
 
 ##	Inclusions and exclusion criteria
 The platform will advertise this survey to participants that fulfill the following:
  - level 2 or level 3 on the Figure-Eight Platform. 
  - at least 18 years old
- - trained and qualified to annotating images. 
+ - trained and qualified to annotate images. 
 
 ##	Recruitment strategies, timeframe 
 Recruitment will take place via advertising on the Figure-Eight dashboards.
