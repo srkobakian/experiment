@@ -178,7 +178,7 @@ sa3_mean4 <- sa3_long4  %>% pull(value) %>% mean()
 max_dist <- 1478314 # furthest area from any focal point
 
 set.seed(2019)
-cities <- c("Canberra","Sydney","Darwin","Brisbane","Melbourne","Adelaide","Hobart","Perth")
+cities <- c("Sydney","Brisbane","Melbourne","Adelaide","Perth", "Hobart")
 city_list1 <- sample(x = cities, size = 3)
 city_list2 <- sample(x = cities, size = 3)
 city_list3 <- sample(x = cities, size = 3)
