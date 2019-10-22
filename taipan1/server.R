@@ -2,7 +2,7 @@ library(shiny)
 library(ggplot2)
 library(purrr)
 # Load survey questions
-questions <- readRDS("data/questions.Rds")
+#questions <- readRDS("data/questions.Rds")
 
 getInputID <- function(input){
   if(!inherits(input, "shiny.tag")){
