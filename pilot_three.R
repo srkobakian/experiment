@@ -311,7 +311,7 @@ geo_plot_three <- function(data, position, min, max) {
           panel.grid.minor = element_blank())
   
   
-  ggsave(filename = paste0("figures/final/aus_geo_three_", position, ".png"), 
+  ggsave(filename = paste0("figures/final/aus_three_", position, "_geo.png"), 
          plot = aus_geo_three_plot,
          device = "png", dpi = 300,
          height = 14, width = 18)
@@ -345,7 +345,7 @@ hex_plot_three <- function(data, position, min, max) {
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank()) 
   
-  ggsave(filename = paste0("figures/final/aus_hex_three_", position, ".png"), 
+  ggsave(filename = paste0("figures/final/aus_three_", position, "_hex.png"), 
          plot = aus_hex_three_plot,
          device = "png", dpi = 300,
          height = 14, width = 18)
