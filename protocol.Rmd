@@ -155,6 +155,20 @@ Participants will access the application via a link from the Figure-Eight "job".
 Participants have the option to not respond to any question. 
 
 If there are 50% or more of unanswered survey questions (excluding demographic information) we will remove this participant's responses before data analysis.
+
+#	Outcome measures
+
+## Accuracy
+
+To measure the accuracy of the detections, the plot chosen for each lineup evaluated will be compared to the position of the real spatial trend plot in the lineup.
+
+A correct result occurs when the chosen plot matches the position of the real plot, this will be recorded in an additional binary variable; $1 = correct;~ 0 = incorrect$.
+
+
+## Efficiency
+
+High efficiency occurs when a small amount of time is taken to evaluate each lineup.
+This will be measured as the numeric variable measuring the length of time taken to submit the answers to the evaluation of each line up.
  
 #	Statistical plan
 
@@ -209,20 +223,6 @@ The table above shows the sample sizes yielding above 90% chance of detection ($
 
 If 4 lineups are evaluated for each trend model, the chance that none produce a detection is $(1-p_d)^4$, which for $p_D>0.9$ is effectively 0.
 
-#	Outcome measures
-
-## Accuracy
-
-To measure the accuracy of the detections, the plot chosen for each lineup evaluated will be compared to the position of the real spatial trend plot in the lineup.
-
-A correct result occurs when the chosen plot matches the position of the real plot, this will be recorded in an additional binary variable; $1 = correct;~ 0 = incorrect$.
-
-
-## Efficiency
-
-High efficiency occurs when a small amount of time is taken to evaluate each lineup.
-This will be measured as the numeric variable measuring the length of time taken to submit the answers to the evaluation of each line up.
-
 
 ##	Data analysis and statistical methods
 
@@ -237,7 +237,7 @@ Side-by-side dot plots will be made of accuracy (efficiency) against plot type, 
 
 Similar plots will be made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables. 
 
-Plots will be made in R~[@RCore], with the `ggplot2` package~[@ggplot2].
+Plots will be made in R [@RCore], with the `ggplot2` package [@ggplot2].
 
 ### Modeling
 
@@ -251,7 +251,7 @@ A similar model will be constructed for the efficiency, using a log time, and no
 
 The feedback and demographic variables will possibly be incorporated as covariates.
 
-Computation will be done using R~[@RCore], with the `lme4` package~[@lme4].
+Computation will be done using R [@RCore], with the `lme4` package [@lme4].
 
 #	Data management and record keeping
 
@@ -283,14 +283,30 @@ This data set will also be de-identified, by removing the demographic data, and 
 The analysis scripts and the de-identified data will be available for secondary use by other researchers to reproduce these results and also use in future studies. Participants will be asked to provide consent for this usage in the consent form.  
 
 #	Resources
-This work will be supported by ACEMS funding - $500 to pay 100 participants equally.
+
+Each participant will earn $AUD5 for their work. 
 
 #	Results, outcomes and future plans
- - Plans for return of results of research to participants
- - Publication plan
- - Other potential uses of the data at the end of the project
- - Project closure processes 
- - Plans for sharing and/or future use of data and/or follow-up research 
+
+## Plans for return of results of research to participants
+
+There is no intention to provide the results to participants. This might compromise their ability to participate in future experiments. 
+
+## Publication plan
+
+We intend to publish this work as a research article in a top journal, along with de-identified data as required by the journal's reproducibility policy.
+
+## Other potential uses of the data at the end of the project
+
+We do not intend to re-use this data, we don't see any major reasons for others to use this data. It may be possible that the data may be aggregated with many other studies to examine effects of education, age and gender on reading data plots.
+
+## Project closure processes 
+
+The project will be closed once the journal article is published.
+
+## Plans for sharing and/or future use of data and/or follow-up research 
+
+Details are provided in the Data Management Plan. The results from this study might inform design of future studies.
 
 #	Appendices 
 
