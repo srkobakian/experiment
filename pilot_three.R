@@ -184,65 +184,100 @@ city_list2 <- sample(x = cities, size = 3)
 city_list3 <- sample(x = cities, size = 3)
 city_list4 <- sample(x = cities, size = 3)
 
-sa3_three <- allocated %>% 
+sa3_three_1 <- allocated %>% 
   select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
   mutate(city_distance = (max_dist - focal_dist)^8,
          # only for desired three
-         dist = ifelse(points %in% city_list, 
+         dist = ifelse(points %in% city_list1, 
                        scales::rescale(city_distance, to = c(0,1)), NA),
          three = ifelse(dist < 0.85, NA,
                         scales::rescale(city_distance, to = c(1, 3.2))))
+
+
+sa3_three_2 <- allocated %>% 
+  select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
+  mutate(city_distance = (max_dist - focal_dist)^8,
+         # only for desired three
+         dist = ifelse(points %in% city_list2, 
+                       scales::rescale(city_distance, to = c(0,1)), NA),
+         three = ifelse(dist < 0.85, NA,
+                        scales::rescale(city_distance, to = c(1, 3.2))))
+
+sa3_three_3 <- allocated %>% 
+  select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
+  mutate(city_distance = (max_dist - focal_dist)^8,
+         # only for desired three
+         dist = ifelse(points %in% city_list3, 
+                       scales::rescale(city_distance, to = c(0,1)), NA),
+         three = ifelse(dist < 0.85, NA,
+                        scales::rescale(city_distance, to = c(1, 3.2))))
+
+sa3_three_4 <- allocated %>% 
+  select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
+  mutate(city_distance = (max_dist - focal_dist)^8,
+         # only for desired three
+         dist = ifelse(points %in% city_list4, 
+                       scales::rescale(city_distance, to = c(0,1)), NA),
+         three = ifelse(dist < 0.85, NA,
+                        scales::rescale(city_distance, to = c(1, 3.2))))
+
+bind_rows("sa3_three_1" = sa3_three_1, 
+          "sa3_three_2" = sa3_three_2, 
+          "sa3_three_3" = sa3_three_3, 
+          "sa3_three_4" = sa3_three_4, 
+          .id = "sets") %>% 
+ggplot() + geom_histogram(aes(x = three)) + facet_grid(points ~ sets)
 
 
 ### Start with shapes - geographies
 aus_geo_three1 <- sa3 %>%
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long1) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long1, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_1, by = "sa3_name_2016")
 
 aus_geo_three2 <- sa3 %>%
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long2) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long2, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_2, by = "sa3_name_2016")
 
 aus_geo_three3 <- sa3 %>%
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long3) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long3, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_3, by = "sa3_name_2016")
 
 aus_geo_three4 <- sa3 %>%
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long4) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long4, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_4, by = "sa3_name_2016")
 
 ### Start with shapes - hexagons
 aus_hex_three1 <- hexagons_sf %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long1) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long1, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_1, by = "sa3_name_2016")
 
 aus_hex_three2 <- hexagons_sf %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long2) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long2, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_2, by = "sa3_name_2016")
 
 aus_hex_three3 <- hexagons_sf %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long3) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long3, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_3, by = "sa3_name_2016")
 
 aus_hex_three4 <- hexagons_sf %>% 
   select(sa3_name_2016) %>% 
   # Add the 16 simulated values for each area
-  left_join(., sa3_long4) %>% 
-  left_join(., sa3_three)
+  left_join(., sa3_long4, by = "sa3_name_2016") %>% 
+  left_join(., sa3_three_4, by = "sa3_name_2016")
 
 ############################################################################### 
 
@@ -261,7 +296,8 @@ geo_plot_three <- function(data, position, min, max) {
                           # for the true data plot, keep random values if not close enough to three
                           ifelse(is.na(three), value, true),
                           # for all others rescale to the same range
-                          scales::rescale((value), c(min, max)))) %>%
+                          value)) %>%
+    mutate(value = scales::rescale((value), c(min, max))) %>% 
     # Plot this data as a geographic map
     ggplot() + 
     geom_sf(aes(fill = value), colour = NA) + 
@@ -294,7 +330,8 @@ hex_plot_three <- function(data, position, min, max) {
                           # for the true data plot, keep random values if not close enough to three
                           ifelse(is.na(three), value, true),
                           # for all others rescale to the same range
-                          scales::rescale((value), c(min, max)))) %>%
+                          value)) %>%
+    mutate(value = scales::rescale((value), c(min, max))) %>% 
     # Plot this data as a geographic map
     ggplot() + 
     geom_sf(data = aus_underlay, colour = "grey", fill = NA, size = 0.01) + 
@@ -330,3 +367,10 @@ hex_plot_three(aus_hex_three1, position = three_positions[[1]], min_list[[1]], m
 hex_plot_three(aus_hex_three2, position = three_positions[[2]], min_list[[2]], max_list[[2]])
 hex_plot_three(aus_hex_three3, position = three_positions[[3]], min_list[[3]], max_list[[3]])
 hex_plot_three(aus_hex_three4, position = three_positions[[4]], min_list[[4]], max_list[[4]])
+
+bind_rows("three_1" = st_drop_geometry(aus_hex_three1), 
+          "three_2" = st_drop_geometry(aus_hex_three2), 
+          "three_3" = st_drop_geometry(aus_hex_three3), 
+          "three_4" = st_drop_geometry(aus_hex_three4), 
+          .id = "sets") %>% 
+  ggplot() + geom_histogram(aes(x = value)) + facet_grid(simulation~ sets)

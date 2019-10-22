@@ -4,30 +4,34 @@
 
 # demographics and scene questions
 
-taipanQuestions <- function(demographics, scene){
+surveyQuestions <- function(demographics, scene){
   structure(
     list(demographics = demographics, scene = scene),
     class = "taipanQuestions"
   )
 }
-questions <- taipanQuestions(
+questions <- surveyQuestions(
   demographics =
     div(
       # Contributor ID
-      textInput("contributor", label = "For payment, provide Figure Eight Contributor ID:", 
+      textInput("contributor", "For payment, provide Figure Eight Contributor ID:", 
                 placeholder = "id"),
+      radioButtons("consent", "Do you consent to your responses being analysed for this survey project?\n
+                   For more information click the More Info button.", 
+                   choices = c("Yes, I consent" = 1,"No, I do not consent" = 2),
+                   selected = character(0)),
       # Question 1, gender
       selectInput("gender",
-                  h3("Select your preferred pronoun:"),
+                  "Select your preferred pronoun:",
                   choices = list("Choose one" = 1, 
                                  "She" = 2, 
                                  "He" = 3,
                                  "They" = 4,
-                                 "other = 5"), 
+                                 "Other" = 5), 
                   selected = 1),
       # Question 2, education
       selectInput("education",
-                  h3("Select the highest level of education achieved:"),
+                  "Select the highest level of education achieved:",
                   choices = list("Choose one" = 1, 
                                  "High School Diploma" = 2,
                                  "Bachelors Degree" = 3,
@@ -38,7 +42,7 @@ questions <- taipanQuestions(
                   selected = 1),
       # Question 3, age range
       selectInput("education",
-                  h3("Select your age range:"),
+                  "Select your age range:",
                   choices = list("Choose one" = 1, 
                                  "18 - 24" = 2,
                                  "25 - 34" = 3,
@@ -50,7 +54,7 @@ questions <- taipanQuestions(
                   selected = 1),
       # Question 4, Australia
       selectInput("australia",
-                  h3("Have you lived in Australia?"),
+                  "Have you lived in Australia?",
                   choices = list("Choose one" = 1, 
                                  "Yes" = 2,
                                  "No" = 3, 
@@ -61,7 +65,7 @@ questions <- taipanQuestions(
     div(
       # Question 1, the choice of plot
       selectInput("select",
-                  h3("Which map is most different from the others?"),
+                  "Which map is most different from the others?",
                   choices = list("Choose a plot number:" = 0,
                                  "1" = 1,
                                  "2" = 2,
@@ -78,17 +82,19 @@ questions <- taipanQuestions(
                   ), selected = 1),
       # Question 2, reason for their choice
       checkboxGroupInput("reason",
-                         h3("What makes your chosen map different?:"),
+                         "What makes your chosen map different?:",
                          choices = list(
                            "None of these reasons" = 0,
                            "Clusters of colour" = 1,
                            "Colour trend across the areas" = 2,
-                           "Big differences between neighbours" = 34)),
+                           "Big differences between neighbours" = 3)),
       # Question 3, certainty around their choice
-      sliderInput("certainty", h3("How certain are you that the chosen map is different?"),
+      sliderInput("certainty", "How certain are you that the chosen map is different? 
+                                  1 = Very uncertain, 3 = Neutral, 5 = Very certain",
                   min = 1, max = 5, value = 3)
     )
 )
 
 saveRDS(questions, file = "data/questions.Rds")
 saveRDS(questions, file = "taipan1/data/questions.Rds")
+
