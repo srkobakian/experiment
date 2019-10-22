@@ -16,8 +16,9 @@ questions <- surveyQuestions(
       # Contributor ID
       textInput("contributor", "For payment, provide Figure Eight Contributor ID:", 
                 placeholder = "id"),
+      p("For more information click the More Info button"),
       radioButtons("consent", "Do you consent to your responses being analysed for this survey project?\n
-                   For more information click the More Info button.", 
+                   .", 
                    choices = c("Yes, I consent" = 1,"No, I do not consent" = 2),
                    selected = character(0)),
       # Question 1, gender
@@ -41,7 +42,7 @@ questions <- surveyQuestions(
                   ), 
                   selected = 1),
       # Question 3, age range
-      selectInput("education",
+      selectInput("age",
                   "Select your age range:",
                   choices = list("Choose one" = 1, 
                                  "18 - 24" = 2,

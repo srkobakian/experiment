@@ -1,6 +1,8 @@
 library(shiny)
 library(ggplot2)
 library(purrr)
+# Load survey questions
+questions <- readRDS("data/questions.Rds")
 
 getInputID <- function(input){
   if(!inherits(input, "shiny.tag")){
@@ -15,9 +17,6 @@ getInputID <- function(input){
 shinyServer(
   function(input, output, session) {
     
-    # Load survey questions
-    questions <- readRDS("data/questions.Rds")
-    
     # Load survey images
     if (TRUE){
       image_list <-list.files("www/app_images/groupA", full.names = TRUE)
@@ -30,7 +29,9 @@ shinyServer(
     
     v <- reactiveValues(
       imageNum = 1,
-      responses = list()
+      responses = list(),
+      time = Sys.time(),
+      plot_order = 1
     )
     
     current_img <- reactive({
@@ -57,18 +58,6 @@ shinyServer(
       vals
     })
     
-    output$ui_save <- renderUI({
-      actionLink(
-        "btn_saveImage",
-        box(
-          "Save Image",
-          width = 6,
-          background = "blue"
-          
-        )
-      )
-    })
-    
     output$ui_d_save <- renderUI({
       actionLink(
         "btn_saveInfo",
@@ -87,7 +76,7 @@ shinyServer(
           "btn_next",
           box(
             "Next Image",
-            width = 6,
+            width = 12,
             background = "green"
           )
         )
@@ -97,21 +86,6 @@ shinyServer(
       }
     })
     
-    output$ui_btn_prev <- renderUI({
-      if (v$imageNum != 1) {
-        actionLink(
-          "btn_prev",
-          box(
-            "Previous Image",
-            width = 6,
-            background = "green"
-          )
-        )
-      }
-      else {
-        column(3)
-      }
-    })
     
     # Update the scene values when images change
     observeEvent(current_img(), {
@@ -138,27 +112,16 @@ shinyServer(
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
     })
     
-    observeEvent(input$btn_prev, {
-      v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
-      v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
-      v$imageNum <- pmax(1, v$imageNum - 1)
-    })
-    
     observeEvent(input$btn_next, {
       v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
-      v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
-      v$imageNum <- pmin(length(image_list), v$imageNum + 1)
-    })
+      v$responses[[basename(current_img())]][["scene"]]$time <- Sys.time()
+      v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
     
-    
-    observeEvent(input$btn_saveImage, {
-      showNotification(h3("Experiment answers have been saved."), type = "default")
-      v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
-      v$imageNum <- pmin(length(image_list), v$imageNum + 1)
       
+      v$imageNum <- pmin(length(image_list), v$imageNum + 1)
     })
-    
+      
     output$out_img_info <- renderText({
       sprintf("Image: (%i/%i)",
               v$imageNum,
@@ -168,16 +131,18 @@ shinyServer(
     observeEvent(input$btn_saveInfo, {
       showNotification(h3("Demographic information has been saved."), type = "default")
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
+      
+      # Switch to the survey tab
+      updateTabItems(session = session, inputId = "tabs", selected = "Questions")
     })
     
     
     # change this to upload rows to survey google spreadsheet
-    output$btn_export <- downloadHandler(
-      filename = function() {
-        paste('experiment-export-', Sys.Date(), '.csv', sep='')
-      },
-      content = function(con){
+    observeEvent(input$btn_export, 
+      {
         v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
+        v$responses[[basename(current_img())]][["scene"]]$time <- Sys.time()
+        v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
         v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
         out <- suppressWarnings( # hide coercion warnings
           v$responses %>%
@@ -192,7 +157,11 @@ shinyServer(
               }
             )
         )
-        write.csv(out, con, row.names = FALSE)
+        # add the row of responses to google sheet
+        gs_auth("data/authentication.rds")
+        sheet <- gs_key("1PcKMmsojzljDZl4bftOu5lbG51AVYuiPIJFq2t7kiGg")
+        gs_add_row(ss = sheet, ws = 1, input = out)
+        
       }
     )
   }

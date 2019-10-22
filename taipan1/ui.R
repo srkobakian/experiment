@@ -1,15 +1,19 @@
 library(shiny)
 library(shinydashboard)
 
+# Load survey questions
+questions <- readRDS("data/questions.Rds")
+
 shinyUI(
   dashboardPage(
     dashboardHeader(
       title = "taipan",
-      tags$li(class = "dropdown", downloadLink("btn_export", span(icon("save"), "Submit Survey"))),
+      tags$li(class = "dropdown", actionLink("btn_export", span(icon("save"), "Submit Survey"))),
       tags$li(class = "dropdown", a(href="https://github.com/srkobakian/experiment", target="_blank", span(icon("github"), "More Info")))
     ),  
     dashboardSidebar(
       sidebarMenu(
+        id = "tabs",
         menuItem("About you", tabName = "About_you", icon = icon("dashboard")),
         menuItem("Questions", tabName = "Questions", icon = icon("th"))
       )
@@ -48,7 +52,6 @@ shinyUI(
                          title = "Questions",
                          questions$scene,
                          div(
-                           uiOutput("ui_btn_prev"),
                            uiOutput("ui_btn_next")),
                          width = 12,
                          status = "info",

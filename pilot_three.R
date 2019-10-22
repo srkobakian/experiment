@@ -226,7 +226,7 @@ bind_rows("sa3_three_1" = sa3_three_1,
           "sa3_three_3" = sa3_three_3, 
           "sa3_three_4" = sa3_three_4, 
           .id = "sets") %>% 
-ggplot() + geom_histogram(aes(x = three)) + facet_grid(points ~ sets)
+  ggplot() + geom_histogram(aes(x = three)) + facet_grid(points ~ sets)
 
 
 ### Start with shapes - geographies
