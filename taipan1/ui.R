@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+library(googlesheets)
 
 # Load survey questions
 
@@ -64,7 +65,7 @@ questions <- surveyQuestions(
   scene =
     div(
       # Question 1, the choice of plot
-      selectInput("select",
+      selectInput("choice",
                   "Which map is most different from the others?",
                   choices = list("Choose a plot number:" = 0,
                                  "1" = 1,
