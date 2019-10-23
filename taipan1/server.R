@@ -88,21 +88,14 @@ shinyServer(
     
     # Update the scene values when images change
     observeEvent(current_img(), {
-      map(sceneInputs,
-          function(io){
-            # Update scene inputs
-            val <- v$responses[[basename(current_img())]][["scene"]][[io$id]]
-            if(!is.null(val)){
-              session$sendInputMessage(
-                io$id,
-                list(
-                  value = val,
-                  selected = val
-                )
-              )
-            }
-          }
-      )
+      
+      # return scene questions to original state
+      updateSelectInput(session, "choice",
+                        selected = 0)
+      updateSelectInput(session, "reason",
+                        selected = 0)
+      updateSelectInput(session, "certainty",
+                        selected = 3)
       
     })
     
@@ -119,7 +112,6 @@ shinyServer(
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
       v$imageNum <- pmin(length(image_list), v$imageNum + 1)
-      reset("select")
     })
       
     output$out_img_info <- renderText({

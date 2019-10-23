@@ -103,10 +103,20 @@ saveRDS(questions, file = "taipan1/data/questions.Rds")
 
 
 
-textInput("contributor", "For payment, provide Figure Eight Contributor ID:", 
-          placeholder = "id"),
+#textInput("contributor", "For payment, provide Figure Eight Contributor ID:", 
+#          placeholder = "id"),
+#
+#p("Assessing the effectiveness of hexagon tile maps for communicating spatial distributions of disease for Australia."),
+#p("If you have questions, please contact Stephanie Kobakian - stephanie.kobakian@monash.edu"),
+#p("If you have concerns about the ethical conduct of the research project you can contact the Research Ethics Advisory Team on +61 7 3138 5123 or email humanethics@qut.edu.au"),
 
-p("Assessing the effectiveness of hexagon tile maps for communicating spatial distributions of disease for Australia."),
-p("If you have questions, please contact Stephanie Kobakian - stephanie.kobakian@monash.edu"),
-p("If you have concerns about the ethical conduct of the research project you can contact the Research Ethics Advisory Team on +61 7 3138 5123 or email humanethics@qut.edu.au"),
 
+
+img_row <- function(img, image_name){
+  scene_row <- img$scene %>%
+    map_dfc(function(x){ifelse(is.null(x),NA , return(x))})
+  demographic_row <- img$demographic %>%
+    map_dfc(function(x){ifelse(is.null(x),NA , return(x))})
+  df <- dplyr::bind_cols(image_name = image_name, scene_row, demographic_row)
+  return(df)
+}
