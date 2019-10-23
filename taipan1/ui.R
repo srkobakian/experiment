@@ -13,15 +13,10 @@ questions <- surveyQuestions(
   demographics =
     div(
       # Contributor ID
-      textInput("contributor", "For payment, provide Figure Eight Contributor ID:", 
+      textInput("contributor", "Please provide a unique ID, eg. a favourite animal:", 
                 placeholder = "id"),
-      tags$b("Title:"),
-      p("Assessing the effectiveness of different visualisation methods for Australian spatial data."),
-      p("Principal Investigators:", tags$br(),
-        "Stephanie Kobakian - stephaie.kobakian@monash.edu", tags$br(),
-        "DProf Kerrie Mengersen - k.megersen@qut.edu.au", tags$br(),
-        "For more information click the More Info button."),
-      radioButtons("consent", "Do you consent to your responses being analysed for this survey project?\n
+      tags$b("This is a pilot study, your responses will not be used for analysis."),
+      radioButtons("consent", "Do you consent to your responses being collected?\n
                    .", 
                    choices = c("Yes, I consent to my responses being used for research purposes and allow them to be published online in a de-identified form." = 1,
                                "No, I do not consent to my responses being used for research purposes and allow them to be published online in a de-identified form." = 2),
