@@ -2,7 +2,6 @@ library(shiny)
 library(ggplot2)
 library(purrr)
 # Load survey questions
-#questions <- readRDS("data/questions.Rds")
 
 getInputID <- function(input){
   if(!inherits(input, "shiny.tag")){
@@ -129,11 +128,16 @@ shinyServer(
     })
     
     observeEvent(input$btn_saveInfo, {
-      showNotification(h3("Demographic information has been saved."), type = "default")
+      
+      if (!(isTRUE(v$responses[[basename(current_img())]][["demographic"]]$consent))) {
+        showNotification(h3("Consent must be given before you can proceed to questions."), type = "error", duration = 1)
+      } else{
+      showNotification(h3("Demographic information has been saved."), type = "message", duration = 1)
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
       # Switch to the survey tab
       updateTabItems(session = session, inputId = "tabs", selected = "Questions")
+      }
     })
     
     
