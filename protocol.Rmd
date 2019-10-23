@@ -26,12 +26,11 @@ Assessing the effectiveness of hexagon tile maps for communicating spatial distr
 #	Project team roles & responsibilities
 
 |          Researcher          |    Role                    |    Affiliation                                                                |   |   |
-|:----------------------------:|----------------------------|-------------------------------------------------------------------------------|---|---|
+|:------------------------------------------|:--------------------------------------|:-------------------------------------------------------------------------------|---|---|
 |    Stephanie Kobakian        |    Masters Student         | Faculty of Science and Engineering (QUT)                                      |   |   |
 |    Prof. Kerrie Mengersen    |    Principal Supervisor    | Faculty of Science and Engineering (QUT)                                      |   |   |
 |    Dr. Earl Duncan           |    Associate Supervisor    | Faculty of Science and Engineering (QUT)                                      |   |   |
 |    Prof. Dianne Cook         |    External Supervisor     |    Department of Econometrics and   Business Statistics, Monash University    |   |   |
-|                              |                            |                                     
 
 
  
