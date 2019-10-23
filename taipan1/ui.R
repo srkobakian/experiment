@@ -79,16 +79,16 @@ questions <- surveyQuestions(
                                  "10" = 10,
                                  "11" = 11,
                                  "12" = 12
-                  ), selected = 1),
+                  ), selected = 0),
       # Question 2, reason for their choice
-      checkboxGroupInput("reason",
+      radioButtons("reason",
                          "What makes your chosen map different?:",
                          choices = list(
                            "None of these reasons" = 0,
                            "Clusters of colour" = 1,
                            "Colour trend across the areas" = 2,
                            "Big differences between neighbours" = 3,
-                           "All areas have similar colours" = 4)),
+                           "All areas have similar colours" = 4), selected = 0),
       # Question 3, certainty around their choice
       sliderInput("certainty", "How certain are you that the chosen map is different? 
                                   1 = Very uncertain, 3 = Neutral, 5 = Very certain",
