@@ -119,6 +119,7 @@ shinyServer(
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
       v$imageNum <- pmin(length(image_list), v$imageNum + 1)
+      reset("select")
     })
       
     output$out_img_info <- renderText({
