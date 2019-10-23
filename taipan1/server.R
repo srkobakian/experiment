@@ -128,15 +128,16 @@ shinyServer(
     })
     
     observeEvent(input$btn_saveInfo, {
-      
-      if (!(isTRUE(v$responses[[basename(current_img())]][["demographic"]]$consent))) {
-        showNotification(h3("Consent must be given before you can proceed to questions."), type = "error", duration = 1)
-      } else{
-      showNotification(h3("Demographic information has been saved."), type = "message", duration = 1)
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
-      # Switch to the survey tab
-      updateTabItems(session = session, inputId = "tabs", selected = "Questions")
+      if (v$responses[[basename(current_img())]][["demographic"]]$consent==1) {
+        showNotification(h3("Demographic information has been saved."), type = "message", duration = 1)
+        
+        # Switch to the survey tab
+        updateTabItems(session = session, inputId = "tabs", selected = "Questions")
+      } else{
+      showNotification(h3("Consent must be given before you can proceed to questions."), type = "error", duration = 1)
+      
       }
     })
     
