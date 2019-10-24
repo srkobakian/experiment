@@ -12,7 +12,7 @@ questions <- surveyQuestions(
       textInput("contributor", "Please provide a unique ID, eg. a favourite animal:", 
                 placeholder = "id"),
       p("You will be shown a series of 12 displays.
-        This survey should not take more than 10 inutes of your time,
+        This survey should not take more than 10 minutes of your time,
         please answer all questions for each display."),
       tags$b("As this is a pilot study, your responses will not be used for analysis."),
       radioButtons("consent", "Do you consent to your responses being collected?\n
