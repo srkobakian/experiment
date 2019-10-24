@@ -2,6 +2,8 @@ library(shiny)
 library(ggplot2)
 library(purrr)
 # Load survey questions
+questions <- readRDS("data/questions.Rds")
+
 
 getInputID <- function(input){
   if(!inherits(input, "shiny.tag")){
@@ -16,8 +18,17 @@ getInputID <- function(input){
 shinyServer(
   function(input, output, session) {
     
+    # Check connection to google sheet
+    gs_auth("data/authentication.rds")
+    sheet <- gs_key("1PcKMmsojzljDZl4bftOu5lbG51AVYuiPIJFq2t7kiGg")
+    
+    # Allocate to group A or B
+    group_allocations <- gs_read(sheet, ws = 1, range = cell_cols("A"))
+    group <- group_allocations %>% count(group, sort=TRUE) %>% head(-1, wt = n) %>% pull(group) 
+    
+    
     # Load survey images
-    if (TRUE){
+    if (group == "A"){
       image_list <-list.files("www/app_images/groupA", full.names = TRUE)
       image_list <- sample(image_list, length(image_list))
     } else {
@@ -30,7 +41,8 @@ shinyServer(
       imageNum = 1,
       responses = list(),
       time = Sys.time(),
-      plot_order = 1
+      plot_order = 1,
+      group = group
     )
     
     current_img <- reactive({
@@ -81,7 +93,10 @@ shinyServer(
         )
       }
       else {
-        column(3)
+        div(
+        p("Thank you for your participation"),
+        p("Please check you have provided your ID.
+          Then click the submit button."))
       }
     })
     
@@ -142,22 +157,24 @@ shinyServer(
         v$responses[[basename(current_img())]][["scene"]]$time <- Sys.time()
         v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
         v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
+        
         out <- suppressWarnings( # hide coercion warnings
           v$responses %>%
             imap_dfr(
-              function(img, image_name){
+              function(img, image_name, group = v$group){
                 scene_vals <- img$scene %>%
                   map(paste0, collapse = ", ")
                 demographic_vals <- img$demographic %>%
                   map(paste0, collapse = ", ")
-                df <- as.data.frame(c(image_name = image_name, scene_vals, demographic_vals))
+                df <- as.data.frame(c(group = group, 
+                                      demographic_vals,
+                                      image_name = image_name,
+                                      scene_vals))
                 return(df)
               }
             )
         )
         # add the row of responses to google sheet
-        gs_auth("data/authentication.rds")
-        sheet <- gs_key("1PcKMmsojzljDZl4bftOu5lbG51AVYuiPIJFq2t7kiGg")
         gs_add_row(ss = sheet, ws = 1, input = out)
         
       }
