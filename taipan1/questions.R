@@ -11,7 +11,10 @@ questions <- surveyQuestions(
       # Contributor ID
       textInput("contributor", "Please provide a unique ID, eg. a favourite animal:", 
                 placeholder = "id"),
-      tags$b("This is a pilot study, your responses will not be used for analysis."),
+      p("You will be shown a series of 12 displays.
+        This survey should not take more than 10 inutes of your time,
+        please answer all questions for each display."),
+      tags$b("As this is a pilot study, your responses will not be used for analysis."),
       radioButtons("consent", "Do you consent to your responses being collected?\n
                    .", 
                    choices = c("Yes, I consent to my responses being used for research purposes and allow them to be published online in a de-identified form." = 1,

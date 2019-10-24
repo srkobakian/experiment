@@ -19,22 +19,22 @@ shinyServer(
   function(input, output, session) {
     
     # Check connection to google sheet
-    gs_auth("data/authentication.rds")
-    sheet <- gs_key("1PcKMmsojzljDZl4bftOu5lbG51AVYuiPIJFq2t7kiGg")
+    
+    sheet <- tryCatch({
+      gs_auth("data/authentication.rds")
+      sheet <- gs_key("1PcKMmsojzljDZl4bftOu5lbG51AVYuiPIJFq2t7kiGg")
+        }, error = function(e){ 
+          message("Access has not been granted, please try again in 5 minutes.")
+          return(NULL)
+          })
     
     # Allocate to group A or B
-    group_allocations <- gs_read(sheet, ws = 1, range = cell_cols("A"))
-    group <- group_allocations %>% count(group, sort=TRUE) %>% head(-1, wt = n) %>% pull(group) 
-    
+    group_allocation <- sample(c("A", "B"), 1)
     
     # Load survey images
-    if (group == "A"){
-      image_list <-list.files("www/app_images/groupA", full.names = TRUE)
-      image_list <- sample(image_list, length(image_list))
-    } else {
-      image_list <- list.files("www/app_images/groupB", full.names = TRUE)
-      image_list <- sample(image_list, length(image_list))
-    }
+    image_list <- list.files(paste0("www/app_images/group", 
+                             group_allocation), full.names = TRUE)
+    image_list <- sample(image_list, length(image_list))
     
     
     v <- reactiveValues(
@@ -42,7 +42,7 @@ shinyServer(
       responses = list(),
       time = Sys.time(),
       plot_order = 1,
-      group = group
+      group = group_allocation
     )
     
     current_img <- reactive({
@@ -120,13 +120,18 @@ shinyServer(
     })
     
     observeEvent(input$btn_next, {
+      if (input$choice==0){
+        showNotification(h3("Please choose one of the twelve maps shown."), 
+                         type = "message", duration = 3)
+        
+      } else {
       v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
       v$responses[[basename(current_img())]][["scene"]]$time <- Sys.time()
       v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
-    
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
       v$imageNum <- pmin(length(image_list), v$imageNum + 1)
+      }
     })
       
     output$out_img_info <- renderText({
@@ -138,7 +143,7 @@ shinyServer(
     observeEvent(input$btn_saveInfo, {
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
-      if (v$responses[[basename(current_img())]][["demographic"]]$consent==1) {
+      if (input$consent==1) {
         showNotification(h3("Demographic information has been saved."), type = "message", duration = 1)
         
         # Switch to the survey tab
