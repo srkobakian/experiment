@@ -120,18 +120,18 @@ shinyServer(
     })
     
     observeEvent(input$btn_next, {
-      if (input$choice==0){
-        showNotification(h3("Please choose one of the twelve maps shown."), 
-                         type = "message", duration = 3)
-        
-      } else {
+      #if (input$choice==0){
+      #  showNotification(h3("Please choose one of the twelve maps shown."), 
+      #                   type = "message", duration = 3)
+      #  
+      #} else {
       v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
       v$responses[[basename(current_img())]][["scene"]]$time <- Sys.time()
       v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
       v$imageNum <- pmin(length(image_list), v$imageNum + 1)
-      }
+      #}
     })
       
     output$out_img_info <- renderText({
