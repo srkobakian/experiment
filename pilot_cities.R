@@ -255,7 +255,8 @@ geo_plot_cities <- function(data, position, min, max) {
                           # for the true data plot, keep random values if not close enough to cities
                           ifelse(is.na(cities), value, true),
                           # for all others rescale to the same range
-                          scales::rescale((value), c(min, max)))) %>%
+                          value)) %>%
+    mutate(value = scales::rescale((value), c(min, max))) %>% 
     # Plot this data as a geographic map
     ggplot() + 
     geom_sf(aes(fill = value), colour = NA) + 
@@ -288,7 +289,8 @@ hex_plot_cities <- function(data, position, min, max) {
                           # for the true data plot, keep random values if not close enough to cities
                           ifelse(is.na(cities), value, true),
                           # for all others rescale to the same range
-                          scales::rescale((value), c(min, max)))) %>%
+                          value)) %>%
+    mutate(value = scales::rescale((value), c(min, max))) %>% 
     # Plot this data as a geographic map
     ggplot() + 
     geom_sf(data = aus_underlay, colour = "grey", fill = NA, size = 0.01) + 

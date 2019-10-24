@@ -191,7 +191,7 @@ sa3_three_1 <- allocated %>%
          dist = ifelse(points %in% city_list1, 
                        scales::rescale(city_distance, to = c(0,1)), NA),
          three = ifelse(dist < 0.85, NA,
-                        scales::rescale(city_distance, to = c(1, 3.2))))
+                        scales::rescale(city_distance, to = c(1, 3.3))))
 
 
 sa3_three_2 <- allocated %>% 
@@ -201,7 +201,7 @@ sa3_three_2 <- allocated %>%
          dist = ifelse(points %in% city_list2, 
                        scales::rescale(city_distance, to = c(0,1)), NA),
          three = ifelse(dist < 0.85, NA,
-                        scales::rescale(city_distance, to = c(1, 3.2))))
+                        scales::rescale(city_distance, to = c(1, 3.3))))
 
 sa3_three_3 <- allocated %>% 
   select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
@@ -210,7 +210,7 @@ sa3_three_3 <- allocated %>%
          dist = ifelse(points %in% city_list3, 
                        scales::rescale(city_distance, to = c(0,1)), NA),
          three = ifelse(dist < 0.85, NA,
-                        scales::rescale(city_distance, to = c(1, 3.2))))
+                        scales::rescale(city_distance, to = c(1, 3.3))))
 
 sa3_three_4 <- allocated %>% 
   select(sa3_name_2016, longitude, latitude, points, focal_dist) %>% 
@@ -219,7 +219,7 @@ sa3_three_4 <- allocated %>%
          dist = ifelse(points %in% city_list4, 
                        scales::rescale(city_distance, to = c(0,1)), NA),
          three = ifelse(dist < 0.85, NA,
-                        scales::rescale(city_distance, to = c(1, 3.2))))
+                        scales::rescale(city_distance, to = c(1, 3.3))))
 
 bind_rows("sa3_three_1" = sa3_three_1, 
           "sa3_three_2" = sa3_three_2, 
