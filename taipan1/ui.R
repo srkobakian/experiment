@@ -7,7 +7,7 @@ library(googlesheets)
 shinyUI(
   dashboardPage(
     dashboardHeader(
-      title = "taipan",
+      title = "reading maps",
       tags$li(class = "dropdown", actionLink("btn_export", span(icon("save"), "Submit Survey"))),
       tags$li(class = "dropdown", a(href="https://github.com/srkobakian/experiment", target="_blank", span(icon("github"), "More Info")))
     ),  
