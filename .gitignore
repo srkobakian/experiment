@@ -5,3 +5,4 @@
 .Rproj
 experiment.Rproj
 .httr-oauth
+data/experiment-export*

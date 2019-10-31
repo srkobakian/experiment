@@ -104,6 +104,7 @@ aus_geo_sa3_red <- aus_geo_red %>%
                         scales::rescale((value+true), c(sa3_mean, sa3_max)), 
                         scales::rescale((value), c(sa3_min, sa3_mean))))
 
+pos <- 3
 aus_hex_sa3_red <- aus_hex_red %>% 
   mutate(true = red) %>% 
   mutate(simulation = as.numeric(gsub("sim", "", simulation))) %>% 
@@ -128,7 +129,7 @@ aus_geo_red <- aus_geo_sa3_red %>%
         strip.background = element_rect(fill = "black", colour = NA),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
-ggsave(filename = "figures/red/aus_geo_red.pdf", plot = aus_geo_red, device = "pdf", dpi = 300,
+ggsave(filename = "figures/red/aus_geo_red.png", plot = aus_geo_red, device = "png", dpi = 300,
        height = 9, width = 18)
 
 
@@ -142,6 +143,6 @@ aus_hex_red <- aus_hex_sa3_red %>%
         strip.background = element_rect(fill = "black", colour = NA),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
-ggsave(filename = "figures/red/aus_hex_red.pdf", plot = aus_hex_red, device = "pdf", dpi = 300,
+ggsave(filename = "figures/red/aus_hex_red.png", plot = aus_hex_red, device = "png", dpi = 300,
        height = 9, width = 18)
 
