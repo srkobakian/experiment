@@ -12,8 +12,7 @@ d %>% count(contributor)
 
 # remove test contributors
 d <- d %>% filter(!is.na(contributor)) %>%
-  filter(!(contributor %in% c("DUMMY", "server_test", "something")))
-d %>% count(group)
+  filter(!(contributor %in% c("DUMMY", "server_test", "something", "hello")))
 #d %>% count(image_name, sort = TRUE)
 
 # add data replication number
@@ -22,11 +21,7 @@ replicate <- bind_cols(replicate = sort(rep(1:12, 2)), image_name = (list.files(
 
 d <- d %>% left_join(., replicate, by = "image_name")
 
-image_smry <- d %>% count(group, image_name)
-
-image_smry %>% ggplot() + geom_col(aes(x = image_name, y = n)) + coord_flip() +
-  facet_wrap(~group, scales = "free_x")
-
+d %>% count(group, image_name)
 
 #remove duplilcated entries due to submit button
 d <- d %>% group_by(group, contributor, image_name) %>%
@@ -36,6 +31,7 @@ d <- d %>% group_by(group, contributor, image_name) %>%
 image_smry <- d %>% count(contributor, order, sort = TRUE)
 
 image_smry %>% ggplot() + geom_col(aes(x = contributor, y = n, fill = order)) + coord_flip()
+# This shows multiple submission of scores by some participants
 
 
 d <- d %>% 
@@ -53,6 +49,32 @@ d <- d %>%
     TRUE~"Geography"
   ))
 
+# Contributor performance
+contribs <- d %>% group_by(group, contributor) %>%
+  # pdetect measures the aggregated accuracy of the choices
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) 
+
+contribs %>% count(group)
+
+contribs %>% ggplot(aes(x = group, y = pdetect, label = contributor)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1)
+
+d_contribs <- d %>%
+  group_by(contributor) %>%
+  slice(1) %>% ungroup()
+
+# Demographics of contributors
+
+d_contribs %>% count(gender)
+
+d_contribs %>% count(age)
+
+d_contribs %>% count(education)
+
+d_contribs %>% count(australia)
+
+# Average contributor performance
 d_smry <- d %>% group_by(trend, type, location, replicate) %>%
   # pdetect measures the aggregated accuracy of the choices
   summarise(pdetect = length(detect[detect == 1])/length(detect))
@@ -172,4 +194,19 @@ glm2_d %>%
 
 # Fixed effects models
 
+
+lmer1_d <- lmer(detect ~ type + trend + (1 | contributor), data = d)
+glance(lmer1_d)
+tidy(lmer1_d)
+# Hexagon maps have better chance of correct detection
+# Allowing for contributor effects to vary 0.147 
+
+lmer2_d <- lmer(detect ~ type*trend + (1 | contributor), data = d)
+glance(lmer2_d)
+tidy(lmer2_d)
+
+
+lmer3_d <- lmer(detect ~ type*trend + certainty + (1 | contributor), data = d)
+glance(lmer3_d)
+tidy(lmer3_d)
 
