@@ -88,6 +88,7 @@ The levels of the factors are:
  - Trend: Locations in two population centres, Locations in multiple population centres, South-East to North-West
 
 Factor combinations to be examined by each participant amount to 6 (2x3) lineup displays. A participant cannot see the same data for both plot types. Four simulated sets of data will be generated for each treatment. This will generate 24 lineups (12 will be geographic maps, and 12 will be hexagon tile maps). Participants will evaluate 12 lineups, 6 of each plot type. 
+Appendix A shows the experimental design visually.
 
 #	Study population
 
@@ -102,8 +103,13 @@ The platform will advertise this survey to participants that fulfill the followi
  - trained and qualified to annotate images. 
 
 ##	Recruitment strategies, timeframe 
-Recruitment will take place via advertising on the Figure-Eight dashboards.
-The Figure-Eight platform will advertise this as a "job" to potential participants, they will not be under any obligation to complete this task. We keep advertising until enough participants have completed the survey, then remove the advertisements and close the survey.
+
+Recruitment will take place via advertising on the Figure-Eight site.
+On this site the available tasks like this survey, are advertised to participants by the addition to the list of tasks available to contributors on the platform. Participants must select our task from the list to read the description of the task, and what is expected of them to be able to participate.
+
+Removed:
+[Recruitment will take place via advertising on the Figure-Eight dashboards.
+The Figure-Eight platform will advertise this as a "job" to potential participants, they will not be under any obligation to complete this task. We keep advertising until enough participants have completed the survey, then remove the advertisements and close the survey.]
 
 ##	Consent approaches
 
@@ -114,7 +120,7 @@ They will then continue to the survey, and complete the test questions.
 This page will also explain the use and storage of the data they contribute. The data will be the answers they provide, which will be publicly available on github at https://github.com/srkobakian/experiment. 
 
 ##	Participant withdrawal
-Participants can withdraw from the experiment at any time by quitting the survey.
+Participants can withdraw from the experiment at any time by quitting the survey, they with also be withdrawn if they do not provide a choice for more than 50% of the displays.
 
 #	Procedures
 
@@ -122,9 +128,12 @@ Participants can withdraw from the experiment at any time by quitting the survey
 
 Participants will need to have achieved contributor level two on the Figure-Eight platofrm, this is a smaller group of more experienced, higher accuracy contributors.
 
-Test questions are the most important quality control mechanism in the Figure-Eight Platform. Participants will complete them to practice and prepare for the experiment questions, they will need to reach an accuracy threshold we will set, to be allowed to participate in answering the experiment survey questions.
+Test questions are the most important quality control mechanism in the Figure-Eight Platform. Participants will complete them to practice and prepare for the experiment questions. in our analysis stage, to use the responses from a participant they will need to reach an accuracy threshold of at least one correct choice.
 
-The Figure Eight procedures are followed: *Contributors that fail quiz mode are not paid and are permanently disqualified from working on your job. Participants will need to achieve a pre-determined accuracy threshold to be allowed to answer the questions in our survey.*
+Removed:
+[Test questions are the most important quality control mechanism in the Figure-Eight Platform. Participants will complete them to practice and prepare for the experiment questions, they will need to reach an accuracy threshold we will set, to be allowed to participate in answering the experiment survey questions.
+
+The Figure Eight procedures are followed: *Contributors that fail quiz mode are not paid and are permanently disqualified from working on your job. Participants will need to achieve a pre-determined accuracy threshold to be allowed to answer the questions in our survey.*]
 
 ##	Data collection
 
@@ -147,7 +156,11 @@ The experimental design variables, Plot Type, Trend Model and simulation number 
 ##	Data collection/gathering techniques
 
 Data will be collected through survey distribution via a web application.
-Participants will access the application via a link from the Figure-Eight "job".
+Information and illustrative displays regarding the survey have been included in the word document 01_O_ETH_Survey_Data_Collection_Tool_V1_20191023.
+Participants will access the application via a link from the Figure-Eight task site.
+This will lead them to the web page that currently hosts the pilot study: https://ebsmonash.shinyapps.io/dingo/
+
+
 
 ##	Impact of, and response to, missing data
 
@@ -199,7 +212,7 @@ This sets our Type I error rate, $\alpha$, at a level of $1/m$.
 The authors also define how to estimate the power of a lineup: the ratio of correct identifications of the real data, x, out of n viewings.
 -->
 
-```{r echo=FALSE, eval=TRUE, fig.height=5, fig.width=6, out.width="70%"}
+```{r echo=FALSE, eval=FALSE, fig.height=5, fig.width=6, out.width="70%"}
 # Code to compute the power for given sample size and alternative p
 library(tidyverse)
 library(nullabor)
@@ -212,14 +225,30 @@ pow <- sample_size(n, 12, pA)
 #pow <- tibble(n=g[,1], k=as.integer(ceiling(g[,1]/12)), pA=g[,2]) 
 #pow <- pow %>% 
 #  mutate(prob = pbinom(k-1, n, pA, lower.tail=FALSE)) 
-ggplot(pow, aes(x=n, y=pA, fill=prob, group=pA)) + 
+sample_fig <- ggplot(pow, aes(x=n, y=pA, fill=prob, group=pA)) + 
   geom_tile() +
   scale_fill_viridis_c("power") +
   geom_hline(yintercept=0.1666667, colour="black") +
   ylab("detect rate (pA)") + xlab("sample size (n)") +
   theme_bw()
+ggsave(filename = "figures/sample_size.jpg", plot = sample_fig, width = 10, height = 10, units = "in")
+
 pow %>% filter(near(pA, 0.167, 0.001)) %>% filter(prob>0.7) %>% top_n(n=10) %>% kable(digits=3)
 ```
+
+```{r sample_size_fig, out.width = "90%", out.height="90%"}
+library(knitr)
+library(tidyverse)
+knitr::include_graphics("figures/sample_size.jpg")
+```
+
+```{r sample_size_table, fig.cap="Chance of detection for sample sizes of 48 and 49."}
+tibble(n = c(48, 49),
+  k = c(7, 7),
+  pA = c(0.167, 0.167),
+  prob = c(0.713, 0.734)) %>% kable(digits=3)
+```
+
 
 The table above shows the sample sizes yielding above 70% chance of detection ($p_d$) in a single lineup assuming $p_A=1/6=0.167$ we would need approximately 50 evaluations for each lineup. 
 
@@ -257,32 +286,46 @@ Computation will be done using R [@RCore], with the `lme4` package [@lme4].
 
 #	Data management and record keeping
 
-Research expectations today require that publications use reproducible research protocols, requiring data to be available. De-identified, and privatised data will be made available will be made available via QUT's Research Data Finder, and, if required by the publisher, once the results are published also available on the journal article web site.
+Research expectations today require that publications use reproducible research protocols, requiring data to be available. The external survey data will be made available via QUT’s Research Data Finder, on github, and, if required by the publisher, once the results are published also available on the journal article web site.
 
 
 ##	Confidentially and privacy
 
-Datasets produced from the project and that will *not* be available for public access will contain original demographic information about the participants and only the anonymous Figure-Eight contributor ID. 
+Datasets produced from the project and that will be available for public access on github will be de-identified and only contain the responses to survey, and information regarding the participant demographics: age range, education level, gender, and whether they have lived in Australia.
+ If there are participants with unique sets of demographics, their data will be combined with larger categories to minimise the risks of reidentification.
 
-Datasets produced from the project and that *will be* available for public access on github will be de-identified and only contain the responses to survey.
-If there are participants with unique sets of demographics, their data will be combined with larger categories to minimise the risks of reidentification.
+Responses to the survey will be stored securely using a google sheet owned by Stephanie’s Monash University google account drive, accessible only to the researchers during the study through their password protected google drive accounts. This will contain the demographic information, at the coarse resolution specified in the data collection.
+
+Removed:
+[Datasets produced from the project and that will not be available for public access will contain original
+demographic information about the participants and only the anonymous Figure-Eight contributor ID.
+Datasets produced from the project and that will be available for public access on github will be de-identified
+and only contain the responses to survey. If there are participants with unique sets of demographics, their
+data will be combined with larger categories to minimise the risks of reidentification.]
 
 
 ##	Data security
 
 Responses to the survey will be stored securely using a private google drive accessible only to the researchers during the study through their password protected google drive accounts. This will contain the demographic information, at the coarse resolution specified in the data collection.
 
+Removed: 
+[Responses to the survey will be stored securely using a private google drive accessible only to the researchers
+during the study through their password protected google drive accounts. This will contain the demographic
+information, at the coarse resolution specified in the data collection.]
+
 ##	Record retention
 
-To ensure records are retained during and following the study the responses will be stored on the google drive immediately following the submission by participants. At the conclusion of the survey, the data will remain in the password protected google drive account.
+To ensure records are retained during and following the study the responses will be stored on the google sheet immediately following the submission by participants. At the conclusion of the survey, the data will remain in the password protected google drive account.
 
+Immediately following the submission by participants. At the conclusion of the survey, the data will remain in the password protected google drive account and on github
 During the analysis phase the researchers Stephanie and Dianne will make copies of the survey responses to their work devices (laptop computers), that are password protected.
 
-This data set will also be de-identified, by removing the demographic data, and saved on the QUT network drives, which are automatically backed-up nightly in two physical locations. The records of data analysis undertaken and the de-identified data will be stored on github as well as on QUT network drives. 
 
 ##	Secondary use 
 
-The analysis scripts and the de-identified data will be available for secondary use by other researchers to reproduce these results and also use in future studies. Participants will be asked to provide consent for this usage in the consent form.  
+Research expectations today require that publications use reproducible research protocols, requiring data to be available. The external survey data will be made available will be made available via QUT’s Research Data Finder, on github, and, if required by the publisher, once the results are published also available on the journal article web site.
+
+The analysis scripts and the data will be available for secondary use by other researchers to reproduce these results and also use in future studies. Participants will be asked to provide consent for this usage in the consent form.  
 
 #	Resources
 
@@ -312,7 +355,15 @@ Details are provided in the Data Management Plan. The results from this study mi
 
 #	Appendices 
 
-A document on the web app is attached.
+## Appendix A {#sec:appendix_design}
+
+The experimental design plan shows the distribution of the null data sets to each type of trend model that will be tested. 
+It also states the location of the trend model in the lineup of 12 plots in a three row, four column grid.
+
+```{r design, fig.width = 10, fig.height=8}
+knitr::include_graphics("figures/skobakian_design.pdf")
+```
+
 
 #	References
 

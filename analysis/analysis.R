@@ -15,6 +15,17 @@ library(lubridate)
 library(broom)
 library(readxl)
 library(lme4)
+library(ggthemes)
+
+
+invthm <- theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    legend.background = element_rect(fill = "transparent", colour = NA),
+    legend.key = element_rect(fill = "transparent", colour = NA),
+    text = element_text(colour = "white", size = 20),
+    axis.text = element_text(colour = "white", size = 20)
+  )
 
 ###############################################################################
 # Check data set 
@@ -58,14 +69,14 @@ d <- d %>%
     # detect measures the accuracy of the choice
          detect = ifelse(location == choice, 1, 0)) %>% 
   mutate(trend = case_when(
-    trend == "cities" ~ "All capital cities",
-    trend == "three" ~ "Three capital cities",
-    trend == "nwse" ~ "North West to South East")) %>% 
+    trend == "cities" ~ "all cities",
+    trend == "three" ~ "three cities",
+    trend == "nwse" ~ "NW-SE")) %>% 
+  mutate(trend = fct_relevel(trend, "NW-SE","three cities","all cities")) %>% 
   mutate(type = case_when(
     type == "hex" ~"Hexagons",
     TRUE~"Geography"
   )) 
-
 # Contributor performance
 contribs <- d %>% group_by(group, contributor) %>%
   # pdetect measures the aggregated accuracy of the choices
@@ -108,13 +119,14 @@ d_smry <- d %>% group_by(trend, type, location, replicate) %>%
 
 repl_plot <- d_smry %>% 
   ungroup() %>% 
-  ggplot(aes(x=type, y=pdetect, label = replicate, colour = replicate, group = replicate)) +
-  geom_line(size = 2, arrow = arrow()) +  
+  ggplot(aes(x=type, y=pdetect, label = replicate, colour = trend, group = replicate)) +
+  geom_point(size = 3) +  
+  geom_line(size = 1) +  
   facet_wrap(~trend) +  
   scale_colour_brewer(palette = "Paired") +
   xlab("Type of areas visualised") +
   ylab("Proportion of participants who selected the true data plot") + 
-  ylim(0,1)
+  ylim(0,1) + invthm
 repl_plot
 ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
 #ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
@@ -157,12 +169,13 @@ t_smry <- d %>%
   summarise(avg_time = mean(time_taken, na.rm = TRUE))
 
 repl_plot_t <- t_smry %>% ungroup() %>% 
-  ggplot(aes(x=type, y=avg_time, label = replicate, colour = replicate, group = replicate)) +
-  geom_line(size = 2, arrow = arrow()) +  
+  ggplot(aes(x=type, y=avg_time, label = replicate, colour = trend, group = replicate)) +
+  geom_point(size = 3) +  
+  geom_line(size = 1) + 
   facet_wrap(~trend) +  
   scale_colour_brewer(palette = "Paired") +
   xlab("Type of areas visualised") +
-  ylab("Average time taken to submit responses (seconds)") + ylim(0,50)
+  ylab("Average time taken to submit responses (seconds)") + ylim(0,50) + invthm
 repl_plot_t
 ggsave(filename = "figures/pilot/replicate_change_time.png", plot = repl_plot_t, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
 #ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
