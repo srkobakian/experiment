@@ -126,7 +126,7 @@ repl_plot <- d_smry %>%
   scale_colour_brewer(palette = "Paired") +
   xlab("Type of areas visualised") +
   ylab("Proportion of participants who selected the true data plot") + 
-  ylim(0,1) + invthm
+  ylim(0,1) + invthm + guides(colour = FALSE)
 repl_plot
 ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
 #ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
@@ -175,7 +175,8 @@ repl_plot_t <- t_smry %>% ungroup() %>%
   facet_wrap(~trend) +  
   scale_colour_brewer(palette = "Paired") +
   xlab("Type of areas visualised") +
-  ylab("Average time taken to submit responses (seconds)") + ylim(0,50) + invthm
+  ylab("Average time taken to submit responses (seconds)") +
+  ylim(0,50) + invthm + guides(colour = FALSE)
 repl_plot_t
 ggsave(filename = "figures/pilot/replicate_change_time.png", plot = repl_plot_t, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
 #ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
