@@ -68,6 +68,7 @@ shinyUI(
             title = "Thank you",
             tags$b("Thank you for your participation."),
             p("You will be paid a bonus for completion."),
+            p("Your validation code: t1a2i3p4"),
             p("Please wait for the notification that your responses have been received."),
             p("If you would like more information you may contact:"),
             p("Stephanie Kobakian: stephanie.kobakian@hdr.qut.edu.au"),
