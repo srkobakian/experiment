@@ -15,7 +15,8 @@ shinyUI(
       sidebarMenu(
         id = "tabs",
         menuItem("About you", tabName = "About_you", icon = icon("dashboard")),
-        menuItem("Questions", tabName = "Questions", icon = icon("th"))
+        menuItem("Questions", tabName = "Questions", icon = icon("th")),
+        menuItem("Thank you", tabName = "Thank_you", icon = icon("th"))
       )
     ),
     dashboardBody(
@@ -60,6 +61,21 @@ shinyUI(
                        ),
                        
                 )
+        ),
+        
+        tabItem(tabName = "Thank_you",
+          box(
+            title = "Thank you",
+            tags$b("Thank you for your participation."),
+            p("You will be paid a bonus for completion."),
+            p("Please wait for the notification that your responses have been received."),
+            p("If you would like more information you may contact:"),
+            p("Stephanie Kobakian: stephanie.kobakian@hdr.qut.edu.au"),
+            width = 12,
+            status = "info",
+            solidHeader = TRUE,
+            collapsible = TRUE
+          )
         )
         
       )

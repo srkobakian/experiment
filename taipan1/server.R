@@ -40,7 +40,8 @@ shinyServer(
     v <- reactiveValues(
       imageNum = 1,
       responses = list(),
-      time = Sys.time(),
+      start_time = Sys.time(),
+      finish_time = Sys.time(),
       plot_order = 1,
       group = group_allocation
     )
@@ -125,10 +126,18 @@ shinyServer(
       #                   type = "message", duration = 3)
       #  
       #} else {
+      
       v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
-      v$responses[[basename(current_img())]][["scene"]]$time <- Sys.time()
       v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
+      
+      
+      # Time calculations
+      v$responses[[basename(current_img())]][["scene"]]$time_taken <- (Sys.time() - v$start_time)
+      v$responses[[basename(current_img())]][["scene"]]$start_time <- v$start_time
+      v$responses[[basename(current_img())]][["scene"]]$end_time <- Sys.time()
+      # Upate time for next plot
+      v$start_time <- Sys.time()
       
       v$imageNum <- pmin(length(image_list), v$imageNum + 1)
       #}
@@ -141,16 +150,29 @@ shinyServer(
     })
     
     observeEvent(input$btn_saveInfo, {
+      
+      
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
       
-      if (input$consent==1) {
+      if (nchar(input$contributor) < 8) {
+        # check contributor ID
+        showNotification(h3("Please check that you have provided your Figure-Eight contributor ID."), 
+          type = "message", duration = 3, closeButton = TRUE)
+      } else{
+        # show ID
+        showNotification(h3(paste("You have provided the ID:", input$contributor)), 
+          type = "message", duration = 3, closeButton = TRUE)
+      }
+      
+      
+      if (input$consent == "Consented") {
         showNotification(h3("Demographic information has been saved."), type = "message", duration = 1)
         
         # Switch to the survey tab
         updateTabItems(session = session, inputId = "tabs", selected = "Questions")
+        v$start_time <- Sys.time()
       } else{
       showNotification(h3("Consent must be given before you can proceed to questions."), type = "error", duration = 1)
-      
       }
     })
     
@@ -158,11 +180,19 @@ shinyServer(
     # change this to upload rows to survey google spreadsheet
     observeEvent(input$btn_export, 
       {
+        # Switch to the thank you tab
+        updateTabItems(session = session, inputId = "tabs", selected = "Thank_you")
+        
         v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
-        v$responses[[basename(current_img())]][["scene"]]$time <- Sys.time()
         v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
         v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
         
+        # Time calculations
+        v$responses[[basename(current_img())]][["scene"]]$time_taken <- as.character((Sys.time() - v$start_time))
+        v$responses[[basename(current_img())]][["scene"]]$start_time <- v$start_time
+        v$responses[[basename(current_img())]][["scene"]]$end_time <- Sys.time()
+        
+        out <- ""
         out <- suppressWarnings( # hide coercion warnings
           v$responses %>%
             imap_dfr(
@@ -179,8 +209,13 @@ shinyServer(
               }
             )
         )
+      
         # add the row of responses to google sheet
-        gs_add_row(ss = sheet, ws = 1, input = out)
+          gs_add_row(ss = sheet, ws = 2, input = out)
+          
+          showNotification(h3("Survey has been completed and submitted."), 
+            type = "message", duration = 10, closeButton = TRUE)
+        
         
       }
     )
