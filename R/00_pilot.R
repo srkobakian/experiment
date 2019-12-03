@@ -56,6 +56,7 @@ allocated <- create_hexmap(
   sf_id = "sa3_name_2016",
   hex_size = 0.6, # same size used in create_grid
   hex_filter = 10,
+  neighbours = sa3,
   f_width = 30,
   focal_points = capital_cities,
   verbose = TRUE)
