@@ -66,12 +66,8 @@ shinyUI(
         tabItem(tabName = "Thank_you",
           box(
             title = "Thank you",
-            tags$b("Thank you for your participation."),
-            p("You will be paid a bonus for completion."),
-            p("Your validation code: t1a2i3p4"),
-            p("Please enter this in your Figure-Eight form to process payment."),
-            p("If you would like more information you may contact:"),
-            p("Stephanie Kobakian: stephanie.kobakian@hdr.qut.edu.au"),
+            div(
+            uiOutput("validation")),
             width = 12,
             status = "info",
             solidHeader = TRUE,

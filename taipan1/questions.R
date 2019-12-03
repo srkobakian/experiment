@@ -10,17 +10,17 @@ questions <- surveyQuestions(
     div(
       # Contributor ID
       textInput("contributor", "Please provide your Figure-Eight contributor ID: (necessary for payment)", 
-                placeholder = "id"),
+                placeholder = "Contributor ID"),
       p("You will be shown a series of 12 displays.
         This survey should not take more than 10 minutes of your time,
         please answer all questions for each display."),
       tags$b("As this is an experiment, your responses will be used for analysis."),
-      tags$b("By selecting the concent button below, you are indicating that you:"),
-      p("•	Have read and understood the information document regarding this research project."),
-      p("•	Have had any questions answered to your satisfaction."),
-      p("•	Understand that if you have any additional questions you can contact the research team."),
-      p("•	Understand that you are free to withdraw without comment or penalty."),
-      p("•	Understand that if you have concerns about the ethical conduct of the research project you can contact the Research Ethics Advisory Team on +61 7 3138 5123 or email humanethics@qut.edu.au."), 
+      tags$b("By selecting the consent button below, you are indicating that you:"),
+      p("-	Have read and understood the information document regarding this research project."),
+      p("-	Have had any questions answered to your satisfaction."),
+      p("-	Understand that if you have any additional questions you can contact the research team."),
+      p("-	Understand that you are free to withdraw without comment or penalty."),
+      p("-	Understand that if you have concerns about the ethical conduct of the research project you can contact the Research Ethics Advisory Team on +61 7 3138 5123 or email humanethics@qut.edu.au."), 
       radioButtons(inputId = "consent", label = "Do you consent to your responses being collected?", 
                    choices = c("Yes, I consent to my responses being used for research purposes and allow them to be published online in a de-identified form." = "Consented",
                                "No, I do not consent to my responses being used for research purposes and allow them to be published online in a de-identified form." = "No Consent"),
@@ -63,7 +63,11 @@ questions <- surveyQuestions(
                                  "Yes"   = "Yes",
                                  "No"    = "No", 
                                  "Other" = "Other"), 
-                  selected = NA)),
+                  selected = NA) #,
+      # # Question 5, email
+      # textInput("email", "You will be able to see the results and analysis online at: https://github.com/srkobakian/experiment. Provide a contact email address if you would like to be sent the results of the survey.", 
+      #   placeholder = "Email address")
+      ),
   scene =
     div(
       # Question 1, the choice of plot

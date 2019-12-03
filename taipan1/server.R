@@ -27,9 +27,10 @@ shinyServer(
           message("Access has not been granted, please try again in 5 minutes.")
           return(NULL)
           })
+    
     # Unique identifier function:
-    create_unique_id <- function(seed_no = 100, char_len = 7){
-      set.seed(seed_no)
+    create_unique_id <- function(char_len = 7){
+      set.seed(Sys.time())
       pool <- c(letters, LETTERS, 0:9)
       
       this_res <- paste0(sample(pool, char_len, replace = TRUE), collapse = "")
@@ -53,7 +54,8 @@ shinyServer(
       start_time = Sys.time(),
       finish_time = Sys.time(),
       plot_order = 1,
-      group = group_allocation
+      group = group_allocation,
+      submitted = FALSE
     )
     
     current_img <- reactive({
@@ -173,11 +175,9 @@ shinyServer(
         # show ID
         showNotification(h3(paste("You have provided the ID:", input$contributor)), 
           type = "message", duration = 3, closeButton = TRUE)
-      }
       
       
       if (input$consent == "Consented") {
-        showNotification(h3("Demographic information has been saved."), type = "message", duration = 1)
         
         # Switch to the survey tab
         updateTabItems(session = session, inputId = "tabs", selected = "Questions")
@@ -185,7 +185,20 @@ shinyServer(
       } else{
       showNotification(h3("Consent must be given before you can proceed to questions."), type = "error", duration = 1)
       }
+      }
     })
+    
+    # Show their validation code when finished
+        output$validation <- 
+          renderUI({
+          box(
+            div(
+              p("Thank you for your participation"),
+              p(paste("Your unique identifier is:", identifier)), 
+              p("Please submit this on the Figure-Eight job page.")),
+            width = 12,
+            background = "green")})
+            
     
     
     # change this to upload rows to survey google spreadsheet
@@ -240,11 +253,8 @@ shinyServer(
           
         gs_add_row(ss = sheet, ws = 2, input = out)
         
-        showNotification(
-          h3(paste("Your unique code for Figure-Eight: ", identifier)), 
-            type = "message", duration = 10, closeButton = TRUE)
-        
-        
+        # change submitted to true
+        v$submitted <- TRUE
       }
     )
   }
