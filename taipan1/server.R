@@ -106,8 +106,8 @@ shinyServer(
       else {
         div(
         p("Thank you for your participation"),
-        p("Please check you have provided your ID.
-          Then click the submit button."))
+        p("Please click the SUBMIT button at the top of the window."), 
+        p("It may take a minute to provide your unique verification code."))
       }
     })
     

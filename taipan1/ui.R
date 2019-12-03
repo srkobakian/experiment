@@ -2,7 +2,7 @@ library(shiny)
 library(shinydashboard)
 library(googlesheets)
 # Load survey questions
-
+source("questions.R")
 
 shinyUI(
   dashboardPage(
@@ -69,7 +69,7 @@ shinyUI(
             tags$b("Thank you for your participation."),
             p("You will be paid a bonus for completion."),
             p("Your validation code: t1a2i3p4"),
-            p("Please wait for the notification that your responses have been received."),
+            p("Please enter this in your Figure-Eight form to process payment."),
             p("If you would like more information you may contact:"),
             p("Stephanie Kobakian: stephanie.kobakian@hdr.qut.edu.au"),
             width = 12,
