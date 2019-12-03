@@ -27,6 +27,16 @@ shinyServer(
           message("Access has not been granted, please try again in 5 minutes.")
           return(NULL)
           })
+    # Unique identifier function:
+    create_unique_id <- function(seed_no = 100, char_len = 7){
+      set.seed(seed_no)
+      pool <- c(letters, LETTERS, 0:9)
+      
+      this_res <- paste0(sample(pool, char_len, replace = TRUE), collapse = "")
+      this_res
+    }
+    
+    identifier <- create_unique_id()
     
     # Allocate to group A or B
     group_allocation <- sample(c("A", "B"), 1)
@@ -130,6 +140,7 @@ shinyServer(
       v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
       v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
       v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
+      v$responses[[basename(current_img())]][["demographic"]]$identifier <- identifier
       
       
       # Time calculations
@@ -183,15 +194,27 @@ shinyServer(
         # Switch to the thank you tab
         updateTabItems(session = session, inputId = "tabs", selected = "Thank_you")
         
+        # Create a Progress object
+        progress <- Progress$new()
+        # Make sure it closes when we exit this reactive, even if there's an error
+        on.exit(progress$close())
+        
+        progress$set(message = "Sending survey responses. Please wait for your validation code.", value = 0)
+        
+        
         v$responses[[basename(current_img())]][["scene"]] <- scene_vals()
         v$responses[[basename(current_img())]][["scene"]]$plot_order <- match(current_img(), image_list)
         v$responses[[basename(current_img())]][["demographic"]] <- demographic_vals()
+
+        v$responses[[basename(current_img())]][["demographic"]]$identifier <- identifier
         
+        progress$inc(amount = 0.2, message = NULL, detail = NULL)
         # Time calculations
         v$responses[[basename(current_img())]][["scene"]]$time_taken <- as.character((Sys.time() - v$start_time))
         v$responses[[basename(current_img())]][["scene"]]$start_time <- v$start_time
         v$responses[[basename(current_img())]][["scene"]]$end_time <- Sys.time()
         
+        progress$inc(amount = 0.1, message = NULL, detail = NULL)
         out <- ""
         out <- suppressWarnings( # hide coercion warnings
           v$responses %>%
@@ -201,6 +224,8 @@ shinyServer(
                   map(paste0, collapse = ", ")
                 demographic_vals <- img$demographic %>%
                   map(paste0, collapse = ", ")
+                
+                progress$inc(amount = 0.05, message = NULL, detail = NULL)
                 df <- as.data.frame(c(group = group, 
                                       demographic_vals,
                                       image_name = image_name,
@@ -210,10 +235,13 @@ shinyServer(
             )
         )
       
+        progress$inc(amount = 0.1, message = NULL, detail = NULL)
         # add the row of responses to google sheet
-          gs_add_row(ss = sheet, ws = 2, input = out)
           
-          showNotification(h3("Survey has been completed and submitted."), 
+        gs_add_row(ss = sheet, ws = 2, input = out)
+        
+        showNotification(
+          h3(paste("Your unique code for Figure-Eight: ", identifier)), 
             type = "message", duration = 10, closeButton = TRUE)
         
         
