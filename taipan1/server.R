@@ -191,19 +191,35 @@ shinyServer(
     # Show their validation code when finished
         output$validation <- 
           renderUI({
+            if (v$submitted) {
           box(
             div(
               p("Thank you for your participation"),
               p(paste("Your unique identifier is:", identifier)), 
               p("Please submit this on the Figure-Eight job page.")),
             width = 12,
-            background = "green")})
+            background = "green")
+            } else {
+              box(
+                div(
+                  p("Thank you for your participation"),
+                  p("Please submit your completed survey to receive full payment amount.")),
+                width = 12,
+                background = "green")
+            }
+            
+            
+              })
             
     
     
     # change this to upload rows to survey google spreadsheet
     observeEvent(input$btn_export, 
       {
+        if (v$imageNum <12){
+          showNotification(h3("Please complete the survey before submitting."), 
+            type = "message", duration = 3, closeButton = TRUE)
+        } else {
         # Switch to the thank you tab
         updateTabItems(session = session, inputId = "tabs", selected = "Thank_you")
         
@@ -255,6 +271,7 @@ shinyServer(
         
         # change submitted to true
         v$submitted <- TRUE
+        }
       }
     )
   }
