@@ -33,7 +33,7 @@ sa3_ade <- allocated %>%
   mutate(city_distance = (max_dist - focal_dist)^8,
     # only for desired three
     dist = ifelse(points %in% "Adelaide", 
-      scales::rescale(city_distance, to = c(1,3)), 
+      scales::rescale(city_distance, to = c(0,1.5)), 
       scales::rescale(city_distance, to = c(0,1))))
 
 
@@ -74,7 +74,7 @@ aus_geo_sa3_ade <- aus_geo_ade_data %>%
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value+true), c(-1,3)), 
+    scales::rescale((value+true), c(-1,1)), 
     scales::rescale((value), c(-1,1))))
 
 pos <- 2
@@ -85,7 +85,7 @@ aus_hex_sa3_ade <- aus_hex_ade_data %>%
   # add the spatial trend model to the null data plot
   # scale the null data around the mean of the data
   mutate(value = ifelse(simulation == pos,
-    scales::rescale((value+true), c(-1,3)), 
+    scales::rescale((value+true), c(-1,1)), 
     scales::rescale((value), c(-1,1))))
 
 
