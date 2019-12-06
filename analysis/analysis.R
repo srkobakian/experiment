@@ -1,5 +1,5 @@
 ###############################################################################
-# Analysis of pilot
+# Analysis of experiment data - by Di
 ###############################################################################
 
 # Read Data 
@@ -8,6 +8,14 @@
 #sheet <- gs_key("1PcKMmsojzljDZl4bftOu5lbG51AVYuiPIJFq2t7kiGg")
 
 ###############################################################################
+invthm <- theme(
+  panel.background = element_rect(fill = "transparent", colour = NA), 
+  plot.background = element_rect(fill = "transparent", colour = NA),
+  legend.background = element_rect(fill = "transparent", colour = NA),
+  legend.key = element_rect(fill = "transparent", colour = NA),
+  text = element_text(colour = "white", size = 20),
+  axis.text = element_text(colour = "white", size = 20)
+)
 
 # Load Libraries
 library(tidyverse)
@@ -16,54 +24,64 @@ library(broom)
 library(readxl)
 library(lme4)
 library(ggthemes)
-
-
-invthm <- theme(
-    panel.background = element_rect(fill = "transparent", colour = NA), 
-    plot.background = element_rect(fill = "transparent", colour = NA),
-    legend.background = element_rect(fill = "transparent", colour = NA),
-    legend.key = element_rect(fill = "transparent", colour = NA),
-    text = element_text(colour = "white", size = 20),
-    axis.text = element_text(colour = "white", size = 20)
-  )
+# Downloaded data
+d <- read_xlsx("experiment-export.xlsx", sheet=2) %>%
+  filter(!is.na(contributor)) %>%
+  mutate(contributor = factor(contributor))
 
 ###############################################################################
 # Check data set 
-d %>% count(contributor)
-
-# remove test contributors
-d <- d1 %>% filter(!is.na(contributor)) %>%
-  filter(!(contributor %in% c("DUMMY", "server_test", "something", "hello")))
-# d %>% count(image_name, sort = TRUE)
-
-# add data replication number
-replicate <- bind_cols(replicate = sort(rep(1:12, 2)), image_name = (list.files("figures/final"))) %>% 
-  mutate(replicate = as.factor(replicate))
-
-d <- d %>% left_join(., replicate, by = "image_name")
-
-d %>% count(group, image_name)
-
-#remove duplilcated entries due to submit button
+d %>% count(contributor, sort=TRUE)
+# Need to clean multiple entries, 48, 24
+# remove duplicated entries due to submit button
 d <- d %>% group_by(group, contributor, image_name) %>%
   slice(1) %>% ungroup() %>% 
-  arrange(group, contributor, order)
+  arrange(group, contributor, plot_order)
+d %>% count(contributor, sort=TRUE)
+d %>% count(contributor, sort=TRUE) %>% summarise(n_contributors = length(contributor))
 
-image_smry <- d %>% count(group, contributor, order, sort = TRUE)
-
-image_smry %>% ggplot() + geom_col(aes(x = contributor, y = n, fill = order)) + coord_flip()
-# This shows multiple submission of scores by some participants
-
-
-# Fix for unique contributor names
+# Now remove contributors who did not provide answers to most questions
+keep <- d %>% count(contributor) %>% filter(n > 10)
 d <- d %>% 
-  mutate(id = paste0(group, group_indices(., group, contributor)))
+  filter(contributor %in% keep$contributor) %>%
+  filter(contributor != "1234567890")
 
+###############################################################################
+# Augment
+# add data replication number
+d %>% count(image_name) %>% print(n=24)
+# image code <--> rep
+replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
+                                   "aus_cities_3_geo.png", "aus_cities_3_hex.png",
+                                   "aus_cities_4_geo.png", "aus_cities_4_hex.png",
+                                   "aus_cities_9_geo.png", "aus_cities_9_hex.png",
+                                   "aus_nwse_2_geo.png", "aus_nwse_2_hex.png",
+                                   "aus_nwse_3_geo.png", "aus_nwse_3_hex.png",
+                                   "aus_nwse_5_geo.png", "aus_nwse_5_hex.png",
+                                   "aus_nwse_6_geo.png", "aus_nwse_6_hex.png",
+                                   "aus_three_12_geo.png", "aus_three_12_hex.png",
+                                   "aus_three_5_geo.png", "aus_three_5_hex.png",
+                                   "aus_three_8_geo.png", "aus_three_8_hex.png",
+                                   "aus_three_9_geo.png", "aus_three_9_hex.png"),
+                    replicate = c(1, 1, 2, 2, 3, 3, 4, 4, 
+                                  1, 1, 2, 2, 3, 3, 4, 4,
+                                  1, 1, 2, 2, 3, 3, 4, 4))
+# Add rep info to data
+d <- d %>% left_join(., replicate, by = "image_name")
+d %>% count(group, image_name, sort=TRUE)
+
+# Double-check numbers
+image_smry <- d %>% count(group, contributor, plot_order, sort = TRUE)
+image_smry %>% 
+  mutate(contributor = factor(contributor)) %>%
+  ggplot() + 
+  geom_col(aes(x = contributor, y = n, fill = plot_order)) + 
+  coord_flip()
 
 ###############################################################################
 # Tidy for analysis
 d <- d %>% 
-  separate(image_name, c("nothing", "trend", "location", "type")) %>%
+  separate(image_name, c("nothing", "trend", "location", "type"), remove=FALSE) %>%
   select(-nothing) %>%
   mutate(location = as.numeric(location), 
     # detect measures the accuracy of the choice
@@ -77,179 +95,121 @@ d <- d %>%
     type == "hex" ~"Hexagons",
     TRUE~"Geography"
   )) 
-# Contributor performance
+
+# Plot results - quick and dirty
+# ggplot(d, aes(x=type, y=detect)) + geom_jitter() + facet_wrap(~trend)
+
+# Check contributor performance
 contribs <- d %>% group_by(group, contributor) %>%
   # pdetect measures the aggregated accuracy of the choices
   summarise(pdetect = length(detect[detect == 1])/length(detect)) 
 
 contribs %>% count(group)
+contribs %>% arrange(pdetect)
 
+# Plot performance
 contribs %>% ggplot(aes(x = group, y = pdetect, label = contributor)) + 
   geom_boxplot() + 
-  geom_jitter(width = 0.1)
+  geom_jitter(width = 0.1) +
+  ylim(c(0,1))
 
-d_contribs <- d %>%
+# Create one record for each contributor, to examine demographics
+dem_contribs <- d %>%
   group_by(contributor) %>%
   slice(1) %>% ungroup()
 
 
 ###############################################################################
-
 # Demographics of contributors
+dem_contribs %>% count(gender)
+dem_contribs %>% count(age)
+dem_contribs %>% count(education)
+dem_contribs %>% count(australia)
 
-d_contribs %>% count(gender)
-
-d_contribs %>% count(age)
-
-d_contribs %>% count(education)
-
-d_contribs %>% count(australia)
-
-# remove demographiccs for online use of pilot study
-d <- d %>% select(-c(contributor:australia))
-write_csv(d, path = "data/pilot_data.csv")
 
 ###############################################################################
-
-# Average contributor performance
+# Detectability rate for each lineup (image)
 d_smry <- d %>% group_by(trend, type, location, replicate) %>%
   # pdetect measures the aggregated accuracy of the choices
-  summarise(pdetect = length(detect[detect == 1])/length(detect))
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) %>%
+  ungroup()
 
-
-repl_plot <- d_smry %>% 
-  ungroup() %>% 
-  ggplot(aes(x=type, y=pdetect, label = replicate, colour = trend, group = replicate)) +
+# Plot summary
+ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
   geom_point(size = 3) +  
-  geom_line(size = 1) +  
+  geom_line(size = 1, aes(group = replicate)) +  
   facet_wrap(~trend) +  
   scale_colour_brewer(palette = "Paired") +
   xlab("Type of areas visualised") +
-  ylab("Proportion of participants who selected the true data plot") + 
-  ylim(0,1) + invthm + guides(colour = FALSE)
-repl_plot
-ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
+  ylab("Detection rate") + 
+  ylim(0,1) + #invthm + 
+  guides(colour = FALSE)
+
+#ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
 #ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
 
+# Numerical summary
+d_smry %>% spread(type, pdetect) %>%
+  mutate(dif = Hexagons - Geography)
+# Need to do the t-tests for these
 
-d <- d %>% 
-  group_by(id) %>%
-separate(time, into = c("date", "time"), sep = " ") %>%
-mutate(start_time = lag(time)) %>%
-ungroup()
+# All contributors
+contrib_smry <- d %>% 
+  group_by(contributor, trend, type) %>%
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) %>%
+  ungroup()
 
+# Messy plot, but want to see how individuals fare
+ggplot(contrib_smry, aes(x=type, y=pdetect, colour = trend)) +
+  geom_line(aes(group = contributor), alpha=0.1) +
+  facet_wrap(~trend) +  
+  scale_colour_brewer(palette = "Paired") +
+  geom_point(data=d_smry, aes(x=type, y=pdetect, colour = trend), size = 3) +
+  geom_line(data=d_smry, size = 1, aes(group = replicate)) +
+  guides(colour = FALSE)
 
 ###########################################################
-##############    Time taken to answer   ##################
-###########################################################
-
-# Define the amount of second taken to answer
-d <- d %>% rowwise() %>% 
-  mutate(time_taken = map2_dbl(
-  time, start_time, function(t2, t1){
-    if (is.na(start_time)){
-      return(NA)
-    } else {
-      as.numeric(hms::as_hms(time) - hms::as_hms(start_time))}
-    }
-)) %>% ungroup()
-
-
-# Density plot for time taken
-ggplot(d) + 
-  geom_density(aes(x= time_taken, colour = type))
-
-d %>% ggplot() + 
-  geom_boxplot(aes(x = type, y = time_taken, fill = trend)) + facet_wrap(~replicate) + ylim(0,125) 
-
-t_smry <- d %>% 
-  mutate(time_taken = ifelse(time_taken > 200, NA, time_taken)) %>% 
+# Time taken to answer for each lineup
+# May need to account for first plot shown, that they 
+# may take more time because filling in demographics
+d_time <- d %>% 
   group_by(trend, type, location, replicate) %>%
-  # avg_time measures the average time taken to make a choice
-  summarise(avg_time = mean(time_taken, na.rm = TRUE))
+  summarise(m = mean(time_taken), s = sd(time_taken))
+d_time %>% print(n=24)
 
-repl_plot_t <- t_smry %>% ungroup() %>% 
-  ggplot(aes(x=type, y=avg_time, label = replicate, colour = trend, group = replicate)) +
+# Visual summary
+ggplot(d_time, aes(x=type, y=m, colour = trend)) +
   geom_point(size = 3) +  
-  geom_line(size = 1) + 
+  geom_line(size = 1, aes(group = replicate)) +  
   facet_wrap(~trend) +  
   scale_colour_brewer(palette = "Paired") +
   xlab("Type of areas visualised") +
-  ylab("Average time taken to submit responses (seconds)") +
-  ylim(0,50) + invthm + guides(colour = FALSE)
-repl_plot_t
+  ylab("Average time taken") + 
+  guides(colour = FALSE)
+
 ggsave(filename = "figures/pilot/replicate_change_time.png", plot = repl_plot_t, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
 #ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
 
-
-d <- d %>% group_by(id) %>%
-  separate(time, into = c("date", "time"), sep = " ") %>%
-  mutate(start_time = lag(time)) %>%
-  ungroup()
-
-# compare the time taken and probability of detection for each replicate
-repl_plot_c <- left_join(t_smry, d_smry) %>% 
-  ggplot() + 
-  geom_point(aes(x = avg_time, y = pdetect, colour = trend), 
-    size = 5, alpha = 0.8) + xlim(0,45) +
-  facet_wrap(~type) + 
-  xlab("Average time taken to submit responses (seconds) for each type of display") + 
-  ylab("Proportion of participants who selected the true data plot")
-
-repl_plot_c
-ggsave(filename = "figures/pilot/replicate_timevsdetect.png", plot = repl_plot_c, device = "png", dpi = 300, width = 12, height = 8, units = "in")
-
-
-
+###########################################################
+# Need to check certainty next
 
 ###########################################################
-###################### Modelling ##########################
-###########################################################
+# Qualitative analysis of reason
 
-# model using type + trend variables
-glm1 <- glm(formula = detect ~ type + trend,
+###########################################################
+# Check each contributor performance on each type of plot
+
+###########################################################
+# Modelling 
+glm1 <- glm(formula = detect ~ type * trend,
   family = binomial(link = "logit"), data = d)
-
 glm1_d <- augment(glm1, d) %>% mutate(fitted = ifelse(.fitted>0.5, 1, 0))
 
-
-# classification table
-glm1_d %>% 
-  count(detect, fitted) %>%
-  xtabs(formula = n ~ detect + fitted, data = .)
-  
-
-# model using interaction of type + trend variables
-glm2 <- glm(formula = detect ~ type + trend + type:trend,
-  family = binomial(link = "logit"), data = d)
-
-glm2_d <- augment(glm2, d) %>% 
-  mutate(fitted = ifelse(.fitted > 0.5, 1, 0))
-
-# classification table
-glm2_d %>% 
-  count(detect, fitted) %>%
-  xtabs(formula = n ~ detect + fitted, data = .)
-
 ###########################################################
-
-# Fixed effects models
-
-lmer1_d <- lmer(detect ~ type + (1 | id), data = d)
-lmer1_d 
+# Mixed effects models
+lmer1 <- lmer(detect ~ type*trend + (1|contributor), data = d)
+lmer1 
 glance(lmer1_d)
 tidy(lmer1_d)
 # Hexagon maps have better chance of correct detection
 # Allowing for contributor effects to vary: 0.12 strong residual
-
-lmer2_d <- lmer(detect ~ trend + (1 | id), data = d)
-lmer2_d
-glance(lmer2_d)
-tidy(lmer2_d)
-
-
-lmer3_d <- lmer(detect ~ type*trend + certainty + (1 | id), data = d)
-lmer3_d
-glance(lmer3_d)
-tidy(lmer3_d)
-
