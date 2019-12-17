@@ -149,9 +149,19 @@ ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
 #ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
 
 # Numerical summary
-d_smry %>% spread(type, pdetect) %>%
+diffs <- d_smry %>% spread(type, pdetect) %>%
   mutate(dif = Hexagons - Geography)
 # Need to do the t-tests for these
+
+ggplot(diffs) + 
+  geom_point(aes(Geography, Hexagons, colour = trend)) +
+  geom_abline(slope = 1) +
+  xlim(0,1) + ylim(0,1) + coord_equal()
+
+# Probability of detection using map types
+test_dt <- t.test(pdetect ~ type, data = d_smry, alternative = "less")
+
+test_dt$p.value
 
 # All contributors
 contrib_smry <- d %>% 
@@ -169,9 +179,7 @@ ggplot(contrib_smry, aes(x=type, y=pdetect, colour = trend)) +
   guides(colour = FALSE)
 
 ###########################################################
-# Time taken to answer for each lineup
-# May need to account for first plot shown, that they 
-# may take more time because filling in demographics
+
 d_time <- d %>% 
   group_by(trend, type, location, replicate) %>%
   summarise(m = mean(time_taken), s = sd(time_taken))
@@ -193,11 +201,41 @@ ggsave(filename = "figures/pilot/replicate_change_time.png", plot = repl_plot_t,
 ###########################################################
 # Need to check certainty next
 
+ggplot(d, aes(x = trend, y = certainty)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + geom_jitter(height = 0.1, alpha = 0.4)
+# certainty wasn't affected by the trend
+
+ggplot(d %>% mutate(detect = as_factor(detect)), aes(x = detect, y = certainty)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + geom_jitter(height = 0.1, alpha = 0.4)
+# certainty was slightly higher for correct detections
+
+
+
+
+
 ###########################################################
 # Qualitative analysis of reason
+d <- d %>% 
+  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) 
+
+ggplot(d) + geom_bar(aes(x = reason)) +  
+  facet_grid(trend ~ detect) +  
+  scale_colour_brewer(palette = "Paired") +
+  xlab("Type of areas visualised") + 
+  guides(colour = FALSE) + coord_flip()
+
+
 
 ###########################################################
 # Check each contributor performance on each type of plot
+
+
+
+
+
+
+
+
 
 ###########################################################
 # Modelling 

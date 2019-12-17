@@ -1,0 +1,98 @@
+---
+title: "Untitled"
+author: "Stephanie"
+date: "05/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data
+
+```{r}
+library(tidyverse)
+library(readr)
+fe <- read_xlsx("experiment-export.xlsx", sheet=2) %>%
+  filter(!is.na(contributor)) %>%
+  mutate(contributor = factor(contributor))
+```
+
+# Check IDs
+```{r}
+count(fe, contributor, sort=TRUE) %>% mutate(submissions = n/12) %>% filter(submissions > 1)
+```
+
+# Compare to figure eight report
+
+```{r}
+contributors <- f1463460 %>% 
+  select(contributor = `_worker_id`, 
+  country = `_country`,
+  validation1 = please_enter_the_unique_validation_code_shown_when_you_completed_the_survey) %>% 
+  mutate(contributor = as_factor(contributor))
+
+check <- fe %>% select(contributor, consent, validation) %>% distinct(.keep_all = TRUE) %>% 
+left_join(contributors)
+```
+
+
+
+
+
+
+
+
+
+```{r}
+# Load Libraries
+library(tidyverse)
+library(lubridate)
+library(broom)
+library(readxl)
+library(lme4)
+library(ggthemes)
+
+
+invthm <- theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    legend.background = element_rect(fill = "transparent", colour = NA),
+    legend.key = element_rect(fill = "transparent", colour = NA),
+    text = element_text(colour = "white", size = 20),
+    axis.text = element_text(colour = "white", size = 20)
+  )
+
+###############################################################################
+# Check data set 
+fe %>% count(contributor)
+
+
+# add data replication number
+replicate <- bind_cols(replicate = sort(rep(1:12, 2)), image_name = (list.files("figures/final"))) %>% 
+  mutate(replicate = as.factor(replicate))
+
+fe <-  fe %>% left_join(., replicate, by = "image_name")
+
+fe %>% count(group, image_name)
+
+#remove duplilcated entries due to submit button
+fe <- fe %>% group_by(group, contributor, image_name) %>%
+  slice(1) %>% ungroup() %>% 
+  arrange(group, contributor)
+
+image_smry <- fe %>% count(group, contributor, order, sort = TRUE)
+
+image_smry %>% ggplot() + geom_col(aes(x = contributor, y = n, fill = order)) + coord_flip()
+# This shows multiple submission of scores by some participants
+
+
+# Fix for unique contributor names
+fe <-  fe %>% 
+  mutate(id = paste0(group, group_indices(., group, contributor)))
+
+```
+

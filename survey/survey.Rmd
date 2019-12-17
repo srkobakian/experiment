@@ -1,0 +1,264 @@
+---
+title: Visual Inference Test of the Hexagon Tile Map for Spatial Distributions
+affiliation:
+  author-columnar: true         ## one column per author
+  #institution-columnar: true  ## one column per institution (multiple autors eventually)
+  # wide: true                  ## one column wide author/affiliation fields
+
+  institution:
+    - name: Queensland University of Technology
+      department: Science and Engineering Faculty
+      location: Brisbane, Australia
+      email: stephanie.kobakian@qut.edu.au
+      mark: 1
+      author:
+        - name: Stephanie Kobakian
+    - name: Monash University
+      department: Econometrics and Business Statistics Faculty
+      location: Melbourne, Australia
+      email: dicook@monash.edu
+      mark: 1
+      author:
+        - name: Dianne Cook
+keywords: ["statistics", "visual inference", "geospatial", "population"]
+abstract: |
+  The abstract goes here.
+  On multiple lines eventually.
+
+bibliography: mybibfile.bib
+output: rticles::ieee_article
+---
+
+Introduction
+=============
+<!-- no \IEEEPARstart -->
+<!-- You must have at least 2 lines in the paragraph with the drop letter -->
+<!-- (should never be an issue) -->
+Geo-spatial statistics are often presented on the geographic map base. To present geo-spatial population statistics, information for individuals within each geographic region are often aggregated. A choropleth map is the common display to present aggreagated statistics for subdivisions of the geography, and they are often used to present statistics regarding the population. 
+This visualisation method involves drawing the administrative boundaries and filling them with colour to communicate the value of the statistic. 
+In Australia, there are sets of administrative boundaries that define subdivisions of the population at various granularities.
+
+
+When presenting population statistics on a geographic map base, the size of the regions can allow errornous conclusions to be drawn about the state of the statistic over the entire population.
+This occurs as large regions filled with a consistent colour or pettern can draw the attention of map readers, and small regions are not paid equal attention. XXX
+
+
+Background and Motivation
+=============
+
+## Australian Cancer Atlas
+- Communicating spatial distributions
+- Trend over geographic space
+- Trend over communities and populations
+
+The Australian Cancer Atlas explores the burden of cancer on Australian communities. There are many cancer types presented, and can be explored on an individual or aggregate level. 
+The Australian communities examined are Statistical Areas at Level 2 (SA2) used by the Australian Bureau of Statistics.
+Bayesian spatial smoothing has been applied to incorporate the statistics of neighbouring areas, for both privacy and stability of the estimates.
+The statistics that can be mapped are the diagnoses (Standardised Incidence Rates) and excess deaths for each SA2, communicated as the difference from the Australian average of the statistics.
+The values of the statistic for each are communicated using a diverging colour scheme. Dark blue represents areas with values much less than the Australian average, and represents areas much greater than the Australian average. 
+
+
+
+## Visual Inference
+- Communicating data through visualisations
+- Effective displays for types of data
+- Testing the effectiveness
+
+
+Classical statistical inferences involves hypothesis testing, the process of rejecting a null hypothesis in favour of an alternative. This approach relies on data, the appropriate distributions and their assumptions. 
+
+
+
+
+## Line up protocol
+
+The lineup protocol presents a method for visual inference testing. 
+
+> "In this framework, plots take on the role of test statistics, and human cognition the role of statistical tests." @SIEDAMD
+
+The line up protocol involves placing a "guilty" data visualisation in a lineup of "innocents". Where the guilty data set contains structure, and the innocents are equivalent to a null data set. 
+In a grid of visualisations, an observer is asked to pick the display that is most different, if they select the data set containing structure, they have identified the guilty hidden within the group innocents.
+The guilty data is identified as different from the innocent data with probability $1/m$, where $m$ is the number of null plots plus 1 to account account for the guilty data set. When the guilty data set is chosen, the null hypothesis that it was innocent is rejected with a $1/m$ chance or type I error of being wrong.
+
+The lineup protocol can be used in a variety of tsting scenarios. The choropleth map is best used for testing spatial structure in a data set.
+
+## Population focussed displays
+
+Map creators have the ability to present spatial statistics in alternative displays that can highlight the population.
+This work aims to show that a hexagon tile map display is a viable alternative to the geographic map base for presenting population statistics.
+The same data will be shown on a choropleth map, and on a hexagon tile map.
+Comparing the results of participants who see the choropleth to those who see a hexagon tile map will show that population related distributions are spotted more frequently in a hexagon tile map display.
+
+
+
+Methodology
+============
+
+A survey was created to test the effectiveness of the hexagon tile map display.
+
+Experimental Design:
+Three trends were tested, in each of the two displays.
+For each of the 
+
+Line up protocol:
+
+<!--
+The line-up protocol works like a police line-up: the suspect (test
+statistic plot) is hidden in a set of decoys. If the observer, who has not
+seen the suspect, can pick it out as being noticeably different, there is
+evidence that it is not innocent.
+-->
+
+- Experimental design
+
+  - The overall structure and operation of the experiment or observational experience.
+  - The subject populations: The groups studied in the research including the size of each group and any features of the subjects which may be relevant to the topic being researched. 
+  - The  variables that were changed between groups and the variables measured as a result of the changes.
+  - The conditions under which the research was undertaken and any factors or variations in conditions which may have an impact on the results.
+  - The methods of data analysis used in order to analyse and collate the results. 
+  - Any limitations of the data collected
+    
+Results
+============
+
+1. Type  
+1. Trend
+1. Interaction of type and trend
+1. Demographics of participants
+
+## Probability of detection:
+
+
+## Time taken
+
+
+
+## Modeling
+
+
+
+Discussion
+============
+
+Conclusion
+============
+The conclusion goes here.
+
+<!-- conference papers do not normally have an appendix -->
+
+Acknowledgment {#acknowledgment}
+==============
+
+The authors would like to thank...
+
+Bibliography styles
+===================
+
+Here are two sample references: @Feynman1963118 [@Dirac1953888].
+
+\newpage
+References {#references .numbered}
+==========
+
+
+
+
+
+<!--This section outlines the topic and the question that the researcher aims to answer through the research.  It also outlines the reasons for researching this question, explaining how the answers could be useful or significant in some way. -->
+
+
+
+<!-- An example of a floating figure using the graphicx package. -->
+<!-- Note that \label must occur AFTER (or within) \caption. -->
+<!-- For figures, \caption should occur after the \includegraphics. -->
+<!-- Note that IEEEtran v1.7 and later has special internal code that -->
+<!-- is designed to preserve the operation of \label within \caption -->
+<!-- even when the captionsoff option is in effect. However, because -->
+<!-- of issues like this, it may be the safest practice to put all your -->
+<!-- \label just after \caption rather than within \caption{}. -->
+
+<!-- Reminder: the "draftcls" or "draftclsnofoot", not "draft", class -->
+<!-- option should be used if it is desired that the figures are to be -->
+<!-- displayed while in draft mode. -->
+
+<!-- \begin{figure}[!t] -->
+<!-- \centering -->
+<!-- \includegraphics[width=2.5in]{myfigure} -->
+<!-- where an .eps filename suffix will be assumed under latex,  -->
+<!-- and a .pdf suffix will be assumed for pdflatex; or what has been declared -->
+<!-- via \DeclareGraphicsExtensions. -->
+<!-- \caption{Simulation results for the network.} -->
+<!-- \label{fig_sim} -->
+<!-- \end{figure} -->
+
+<!-- Note that the IEEE typically puts floats only at the top, even when this -->
+<!-- results in a large percentage of a column being occupied by floats. -->
+
+
+<!-- An example of a double column floating figure using two subfigures. -->
+<!-- (The subfig.sty package must be loaded for this to work.) -->
+<!-- The subfigure \label commands are set within each subfloat command, -->
+<!-- and the \label for the overall figure must come after \caption. -->
+<!-- \hfil is used as a separator to get equal spacing. -->
+<!-- Watch out that the combined width of all the subfigures on a  -->
+<!-- line do not exceed the text width or a line break will occur. -->
+
+<!-- \begin{figure*}[!t] -->
+<!-- \centering -->
+<!-- \subfloat[Case I]{\includegraphics[width=2.5in]{box}% -->
+<!-- \label{fig_first_case}} -->
+<!-- \hfil -->
+<!-- \subfloat[Case II]{\includegraphics[width=2.5in]{box}% -->
+<!-- \label{fig_second_case}} -->
+<!-- \caption{Simulation results for the network.} -->
+<!-- \label{fig_sim} -->
+<!-- \end{figure*} -->
+
+<!-- Note that often IEEE papers with subfigures do not employ subfigure -->
+<!-- captions (using the optional argument to \subfloat[]), but instead will -->
+<!-- reference/describe all of them (a), (b), etc., within the main caption. -->
+<!-- Be aware that for subfig.sty to generate the (a), (b), etc., subfigure -->
+<!-- labels, the optional argument to \subfloat must be present. If a -->
+<!-- subcaption is not desired, just leave its contents blank, -->
+<!-- e.g., \subfloat[]. -->
+
+
+<!-- An example of a floating table. Note that, for IEEE style tables, the -->
+<!-- \caption command should come BEFORE the table and, given that table -->
+<!-- captions serve much like titles, are usually capitalized except for words -->
+<!-- such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to -->
+<!-- and up, which are usually not capitalized unless they are the first or -->
+<!-- last word of the caption. Table text will default to \footnotesize as -->
+<!-- the IEEE normally uses this smaller font for tables. -->
+<!-- The \label must come after \caption as always. -->
+
+<!-- \begin{table}[!t] -->
+<!-- % increase table row spacing, adjust to taste -->
+<!-- \renewcommand{\arraystretch}{1.3} -->
+<!-- if using array.sty, it might be a good idea to tweak the value of -->
+<!-- \extrarowheight as needed to properly center the text within the cells -->
+<!-- \caption{An Example of a Table} -->
+<!-- \label{table_example} -->
+<!-- \centering -->
+<!-- % Some packages, such as MDW tools, offer better commands for making tables -->
+<!-- % than the plain LaTeX2e tabular which is used here. -->
+<!-- \begin{tabular}{|c||c|} -->
+<!-- \hline -->
+<!-- One & Two\\ -->
+<!-- \hline -->
+<!-- Three & Four\\ -->
+<!-- \hline -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
+
+
+<!-- Note that the IEEE does not put floats in the very first column -->
+<!-- - or typically anywhere on the first page for that matter. Also, -->
+<!-- in-text middle ("here") positioning is typically not used, but it -->
+<!-- is allowed and encouraged for Computer Society conferences (but -->
+<!-- not Computer Society journals). Most IEEE journals/conferences use -->
+<!-- top floats exclusively.  -->
+<!-- Note that, LaTeX2e, unlike IEEE journals/conferences, places -->
+<!-- footnotes above bottom floats. This can be corrected via the -->
+<!-- \fnbelowfloat command of the stfloats package. -->
+
