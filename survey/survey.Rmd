@@ -34,13 +34,13 @@ Introduction
 <!-- no \IEEEPARstart -->
 <!-- You must have at least 2 lines in the paragraph with the drop letter -->
 <!-- (should never be an issue) -->
-Geo-spatial statistics are often presented on the geographic map base. To present geo-spatial population statistics, information for individuals within each geographic region are often aggregated. A choropleth map is the common display to present aggreagated statistics for subdivisions of the geography, and they are often used to present statistics regarding the population. 
+Geo-spatial statistics are often presented on the geographic map base. To present geo-spatial population statistics, information for individuals within each geographic region are often aggregated. A choropleth map is the common display to present aggreagated statistics for geographic units, and they are often used to present statistics regarding the population. 
 This visualisation method involves drawing the administrative boundaries and filling them with colour to communicate the value of the statistic. 
-In Australia, there are sets of administrative boundaries that define subdivisions of the population at various granularities.
+In Australia, there are many sets of administrative boundaries that define subdivisions of the population at various granularities.
 
 
 When presenting population statistics on a geographic map base, the size of the regions can allow errornous conclusions to be drawn about the state of the statistic over the entire population.
-This occurs as large regions filled with a consistent colour or pettern can draw the attention of map readers, and small regions are not paid equal attention. XXX
+This occurs as large regions filled with a consistent colour or pettern can draw the attention of map readers, and small regions are not paid equal attention.
 
 
 Background and Motivation
@@ -51,8 +51,8 @@ Background and Motivation
 - Trend over geographic space
 - Trend over communities and populations
 
-The Australian Cancer Atlas explores the burden of cancer on Australian communities. There are many cancer types presented, and can be explored on an individual or aggregate level. 
-The Australian communities examined are Statistical Areas at Level 2 (SA2) used by the Australian Bureau of Statistics.
+The Australian Cancer Atlas explores the burden of cancer on Australian communities. There are many cancer types presented, and they can be explored on an individual or aggregate level. 
+The Australian communities examined are Statistical Areas at Level 2 (SA2)[@abs2016] used by the Australian Bureau of Statistics.
 Bayesian spatial smoothing has been applied to incorporate the statistics of neighbouring areas, for both privacy and stability of the estimates.
 The statistics that can be mapped are the diagnoses (Standardised Incidence Rates) and excess deaths for each SA2, communicated as the difference from the Australian average of the statistics.
 The values of the statistic for each are communicated using a diverging colour scheme. Dark blue represents areas with values much less than the Australian average, and represents areas much greater than the Australian average. 
@@ -94,13 +94,79 @@ Comparing the results of participants who see the choropleth to those who see a 
 Methodology
 ============
 
+    Described the methods used to undertake the research including details of 
+
+This methodology section explains the various aspects of the research: 
+
+1. The overall structure of the research
+
 A survey was created to test the effectiveness of the hexagon tile map display.
 
-Experimental Design:
-Three trends were tested, in each of the two displays.
-For each of the 
+The online crowdsource platform Figure-Eight was used to recruit participants.   
+Each participant saw three test displays orienting them to the task.
+They then took an online survey evaluating 12 displays.
+A line up protocol was implemented to arrange 12 maps in each display. 
+Individual displays were created by a combination of plot type, and spatial trend model.
+The researchers contrasted the different plot designs, as hexagon tilemap
+and geography in the lineups were created using the same data, and same null positions within the lineup.
 
-Line up protocol:
+The researchers compared the length of time taken, and the accuracy of the participants choices.
+
+
+2. The subject populations
+<!-- The groups studied in the research including the size of each group and any features of the subjects which may be relevant to the topic being researched. -->
+
+There were 95 participants in the study. Each participant was randomly allocated to either group A or group B when they begun the survey. This resulted in 42 participants allocated to group A, and 53 participants allocated to group B.
+
+Demographics were collected regarding the study participants.
+
+
+3. The variables being manipulated and measured?
+    The variables that were changed between groups were the type of plot shown and the trend.
+    The variables measured as a result of the changes were probability of detection and the time taken to submit responses.
+    
+The levels of the factors measured in the experiment were:
+• Plot type: *Geography, Hexagons*
+• Trend: *Locations in two population centres, Locations in multiple population centres, South-East to North-West*
+
+Factor combinations to be examined by each participant amount to 6 (2x3) lineup displays.
+A participant cannot see the same data for both plot types. Four simulated sets of data will be generated for each treatment.
+This will generate 24 lineups (12 will be geographic maps, and 12 will be hexagon tile maps). Participants will evaluate 12 lineups, 6 of each plot type. Appendix A shows the experimental design visually.
+For each of the six geographic displays and six hexagon displays, two of each trend model were shown to participants.
+
+4. The conditions under which the research was conducted?
+Each participant used the internet to access the survey.
+The participants determined the setting and time of day of the survey. There were many factors that could have determined the conditions under which the research was undertaken. Many factors or variations in conditions may have had an impact on the results.
+   
+5. The methods of data analysis used?
+The data analysis methods used in order to analyse and collate the results were ...
+   
+6. Limitations of the data collection?
+The data collection may have been influenced by several limitations.
+    
+
+
+
+Research Questions:
+1. Are spatial disease trends, that impact highly populated small areas, detected with higher accuracy
+when viewed in a hexagon tile map display?
+2. Are people faster in detecting spatial disease trends, that impact highly populated small areas, when
+using a hexagon tile map display?
+3. Do people find hexagon tile maps more difficult to read than choropleth maps?
+4. Are the reasons for choosing a plot different depending on the type of display?
+5. Does an Australian resident find the choropleth map easier to read than the hexagon tile map?
+
+
+
+For each plot evaluation the subject will provide these responses:
+- Their choice of plot from a lineup
+- Reason for choice of plot
+- Time taken to respond
+- Perceived difficulty in making a choice
+
+
+
+
 
 <!--
 The line-up protocol works like a police line-up: the suspect (test
@@ -108,16 +174,7 @@ statistic plot) is hidden in a set of decoys. If the observer, who has not
 seen the suspect, can pick it out as being noticeably different, there is
 evidence that it is not innocent.
 -->
-
-- Experimental design
-
-  - The overall structure and operation of the experiment or observational experience.
-  - The subject populations: The groups studied in the research including the size of each group and any features of the subjects which may be relevant to the topic being researched. 
-  - The  variables that were changed between groups and the variables measured as a result of the changes.
-  - The conditions under which the research was undertaken and any factors or variations in conditions which may have an impact on the results.
-  - The methods of data analysis used in order to analyse and collate the results. 
-  - Any limitations of the data collected
-    
+  
 Results
 ============
 
@@ -126,11 +183,263 @@ Results
 1. Interaction of type and trend
 1. Demographics of participants
 
+
+```{r data}
+###############################################################################
+invthm <- theme(
+  panel.background = element_rect(fill = "transparent", colour = NA), 
+  plot.background = element_rect(fill = "transparent", colour = NA),
+  legend.background = element_rect(fill = "transparent", colour = NA),
+  legend.key = element_rect(fill = "transparent", colour = NA),
+  text = element_text(colour = "white", size = 20),
+  axis.text = element_text(colour = "white", size = 20)
+)
+
+# Load Libraries
+library(tidyverse)
+library(lubridate)
+library(broom)
+library(readxl)
+library(lme4)
+library(ggthemes)
+# Downloaded data
+d <- read_xlsx("../experiment-export.xlsx", sheet=2) %>%
+  filter(!is.na(contributor)) %>%
+  mutate(contributor = factor(contributor))
+```
+
+
+
+```{r}
+###############################################################################
+# Check data set 
+# d %>% count(contributor, sort=TRUE)
+# Need to clean multiple entries, 48, 24
+# remove duplicated entries due to submit button
+d <- d %>% group_by(group, contributor, image_name) %>%
+  slice(1) %>% ungroup() %>% 
+  arrange(group, contributor, plot_order)
+
+# Now remove contributors who did not provide answers to most questions
+keep <- d %>% count(contributor, sort = TRUE) %>% filter(n > 10)
+d <- d %>% 
+  filter(contributor %in% keep$contributor) %>%
+  filter(contributor != "1234567890")
+
+n_contributors <- d %>% count(contributor, sort=TRUE) %>% summarise(n_contributors = length(contributor))
+```
+The survey responses from participants were kept only if the participant submitted answers for all 12 displays. This resulted in `r n_contributors` surveyed.
+
+
+```{r}
+###############################################################################
+# Augment
+# add data replication number
+#d %>% count(image_name) %>% print(n=24)
+# image code <--> rep
+replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
+                                   "aus_cities_3_geo.png", "aus_cities_3_hex.png",
+                                   "aus_cities_4_geo.png", "aus_cities_4_hex.png",
+                                   "aus_cities_9_geo.png", "aus_cities_9_hex.png",
+                                   "aus_nwse_2_geo.png", "aus_nwse_2_hex.png",
+                                   "aus_nwse_3_geo.png", "aus_nwse_3_hex.png",
+                                   "aus_nwse_5_geo.png", "aus_nwse_5_hex.png",
+                                   "aus_nwse_6_geo.png", "aus_nwse_6_hex.png",
+                                   "aus_three_12_geo.png", "aus_three_12_hex.png",
+                                   "aus_three_5_geo.png", "aus_three_5_hex.png",
+                                   "aus_three_8_geo.png", "aus_three_8_hex.png",
+                                   "aus_three_9_geo.png", "aus_three_9_hex.png"),
+                    replicate = c(1, 1, 2, 2, 3, 3, 4, 4, 
+                                  1, 1, 2, 2, 3, 3, 4, 4,
+                                  1, 1, 2, 2, 3, 3, 4, 4))
+# Add rep info to data
+d <- d %>% left_join(., replicate, by = "image_name")
+#d %>% count(group, image_name, sort=TRUE)`
+
+###############################################################################
+# Tidy for analysis
+d <- d %>% 
+  separate(image_name, c("nothing", "trend", "location", "type"), remove=FALSE) %>%
+  select(-nothing) %>%
+  mutate(location = as.numeric(location), 
+    # detect measures the accuracy of the choice
+         detect = ifelse(location == choice, 1, 0)) %>% 
+  mutate(trend = case_when(
+    trend == "cities" ~ "all cities",
+    trend == "three" ~ "three cities",
+    trend == "nwse" ~ "NW-SE")) %>% 
+  mutate(trend = fct_relevel(trend, "NW-SE","three cities","all cities")) %>% 
+  mutate(type = case_when(
+    type == "hex" ~"Hexagons",
+    TRUE~"Geography"
+  )) 
+
+plots <- d %>% group_by(group, trend, type, location) %>%
+  # pdetect measures the aggregated accuracy of the choices
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) 
+
+plots %>% ggplot(aes(x = group, y = pdetect)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  ylim(c(0,1))
+
+```
+
+```{r}
+# Check contributor performance
+contribs <- d %>% group_by(group, contributor) %>%
+  # pdetect measures the aggregated accuracy of the choices
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) 
+
+# contribs %>% count(group)
+# contribs %>% arrange(pdetect)
+
+```
+
+```{r}
+# Plot performance
+contribs %>% ggplot(aes(x = group, y = pdetect, label = contributor)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  ylim(c(0,1))
+```
+
+
+```{r}
+
+# Create one record for each contributor, to examine demographics
+dem_contribs <- d %>%
+  group_by(contributor) %>%
+  slice(1) %>% ungroup()
+
+```
+
+```{r}
+
+
+###############################################################################
+# Demographics of contributors
+dem_contribs %>% count(gender)
+dem_contribs %>% count(age)
+dem_contribs %>% count(education)
+dem_contribs %>% count(australia)
+
+```
+
+```{r}
+
+
+###############################################################################
+# Detectability rate for each lineup (image)
+d_smry <- d %>% group_by(trend, type, location, replicate) %>%
+  # pdetect measures the aggregated accuracy of the choices
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) %>%
+  ungroup()
+
+# Plot summary
+ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
+  geom_point(size = 3) +  
+  geom_line(size = 1, aes(group = replicate)) +  
+  facet_wrap(~trend) +  
+  scale_colour_brewer(palette = "Paired") +
+  xlab("Type of areas visualised") +
+  ylab("Detection rate") + 
+  ylim(0,1) + #invthm + 
+  guides(colour = FALSE)
+
+```
+11 of the 12 real distribution plots were found more often in the hexagon display.
+This was better than expected. As even geographic distributions were spotted in the hexagon lineup.
+
+```{r}
+#ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
+#ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
+
+# Numerical summary
+diffs <- d_smry %>% spread(type, pdetect) %>%
+  mutate(dif = Hexagons - Geography)
+# Need to do the t-tests for these
+
+ggplot(diffs) + 
+  geom_point(aes(Geography, Hexagons, colour = trend)) +
+  geom_abline(slope = 1) +
+  xlim(0,1) + ylim(0,1) + coord_equal()
+
+# Probability of detection using map types
+test_dt <- t.test(pdetect ~ type, data = d_smry, alternative = "less")
+
+test_dt$p.value
+
+```
+
+
+
+
+```{r}
+
+###########################################################
+
+d_time <- d %>% 
+  group_by(trend, type, location, replicate) %>%
+  summarise(m = mean(time_taken), s = sd(time_taken))
+#d_time %>% print(n=24)
+
+
+ggplot(d, aes(x=time_taken, fill = trend)) +
+  geom_density(alpha = 0.4) 
+
+# Visual summary
+ggplot(d_time, aes(x=type, y=m, colour = trend)) +
+  geom_point(size = 3) +  
+  geom_line(size = 1, aes(group = replicate)) +  
+  facet_wrap(~trend) +  
+  scale_colour_brewer(palette = "Paired") +
+  xlab("Type of areas visualised") +
+  ylab("Average time taken") + 
+  guides(colour = FALSE)
+
+ggsave(filename = "figures/pilot/replicate_change_time.png", plot = repl_plot_t, device = "png", dpi = 300, width = 12, height = 8, units = "in", bg = "transparent")
+#ggsave(filename = "figures/pilot/replicate_change.png", plot = repl_plot, device = "png", dpi = 300, width = 12, height = 8, units = "in")
+
+```
+
+```{r}
+
+###########################################################
+# Need to check certainty next
+
+ggplot(d, aes(x = trend, y = certainty)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+# certainty wasn't affected by the trend
+
+ggplot(d %>% mutate(detect = as_factor(detect)), aes(x = detect, y = certainty)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+# certainty was slightly higher for correct detections
+
+
+```
+
+```{r}
+###########################################################
+# Qualitative analysis of reason
+d <- d %>% 
+  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) 
+
+ggplot(d) + geom_bar(aes(x = reason)) +  
+  facet_grid(trend ~ detect) +  
+  scale_colour_brewer(palette = "Paired") +
+  xlab("Type of areas visualised") + 
+  guides(colour = FALSE) + coord_flip()
+
+
+```
+
+
+
 ## Probability of detection:
 
 
 ## Time taken
-
 
 
 ## Modeling

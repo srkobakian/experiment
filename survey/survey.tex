@@ -468,10 +468,10 @@ Geo-spatial statistics are often presented on the geographic map base.
 To present geo-spatial population statistics, information for
 individuals within each geographic region are often aggregated. A
 choropleth map is the common display to present aggreagated statistics
-for subdivisions of the geography, and they are often used to present
-statistics regarding the population. This visualisation method involves
-drawing the administrative boundaries and filling them with colour to
-communicate the value of the statistic. In Australia, there are sets of
+for geographic units, and they are often used to present statistics
+regarding the population. This visualisation method involves drawing the
+administrative boundaries and filling them with colour to communicate
+the value of the statistic. In Australia, there are many sets of
 administrative boundaries that define subdivisions of the population at
 various granularities.
 
@@ -480,7 +480,7 @@ of the regions can allow errornous conclusions to be drawn about the
 state of the statistic over the entire population. This occurs as large
 regions filled with a consistent colour or pettern can draw the
 attention of map readers, and small regions are not paid equal
-attention. XXX
+attention.
 
 \hypertarget{background-and-motivation}{%
 \section{Background and Motivation}\label{background-and-motivation}}
@@ -499,9 +499,10 @@ attention. XXX
 \end{itemize}
 
 The Australian Cancer Atlas explores the burden of cancer on Australian
-communities. There are many cancer types presented, and can be explored
-on an individual or aggregate level. The Australian communities examined
-are Statistical Areas at Level 2 (SA2) used by the Australian Bureau of
+communities. There are many cancer types presented, and they can be
+explored on an individual or aggregate level. The Australian communities
+examined are Statistical Areas at Level 2 (SA2)(``Australian Statistical
+Geography Standard (ASGS)'' 2018) used by the Australian Bureau of
 Statistics. Bayesian spatial smoothing has been applied to incorporate
 the statistics of neighbouring areas, for both privacy and stability of
 the estimates. The statistics that can be mapped are the diagnoses
@@ -571,41 +572,104 @@ spotted more frequently in a hexagon tile map display.
 \hypertarget{methodology}{%
 \section{Methodology}\label{methodology}}
 
+\begin{verbatim}
+Described the methods used to undertake the research including details of 
+\end{verbatim}
+
+This methodology section explains the various aspects of the research:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The overall structure of the research
+\end{enumerate}
+
 A survey was created to test the effectiveness of the hexagon tile map
 display.
 
-Experimental Design: Three trends were tested, in each of the two
-displays. For each of the
+The online crowdsource platform Figure-Eight was used to recruit
+participants.\\
+Each participant saw three test displays orienting them to the task.
+They then took an online survey evaluating 12 displays. A line up
+protocol was implemented to arrange 12 maps in each display. Individual
+displays were created by a combination of plot type, and spatial trend
+model. The researchers contrasted the different plot designs, as hexagon
+tilemap and geography in the lineups were created using the same data,
+and same null positions within the lineup.
 
-Line up protocol:
+The researchers compared the length of time taken, and the accuracy of
+the participants choices.
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
 \item
-  Experimental design
+  The subject populations 
+\end{enumerate}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    The overall structure and operation of the experiment or
-    observational experience.
-  \item
-    The subject populations: The groups studied in the research
-    including the size of each group and any features of the subjects
-    which may be relevant to the topic being researched.
-  \item
-    The variables that were changed between groups and the variables
-    measured as a result of the changes.
-  \item
-    The conditions under which the research was undertaken and any
-    factors or variations in conditions which may have an impact on the
-    results.
-  \item
-    The methods of data analysis used in order to analyse and collate
-    the results.
-  \item
-    Any limitations of the data collected
-  \end{itemize}
-\end{itemize}
+There were 97 participants in the study. Each participant was randomly
+allocated to either group A or group B when they begun the survey. This
+resulted in 42 participants allocated to group A, and 53 participants
+allocated to group B.
+
+Demographics were collected regarding the study participants.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The variables being manipulated and measured? The variables that were
+  changed between groups were the type of plot shown and the trend. The
+  variables measured as a result of the changes were probability of
+  detection and the time taken to submit responses.
+\end{enumerate}
+
+The levels of the factors measured in the experiment were: • Plot type:
+\emph{Geography, Hexagons} • Trend: \emph{Locations in two population
+centres, Locations in multiple population centres, South-East to
+North-West}
+
+Factor combinations to be examined by each participant amount to 6 (2x3)
+lineup displays. A participant cannot see the same data for both plot
+types. Four simulated sets of data will be generated for each treatment.
+This will generate 24 lineups (12 will be geographic maps, and 12 will
+be hexagon tile maps). Participants will evaluate 12 lineups, 6 of each
+plot type. Appendix A shows the experimental design visually.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\item
+  The conditions under which the research was conducted? Each
+  participant used the internet to access the survey. The participants
+  determined the setting and time of day of the survey. There were many
+  factors that could have determined the conditions under which the
+  research was undertaken. Many factors or variations in conditions may
+  have had an impact on the results.
+\item
+  The methods of data analysis used? The data analysis methods used in
+  order to analyse and collate the results were \ldots{}
+\item
+  Limitations of the data collection? The data collection may have been
+  influenced by several limitations.
+\end{enumerate}
+
+Research Questions: 1. Are spatial disease trends, that impact highly
+populated small areas, detected with higher accuracy when viewed in a
+hexagon tile map display? 2. Are people faster in detecting spatial
+disease trends, that impact highly populated small areas, when using a
+hexagon tile map display? 3. Do people find hexagon tile maps more
+difficult to read than choropleth maps? 4. Are the reasons for choosing
+a plot different depending on the type of display? 5. Does an Australian
+resident find the choropleth map easier to read than the hexagon tile
+map?
+
+For each plot evaluation the subject will provide these responses: -
+Their choice of plot from a lineup - Reason for choice of plot - Time
+taken to respond - Perceived difficulty in making a choice
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -622,6 +686,12 @@ Line up protocol:
 \item
   Demographics of participants
 \end{enumerate}
+
+The results section describes the findings of the research. When
+outlining these findings, it is best to give the most central findings
+first and then move on to the more peripheral results. For example, the
+overall measure of learning would be given first and then the measures
+of different types of learning.
 
 \hypertarget{probability-of-detection}{%
 \subsection{Probability of detection:}\label{probability-of-detection}}
@@ -656,6 +726,11 @@ Here are two sample references: ({\textbf{???}}; {\textbf{???}}).
 \section{References}\label{references}}
 
 \hypertarget{refs}{}
+\leavevmode\hypertarget{ref-abs2016}{}%
+``Australian Statistical Geography Standard (ASGS).'' 2018.
+\emph{Australian Bureau of Statistics}. Australian Government.
+\href{https://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian\%20\%20\%20Statistical\%20Geography\%20Standard\%20(ASGS)}{https://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian   Statistical Geography Standard (ASGS)}.
+
 \leavevmode\hypertarget{ref-SIEDAMD}{}%
 Buja, Andreas, Dianne Cook, Heike Hofmann, Michael Lawrence, Eun-Kyung
 Lee, Deborah F. Swayne, and Hadley Wlckham. 2009. ``Statistical
