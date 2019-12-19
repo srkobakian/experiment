@@ -270,7 +270,7 @@ invthm <- theme(
 )
 
 # Downloaded data
-d <- read_xlsx("../experiment-export.xlsx", sheet=2) %>%
+d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
   filter(!is.na(contributor)) %>%
   mutate(contributor = factor(contributor))
 ```
