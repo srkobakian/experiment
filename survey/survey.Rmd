@@ -108,7 +108,7 @@ Comparing the results of participants who see the choropleth to those who see a 
 Study Design
 ============
 
-## Aims 
+
 
 This study aims to answer several questions around the presentation of spatial distributions:
 
@@ -117,15 +117,16 @@ This study aims to answer several questions around the presentation of spatial d
 
 2. Are people faster in detecting spatial disease trends, that impact highly populated small areas, when
 using a hexagon tile map display?
-3. Do people find hexagon tile maps more difficult to read than choropleth maps?
-4. Are the reasons for choosing a plot different depending on the type of display?
-5. Does an Australian resident find the choropleth map easier to read than the hexagon tile map?
+
+additional considerations
+ Do people find hexagon tile maps more difficult to read than choropleth maps?
+ Are the reasons for choosing a plot different depending on the type of display?
 
 
 
 
 
-## Methodology
+## Experimental design
 
 
 A survey was created to test the effectiveness of the hexagon tile map display.
@@ -151,7 +152,7 @@ Participants then selected our task from the list of tasks available to them.
 
 
 
-## The variables being manipulated and measured?
+## The variables being manipulated and measured
 
 
 The variables that were changed between groups were the type of plot shown and the trend model.
@@ -237,9 +238,6 @@ Computation will be done using R [@RCore], with the `lme4` package [@lme4].
 
 This required internet connection for participants to access the survey
     
-
-
-Ethics approval for the online survey was granted by QUT’s Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research. 
 
 
 Results
@@ -526,6 +524,10 @@ Acknowledgment {#acknowledgment}
 ==============
 
 The authors would like to thank...
+
+
+Ethics approval for the online survey was granted by QUT’s Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research. 
+
 
 Bibliography styles
 ===================
