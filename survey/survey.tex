@@ -312,6 +312,16 @@
 %% BEGIN MY ADDITIONS %%
 
 
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 
 \usepackage[unicode=true]{hyperref}
 
@@ -564,112 +574,206 @@ Map creators have the ability to present spatial statistics in
 alternative displays that can highlight the population. This work aims
 to show that a hexagon tile map display is a viable alternative to the
 geographic map base for presenting population statistics. The same data
-will be shown on a choropleth map, and on a hexagon tile map. Comparing
-the results of participants who see the choropleth to those who see a
+were shown on a choropleth map, and on a hexagon tile map. Comparing the
+results of participants who see the choropleth to those who see a
 hexagon tile map will show that population related distributions are
 spotted more frequently in a hexagon tile map display.
 
-\hypertarget{methodology}{%
-\section{Methodology}\label{methodology}}
+\hypertarget{study-design}{%
+\section{Study Design}\label{study-design}}
 
-\begin{verbatim}
-Described the methods used to undertake the research including details of 
-\end{verbatim}
+\hypertarget{aims}{%
+\subsection{Aims}\label{aims}}
 
-This methodology section explains the various aspects of the research:
+This study aims to answer several questions around the presentation of
+spatial distributions:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  The overall structure of the research
+  Are spatial disease trends, that impact highly populated small areas,
+  detected with higher accuracy when viewed in a hexagon tile map
+  display?
+\item
+  Are people faster in detecting spatial disease trends, that impact
+  highly populated small areas, when using a hexagon tile map display?
+\item
+  Do people find hexagon tile maps more difficult to read than
+  choropleth maps?
+\item
+  Are the reasons for choosing a plot different depending on the type of
+  display?
+\item
+  Does an Australian resident find the choropleth map easier to read
+  than the hexagon tile map?
 \end{enumerate}
+
+\hypertarget{methodology}{%
+\subsection{Methodology}\label{methodology}}
 
 A survey was created to test the effectiveness of the hexagon tile map
 display.
 
 The online crowdsource platform Figure-Eight was used to recruit
-participants.\\
-Each participant saw three test displays orienting them to the task.
-They then took an online survey evaluating 12 displays. A line up
-protocol was implemented to arrange 12 maps in each display. Individual
-displays were created by a combination of plot type, and spatial trend
-model. The researchers contrasted the different plot designs, as hexagon
+participants. A line up protocol was implemented to arrange 12 maps in
+each display. Individual displays were created by a combination of plot
+type, and spatial trend model.
+
+The researchers contrasted the different plot designs, as hexagon
 tilemap and geography in the lineups were created using the same data,
 and same null positions within the lineup.
 
 The researchers compared the length of time taken, and the accuracy of
 the participants choices.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  The subject populations 
-\end{enumerate}
+\hypertarget{the-participants}{%
+\subsection{The participants}\label{the-participants}}
 
-There were 97 participants in the study. Each participant was randomly
-allocated to either group A or group B when they begun the survey. This
-resulted in 42 participants allocated to group A, and 53 participants
-allocated to group B.
+There were 95 participants in the study. We recruited participants using
+the Figure-Eight crowd source platform by advertising this survey to
+participants that fulfilled the following crtieria:
 
-Demographics were collected regarding the study participants.
+• level 2 or level 3 on the Figure-Eight Platform. • at least 18 years
+old
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  The variables being manipulated and measured? The variables that were
-  changed between groups were the type of plot shown and the trend. The
-  variables measured as a result of the changes were probability of
-  detection and the time taken to submit responses.
-\end{enumerate}
+Participants then selected our task from the list of tasks available to
+them.
+
+\hypertarget{the-variables-being-manipulated-and-measured}{%
+\subsection{The variables being manipulated and
+measured?}\label{the-variables-being-manipulated-and-measured}}
+
+The variables that were changed between groups were the type of plot
+shown and the trend model.
+
+Each participant was randomly allocated to either group A or group B
+when they begun the survey. This resulted in 42 participants allocated
+to group A, and 53 participants allocated to group B.
 
 The levels of the factors measured in the experiment were: • Plot type:
 \emph{Geography, Hexagons} • Trend: \emph{Locations in two population
 centres, Locations in multiple population centres, South-East to
 North-West}
 
-Factor combinations to be examined by each participant amount to 6 (2x3)
-lineup displays. A participant cannot see the same data for both plot
-types. Four simulated sets of data will be generated for each treatment.
-This will generate 24 lineups (12 will be geographic maps, and 12 will
-be hexagon tile maps). Participants will evaluate 12 lineups, 6 of each
-plot type. Appendix A shows the experimental design visually.
+Factor combinations examined by each participant amount to 6 (2x3)
+lineup displays. A participant did see the same data for both plot
+types. Four simulated sets of data were generated for each treatment.
+This will generate 24 lineups (12 were geographic maps, and 12 were
+hexagon tile maps). Participants will evaluate 12 lineups, 6 of each
+plot type. Appendix A shows the experimental design visually. For each
+of the six geographic displays and six hexagon displays, two of each
+trend model were shown to participants.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\item
-  The conditions under which the research was conducted? Each
-  participant used the internet to access the survey. The participants
-  determined the setting and time of day of the survey. There were many
-  factors that could have determined the conditions under which the
-  research was undertaken. Many factors or variations in conditions may
-  have had an impact on the results.
-\item
-  The methods of data analysis used? The data analysis methods used in
-  order to analyse and collate the results were \ldots{}
-\item
-  Limitations of the data collection? The data collection may have been
-  influenced by several limitations.
-\end{enumerate}
+The variables measured as a result of the changes were the probability
+of detection each display and the time taken to submit responses. To
+measure the accuracy of the detections, the plot chosen for each lineup
+evaluated was compared to the position of the real spatial trend plot in
+the lineup. A correct result occurs when the chosen plot matches the
+position of the real plot, this was recorded in an additional binary
+variable; 1 = correct; 0 = incorrect. High efficiency occurs when a
+small amount of time is taken to evaluate each lineup. This will be
+measured as the numeric variable measuring the length of time taken to
+submit the answers to the evaluation of each line up.
 
-Research Questions: 1. Are spatial disease trends, that impact highly
-populated small areas, detected with higher accuracy when viewed in a
-hexagon tile map display? 2. Are people faster in detecting spatial
-disease trends, that impact highly populated small areas, when using a
-hexagon tile map display? 3. Do people find hexagon tile maps more
-difficult to read than choropleth maps? 4. Are the reasons for choosing
-a plot different depending on the type of display? 5. Does an Australian
-resident find the choropleth map easier to read than the hexagon tile
-map?
+\hypertarget{participant-training}{%
+\subsection{Participant training}\label{participant-training}}
 
-For each plot evaluation the subject will provide these responses: -
-Their choice of plot from a lineup - Reason for choice of plot - Time
-taken to respond - Perceived difficulty in making a choice
+Each participant saw three test displays orienting them to the task.
+Participants proceeded to the survey, this involved evaluating 12
+displays.
+
+\hypertarget{experiment-procudure-and-data-collection}{%
+\subsection{Experiment procudure and data
+collection}\label{experiment-procudure-and-data-collection}}
+
+The participant submitted demographic questions and provided consent
+before evaluating the lineups.
+
+Demographics were collected regarding the study participants: • Gender
+(female / male / other), • Degree education level achieved (high school
+/ bachelors / masters / doctorate / other), • Age range (18-24 / 25-34 /
+35-44 / 45-54 / 55+ / other) • Lived at least for one year in Australia
+(Yes / No )
+
+Participants then moved to the evaulation phase. The set of images
+differed for group A and group B. After being allocated each individual
+was shown the 12 displays in randomised order.
+
+Three questions were asked regarding each display: - Plot choice -
+Reason - Difficulty
+
+After completing the 12 evaluations, the participants were asked to
+submit their responses.
+
+Data was collected through a web application containing the online
+survey. Each participant used the internet to access the survey.
+
+The data collection took place using a secure link between the survey
+web application and the googlesheet used to store results. The
+application would first connect to the googlesheet using the
+googlesheets (Bryan and Zhao 2018) R package, and interacted again at
+the completion of the survey by adding the participant's responses to
+the 12 displays as 12 rows of data in the googlesheet.
+
+\hypertarget{the-methods-of-data-analysis-used}{%
+\subsection{The methods of data analysis
+used}\label{the-methods-of-data-analysis-used}}
+
+The data analysis methods used in order to analyse and collate the
+results included downloading the survey submissions and opening them
+into the analysis software R ({\textbf{???}}).
+
+For each of the 12 lineup displays the researchers calculated: •
+accuracy: the proportion of subjects who detected the data plot •
+efficiency: average time taken to respond
+
+\hypertarget{visualisations}{%
+\subsubsection{Visualisations}\label{visualisations}}
+
+Side-by-side dot plots were made of accuracy (efficiency) against plot
+type, facetted by trend model type.
+
+Similar plots were made of the feedback and demographic variables -
+reason for choice, reported difficulty, gender, age, education, having
+lived in Australia - against the design variables.
+
+Plots will be made in R (R Core Team 2019), with the ggplot2 package
+(Wickham 2016).
+
+\hypertarget{modeling}{%
+\subsubsection{Modeling}\label{modeling}}
+
+The results will be analysed using a generalised linear model, with a
+subject random effect. There will be two main effects: plot type and
+trend model, which gives the fixed effects part of the model to be
+
+\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij}, ~~~ i=1,2; ~j=1,2,3\]
+
+where \(y_{ij} = 0, 1\) whether the subject detected the data plot,
+\(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the plot type effect,
+\(\delta_j\) is the trend model effect. We are allowing for an
+interaction between plot type and trend model. Because the response is
+binary, a logistic model is used.
+
+A similar model will be constructed for the efficiency, using a log
+time, and normal errors.
+
+The feedback and demographic variables will possibly be incorporated as
+covariates.
+
+Computation will be done using R ({\textbf{???}}), with the
+\texttt{lme4} package ({\textbf{???}}).
+
+\hypertarget{limitations-of-the-data-collection}{%
+\subsection{Limitations of the data
+collection}\label{limitations-of-the-data-collection}}
+
+This required internet connection for participants to access the survey
+
+Ethics approval for the online survey was granted by QUT's Ethics
+Committee (Ethics Application Number: 1900000991). All applicants
+provided informed consent in line with QUT regulations prior to
+participating in this research.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -687,11 +791,68 @@ taken to respond - Perceived difficulty in making a choice
   Demographics of participants
 \end{enumerate}
 
-The results section describes the findings of the research. When
-outlining these findings, it is best to give the most central findings
-first and then move on to the more peripheral results. For example, the
-overall measure of learning would be given first and then the measures
-of different types of learning.
+The survey responses from participants were kept only if the participant
+submitted answers for all 12 displays. This resulted in 95 surveyed.
+
+\includegraphics{survey_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\includegraphics{survey_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   gender     n
+##   <chr>  <int>
+## 1 He        70
+## 2 She       25
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   age         n
+##   <chr>   <int>
+## 1 18 - 24    15
+## 2 25 - 34    37
+## 3 35 - 44    23
+## 4 45 - 54    11
+## 5 55+         6
+## 6 NA          3
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 3 x 2
+##   education       n
+##   <chr>       <int>
+## 1 Bach           56
+## 2 High School    25
+## 3 Masters        14
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   australia     n
+##   <chr>     <int>
+## 1 No           93
+## 2 Yes           2
+\end{verbatim}
+
+\includegraphics{survey_files/figure-latex/unnamed-chunk-7-1.pdf} 11 of
+the 12 real distribution plots were found more often in the hexagon
+display. This was better than expected. As even geographic distributions
+were spotted in the hexagon lineup.
+
+\includegraphics{survey_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{verbatim}
+## [1] 0.004079185
+\end{verbatim}
+
+\includegraphics{survey_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{survey_files/figure-latex/unnamed-chunk-9-2.pdf}
+
+\includegraphics{survey_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{survey_files/figure-latex/unnamed-chunk-10-2.pdf}
+
+\includegraphics{survey_files/figure-latex/unnamed-chunk-11-1.pdf}
 
 \hypertarget{probability-of-detection}{%
 \subsection{Probability of detection:}\label{probability-of-detection}}
@@ -699,8 +860,8 @@ of different types of learning.
 \hypertarget{time-taken}{%
 \subsection{Time taken}\label{time-taken}}
 
-\hypertarget{modeling}{%
-\subsection{Modeling}\label{modeling}}
+\hypertarget{modeling-1}{%
+\subsection{Modeling}\label{modeling-1}}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
@@ -718,8 +879,6 @@ The authors would like to thank\ldots{}
 \hypertarget{bibliography-styles}{%
 \section{Bibliography styles}\label{bibliography-styles}}
 
-Here are two sample references: ({\textbf{???}}; {\textbf{???}}).
-
 \newpage
 
 \hypertarget{references}{%
@@ -729,7 +888,12 @@ Here are two sample references: ({\textbf{???}}; {\textbf{???}}).
 \leavevmode\hypertarget{ref-abs2016}{}%
 ``Australian Statistical Geography Standard (ASGS).'' 2018.
 \emph{Australian Bureau of Statistics}. Australian Government.
-\href{https://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian\%20\%20\%20Statistical\%20Geography\%20Standard\%20(ASGS)}{https://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian   Statistical Geography Standard (ASGS)}.
+\href{\%7Bhttps://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian\%20\%20\%20Statistical\%20Geography\%20Standard\%20(ASGS)\%7D}{\{https://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian   Statistical Geography Standard (ASGS)\}}.
+
+\leavevmode\hypertarget{ref-sheets}{}%
+Bryan, Jennifer, and Joanna Zhao. 2018. \emph{Googlesheets: Manage
+Google Spreadsheets from R}.
+\url{https://CRAN.R-project.org/package=googlesheets}.
 
 \leavevmode\hypertarget{ref-SIEDAMD}{}%
 Buja, Andreas, Dianne Cook, Heike Hofmann, Michael Lawrence, Eun-Kyung
