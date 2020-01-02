@@ -1,5 +1,5 @@
 ---
-title: "Which is Better: a Choropleth Map or Hexagon Tile Map? A comparison using visual inference"
+title: "Land doesn't get cancer, people do: an experiment comparing the effectiveness of two displays"
 affiliation:
   author-columnar: true         ## one column per author
   #institution-columnar: true  ## one column per institution (multiple autors eventually)
