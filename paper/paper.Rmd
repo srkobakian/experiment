@@ -1,5 +1,5 @@
 ---
-title: "Which is Better: a Choropleth Map or Hexagon Tile Map? A comparison using visual inference"
+title: "Communicating human related spatial distributions: A comparison of spatial visualisations using visual inference."
 affiliation:
   author-columnar: true         ## one column per author
   #institution-columnar: true  ## one column per institution (multiple autors eventually)
@@ -27,7 +27,7 @@ dev: png
 bibliography: mybibfile.bib
 output: rticles::ieee_article
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 link-citations: yes
 ---
 
@@ -65,13 +65,10 @@ Motivation
 
 <!-- Find a new display for the Cancer Atlas -->
 
-## Australian Cancer Atlas
+## The Australian Cancer Atlas
 
-The Australian Cancer Atlas explores the burden of cancer on Australian communities. There are many cancer types presented, and they can be explored on an individual or aggregate level. 
-The Australian communities are examined at the Statistical Areas at Level 2 (SA2)[@abs2016] used by the Australian Bureau of Statistics.
-Bayesian spatial smoothing has been applied to incorporate the statistics of neighbouring areas, for both privacy and stability of the estimates.
-The statistics that can be mapped are the diagnoses (Standardised Incidence Rates) and excess deaths for each SA2, communicated as the difference from the Australian average of the statistics.
-The values of the statistic for each are communicated using a diverging colour scheme. 
+The Australian Cancer Atlas is an online interactive webtool created to explore the burden of cancer on Australian communities. There are many cancer types presented, and they can be explored on an individual or aggregate level. 
+The Australian communities are examined at the Statistical Areas at Level 2 (SA2) [@abs2016] used by the Australian Bureau of Statistics. Bayesian spatial smoothing has been applied to incorporate the value of the statistics of the neighbouring areas. Spatial smoothing allows for the protection privacy and gives stability to the estimates. The statistics that can be mapped are the diagnoses (Standardised Incidence Rates) and excess deaths for each SA2, communicated as the difference from the Australian average of the statistics. The values of the statistic for each geographic area is communicated through the colour used to fill the areas, the colours are chosen for the diverging colour scheme. 
 
 The Australian Cancer Atlas communicates the trends in the distributions of cancer over geographic space. It uses a choropleth map display and diverging colour scheme to draw attention to relationships between neighbouring areas. 
 
@@ -79,16 +76,10 @@ The Australian Cancer Atlas communicates the trends in the distributions of canc
 Background
 =============
 
-## Methodology 
-
-Spatial visualisations
- - Choropleth
-However, the issue of using a choropleth map base becomes obvious when considering the distributions.
- Position is extremely important for analysis of a visualisation.
-
 
 ## Population focussed displays
 
+Spatial visualisations communicate the distribution of statistics over geographic space. The most common display for spatial data is the choropleth map. However, the issue of using a choropleth map base becomes obvious when considering the distributions.
 Map creators have the ability to present spatial statistics in alternative displays that can highlight the population.
 This work aims to show that a hexagon tile map display is a viable alternative to the geographic map base for presenting population statistics.
 The same data were shown on a choropleth map, and on a hexagon tile map.
@@ -113,6 +104,7 @@ Alternative maps include various cartograms, and tesselated tile maps. They allo
 <!-- Figure Choro and Hex tile for Aus-->
 
 
+## Methodology 
 
 ## Visual Inference
 - Communicating data through visualisations
@@ -200,6 +192,16 @@ additional considerations when completing this experimental task included explor
  Are the reasons for choosing a plot different depending on the type of display?
 -->
 
+The mean of the detection rate for choropleth map, denoted as $\mu_C$, and the hexagon tile maps, $\mu_H$ will be contrasted. This leads to the following one sided hypothesis for this study:
+
+$H_0$ : $\mu_H$ = $\mu_C$
+$H_a$ : $\mu_H$ > $\mu_C$
+
+The detection rate $\hat\pi$ is calculated as the amount of people that made the choice of plot that contained the real data, out of the participants who saw data plot in the lineup of the null data plots.
+
+The difference in the detection rates for the two displays will be compared using the following:
+
+$$ \hat\pi_C - \hat\pi_H \pm t_{1-\alpha,n-1}\sqrt{\hat\pi_C(1-\hat\pi_C)/n_C + \hat\pi_H(1-\hat\pi_H)/n_H} $$
 
 ## Experimental design
 
@@ -375,22 +377,23 @@ library(readxl)
 library(lme4)
 library(ggthemes)
 library(RColorBrewer)
+library(visreg)
+library(emmeans)
 
-invthm <- theme(
-  panel.background = element_rect(fill = "transparent", colour = NA), 
-  plot.background = element_rect(fill = "transparent", colour = NA),
-  legend.background = element_rect(fill = "transparent", colour = NA),
-  legend.key = element_rect(fill = "transparent", colour = NA),
-  text = element_text(colour = "white", size = 20),
-  axis.text = element_text(colour = "white", size = 20)
-)
-
-trend_colours <- c("NW-SE" = "#B2DF8A",
+trend_colours <- c(
+  "NW-SE" = "#B2DF8A",
   "three cities" = "#A6CEE3",
   "all cities" = "#1F78B4")
   
-  
-# Downloaded data
+type_colours <- c(
+  "Choro." = "#fcae91",
+  "Hex." = "#a50f15")
+
+detect_colours <- c(
+  "No" = "#66C2A5",
+  "Yes" = "#FC8D62")
+
+  # Downloaded data
 d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
   filter(!is.na(contributor)) %>%
   mutate(contributor = factor(contributor))
@@ -402,11 +405,21 @@ d <- d %>% group_by(group, contributor, image_name) %>%
   slice(1) %>% ungroup() %>% 
   arrange(group, contributor, plot_order)
 
-# Now remove contributors who did not provide answers to most questions
+# Remove contributors who did not provide answers to most questions
 keep <- d %>% count(contributor, sort = TRUE) %>% filter(n > 10)
 d <- d %>% 
   filter(contributor %in% keep$contributor) %>%
   filter(contributor != "1234567890")
+
+# Remove contributors who did not provide any choices
+bad_contribs <- d %>% group_by(contributor) %>% 
+  summarise(sum0 = sum(choice)) %>% 
+  filter(sum0 == 0) %>% 
+  pull(contributor)
+
+d <- d %>% 
+  filter(!(contributor %in% bad_contribs))
+
 
 n_contributors <- d %>% count(contributor, sort=TRUE) %>% 
   summarise(n_contributors = length(contributor))
@@ -415,13 +428,9 @@ d <- d %>% mutate(certainty = factor(as.character(certainty),
   levels = c("1", "2", "3", "4","5"), ordered=TRUE))
 ```
 
-The survey responses from participants were kept only if the participant submitted answers for all 12 displays. This resulted in 95 participants.
+The survey responses from participants were kept only if the participant submitted answers for all 12 displays. This resulted in 92 participants.
 
 ```{r reps}
-# Augment
-# add data replication number
-# d %>% count(image_name) %>% print(n=24)
-# image code <--> rep
 replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
                                    "aus_cities_3_geo.png", "aus_cities_3_hex.png",
                                    "aus_cities_4_geo.png", "aus_cities_4_hex.png",
@@ -439,47 +448,17 @@ replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.p
                                   1, 1, 2, 2, 3, 3, 4, 4))
 # Add rep info to data
 d <- d %>% left_join(., replicate, by = "image_name")
-#d %>% count(group, image_name, sort=TRUE)`
-
-contribs_responses <- d %>%
-  group_by(group, contributor) %>% 
-  filter(sum(choice) == 0) %>% 
-  summarise(pdetect = mean(detect, na.rm = TRUE))
-
-d <- d %>% 
-  filter(!(contributor %in% contribs_responses$contributor))
 ```
 
+The contributors who gave various plot choices and reasons for the twelve displays were kept.
+The contributors who detected no plots correctly were analysed further. Three of these contribuotrs gave no choices for any of the twelve displays. They were also removed for the rest of the analysis.
 
-The contributors who detected no plots correctly were analysed further. Three of these contribuotrs gave no choices for any of the twelve displays. They were also removed for the rest of the analysis. The contributors who gave various plot choices and reasons for the twelve displays were kept.
-
-## Demographics:
-
-```{r demogs}
-# Create one record for each contributor, to examine demographics
-dem_contribs <- d %>%
-  group_by(contributor) %>%
-  slice(1) %>% ungroup()
-
-###############################################################################
-# Demographics of contributors
-#dem_contribs %>% count(gender)
-dem_contribs %>% count(age, name = "participants")
-dem_contribs %>% count(gender, education) %>% 
-  spread(gender, n) %>% 
-  mutate(`Col. Total` = He + She) %>% 
-  gather("Gender", "Amount", He:`Col. Total`) %>% 
-  spread(education, Amount) %>% 
-  mutate(`Row Total` = Bach + `High School`, Masters,
-    Gender = factor(Gender, levels = c("He", "She", "Col. Total"), labels = c("He", "She", "Col. Total"))) %>% knitr::kable(format = "latex")
-```
-70 of the 95 participants were male, and 25 female and only two of the participants had lived in Australia before.
-
-70 of the participants achieved a Bachelors or Masters degree.
+Of the 92 participants, 67 were male, and 25 female. Only two of the participants had lived in Australia before.
+The education level achieved by the participants was 70 Bachelors or Masters degree.
 
 # Accuracy
 
-The detection rate is used to find the accuracy for participants reporting the real data trend model. The accuracy can be seen from many views.
+The detection rate for participants reporting the real data trend model is used to calculate the accuracy of the responses of participants.
 
 
 ```{r pdetection_group}
@@ -496,9 +475,9 @@ d <- d %>%
     trend == "three" ~ "three cities")) %>% 
   mutate(trend = fct_relevel(trend, "NW-SE","three cities","all cities")) %>% 
   mutate(type = case_when(
-    type == "hex" ~"Hexagon tiles",
-    TRUE~"Choropleth")) %>% 
-    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("Incorrect", "Correct")))
+    type == "hex" ~"Hex.",
+    TRUE~"Choro.")) %>% 
+    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("No", "Yes")))
 
 plots <- d %>% group_by(group, trend, type, location) %>%
   # pdetect measures the aggregated accuracy of the choices
@@ -506,30 +485,10 @@ plots <- d %>% group_by(group, trend, type, location) %>%
 ```
 
 
-```{r pdetection_trend, eval = FALSE}
-plots %>% ggplot(aes(x = group, y = pdetect)) + 
-  geom_boxplot() + 
-  geom_jitter(width = 0.1) +
-  ylab("Detection rate") + 
-  ylim(c(0,1))
-
-plots %>% ggplot(aes(x = trend, y = pdetect, fill = trend)) + 
-  geom_boxplot() + 
-  scale_fill_manual(values = trend_colours) +
-  geom_jitter(width = 0.1) +
-  ylab("Detection rate") + 
-  ylim(c(0,1)) 
-
-plots %>% ggplot(aes(x = type, y = pdetect)) + 
-  geom_boxplot() + 
-  geom_jitter(width = 0.1) +
-  ylab("Detection rate") + 
-  ylim(c(0,1))
-```
 
 
 
-```{r detection_compare, fig.cap = "Each point shows the probability of detection for the lineup display, separated by the trend model hidden in the lineup. The points for the same data set are linked to show the difference in the detection rate when the same data was seen in each display. 11 of the 12 real distribution plots were found more often in the hexagon display."}
+```{r detection_compare, fig.cap = "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or haxgon tile map display are linked to show the difference in the detection rate."}
 # Detectability rate for each lineup (image)
 d_smry <- d %>% group_by(trend, type, replicate) %>%
   # pdetect measures the aggregated accuracy of the choices
@@ -547,11 +506,13 @@ ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
   ylim(0,1) +
   guides(colour = FALSE)
 ```
+The detection rates are usually higher when participants viewed the hexagon tile map displays. The difference was greater when viewing a three cities trend model. When the trend model affected all cities participants also detected the data display in the lineup of null plots more often. The North West to South East data plot was detected with similar rates when viewing the choropleth and  hexagon tile map displays, though for three of the replicates the participants detected the data display more often. 
 
 ```{r detection_compare_table}
 d %>% 
   group_by(trend, type, replicate) %>%
-  summarise(mean = round(mean(time_taken),2), std.dev = round(sd(time_taken), 2)) %>% 
+  summarise(mean = round(mean(time_taken),2), 
+    std.dev = round(sd(time_taken), 2)) %>% 
   knitr::kable(format = "latex")
 ```
 
@@ -559,7 +520,7 @@ d %>%
 ```{r ttest}
 # Numerical summary
 diffs <- d_smry %>% spread(type, pdetect) %>%
-  mutate(dif = `Hexagon tiles` - `Choropleth`)
+  mutate(dif = `Hex.` - `Choro.`)
 
 # Probability of detection using map types
 test_dt <- t.test(pdetect ~ type, data = d_smry, alternative = "less")
@@ -570,32 +531,37 @@ The value of `r test_dt$p.value` shows that it is very unlikely the difference i
 
 ## Speed
 
-```{r time, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The distributions for the choropleth and hexagon tile maps are very similar. Both have a large peak at 0-5 seconds, and then a secondary peak at 10-20 seconds. No response took over one minute."}
-d_time <- d %>% 
-  group_by(trend, type, location, replicate) %>%
-  summarise(m = mean(time_taken), s = sd(time_taken))
-#d_time %>% print(n=24)
 
-ggplot(d, 
-  aes(x = time_taken, fill = detect_f)) + xlim(0,65) +
+```{r hist_height, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The distributions for the choropleth and hexagon tile maps are very similar. Both have a large peak at 0-5 seconds, and then a secondary peak at 10-20 seconds. No response took over one minute."}
+ggplot(d, aes(x = time_taken, fill = detect_f, group = detect_f)) + 
   scale_fill_brewer(palette = "Dark2") +
-  geom_histogram(alpha = 0.4, binwidth = 5, boundary = 0, position = "dodge") + 
-  labs(x = "Time taken (Seconds)", y = "Amount of evaluations") + facet_wrap(~ type)
+  geom_histogram(binwidth = 5, boundary = 0) +
+  facet_grid(type ~ trend) +
+  labs(x = "Time taken (Seconds)", y = "Amount of evaluations") + 
+  guides(fill = FALSE)
+```
+
+```{r hist_fill, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show the proportion of evaulations that were submitted within each time window."}
+ggplot(d, aes(x = time_taken, fill = detect_f, group = detect_f)) + 
+  scale_fill_brewer(palette = "Dark2") +
+  geom_histogram(binwidth = 5, boundary = 0, position = "fill") +
+  facet_grid(type ~ trend) +
+  labs(x = "Time taken (Seconds)", y = "Proportion of evaluations") + 
+  guides(fill = FALSE)
 ```
 
 
 
-```{r time_compare, fig.cap = "Each point shows the average time taken for participants to evalute the lineup display, separated by the trend model hidden in the lineup. The points for the same data set are linked to show the difference in the avergae time taken when the same data was seen in each display. There is a lot of variation in the time taken. The shortest average time (15 seconds), and the longest average time (23 seconds) both occured when evaluating three cities"}
-# Visual summary
-ggplot(d_time, aes(x = type, y = m, colour = trend)) +
-  geom_point(size = 3) +  
-  geom_line(size = 1, aes(group = replicate)) +  
-  facet_wrap(~ trend) +  
-  scale_colour_manual(values = trend_colours) +
-  xlab("Type of areas visualised") +
-  ylab("Average time taken") + 
+```{r}
+ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) + 
+  scale_colour_brewer(palette = "Dark2") +
+  geom_freqpoly(binwidth = 3) +
+  facet_grid(type ~ trend) +
+  scale_fill_manual(values = detect_colours) +
+  labs(x = "Time taken (Seconds)", y = "Amount of evaluations") +
   guides(colour = FALSE)
 ```
+
 
 
 ## Certainty
@@ -605,30 +571,15 @@ d <- d %>%
   mutate(certainty = as_factor(certainty)) 
 
 ggplot(d,
-  aes(x = certainty, fill = detect)) +
+  aes(x = certainty, fill = detect_f)) +
   scale_fill_brewer(palette = "Set2") +
-  geom_bar(position = "dodge") + facet_wrap(~type) + guides(fill = FALSE)
+  geom_bar() + facet_wrap(~trend) + guides(fill = FALSE)
 ```
 
 Certainty levels are measured on a five point scale—they are subjective
 assessments by the participant ‘how certain are you about your choice?’.
 
 
-
-```{r, fig.cap = "The amount of times each level of certainty was chosen by participants. The columns shown whether a viewer correctly selected the real trend data plot when viewing hexagon tile map or choropleth displays."}
-ggplot(d,
-  aes(x = certainty)) +
-  scale_fill_manual(values = trend_colours) +
-  geom_bar(position = "dodge") + facet_grid(type ~ detect)
-# certainty wasn't affected by the trend
-```
-
-```{r, fig.cap = "The amount of times each level of certainty was chosen by participants. The columns shown whether a viewer correctly selected the real trend data plot when viewing hexagon tile map or choropleth displays. The rows show the type of the trend model added in the real data plot. The default certainty level of 3 was chosen most frequently when incorrect. Then shown a NW-SE or all cities trend participants felt more certain of their correct choice."}
-ggplot(d, 
-  aes(x = certainty, fill = trend)) +
-  scale_fill_manual(values = trend_colours) +
-  geom_bar(position = "dodge") + facet_grid(trend ~ detect)
-```
 
 ## Reason
 
@@ -639,9 +590,9 @@ d <- d %>%
   mutate(reason = fct_infreq(ifelse(reason =="0.0", "no reason", reason)))
 
 ggplot(d) + 
-  geom_bar(aes(x = reason)) +  
-  facet_grid(trend ~ type) +  
-  scale_colour_manual(values = trend_colours) +
+  geom_bar(aes(x = reason, fill = type), position = "dodge") +  
+  facet_grid(~detect_f) +  
+  scale_colour_manual(values = type_colours) +
   xlab("Type of areas visualised") + 
   guides(colour = FALSE) + coord_flip()
 ```
@@ -672,7 +623,7 @@ d <- d %>%
   mutate(reason = ifelse(reason =="0.0", "no reason", reason)) 
 
 ggplot(d %>% mutate(detect = factor(detect, levels = c(0,1), 
-  labels = c("Incorrect", "Correct")))) + 
+  labels = c("No", "Yes")))) + 
   geom_bar(aes(x = reason)) +  
   facet_grid(trend ~ detect) +  
   scale_colour_manual(values = trend_colours) +
@@ -681,17 +632,23 @@ ggplot(d %>% mutate(detect = factor(detect, levels = c(0,1),
 ```
 
 
-```{r choices, fig.height = 12, fig.width = 12, fig.cap = "Each facet is associated with one lineup, the height of the bars count the choices made by the participants considering each lineup. The bars coloured with black outlines show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map. "}
-detect_colours <- c("Incorrect" = "#33A02C", "Correct" = "#B2DF8A")
-d %>% mutate(repl = paste(type, trend, " (", replicate, ") " ,  sep = "")) %>% 
+```{r choices, fig.height = 12, fig.width = 12, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloureddark blue show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map. "}
+d %>% 
+  count(type, trend, choice, replicate, choice, detect_f) %>% 
+  group_by(type, trend, replicate) %>% 
+  mutate(prop = n/sum(n)) %>% 
+  mutate(repl = paste(replicate, ": ", trend,  sep = "")) %>%
+  mutate(bottom = 0) %>% 
   ggplot() + 
-  geom_bar(aes(x = choice, fill = detect_f, color = detect_f), boundary = 0) + 
-  facet_wrap(~ repl, 
-    drop = TRUE, as.table = TRUE, ncol = 4) +
-  scale_colour_grey(start = 0.9, end = 0.1) +
-  scale_fill_manual(values = detect_colours) +
-  theme(legend.position = "bottom") + guides(colour = FALSE, fill = FALSE) +
-  labs(x = "Choice of plot in lineup", y = "Amount of choices")
+  geom_point(aes(x = choice, y = prop, color = detect_f), boundary = 0, size =2) + 
+  geom_segment(aes(x = choice, xend = choice, y = bottom, yend = prop, colour = detect_f)) +
+  facet_grid(replicate + type ~ trend, 
+    drop = TRUE, as.table = TRUE, scales = "free_y") +
+  labs(x = "Choice of plot in lineup", y = "Amount of choices") +
+  scale_colour_manual(values = detect_colours) +
+  scale_x_continuous(breaks = seq(from = 0, to = 12)) +
+  scale_y_continuous(breaks = seq(from = 0.0, to = 1.0, by = 0.1)) +
+  theme(legend.position = "bottom") + guides(colour = FALSE, fill = FALSE)
 ```
 
 The choices made by participants are examined in Figure \ref{fig:choices}.
@@ -706,6 +663,12 @@ Participants were misled by the choropleth display, but not the hexagon display 
 
 A generalized linear mixed effects model can account for each individual participants’ abilities as it includes a subject-specific random intercept. As each participant provides results from 12 lineups.
 
+This includes the two main effects map type and trend model, which gives the fixed effects part of the model to be
+
+$$\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij}, ~~~ i=1,2; ~j=1,2,3$$
+
+where $y_{ij} = 0, 1$ whether the subject detected the data plot, $\mu$ is the overall mean, $\tau_i, i=1,2$ is the map type effect, $\delta_j$ is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. 
+
 ### Detection Rates
 
 ```{r}
@@ -718,17 +681,62 @@ pfit <- exp(preds$fit)/(1+exp(preds$fit))
 se.bands.logit = tibble(upper = (preds$fit+2*preds$se.fit), lower = (preds$fit-2*preds$se.fit))
 se.bands = exp(se.bands.logit)/(1+exp(se.bands.logit))
 
-tidy(glm1) %>% mutate(p.value = round(p.value, 3))
+factors <- c("Design", "", "Trend", "", "Interactions", "")
+terms <- c("Choro", "Hex", "Three cities", "All cities", "Hex : Three cities", "Hex : All cities")
 
-anova(glm1, test="Chisq")
+tidy(glm1) %>% 
+  mutate(p.value = round(p.value, 4)) %>%
+  mutate(sig = case_when(
+    p.value <= 0.001 ~ "***", 
+    p.value <= 0.01 ~ "**", 
+    p.value <= 0.05 ~ "*", 
+    p.value <= 0.01 ~ ".",
+    TRUE ~ " ")) %>% 
+  mutate(term = terms,
+    factors = factors) %>% 
+  select(`_` = factors, 
+    terms = term, 
+    Estimate = estimate, 
+    Error = std.error, 
+    p.value, sig) %>% knitr::kable(format = "latex", 
+      align = "lrrrrl")
+```
 
+
+```{r}
 d_glm <- d %>% select(group:certainty, detect, detect_f) %>%
   bind_cols(as_tibble(se.bands)) %>% 
   mutate(pfit, 
     predicted = ifelse(pfit > 0.5, 1, 0),
-    predicted = factor(predicted, levels = c(0,1), labels = c("Incorrect", "Correct")))
+    predicted = factor(predicted, levels = c(0,1), 
+      labels = c("No", "Yes")))
 
 table(d_glm$predicted, d_glm$detect_f)
+```
+
+This gives the model:
+
+
+$$\widehat{y_{ij}} = 0.0217 + 0.42Hex -3.25_{three} -1.24_{all} + 2.37{Hex.three} + 1.08{Hex.all} $$
+
+
+
+```{r}
+emmean_obj1 <- emmeans(glm1, c("trend", "type"),
+                        type = "response")
+
+int_1 <- confint(emmean_obj1, by = c("trend"), adjust = "bonferroni")
+int_1 %>% 
+  ggplot(aes(x= type, y = prob, group = trend)) + 
+  geom_point(aes(col = type)) + 
+  geom_line(alpha = 0.5, lty = "dashed") + 
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL, col = type), 
+                width = 0.2) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1), 
+        strip.text.y = element_text(angle = 0),
+        legend.position = "none",
+        axis.title.x = element_blank()) + 
+  ylab("Estimated Marginal Mean")
 ```
 
 
@@ -747,7 +755,7 @@ d_lmer <- d %>% select(group:certainty, detect, detect_f) %>%
   bind_cols(as_tibble(se.bands)) %>% 
   mutate(pfit_lmer, 
     predicted = ifelse(pfit_lmer > 0.5, 1, 0),
-    predicted = factor(predicted, levels = c(0,1), labels = c("Incorrect", "Correct")))
+    predicted = factor(predicted, levels = c(0,1), labels = c("No", "Yes")))
 
 table(d_lmer$predicted, d_lmer$detect_f)
 
@@ -756,8 +764,34 @@ table(d_lmer$predicted, d_lmer$detect_f)
 # Allowing for contributor effects to vary: 0.12 strong residual
 ```
 
+
 For a base model of Choropleth map, using a NW-SE trend model.
 The detection rate for Hexagon tile maps using a NW-SE trend model changes the log odds of the detection by 0.42.
+
+```{r}
+# Mixed effects models
+lmer2 <- lmer(detect ~ (type|trend), data = d)
+lmer2_d <- augment(lmer2, d)
+
+preds_lmer2 <- predict(lmer2, newdata = d)
+pfit_lmer2 <- exp(preds_lmer2)/(1+exp(preds_lmer2))
+
+glance(lmer2)
+tidy(lmer2)
+
+d_lmer2 <- d %>% select(group:certainty, detect, detect_f) %>%
+  bind_cols(as_tibble(se.bands)) %>% 
+  mutate(pfit_lmer2, 
+    predicted = ifelse(pfit_lmer2 > 0.5, 1, 0),
+    predicted = factor(predicted, levels = c(0,1), labels = c("No", "Yes")))
+
+table(d_lmer2$predicted, d_lmer2$detect_f)
+```
+
+
+```{r}
+visreg(lmer2, "type", by = "trend", scale = "response", re.form = ~(type|trend))
+```
 
 
 ### Certainty
@@ -804,7 +838,53 @@ Supplementary Materials
 
 ## Survey application
 
+## Overall Performance
+
+```{r pdetection_trend, eval = FALSE}
+plots %>% ggplot(aes(x = group, y = pdetect)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  ylab("Detection rate") + 
+  ylim(c(0,1))
+
+plots %>% ggplot(aes(x = trend, y = pdetect, fill = trend)) + 
+  geom_boxplot() + 
+  scale_fill_manual(values = trend_colours) +
+  geom_jitter(width = 0.1) +
+  ylab("Detection rate") + 
+  ylim(c(0,1)) 
+
+plots %>% ggplot(aes(x = type, y = pdetect)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  ylab("Detection rate") + 
+  ylim(c(0,1))
+```
+
 ## Subject specific anomolies (0% detection)
+
+## Demographics:
+
+```{r demogs}
+# Create one record for each contributor, to examine demographics
+dem_contribs <- d %>%
+  group_by(contributor) %>%
+  slice(1) %>% ungroup()
+
+###############################################################################
+# Demographics of contributors
+#dem_contribs %>% count(gender)
+dem_contribs %>% ggplot() + geom_bar(aes(age))
+dem_contribs %>% count(gender)
+dem_contribs %>% count(education)
+dem_contribs %>% count(gender, education) %>% 
+  spread(gender, n) %>% 
+  mutate(`Col. Total` = He + She) %>% 
+  gather("Gender", "Amount", He:`Col. Total`) %>% 
+  spread(education, Amount) %>% 
+  mutate(`Row Total` = Bach + `High School`, Masters,
+    Gender = factor(Gender, levels = c("He", "She", "Col. Total"), labels = c("He", "She", "Col. Total"))) %>% knitr::kable(format = "latex")
+```
 
 
 Acknowledgment {#acknowledgment}

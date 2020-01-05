@@ -326,7 +326,7 @@
 \usepackage[unicode=true]{hyperref}
 
 \hypersetup{
-            pdftitle={Which is Better: a Choropleth Map or Hexagon Tile Map? A comparison using visual inference},
+            pdftitle={Communicating human related spatial distributions: A comparison of spatial visualisations using visual inference.},
             pdfkeywords={statistics, visual inference, geospatial, population},
             pdfborder={0 0 0},
             breaklinks=true}
@@ -336,6 +336,7 @@
 \setcounter{secnumdepth}{0}
 
 % Pandoc syntax highlighting
+
 
 % Pandoc header
 
@@ -355,8 +356,8 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Which is Better: a Choropleth Map or Hexagon Tile Map? A comparison
-using visual inference}
+\title{Communicating human related spatial distributions: A comparison of
+spatial visualisations using visual inference.}
 
 % author names and affiliations
 % use a multiple column layout for up to three different
@@ -497,22 +498,25 @@ spatial distributions may come to incorrect conclusions.
 \hypertarget{motivation}{%
 \section{Motivation}\label{motivation}}
 
-\hypertarget{australian-cancer-atlas}{%
-\subsection{Australian Cancer Atlas}\label{australian-cancer-atlas}}
+\hypertarget{the-australian-cancer-atlas}{%
+\subsection{The Australian Cancer
+Atlas}\label{the-australian-cancer-atlas}}
 
-The Australian Cancer Atlas explores the burden of cancer on Australian
-communities. There are many cancer types presented, and they can be
-explored on an individual or aggregate level. The Australian communities
-are examined at the Statistical Areas at Level 2 (SA2)(``Australian
-Statistical Geography Standard (ASGS)''
-\protect\hyperlink{ref-abs2016}{2018}) used by the Australian Bureau of
-Statistics. Bayesian spatial smoothing has been applied to incorporate
-the statistics of neighbouring areas, for both privacy and stability of
-the estimates. The statistics that can be mapped are the diagnoses
-(Standardised Incidence Rates) and excess deaths for each SA2,
+The Australian Cancer Atlas is an online interactive webtool created to
+explore the burden of cancer on Australian communities. There are many
+cancer types presented, and they can be explored on an individual or
+aggregate level. The Australian communities are examined at the
+Statistical Areas at Level 2 (SA2) (``Australian Statistical Geography
+Standard (ASGS)'' \protect\hyperlink{ref-abs2016}{2018}) used by the
+Australian Bureau of Statistics. Bayesian spatial smoothing has been
+applied to incorporate the value of the statistics of the neighbouring
+areas. Spatial smoothing allows for the protection privacy and gives
+stability to the estimates. The statistics that can be mapped are the
+diagnoses (Standardised Incidence Rates) and excess deaths for each SA2,
 communicated as the difference from the Australian average of the
-statistics. The values of the statistic for each are communicated using
-a diverging colour scheme.
+statistics. The values of the statistic for each geographic area is
+communicated through the colour used to fill the areas, the colours are
+chosen for the diverging colour scheme.
 
 The Australian Cancer Atlas communicates the trends in the distributions
 of cancer over geographic space. It uses a choropleth map display and
@@ -522,25 +526,22 @@ neighbouring areas.
 \hypertarget{background}{%
 \section{Background}\label{background}}
 
-\hypertarget{methodology}{%
-\subsection{Methodology}\label{methodology}}
-
-Spatial visualisations - Choropleth However, the issue of using a
-choropleth map base becomes obvious when considering the distributions.
-Position is extremely important for analysis of a visualisation.
-
 \hypertarget{population-focussed-displays}{%
 \subsection{Population focussed
 displays}\label{population-focussed-displays}}
 
-Map creators have the ability to present spatial statistics in
-alternative displays that can highlight the population. This work aims
-to show that a hexagon tile map display is a viable alternative to the
-geographic map base for presenting population statistics. The same data
-were shown on a choropleth map, and on a hexagon tile map. Comparing the
-results of participants who see the choropleth to those who see a
-hexagon tile map will show that population related distributions are
-spotted more frequently in a hexagon tile map display.
+Spatial visualisations communicate the distribution of statistics over
+geographic space. The most common display for spatial data is the
+choropleth map. However, the issue of using a choropleth map base
+becomes obvious when considering the distributions. Map creators have
+the ability to present spatial statistics in alternative displays that
+can highlight the population. This work aims to show that a hexagon tile
+map display is a viable alternative to the geographic map base for
+presenting population statistics. The same data were shown on a
+choropleth map, and on a hexagon tile map. Comparing the results of
+participants who see the choropleth to those who see a hexagon tile map
+will show that population related distributions are spotted more
+frequently in a hexagon tile map display.
 
 When presenting population statistics on a geographic map base, the size
 of the regions can allow errornous conclusions to be drawn about the
@@ -552,6 +553,9 @@ presenting geospatial data. Alternative maps include various cartograms,
 and tesselated tile maps. They allow other variables to be included in
 the display to highlight the staistical values of various geographic
 areas.
+
+\hypertarget{methodology}{%
+\subsection{Methodology}\label{methodology}}
 
 \hypertarget{visual-inference}{%
 \subsection{Visual Inference}\label{visual-inference}}
@@ -619,6 +623,22 @@ spatial distributions:
 
 additional considerations when completing this experimental task
 included exploration of the difficulty experienced by participants
+
+The mean of the detection rate for choropleth map, denoted as \(\mu_C\),
+and the hexagon tile maps, \(\mu_H\) will be contrasted. This leads to
+the following one sided hypothesis for this study:
+
+\(H_0\) : \(\mu_H\) = \(\mu_C\) \(H_a\) : \(\mu_H\) \textgreater{}
+\(\mu_C\)
+
+The detection rate \(\hat\pi\) is calculated as the amount of people
+that made the choice of plot that contained the real data, out of the
+participants who saw data plot in the lineup of the null data plots.
+
+the difference in the detection rates for the two displays will be
+compared using the following:
+
+\[ \hat\pi_C - \hat\pi_H \pm t_{1-\alpha,n-1}\sqrt{\hat\pi_C(1-\hat\pi_C)/n_C + \hat\pi_H(1-\hat\pi_H)/n_H} \]
 
 \hypertarget{experimental-design}{%
 \subsection{Experimental design}\label{experimental-design}}
@@ -853,7 +873,7 @@ This required internet connection for participants to access the survey
 \section{Results}\label{results}}
 
 The survey responses from participants were kept only if the participant
-submitted answers for all 12 displays. This resulted in 95 participants.
+submitted answers for all 12 displays. This resulted in 92 participants.
 
 The contributors who detected no plots correctly were analysed further.
 Three of these contribuotrs gave no choices for any of the twelve
@@ -861,34 +881,7 @@ displays. They were also removed for the rest of the analysis. The
 contributors who gave various plot choices and reasons for the twelve
 displays were kept.
 
-\hypertarget{demographics}{%
-\subsection{Demographics:}\label{demographics}}
-
-\begin{verbatim}
-## # A tibble: 6 x 2
-##   age     participants
-##   <chr>          <int>
-## 1 18 - 24           14
-## 2 25 - 34           37
-## 3 35 - 44           21
-## 4 45 - 54           11
-## 5 55+                6
-## 6 NA                 3
-\end{verbatim}
-
-\begin{tabular}{l|r|r|r|r}
-\hline
-Gender & Bach & High School & Masters & Row Total\\
-\hline
-Col. Total & 56 & 23 & 13 & 79\\
-\hline
-He & 39 & 19 & 9 & 58\\
-\hline
-She & 17 & 4 & 4 & 21\\
-\hline
-\end{tabular}
-
-70 of the 95 participants were male, and 25 female and only two of the
+67 of the 92 participants were male, and 25 female and only two of the
 participants had lived in Australia before.
 
 70 of the participants achieved a Bachelors or Masters degree.
@@ -903,64 +896,65 @@ views.
 \begin{figure}
 \centering
 \includegraphics{paper_files/figure-latex/detection_compare-1.pdf}
-\caption{Each point shows the probability of detection for the lineup
-display, separated by the trend model hidden in the lineup. The points
-for the same data set are linked to show the difference in the detection
-rate when the same data was seen in each display. 11 of the 12 real
-distribution plots were found more often in the hexagon display.}
+\caption{Contrasting the detection rate achieved by participants when
+viewing the four replicates of the three trend models. Each point shows
+the probability of detection for the lineup display, the facets separate
+the trend models hidden in the lineup. The points for the same data set
+shown in a choroleth or haxgon tile map display are linked to show the
+difference in the detection rate.}
 \end{figure}
 
 \begin{tabular}{l|l|r|r|r}
 \hline
 trend & type & replicate & mean & std.dev\\
 \hline
-NW-SE & Choropleth & 1 & 25.00 & 16.41\\
+NW-SE & Choro. & 1 & 25.00 & 16.41\\
 \hline
-NW-SE & Choropleth & 2 & 21.12 & 15.28\\
+NW-SE & Choro. & 2 & 21.12 & 15.28\\
 \hline
-NW-SE & Choropleth & 3 & 21.12 & 17.05\\
+NW-SE & Choro. & 3 & 21.12 & 17.05\\
 \hline
-NW-SE & Choropleth & 4 & 21.20 & 14.52\\
+NW-SE & Choro. & 4 & 21.20 & 14.52\\
 \hline
-NW-SE & Hexagon tiles & 1 & 19.53 & 14.56\\
+NW-SE & Hex. & 1 & 19.53 & 14.56\\
 \hline
-NW-SE & Hexagon tiles & 2 & 21.95 & 16.42\\
+NW-SE & Hex. & 2 & 21.95 & 16.42\\
 \hline
-NW-SE & Hexagon tiles & 3 & 22.02 & 16.12\\
+NW-SE & Hex. & 3 & 22.02 & 16.12\\
 \hline
-NW-SE & Hexagon tiles & 4 & 18.17 & 14.51\\
+NW-SE & Hex. & 4 & 18.17 & 14.51\\
 \hline
-three cities & Choropleth & 1 & 15.30 & 13.88\\
+three cities & Choro. & 1 & 15.30 & 13.88\\
 \hline
-three cities & Choropleth & 2 & 25.22 & 14.36\\
+three cities & Choro. & 2 & 25.22 & 14.36\\
 \hline
-three cities & Choropleth & 3 & 22.49 & 15.87\\
+three cities & Choro. & 3 & 22.49 & 15.87\\
 \hline
-three cities & Choropleth & 4 & 18.68 & 13.74\\
+three cities & Choro. & 4 & 18.68 & 13.74\\
 \hline
-three cities & Hexagon tiles & 1 & 20.37 & 17.02\\
+three cities & Hex. & 1 & 20.37 & 17.02\\
 \hline
-three cities & Hexagon tiles & 2 & 19.95 & 16.59\\
+three cities & Hex. & 2 & 19.95 & 16.59\\
 \hline
-three cities & Hexagon tiles & 3 & 20.02 & 17.19\\
+three cities & Hex. & 3 & 20.02 & 17.19\\
 \hline
-three cities & Hexagon tiles & 4 & 18.02 & 16.93\\
+three cities & Hex. & 4 & 18.02 & 16.93\\
 \hline
-all cities & Choropleth & 1 & 20.14 & 16.56\\
+all cities & Choro. & 1 & 20.14 & 16.56\\
 \hline
-all cities & Choropleth & 2 & 22.75 & 14.72\\
+all cities & Choro. & 2 & 22.75 & 14.72\\
 \hline
-all cities & Choropleth & 3 & 19.88 & 15.03\\
+all cities & Choro. & 3 & 19.88 & 15.03\\
 \hline
-all cities & Choropleth & 4 & 19.33 & 16.15\\
+all cities & Choro. & 4 & 19.33 & 16.15\\
 \hline
-all cities & Hexagon tiles & 1 & 19.83 & 15.87\\
+all cities & Hex. & 1 & 19.83 & 15.87\\
 \hline
-all cities & Hexagon tiles & 2 & 16.96 & 14.65\\
+all cities & Hex. & 2 & 16.96 & 14.65\\
 \hline
-all cities & Hexagon tiles & 3 & 19.21 & 15.27\\
+all cities & Hex. & 3 & 19.21 & 15.27\\
 \hline
-all cities & Hexagon tiles & 4 & 20.03 & 15.11\\
+all cities & Hex. & 4 & 20.03 & 15.11\\
 \hline
 \end{tabular}
 
@@ -973,7 +967,7 @@ the difference is due to chance.
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/time-1.pdf}
+\includegraphics{paper_files/figure-latex/hist_height-1.pdf}
 \caption{The time taken to evaluate each display is broken into five
 second windows. The height of the histogram bars show how many
 evaulations were submitted within each time window. The distributions
@@ -984,22 +978,20 @@ No response took over one minute.}
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/time_compare-1.pdf}
-\caption{Each point shows the average time taken for participants to
-evalute the lineup display, separated by the trend model hidden in the
-lineup. The points for the same data set are linked to show the
-difference in the avergae time taken when the same data was seen in each
-display. There is a lot of variation in the time taken. The shortest
-average time (15 seconds), and the longest average time (23 seconds)
-both occured when evaluating three cities}
+\includegraphics{paper_files/figure-latex/hist_fill-1.pdf}
+\caption{The time taken to evaluate each display is broken into five
+second windows. The height of the histogram bars show the proportion of
+evaulations that were submitted within each time window.}
 \end{figure}
+
+\includegraphics{paper_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 \hypertarget{certainty}{%
 \subsection{Certainty}\label{certainty}}
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-1-1.pdf}
+\includegraphics{paper_files/figure-latex/unnamed-chunk-2-1.pdf}
 \caption{The amount of times each level of certainty was chosen by
 participants when viewing hexagon tile map or choropleth displays.
 Participants were more likely to choose a high certainty when
@@ -1011,33 +1003,12 @@ Certainty levels are measured on a five point scale---they are
 subjective assessments by the participant `how certain are you about
 your choice?'.
 
-\begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-2-1.pdf}
-\caption{The amount of times each level of certainty was chosen by
-participants. The columns shown whether a viewer correctly selected the
-real trend data plot when viewing hexagon tile map or choropleth
-displays.}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-3-1.pdf}
-\caption{The amount of times each level of certainty was chosen by
-participants. The columns shown whether a viewer correctly selected the
-real trend data plot when viewing hexagon tile map or choropleth
-displays. The rows show the type of the trend model added in the real
-data plot. The default certainty level of 3 was chosen most frequently
-when incorrect. Then shown a NW-SE or all cities trend participants felt
-more certain of their correct choice.}
-\end{figure}
-
 \hypertarget{reason}{%
 \subsection{Reason}\label{reason}}
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{paper_files/figure-latex/unnamed-chunk-3-1.pdf}
 \caption{The most common reason for choice of plot when looking at each
 trend model shown in Choropleth and Hexagon Tile maps. Clusters were the
 most common reason when viewing a Hexagon Tile map, trend was the most
@@ -1050,7 +1021,7 @@ display.}
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{paper_files/figure-latex/unnamed-chunk-4-1.pdf}
 \caption{The probablity of detection acheived by the contributors in
 each group is shown by the points. Group B has a larger range and a
 smaller inter-quartile range. Group A and both had 3 people who did not
@@ -1060,17 +1031,18 @@ find any of the data maps in the displays.}
 \hypertarget{reason-1}{%
 \subsection{Reason}\label{reason-1}}
 
-\includegraphics{paper_files/figure-latex/unnamed-chunk-6-1.pdf}
+\includegraphics{paper_files/figure-latex/unnamed-chunk-5-1.pdf}
 
 \begin{figure}
 \centering
 \includegraphics{paper_files/figure-latex/choices-1.pdf}
 \caption{Each facet is associated with one lineup, the height of the
-bars count the choices made by the participants considering each lineup.
-The bars coloured with black outlines show the map which contained a
-trend model, these are the correct choices. The numbers differentiate
-the replicates of each trend model and type of map display. Participants
-were able to select 0 to indicate they did not want to choose a map.}
+points show the proportion of the participants that made each choice
+when considering each lineup. The points coloureddark blue show the map
+which contained a trend model, these are the correct choices. The
+numbers differentiate the replicates of each trend model and type of map
+display. Participants were able to select 0 to indicate they did not
+want to choose a map.}
 \end{figure}
 
 The choices made by participants are examined in Figure
@@ -1092,46 +1064,50 @@ A generalized linear mixed effects model can account for each individual
 participants' abilities as it includes a subject-specific random
 intercept. As each participant provides results from 12 lineups.
 
+This includes the two main effects map type and trend model, which gives
+the fixed effects part of the model to be
+
+\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij}, ~~~ i=1,2; ~j=1,2,3\]
+
+where \(y_{ij} = 0, 1\) whether the subject detected the data plot,
+\(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the map type effect,
+\(\delta_j\) is the trend model effect. We are allowing for an
+interaction between map type and trend model. Because the response is
+binary, a logistic model is used.
+
 \hypertarget{detection-rates}{%
 \subsubsection{Detection Rates}\label{detection-rates}}
 
-\begin{verbatim}
-## # A tibble: 6 x 5
-##   term                                estimate std.error statistic p.value
-##   <chr>                                  <dbl>     <dbl>     <dbl>   <dbl>
-## 1 (Intercept)                           0.0217     0.147     0.147   0.883
-## 2 typeHexagon tiles                     0.420      0.211     1.99    0.047
-## 3 trendthree cities                    -3.25       0.412    -7.88    0    
-## 4 trendall cities                      -1.24       0.229    -5.41    0    
-## 5 typeHexagon tiles:trendthree cities   2.37       0.465     5.10    0    
-## 6 typeHexagon tiles:trendall cities     1.08       0.312     3.47    0.001
-\end{verbatim}
+\begin{tabular}{l|r|r|r|r|l}
+\hline
+\_ & terms & Estimate & Error & p.value & sig\\
+\hline
+Design & Choro & 0.0217400 & 0.1474507 & 0.8828 & \\
+\hline
+ & Hex & 0.4200928 & 0.2110904 & 0.0466 & *\\
+\hline
+Trend & Three cities & -3.2519793 & 0.4124809 & 0.0000 & ***\\
+\hline
+ & All cities & -1.2398974 & 0.2293327 & 0.0000 & ***\\
+\hline
+Interactions & Hex : Three cities & 2.3683138 & 0.4645163 & 0.0000 & ***\\
+\hline
+ & Hex : All cities & 1.0825772 & 0.3123987 & 0.0005 & ***\\
+\hline
+\end{tabular}
 
 \begin{verbatim}
-## Analysis of Deviance Table
-## 
-## Model: binomial, link: logit
-## 
-## Response: detect_f
-## 
-## Terms added sequentially (first to last)
-## 
-## 
-##            Df Deviance Resid. Df Resid. Dev  Pr(>Chi)    
-## NULL                        1103     1477.0              
-## type        1   83.526      1102     1393.5 < 2.2e-16 ***
-## trend       2  101.699      1100     1291.8 < 2.2e-16 ***
-## type:trend  2   35.517      1098     1256.2 1.939e-08 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+##      
+##        No Yes
+##   No  431 121
+##   Yes 242 310
 \end{verbatim}
 
-\begin{verbatim}
-##            
-##             Incorrect Correct
-##   Incorrect       431     121
-##   Correct         242     310
-\end{verbatim}
+This gives the model:
+
+\[\widehat{y_{ij}} = 0.0217 + 0.42Hex -3.25_{three} -1.24_{all} + 2.37{Hex.three} + 1.08{Hex.all} \]
+
+\includegraphics{paper_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \begin{verbatim}
 ## # A tibble: 1 x 6
@@ -1142,28 +1118,55 @@ intercept. As each participant provides results from 12 lineups.
 
 \begin{verbatim}
 ## # A tibble: 8 x 5
-##   term                                estimate std.error statistic group      
-##   <chr>                                  <dbl>     <dbl>     <dbl> <chr>      
-## 1 (Intercept)                            0.505    0.0340     14.9  fixed      
-## 2 typeHexagon tiles                      0.103    0.0448      2.31 fixed      
-## 3 trendthree cities                     -0.467    0.0448    -10.4  fixed      
-## 4 trendall cities                       -0.277    0.0448     -6.19 fixed      
-## 5 typeHexagon tiles:trendthree cities    0.250    0.0633      3.95 fixed      
-## 6 typeHexagon tiles:trendall cities      0.239    0.0633      3.77 fixed      
-## 7 sd_(Intercept).contributor             0.118   NA          NA    contributor
-## 8 sd_Observation.Residual                0.430   NA          NA    Residual
+##   term                       estimate std.error statistic group      
+##   <chr>                         <dbl>     <dbl>     <dbl> <chr>      
+## 1 (Intercept)                   0.505    0.0340     14.9  fixed      
+## 2 typeHex.                      0.103    0.0448      2.31 fixed      
+## 3 trendthree cities            -0.467    0.0448    -10.4  fixed      
+## 4 trendall cities              -0.277    0.0448     -6.19 fixed      
+## 5 typeHex.:trendthree cities    0.250    0.0633      3.95 fixed      
+## 6 typeHex.:trendall cities      0.239    0.0633      3.77 fixed      
+## 7 sd_(Intercept).contributor    0.118   NA          NA    contributor
+## 8 sd_Observation.Residual       0.430   NA          NA    Residual
 \end{verbatim}
 
 \begin{verbatim}
-##            
-##             Incorrect Correct
-##   Incorrect        49       1
-##   Correct         624     430
+##      
+##        No Yes
+##   No   49   1
+##   Yes 624 430
 \end{verbatim}
 
 For a base model of Choropleth map, using a NW-SE trend model. The
 detection rate for Hexagon tile maps using a NW-SE trend model changes
 the log odds of the detection by 0.42.
+
+\begin{verbatim}
+## # A tibble: 1 x 6
+##   sigma logLik   AIC   BIC deviance df.residual
+##   <dbl>  <dbl> <dbl> <dbl>    <dbl>       <int>
+## 1 0.445  -685. 1380. 1405.    1365.        1099
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 5 x 5
+##   term                           estimate std.error statistic group   
+##   <chr>                             <dbl>     <dbl>     <dbl> <chr>   
+## 1 (Intercept)                       0.669    0.0501      13.4 fixed   
+## 2 sd_(Intercept).trend              0.456   NA           NA   trend   
+## 3 sd_typeHex..trend                 0.287   NA           NA   trend   
+## 4 cor_(Intercept).typeHex..trend   -0.989   NA           NA   trend   
+## 5 sd_Observation.Residual           0.445   NA           NA   Residual
+\end{verbatim}
+
+\begin{verbatim}
+##      
+##        No Yes
+##   No    0   0
+##   Yes 673 431
+\end{verbatim}
+
+\includegraphics{paper_files/figure-latex/unnamed-chunk-11-1.pdf}
 
 \hypertarget{certainty-1}{%
 \subsubsection{Certainty}\label{certainty-1}}
@@ -1179,12 +1182,12 @@ the log odds of the detection by 0.42.
 ##  Residual                0.4296  
 ## Number of obs: 1104, groups:  contributor, 92
 ## Fixed Effects:
-##                         (Intercept)                    typeHexagon tiles  
-##                              0.5054                               0.1033  
-##                   trendthree cities                      trendall cities  
-##                             -0.4674                              -0.2772  
-## typeHexagon tiles:trendthree cities    typeHexagon tiles:trendall cities  
-##                              0.2500                               0.2391
+##                (Intercept)                    typeHex.  
+##                     0.5054                      0.1033  
+##          trendthree cities             trendall cities  
+##                    -0.4674                     -0.2772  
+## typeHex.:trendthree cities    typeHex.:trendall cities  
+##                     0.2500                      0.2391
 \end{verbatim}
 
 \hypertarget{discussion}{%
@@ -1211,9 +1214,46 @@ how do the results found generalise to other work - Not just for Aus
 \hypertarget{survey-application}{%
 \subsection{Survey application}\label{survey-application}}
 
+\hypertarget{overall-performance}{%
+\subsection{Overall Performance}\label{overall-performance}}
+
 \hypertarget{subject-specific-anomolies-0-detection}{%
 \subsection{Subject specific anomolies (0\%
 detection)}\label{subject-specific-anomolies-0-detection}}
+
+\hypertarget{demographics}{%
+\subsection{Demographics:}\label{demographics}}
+
+\includegraphics{paper_files/figure-latex/demogs-1.pdf}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   gender     n
+##   <chr>  <int>
+## 1 He        67
+## 2 She       25
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 3 x 2
+##   education       n
+##   <chr>       <int>
+## 1 Bach           56
+## 2 High School    23
+## 3 Masters        13
+\end{verbatim}
+
+\begin{tabular}{l|r|r|r|r}
+\hline
+Gender & Bach & High School & Masters & Row Total\\
+\hline
+Col. Total & 56 & 23 & 13 & 79\\
+\hline
+He & 39 & 19 & 9 & 58\\
+\hline
+She & 17 & 4 & 4 & 21\\
+\hline
+\end{tabular}
 
 \hypertarget{acknowledgment}{%
 \section{Acknowledgment}\label{acknowledgment}}
