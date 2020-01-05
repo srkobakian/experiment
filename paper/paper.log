@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  5 JAN 2020 20:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  5 JAN 2020 20:57
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -358,29 +358,34 @@ t>
 File: paper_files/figure-latex/detection_compare-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/detection_compare-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/detection_compare-1.pdf  used
- on input line 898.
+ on input line 894.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 894--903
+[][]
+ []
+
 <paper_files/figure-latex/hist_height-1.pdf, id=217, 469.755pt x 325.215pt>
 File: paper_files/figure-latex/hist_height-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/hist_height-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/hist_height-1.pdf  used on in
-put line 970.
+put line 967.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
 <paper_files/figure-latex/hist_fill-1.pdf, id=218, 469.755pt x 325.215pt>
 File: paper_files/figure-latex/hist_fill-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/hist_fill-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/hist_fill-1.pdf  used on inpu
-t line 981.
+t line 978.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
 <paper_files/figure-latex/unnamed-chunk-1-1.pdf, id=219, 469.755pt x 325.215pt>
 
 File: paper_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-1-1.pdf  used o
-n input line 987.
+n input line 984.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 987--988
+Overfull \hbox (10.0pt too wide) in paragraph at lines 984--985
 [][] 
  []
 
@@ -389,44 +394,44 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [4 <./paper_files/figure-latex/detection_compare-1.pdf> <./paper_files/figure-l
 atex/hist_height-1.pdf>]
-<paper_files/figure-latex/unnamed-chunk-2-1.pdf, id=242, 469.755pt x 325.215pt>
+<paper_files/figure-latex/unnamed-chunk-2-1.pdf, id=241, 469.755pt x 325.215pt>
 
 File: paper_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-2-1.pdf  used o
-n input line 994.
+n input line 991.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
-<paper_files/figure-latex/unnamed-chunk-3-1.pdf, id=243, 469.755pt x 325.215pt>
+<paper_files/figure-latex/unnamed-chunk-3-1.pdf, id=242, 469.755pt x 325.215pt>
 
 File: paper_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/unnamed-chunk-3-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-3-1.pdf  used o
-n input line 1011.
+n input line 1008.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
-<paper_files/figure-latex/unnamed-chunk-4-1.pdf, id=244, 469.755pt x 325.215pt>
+<paper_files/figure-latex/unnamed-chunk-4-1.pdf, id=243, 469.755pt x 325.215pt>
 
 File: paper_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-4-1.pdf  used o
-n input line 1024.
+n input line 1021.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
-<paper_files/figure-latex/unnamed-chunk-5-1.pdf, id=245, 469.755pt x 325.215pt>
+<paper_files/figure-latex/unnamed-chunk-5-1.pdf, id=244, 469.755pt x 325.215pt>
 
 File: paper_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-5-1.pdf  used o
-n input line 1034.
+n input line 1031.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1034--1035
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1031--1032
 [][] 
  []
 
-<paper_files/figure-latex/choices-1.pdf, id=246, 867.24pt x 867.24pt>
+<paper_files/figure-latex/choices-1.pdf, id=245, 867.24pt x 867.24pt>
 File: paper_files/figure-latex/choices-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/choices-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/choices-1.pdf  used on input 
-line 1038.
+line 1035.
 (pdftex.def)             Requested size: 252.0pt x 251.99602pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -439,18 +444,18 @@ amed-chunk-1-1.pdf> <./paper_files/figure-latex/unnamed-chunk-2-1.pdf> <./paper
 _files/figure-latex/unnamed-chunk-3-1.pdf> <./paper_files/figure-latex/unnamed-
 chunk-5-1.pdf>]
 
-LaTeX Warning: Reference `fig:choices' on page 6 undefined on input line 1049.
+LaTeX Warning: Reference `fig:choices' on page 6 undefined on input line 1046.
 
 
-LaTeX Warning: Reference `fig:choices' on page 6 undefined on input line 1055.
+LaTeX Warning: Reference `fig:choices' on page 6 undefined on input line 1052.
 
 
-Overfull \hbox (154.36426pt too wide) in paragraph at lines 1081--1098
+Overfull \hbox (154.36426pt too wide) in paragraph at lines 1078--1095
  []\OT1/ptm/m/it/10 Detection Rates: [][][] [] 
  []
 
 
-Overfull \hbox (57.69727pt too wide) detected at line 1108
+Overfull \hbox (57.69727pt too wide) detected at line 1105
 [] \OT1/cmr/m/n/10 = 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 0217 + 0\OML/cmm/m/it/1
 0 :\OT1/cmr/m/n/10 42\OML/cmm/m/it/10 Hex \OMS/cmsy/m/n/10   \OT1/cmr/m/n/10 3\
 OML/cmm/m/it/10 :\OT1/cmr/m/n/10 25[] \OMS/cmsy/m/n/10   \OT1/cmr/m/n/10 1\OML/
@@ -458,241 +463,241 @@ cmm/m/it/10 :\OT1/cmr/m/n/10 24[] + 2\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 37[] + 1
 \OML/cmm/m/it/10 :\OT1/cmr/m/n/10 08[]
  []
 
-<paper_files/figure-latex/unnamed-chunk-8-1.pdf, id=283, 469.755pt x 325.215pt>
+<paper_files/figure-latex/unnamed-chunk-8-1.pdf, id=282, 469.755pt x 325.215pt>
 
 File: paper_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-8-1.pdf  used o
-n input line 1110.
+n input line 1107.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1110--1111
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1107--1108
 [][] 
  []
 
 
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1117--1117
+Overfull \hbox (48.0pt too wide) in paragraph at lines 1114--1114
 []\OT1/pcr/m/n/10 ##   sigma logLik   AIC   BIC deviance df.residual[] 
  []
 
 
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1117--1117
+Overfull \hbox (48.0pt too wide) in paragraph at lines 1114--1114
 []\OT1/pcr/m/n/10 ##   <dbl>  <dbl> <dbl> <dbl>    <dbl>       <int>[] 
  []
 
 [6 <./paper_files/figure-latex/unnamed-chunk-4-1.pdf> <./paper_files/figure-lat
 ex/choices-1.pdf> <./paper_files/figure-latex/unnamed-chunk-8-1.pdf>]
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1117--1117
+Overfull \hbox (48.0pt too wide) in paragraph at lines 1114--1114
 []\OT1/pcr/m/n/10 ## 1 0.430  -675. 1367. 1407.    1321.        1096[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ##   term                       estimate std.error statistic 
 group[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ##   <chr>                         <dbl>     <dbl>     <dbl> 
 <chr>[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 1 (Intercept)                   0.505    0.0340     14.9  
 fixed[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 2 typeHex.                      0.103    0.0448      2.31 
 fixed[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 3 trendthree cities            -0.467    0.0448    -10.4  
 fixed[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 4 trendall cities              -0.277    0.0448     -6.19 
 fixed[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 5 typeHex.:trendthree cities    0.250    0.0633      3.95 
 fixed[] 
  []
 
 
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (144.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 6 typeHex.:trendall cities      0.239    0.0633      3.77 
 fixed[] 
  []
 
 
-Overfull \hbox (180.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (180.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 7 sd_(Intercept).contributor    0.118   NA          NA    
 contributor[] 
  []
 
 
-Overfull \hbox (162.0pt too wide) in paragraph at lines 1131--1131
+Overfull \hbox (162.0pt too wide) in paragraph at lines 1128--1128
 []\OT1/pcr/m/n/10 ## 8 sd_Observation.Residual       0.430   NA          NA    
 Residual[] 
  []
 
 
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1149--1149
+Overfull \hbox (48.0pt too wide) in paragraph at lines 1146--1146
 []\OT1/pcr/m/n/10 ##   sigma logLik   AIC   BIC deviance df.residual[] 
  []
 
 
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1149--1149
+Overfull \hbox (48.0pt too wide) in paragraph at lines 1146--1146
 []\OT1/pcr/m/n/10 ##   <dbl>  <dbl> <dbl> <dbl>    <dbl>       <int>[] 
  []
 
 
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1149--1149
+Overfull \hbox (48.0pt too wide) in paragraph at lines 1146--1146
 []\OT1/pcr/m/n/10 ## 1 0.445  -685. 1380. 1405.    1365.        1099[] 
  []
 
 
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1160--1160
+Overfull \hbox (168.0pt too wide) in paragraph at lines 1157--1157
 []\OT1/pcr/m/n/10 ##   term                           estimate std.error statis
 tic group[] 
  []
 
 
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1160--1160
+Overfull \hbox (168.0pt too wide) in paragraph at lines 1157--1157
 []\OT1/pcr/m/n/10 ##   <chr>                             <dbl>     <dbl>     <d
 bl> <chr>[] 
  []
 
 
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1160--1160
+Overfull \hbox (168.0pt too wide) in paragraph at lines 1157--1157
 []\OT1/pcr/m/n/10 ## 1 (Intercept)                       0.669    0.0501      1
 3.4 fixed[] 
  []
 
 
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1160--1160
+Overfull \hbox (168.0pt too wide) in paragraph at lines 1157--1157
 []\OT1/pcr/m/n/10 ## 2 sd_(Intercept).trend              0.456   NA           N
 A   trend[] 
  []
 
 
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1160--1160
+Overfull \hbox (168.0pt too wide) in paragraph at lines 1157--1157
 []\OT1/pcr/m/n/10 ## 3 sd_typeHex..trend                 0.287   NA           N
 A   trend[] 
  []
 
 
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1160--1160
+Overfull \hbox (168.0pt too wide) in paragraph at lines 1157--1157
 []\OT1/pcr/m/n/10 ## 4 cor_(Intercept).typeHex..trend   -0.989   NA           N
 A   trend[] 
  []
 
 
-Overfull \hbox (186.0pt too wide) in paragraph at lines 1160--1160
+Overfull \hbox (186.0pt too wide) in paragraph at lines 1157--1157
 []\OT1/pcr/m/n/10 ## 5 sd_Observation.Residual           0.445   NA           N
 A   Residual[] 
  []
 
-<paper_files/figure-latex/unnamed-chunk-11-1.pdf, id=315, 469.755pt x 325.215pt
+<paper_files/figure-latex/unnamed-chunk-11-1.pdf, id=314, 469.755pt x 325.215pt
 >
 File: paper_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-11-1.pdf  used 
-on input line 1169.
+on input line 1166.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1169--1170
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1166--1167
 [][] 
  []
 
 
-Overfull \hbox (18.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (18.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ## Linear mixed model fit by REML ['lmerMod'][] 
  []
 
 
-Overfull \hbox (66.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (66.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ## Formula: detect ~ type * trend + (1 | contributor)[] 
  []
 
 
-Overfull \hbox (36.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (36.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ## Number of obs: 1104, groups:  contributor, 92[] 
  []
 
 
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (90.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ##                (Intercept)                    typeHex.[] 
  []
 
 
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (90.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ##                     0.5054                      0.1033[] 
  []
 
 
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (90.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ##          trendthree cities             trendall cities[] 
  []
 
 
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (90.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ##                    -0.4674                     -0.2772[] 
  []
 
 
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (90.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ## typeHex.:trendthree cities    typeHex.:trendall cities[] 
  []
 
 
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1191--1191
+Overfull \hbox (90.0pt too wide) in paragraph at lines 1188--1188
 []\OT1/pcr/m/n/10 ##                     0.2500                      0.2391[] 
  []
 
-<paper_files/figure-latex/demogs-1.pdf, id=316, 469.755pt x 325.215pt>
+<paper_files/figure-latex/demogs-1.pdf, id=315, 469.755pt x 325.215pt>
 File: paper_files/figure-latex/demogs-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/demogs-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/demogs-1.pdf  used on input l
-ine 1227.
+ine 1224.
 (pdftex.def)             Requested size: 252.0pt x 174.4622pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1227--1228
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1224--1225
 [][] 
  []
 
 [7 <./paper_files/figure-latex/unnamed-chunk-11-1.pdf> <./paper_files/figure-la
 tex/demogs-1.pdf>]
-Overfull \hbox (4.69835pt too wide) in paragraph at lines 1246--1257
+Overfull \hbox (4.69835pt too wide) in paragraph at lines 1243--1254
 [][] 
  []
 
 LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 1
-280.
+277.
 (C:\Users\steff\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1280.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1277.
 
 
-Underfull \hbox (badness 7099) in paragraph at lines 1277--1281
+Underfull \hbox (badness 7099) in paragraph at lines 1274--1278
 [][]\OT1/ptm/m/n/10 ``Australian Sta-tis-ti-cal Ge-og-ra-phy Stan-dard (ASGS).'
 '
  []
 
 
-Overfull \hbox (22.64737pt too wide) in paragraph at lines 1277--1281
+Overfull \hbox (22.64737pt too wide) in paragraph at lines 1274--1278
 []\OMS/cmsy/m/n/10 f\OT1/ptm/m/n/10 https://www.abs.gov.au/websitedbs/D3310114.
 nsf/home/Australian
  []
@@ -708,23 +713,23 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1312.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1309.
 [8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1312.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1309.
 (paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1312.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1312.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1309.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1309.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: F7BB1992180665505A4E652DCFAB3BE6;5395.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1312.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1309.
  ) 
 Here is how much of TeX's memory you used:
- 9584 strings out of 492484
- 142918 string characters out of 3130514
+ 9583 strings out of 492484
+ 142910 string characters out of 3130514
  225180 words of memory out of 3000000
  13725 multiletter control sequences out of 15000+200000
  38176 words of font info for 73 fonts, out of 3000000 for 9000
@@ -744,9 +749,9 @@ eX/2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/
 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.
 9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.9/f
 onts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (8 pages, 314796 bytes).
+Output written on paper.pdf (8 pages, 314890 bytes).
 PDF statistics:
- 428 PDF objects out of 1000 (max. 8388607)
- 104 named destinations out of 1000 (max. 500000)
+ 427 PDF objects out of 1000 (max. 8388607)
+ 103 named destinations out of 1000 (max. 500000)
  373 words of extra memory for PDF output out of 10000 (max. 10000000)
 
