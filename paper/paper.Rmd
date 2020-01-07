@@ -564,7 +564,7 @@ The relationship between time taken to submit, and the correct detection by the 
 The hexagon map displays have a peak for the group that took up to 5 seconds to submit a response. When viewing a choropleth map display, the second peak occured at around 20 seconds. The longest a participant took to respond was 60 seconds. 
 
 
-```{r hist_height, fig.cap = "Six histograms show the distribution of the time taken to submit a response for each combination of trend and type of display. The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The orange regions of the bars show the amount of correct detections, and the green regions are the amount of incorrect detections."}
+```{r hist_height,  eval=FALSE, fig.cap = "Six histograms show the distribution of the time taken to submit a response for each combination of trend and type of display. The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The orange regions of the bars show the amount of correct detections, and the green regions are the amount of incorrect detections."}
 ggplot(d %>% rename(Detected = detect_f), 
   aes(x = time_taken, fill = Detected, group = Detected)) + 
   scale_fill_manual(values = detect_colours) +
@@ -575,7 +575,7 @@ ggplot(d %>% rename(Detected = detect_f),
 ```
 
 
-```{r hist_fill, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show the proportion of evaulations that were submitted within each time window."}
+```{r hist_fill,  eval=FALSE, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show the proportion of evaulations that were submitted within each time window."}
 ggplot(d %>% rename(Detected = detect_f), 
   aes(x = time_taken, fill = Detected, group = Detected)) +  
   scale_fill_manual(values = detect_colours) +
@@ -590,6 +590,22 @@ ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) +
   scale_fill_manual(values = detect_colours) +
   labs(x = "Time taken (Seconds)", y = "Amount of evaluations") +
   guides(colour = FALSE)
+```
+
+```{r}
+# Di playing
+s <- d %>% group_by(type, trend, detect) %>%
+  summarise(m=median(time_taken), 
+            q1=quantile(time_taken, 0.25), 
+            q3=quantile(time_taken, 0.75))
+library(ggbeeswarm)
+ggplot() + 
+  geom_quasirandom(data=d, aes(x=type, y=time_taken), alpha=0.9) + 
+  #geom_hline(data=s, aes(yintercept=m, colour=type)) +
+  geom_point(data=s, aes(x=type, y=m, colour=type), size=5, alpha=0.7) +
+  #geom_errorbar(data=s, aes(x=type, ymin=q1, ymax=q3, colour=type), width=0.3, size=2) +
+  scale_colour_brewer(palette = "Dark2") +
+  facet_grid(trend~detect)
 ```
 
 The proportion of correct and incorrect responses within each 5 second time window. For the NW-SE distribution, it is equally likely that quick responders will be correct or incorrect. It is more likely that participants picked the correct response if they took longer to respond. For the Choropelth
