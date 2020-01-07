@@ -52,6 +52,7 @@ library(ggthemes)
 library(RColorBrewer)
 library(visreg)
 library(emmeans)
+library(kableExtra)
 ```
 
 Introduction
@@ -539,6 +540,21 @@ test_dt <- t.test(pdetect ~ type, data = d_smry, alternative = "less")
 A t-test shows the difference between the detection rates for the two types of displays.
 The value of `r test_dt$p.value` shows that it is very unlikely the difference is due to chance. 
 
+```{r desc_stats, results = "asis"}
+types <- c("Choro.", "", "Hex.", "")
+
+d %>% group_by(type, trend) %>%
+  summarise(m = round(mean(detect),3),
+    std.dev = paste0("(", round(sd(detect),2),")")) %>% 
+  gather(stat, value, m, std.dev) %>% 
+  pivot_wider(names_from = "trend", values_from = "value") %>% 
+  arrange(type) %>% ungroup() %>% 
+  mutate(Type = types) %>% select(Type, `NW-SE`, `Three Cities`, `All Cities`) %>%
+  knitr::kable(., format = "latex", align = "lccc")
+```
+
+The probability of detection is explored for each of the combinations of trans and type of display. 
+
 ## Speed
 
 The amount of time taken for a participants to submit a response is explored. 
@@ -606,17 +622,19 @@ assessments by the participant ‘How certain are you about your choice?’.
 ```{r reason, fig.cap = "The amount of participants that selected each reason for their choice of plot when looking at each trend model shown in Choropleth and Hexagon Tile maps. The facets show whether or not the choice was correct."}
 ###########################################################
 # Qualitative analysis of reason
-d <- d %>% 
-  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) 
-
-ggplot(d %>% mutate(Detected = factor(detect, levels = c(0,1), 
-  labels = c("Detected? No", "Detected? Yes")),
-  `Map Type` = type)) + 
-  geom_bar(aes(x = fct_infreq(reason), fill = `Map Type`)) +  
-  facet_grid(trend ~ Detected) +  
-  scale_fill_manual(values = type_colours) +
-  xlab("Type of areas visualised") + 
-  theme(legend.position = "bottom") + coord_flip()
+d %>% 
+  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) %>% 
+  mutate(Detected = gsub("Detected? ", "", detect_f)) %>% 
+  group_by(trend, Detected, type) %>% 
+  count(reason) %>% 
+  mutate(prop = round(n/sum(n), 3), r_prop = paste0(reason, ":", prop)) %>% 
+  top_n(1, n) %>% summarise(reasons = paste(reason, collapse=", ")) %>% 
+  pivot_wider(names_from = c("Detected"), values_from = c("reasons")) %>% 
+  arrange(trend, type) %>% 
+  select(Trend = trend, `Map Type` = type,
+    `Yes` = `Detected? Yes`, `No` = `Detected? No`) %>% 
+  knitr::kable(., format = "latex") %>% kable_styling("striped") %>%
+  add_header_above(c(" " = 2, "Detected:" = 2))
 ```
 
 The most common choice made by participant was clusters, this response was expected when participants viewed the Hexagon display of the all cities and three cities distributions.
@@ -662,7 +680,7 @@ d %>%
 ```
 
 The choices made by participants are examined in Figure \@ref(fig:choices).
-Participants were misled by the choropleth display, but not the hexagon display for all cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of three cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Figure \@ref(fig:choices}.
+Participants were misled by the choropleth display, but not the hexagon display for all cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of three cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Figure \@ref(fig:choices).
 
 
 ## Anomolies
@@ -737,10 +755,6 @@ This gives the model:
 
 
 $$\widehat{y_{ij}} = 0.0217 + 0.42Hex -3.25_{three} -1.24_{all} + 2.37{Hex.three} + 1.08{Hex.all} $$
-
-
-The estimated marginal mean is the fitted value from a model over the treatment effects. The treatment effects considered in this model are map type displayed, trend model included, and the replicate. The `emmeans` package is used to calculate the estimated marginal mean.
-The value, between 0 and 1, can be interpretted as the probability of detecting the real data plot in the lineup, for each combination of map type, trend model and replicate. 
 
 
 
