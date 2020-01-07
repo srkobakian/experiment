@@ -21,13 +21,12 @@ affiliation:
         - name: Dianne Cook
 keywords: ["statistics", "visual inference", "geospatial", "population"]
 abstract: |
-  The abstract goes here.
-  On multiple lines eventually.
+  Choosing a visualisation method may seem to be a simple task. The choropleth map display is commonly used for communicating spatial data. The visualisation method used to present geospatial data will influence the information derived by map users. Choosing an alternative display will influence the communication of the distribution. The hexagon tile map is presented as an alternative display. Visual inference is used to measure the power of design. The choropleth is used as a comparison point. The hexagon tile map display is an effective visualisation for communicatin=g population related distributions. The hexagon tile map display also allowed identification of the geographic distribution with values monotonically decreasing from North West toward South East areas of Australia.
 dev: png
 bibliography: mybibfile.bib
 output: rticles::ieee_article
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 link-citations: yes
 ---
 
@@ -39,6 +38,21 @@ knitr::opts_chunk$set(
   message = FALSE)
 ```
 
+```{r libraries}
+# Load Libraries
+library(tidyverse)
+library(cowplot)
+library(png)
+library(grid)
+library(lubridate)
+library(broom)
+library(readxl)
+library(lme4)
+library(ggthemes)
+library(RColorBrewer)
+library(visreg)
+library(emmeans)
+```
 
 Introduction
 =============
@@ -47,17 +61,13 @@ Introduction
 
 <!-- General: comparison of displays, motivate hexagon tile map, enough info to motivate aims -->
 <!-- geographies on choropleth -->
-Geospatial statistics are often presented on the geographic map base. 
-A choropleth map is the common display to present aggreagated statistics for geographic units, and they are often used to present statistics regarding the population. 
+A geographic map base is commonly used to present geospatial statistics.
+The statistics presented may also be aggreagated statistics for geographic units, in this case the choropleth map is the common display used. Choropleth maps are often used to present statistics regarding the population. 
 Creating a choropleth map involves drawing the administrative boundaries and filling them with colour to communicate the value of the statistic. 
-In Australia, there are sets of administrative boundaries that define subdivisions of the population at various granularities.
-The set of Australia statistical areas presents an example of a heterogrenous distribution of area.
-The rural communicates on a much larger geographic space than small inner city communities.
+The several sets of Australian statistical areas presents an example of a heterogrenous distribution.
+The rural communities in Australia operate on a much larger geographic space than small inner city communities.
 This has the negative effect of incorrectly showing the spatial distribution of the statistic, especially when a spatial distribution is related to the size of the areas, or the population density.
-
-An alternative display can also be used to effectively communicate a spatial distribution for a set of heterogeneous areas.
-Viewers of spatial distributions may come to incorrect conclusions.
-
+An alternative display can be used to effectively communicate a spatial distribution for a set of heterogeneous areas.
 
 
 Motivation
@@ -67,9 +77,8 @@ Motivation
 
 ## The Australian Cancer Atlas
 
-The Australian Cancer Atlas is an online interactive webtool created to explore the burden of cancer on Australian communities. There are many cancer types presented, and they can be explored on an individual or aggregate level. 
-The Australian communities are examined at the Statistical Areas at Level 2 (SA2) [@abs2016] used by the Australian Bureau of Statistics. Bayesian spatial smoothing has been applied to incorporate the value of the statistics of the neighbouring areas. Spatial smoothing allows for the protection privacy and gives stability to the estimates. The statistics that can be mapped are the diagnoses (Standardised Incidence Rates) and excess deaths for each SA2, communicated as the difference from the Australian average of the statistics. The values of the statistic for each geographic area is communicated through the colour used to fill the areas, the colours are chosen for the diverging colour scheme. 
-
+The Australian Cancer Atlas is an online interactive web tool created to explore the burden of cancer on Australian communities. There are many cancer types presented, and they can be explored on an individual or aggregate level. 
+The Australian communities are examined at the Statistical Areas at Level 2 (SA2) [@abs2016] used by the Australian Bureau of Statistics. Bayesian spatial smoothing has been applied to incorporate the value of the statistics of the neighbouring areas. Spatial smoothing allows for the protection privacy and gives stability to the estimates. The statistics mapped are the diagnoses (Standardised Incidence Rates) and excess deaths for each SA2, communicated as the difference from the Australian average of the statistics. The values of the statistic for each geographic area is communicated through the colour used to fill the areas, the colours are chosen for the diverging colour scheme. 
 The Australian Cancer Atlas communicates the trends in the distributions of cancer over geographic space. It uses a choropleth map display and diverging colour scheme to draw attention to relationships between neighbouring areas. 
 
 
@@ -79,12 +88,9 @@ Background
 
 ## Population focussed displays
 
-Spatial visualisations communicate the distribution of statistics over geographic space. The most common display for spatial data is the choropleth map. However, the issue of using a choropleth map base becomes obvious when considering the distributions.
+Spatial visualisations communicate the distribution of statistics over geographic space. The most common display for spatial data is the choropleth map. However, the issue of using a choropleth map base becomes obvious when considering population related distributions.
 Map creators have the ability to present spatial statistics in alternative displays that can highlight the population.
 This work aims to show that a hexagon tile map display is a viable alternative to the geographic map base for presenting population statistics.
-The same data were shown on a choropleth map, and on a hexagon tile map.
-Comparing the results of participants who see the choropleth to those who see a hexagon tile map will show that population related distributions are spotted more frequently in a hexagon tile map display.
-
 When presenting population statistics on a geographic map base, the size of the regions can allow errornous conclusions to be drawn about the state of the statistic over the entire population.
 This occurs as large regions filled with a consistent colour or pettern can draw the attention of map readers, and small regions are not paid equal attention.
 A choropleth map is not the only display that can be used for presenting geospatial data. 
@@ -92,25 +98,42 @@ Alternative maps include various cartograms, and tesselated tile maps. They allo
 
 <!-- Cartogram -->
 
-
-
+A cartogram transforms the geographic map base. The transformation begins with a choropleth map base, and the associated populations. There are several algorithms for transforming, they all involve shifting boundaries to increase or descrease the area of the geographic units on the map depending on the statistics.
 <!-- Why not a cartogram-->
+The shifts of the boundaries result in cartograms with accurate map area for each of the geographic units. The transformation will keep boundaries of neighbouring areas connected, but the result is unfamiliar shapes for each geographic unit. 
 
 <!-- Tesselated tile gram & hexagon tile map-->
+Alternative displays make the trade off between familiar shapes and representation of variables using the area of geographic units. The non-contiguous cartgoram method keep the shapes of geographic units intact, and change the size to communicate the values of statistics. This method breaks the spatial relationship between areas, and emphasises the difference between the statistic and the amount of land for each geographic unit.
+The Dorling cartogram is another method that does not retain the boundaries of geographic units. Each unit becomes one circle on the cartogram dispaly, these can be sized according to the value of a variable. Their neighbours can be illustrated by connecting the boundaries of the circles.
+These cartogram methods all allow two variables to be shown in the single display.
 
- 
+```{r liver, fig.height = 9, fig.width = 6, fig.cap = "The smoothed average of liver cancer diagnoses for Australian males. The divering colour scheme shows dark blue areas with much lower than average diagnoses, yellow areas with diagnoses around the Australian average, orange with above average and red shows diagnoses much higher than average."}
+ggdraw(ylim = c(0,2), xlim = c(0,1.3), clip = "on") +
+  draw_plot(rasterGrob(readPNG("figures/aus_liver_m.png")), -0.15, 0.9, 1.6, 1.2) +
+  draw_plot(rasterGrob(readPNG("figures/aus_liver_m_hex.png")), -0.15, -0.1, 1.6, 1.2) +
+  draw_plot_label(c("a", "b"), 
+    c(0.05, 0.05), c(1.95, 1), size = 20, color = "white") + 
+  theme(plot.background = element_rect(fill = "black"))
+```
+
 <!-- Specific problem for Australia -->
-
-<!-- Figure Choro and Hex tile for Aus-->
+Australia is an extreme case of heterogenous geographic units.
+To communicate information regarding the small inner city geographic units of Australian cities an alternative display must be employed. This will emphasise the value of the statistic that is relating to areas with high population levels. Figure \@ref(fig:liver) shows the distribution of the smoothed average amount of Liver cancer diagnoses for Australian Males from XXX years. The hexagon tile map (b) shows orange hexagons for the inner city Statistical Areas at Level 2 with higher than average levels of diagnoses in the capital cities of Melbourne and Sydney.
+These inner city areas are not visible on the choropleth map (a). There are still many light blue areas in both displays. The northern Queensland, and Northern Territory SA2's with higher than average rates are still visible but utilise less map space on the hexagon tile map.
 
 
 ## Methodology 
+
+To test the 
 
 ## Visual Inference
 - Communicating data through visualisations
 - Effective displays for types of data
 - Protocol for testing the effectiveness
 
+
+The same data were shown on a choropleth map, and on a hexagon tile map.
+Comparing the results of participants who see the choropleth to those who see a hexagon tile map will show that population related distributions are spotted more frequently in a hexagon tile map display.
 
 Classical statistical inference involves hypothesis testing, the process of rejecting a null hypothesis in favour of an alternative. This approach relies on data, the appropriate distributions and their assumptions. 
 Visual inference null hypothesis: independence in the variables (absence of all features), alternative hypothesis: Relationship between the variables (presence of some feature).
@@ -349,7 +372,9 @@ The results will be analysed using a generalised linear model, with a subject ra
 
 $$\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij}, ~~~ i=1,2; ~j=1,2,3$$
 
-where $y_{ij} = 0, 1$ whether the subject detected the data plot, $\mu$ is the overall mean, $\tau_i, i=1,2$ is the map type effect, $\delta_j$ is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. 
+where $y_{ij} = 0, 1$ whether the subject detected the data plot, $\mu$ is the overall mean, $\tau_i, i=1,2$ is the map type effect, $\delta_j$ is the trend model effect.
+We are allowing for an interaction between map type and trend model. As the response for whether the participant detected the data plot is binary, a logistic model is used. 
+
 
 A similar model will be constructed for the efficiency, using a log time, and normal errors. 
 
@@ -360,38 +385,30 @@ Computation will be done using R [@RCore], with the `lme4` package [@lme4].
 
 ## Limitations of the data collection
 
-
-This required internet connection for participants to access the survey
-    
+The demographics of the participants showed a skew towards male participants. 
+The randomness of the group allocation also resulted in more participants being allocated to Group B. Due to the allocation of lineup displays the participants all saw six Choropleth displays and six Hexagon Tile Map displays.
 
 
 Results
 ============
 
 ```{r data}
-# Load Libraries
-library(tidyverse)
-library(lubridate)
-library(broom)
-library(readxl)
-library(lme4)
-library(ggthemes)
-library(RColorBrewer)
-library(visreg)
-library(emmeans)
-
 trend_colours <- c(
   "NW-SE" = "#B2DF8A",
-  "three cities" = "#A6CEE3",
-  "all cities" = "#1F78B4")
+  "Three Cities" = "#A6CEE3",
+  "All Cities" = "#1F78B4")
   
 type_colours <- c(
   "Choro." = "#fcae91",
   "Hex." = "#a50f15")
 
-detect_colours <- c(
+detect_f_colours <- c(
   "No" = "#66C2A5",
   "Yes" = "#FC8D62")
+
+detect_colours <- c(
+  "Detected? No" = "#66C2A5",
+  "Detected? Yes" = "#FC8D62")
 
   # Downloaded data
 d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
@@ -464,20 +481,20 @@ The detection rate for participants reporting the real data trend model is used 
 ```{r pdetection_group}
 # Tidy for analysis
 d <- d %>% 
-  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove=FALSE) %>%
+  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) %>%
   select(-nothing, -extra) %>%
   mutate(location = as.numeric(location), 
     # detect measures the accuracy of the choice
          detect = ifelse(location == choice, 1, 0)) %>% 
   mutate(trend = case_when(
     trend == "nwse" ~ "NW-SE",
-    trend == "cities" ~ "all cities",
-    trend == "three" ~ "three cities")) %>% 
-  mutate(trend = fct_relevel(trend, "NW-SE","three cities","all cities")) %>% 
+    trend == "cities" ~ "All Cities",
+    trend == "three" ~ "Three Cities")) %>% 
+  mutate(trend = fct_relevel(trend, "NW-SE","Three Cities","All Cities")) %>% 
   mutate(type = case_when(
     type == "hex" ~"Hex.",
     TRUE~"Choro.")) %>% 
-    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("No", "Yes")))
+    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("Detected? No", "Detected? Yes")))
 
 plots <- d %>% group_by(group, trend, type, location) %>%
   # pdetect measures the aggregated accuracy of the choices
@@ -506,15 +523,8 @@ ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
   ylim(0,1) +
   guides(colour = FALSE)
 ```
-The detection rates are usually higher when participants viewed the hexagon tile map displays. The difference was greater when viewing a three cities trend model. When the trend model affected all cities participants also detected the data display in the lineup of null plots more often. The North West to South East data plot was detected with similar rates when viewing the choropleth and  hexagon tile map displays, though for three of the replicates the participants detected the data display more often. 
 
-```{r detection_compare_table}
-d %>% 
-  group_by(trend, type, replicate) %>%
-  summarise(mean = round(mean(time_taken),2), 
-    std.dev = round(sd(time_taken), 2)) %>% 
-  knitr::kable(format = "latex")
-```
+The detection rates are usually higher when participants viewed the hexagon tile map displays. The difference was greater when viewing a three cities trend model. When the trend model affected all cities participants also detected the data display in the lineup of null plots more often. The North West to South East data plot was detected with similar rates when viewing the choropleth and  hexagon tile map displays, though for three of the replicates the participants detected the data display more often. 
 
 
 ```{r ttest}
@@ -531,30 +541,34 @@ The value of `r test_dt$p.value` shows that it is very unlikely the difference i
 
 ## Speed
 
+The amount of time taken for a participants to submit a response is explored. 
+The time considered was the amount of time it took for a participant to submit their choice of plot, the reason for their choice, and the perceived difficulty of the choice. The time was taken when each participant hit "Next".
 
-```{r hist_height, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The distributions for the choropleth and hexagon tile maps are very similar. Both have a large peak at 0-5 seconds, and then a secondary peak at 10-20 seconds. No response took over one minute."}
-ggplot(d, aes(x = time_taken, fill = detect_f, group = detect_f)) + 
-  scale_fill_brewer(palette = "Dark2") +
+The relationship between time taken to submit, and the correct detection by the participant of the real data display in a lineup is considered in Figure \@ref(fig:hist_height). The bimodal distributions are similar across the type of display and the trend model hidden in the real data plot.
+The hexagon map displays have a peak for the group that took up to 5 seconds to submit a response. When viewing a choropleth map display, the second peak occured at around 20 seconds. The longest a participant took to respond was 60 seconds. 
+
+
+```{r hist_height,  eval=FALSE, fig.cap = "Six histograms show the distribution of the time taken to submit a response for each combination of trend and type of display. The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The orange regions of the bars show the amount of correct detections, and the green regions are the amount of incorrect detections."}
+ggplot(d %>% rename(Detected = detect_f), 
+  aes(x = time_taken, fill = Detected, group = Detected)) + 
+  scale_fill_manual(values = detect_colours) +
   geom_histogram(binwidth = 5, boundary = 0) +
-  facet_grid(type ~ trend) +
-  labs(x = "Time taken (Seconds)", y = "Amount of evaluations") + 
-  guides(fill = FALSE)
+  facet_grid(type ~ trend) + 
+  theme(legend.position = "bottom") +
+  labs(x = "Time taken (Seconds)", y = "Amount of evaluations")
 ```
 
-```{r hist_fill, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show the proportion of evaulations that were submitted within each time window."}
-ggplot(d, aes(x = time_taken, fill = detect_f, group = detect_f)) + 
-  scale_fill_brewer(palette = "Dark2") +
+
+```{r hist_fill,  eval=FALSE, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show the proportion of evaulations that were submitted within each time window."}
+ggplot(d %>% rename(Detected = detect_f), 
+  aes(x = time_taken, fill = Detected, group = Detected)) +  
+  scale_fill_manual(values = detect_colours) +
   geom_histogram(binwidth = 5, boundary = 0, position = "fill") +
   facet_grid(type ~ trend) +
-  labs(x = "Time taken (Seconds)", y = "Proportion of evaluations") + 
-  guides(fill = FALSE)
-```
+  labs(x = "Time taken (Seconds)", y = "Proportion of evaluations")
 
-
-
-```{r}
-ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) + 
-  scale_colour_brewer(palette = "Dark2") +
+ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) +  
+  scale_fill_manual(values = detect_colours) +
   geom_freqpoly(binwidth = 3) +
   facet_grid(type ~ trend) +
   scale_fill_manual(values = detect_colours) +
@@ -562,7 +576,7 @@ ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) +
   guides(colour = FALSE)
 ```
 
-```{r eval=FALSE}
+```{r}
 # Di playing
 s <- d %>% group_by(type, trend, detect) %>%
   summarise(m=median(time_taken), 
@@ -578,43 +592,55 @@ ggplot() +
   facet_grid(trend~detect)
 ```
 
+The proportion of correct and incorrect responses within each 5 second time window. For the NW-SE distribution, it is equally likely that quick responders will be correct or incorrect. It is more likely that participants picked the correct response if they took longer to respond. For the Choropelth
+
+However, these quick responders were likely to be either correct or incorrect. The quick responders viewing a choropleth display were unlikely to choose correctly, unless viewing a NW-SE trend model. 
+
+The choropleth map displays that included a distribution of three cities was very difficult for participants. 
+
+
 ## Certainty
 
-```{r, fig.cap = "The amount of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The default certainty of 3 was chosen most for the Hexagon tile map displays."}
+```{r certainty, fig.cap = "The amount of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen most for the Hexagon tile map displays."}
 d <- d %>% 
-  mutate(certainty = as_factor(certainty)) 
+  mutate(certainty = as_factor(certainty)) %>% 
+  mutate(replicate_f = as_factor(replicate)) 
 
-ggplot(d,
-  aes(x = certainty, fill = detect_f)) +
-  scale_fill_brewer(palette = "Set2") +
-  geom_bar() + facet_wrap(~trend) + guides(fill = FALSE)
+ggplot(d %>% rename(Detected = detect_f), 
+   aes(x = certainty, fill = Detected)) +  
+  scale_fill_manual(values = detect_colours) +
+  geom_bar() + facet_grid(type ~ trend) +
+  theme(legend.position = "bottom")
 ```
 
 Certainty levels are measured on a five point scale—they are subjective
-assessments by the participant ‘how certain are you about your choice?’.
-
+assessments by the participant ‘How certain are you about your choice?’.
 
 
 ## Reason
 
-```{r, fig.cap = "The most common reason for choice of plot when looking at each trend model shown in Choropleth and Hexagon Tile maps. Clusters were the most common reason when viewing a Hexagon Tile map, trend was the most common choice for choropleth displays except for the all cities display."}
+```{r reason, fig.cap = "The amount of participants that selected each reason for their choice of plot when looking at each trend model shown in Choropleth and Hexagon Tile maps. The facets show whether or not the choice was correct."}
 ###########################################################
 # Qualitative analysis of reason
 d <- d %>% 
-  mutate(reason = fct_infreq(ifelse(reason =="0.0", "no reason", reason)))
+  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) 
 
-ggplot(d) + 
-  geom_bar(aes(x = reason, fill = type), position = "dodge") +  
-  facet_grid(~detect_f) +  
-  scale_colour_manual(values = type_colours) +
+ggplot(d %>% mutate(Detected = factor(detect, levels = c(0,1), 
+  labels = c("Detected? No", "Detected? Yes")),
+  `Map Type` = type)) + 
+  geom_bar(aes(x = fct_infreq(reason), fill = `Map Type`)) +  
+  facet_grid(trend ~ Detected) +  
+  scale_fill_manual(values = type_colours) +
   xlab("Type of areas visualised") + 
-  guides(colour = FALSE) + coord_flip()
+  theme(legend.position = "bottom") + coord_flip()
 ```
+
+The most common choice made by participant was clusters, this response was expected when participants viewed the Hexagon display of the all cities and three cities distributions.
 
 
 ## Contributors
 
-```{r fig.cap = "The probablity of detection acheived by the contributors in each group is shown by the points. Group B has a larger range and a smaller inter-quartile range. Group A and  both had 3 people who did not find any of the data maps in the displays."}
+```{r contributors, fig.cap = "The probablity of detection acheived by the contributors in each group is shown by the points. Group B has a larger range and a smaller inter-quartile range. Group A and  both had 3 people who did not find any of the data maps in the displays."}
 # Check contributor performance
 contribs <- d %>% group_by(group, contributor) %>% 
   # pdetect measures the aggregated accuracy of the choices
@@ -628,45 +654,31 @@ contribs %>% ggplot(aes(x = group, y = pdetect)) +
   ylim(0,1)
 ```
 
-## Reason
-
-```{r}
-###########################################################
-# Qualitative analysis of reason
-d <- d %>% 
-  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) 
-
-ggplot(d %>% mutate(detect = factor(detect, levels = c(0,1), 
-  labels = c("No", "Yes")))) + 
-  geom_bar(aes(x = reason)) +  
-  facet_grid(trend ~ detect) +  
-  scale_colour_manual(values = trend_colours) +
-  xlab("Type of areas visualised") + 
-  guides(colour = FALSE) + coord_flip()
-```
 
 
-```{r choices, fig.height = 12, fig.width = 12, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloureddark blue show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map. "}
+```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 12, fig.width=10}
 d %>% 
   count(type, trend, choice, replicate, choice, detect_f) %>% 
   group_by(type, trend, replicate) %>% 
   mutate(prop = n/sum(n)) %>% 
-  mutate(repl = paste(replicate, ": ", trend,  sep = "")) %>%
+  mutate(repl = paste("Rep:", replicate, ":\n", type,  sep = "")) %>%
   mutate(bottom = 0) %>% 
   ggplot() + 
-  geom_point(aes(x = choice, y = prop, color = detect_f), boundary = 0, size =2) + 
-  geom_segment(aes(x = choice, xend = choice, y = bottom, yend = prop, colour = detect_f)) +
-  facet_grid(replicate + type ~ trend, 
+  geom_point(aes(x = choice, y = prop, color = detect_f), size = 4) + 
+  geom_segment(aes(x = choice, xend = choice,y = bottom, yend = prop, colour = detect_f), size = 1) +
+  facet_grid(repl ~ trend, 
     drop = TRUE, as.table = TRUE, scales = "free_y") +
   labs(x = "Choice of plot in lineup", y = "Amount of choices") +
   scale_colour_manual(values = detect_colours) +
   scale_x_continuous(breaks = seq(from = 0, to = 12)) +
   scale_y_continuous(breaks = seq(from = 0.0, to = 1.0, by = 0.1)) +
-  theme(legend.position = "bottom") + guides(colour = FALSE, fill = FALSE)
+  theme(legend.position = "bottom") + 
+  guides(colour = FALSE, fill = FALSE) +
+  theme(strip.text.y = element_text(angle = 0))
 ```
 
-The choices made by participants are examined in Figure \ref{fig:choices}.
-Participants were misled by the choropleth display, but not the hexagon display for all cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of three cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Figure \ref{fig:choices}.
+The choices made by participants are examined in Figure \@ref(fig:choices).
+Participants were misled by the choropleth display, but not the hexagon display for all cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of three cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Figure \@ref(fig:choices}.
 
 
 ## Anomolies
@@ -675,19 +687,27 @@ Participants were misled by the choropleth display, but not the hexagon display 
 
 ## Modeling the difference
 
-A generalized linear mixed effects model can account for each individual participants’ abilities as it includes a subject-specific random intercept. As each participant provides results from 12 lineups.
+The likelihood of detecting the data plot in the lineup can be modelled using a generalized linear mixed effects model. 
+The base R [@RCore] `glm()` function implements generalised linear models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
 
-This includes the two main effects map type and trend model, which gives the fixed effects part of the model to be
 
-$$\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij}, ~~~ i=1,2; ~j=1,2,3$$
+$$\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3$$
 
-where $y_{ij} = 0, 1$ whether the subject detected the data plot, $\mu$ is the overall mean, $\tau_i, i=1,2$ is the map type effect, $\delta_j$ is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. 
+where $y_{ij} = 0, 1$ whether the subject detected the data plot, $\mu$ is the overall mean, $\tau_i, i=1,2$ is the map type effect, $\delta_j$ is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. This model can account for each individual participants’ abilities as it includes a subject-specific random intercept. As each participant provides results from 12 lineups.
 
 ### Detection Rates
 
-```{r}
+The model specifies a logistic link, this means the predicted values from the `glm` model should be back-transformed to fit between 0 and 1. They are transformed with the link specified below:
+
+
+$$\mu = \frac{e^{\eta}}{1 + e^{\eta}}$$
+$$\eta = f(\tau_i,\delta_j)$$
+
+
+
+```{r modeling_glm1}
 # Modelling 
-glm1 <- glm(formula = detect_f ~ type * trend,
+glm1 <- glm(formula = detect ~ type * trend,
   family = binomial(link = "logit"), data = d)
 
 preds <- predict(glm1, newdata = d, se=T)
@@ -696,7 +716,7 @@ se.bands.logit = tibble(upper = (preds$fit+2*preds$se.fit), lower = (preds$fit-2
 se.bands = exp(se.bands.logit)/(1+exp(se.bands.logit))
 
 factors <- c("Design", "", "Trend", "", "Interactions", "")
-terms <- c("Choro", "Hex", "Three cities", "All cities", "Hex : Three cities", "Hex : All cities")
+terms <- c("Intercept", "Hex", "Three cities", "All cities", "Hex : Three cities", "Hex : All cities")
 
 tidy(glm1) %>% 
   mutate(p.value = round(p.value, 4)) %>%
@@ -712,6 +732,7 @@ tidy(glm1) %>%
     terms = term, 
     Estimate = estimate, 
     Error = std.error, 
+    Stat = statistic,
     p.value, sig) %>% knitr::kable(format = "latex", 
       align = "lrrrrl")
 ```
@@ -723,7 +744,7 @@ d_glm <- d %>% select(group:certainty, detect, detect_f) %>%
   mutate(pfit, 
     predicted = ifelse(pfit > 0.5, 1, 0),
     predicted = factor(predicted, levels = c(0,1), 
-      labels = c("No", "Yes")))
+      labels = c("Predicted: No", "Predicted: Yes")))
 
 table(d_glm$predicted, d_glm$detect_f)
 ```
@@ -734,24 +755,30 @@ This gives the model:
 $$\widehat{y_{ij}} = 0.0217 + 0.42Hex -3.25_{three} -1.24_{all} + 2.37{Hex.three} + 1.08{Hex.all} $$
 
 
+The estimated marginal mean is the fitted value from a model over the treatment effects. The treatment effects considered in this model are map type displayed, trend model included, and the replicate. The `emmeans` package is used to calculate the estimated marginal mean.
+The value, between 0 and 1, can be interpretted as the probability of detecting the real data plot in the lineup, for each combination of map type, trend model and replicate. 
+
+
 
 ```{r}
-emmean_obj1 <- emmeans(glm1, c("trend", "type"),
+glm2 <- glm(formula = detect ~ type * trend + replicate_f,
+  family = binomial(link = "logit"), data = d)
+
+emmean2 <- emmeans(glm2, c("trend", "type", "replicate_f"),
                         type = "response")
 
-int_1 <- confint(emmean_obj1, by = c("trend"), adjust = "bonferroni")
-int_1 %>% 
-  ggplot(aes(x= type, y = prob, group = trend)) + 
+int_2 <- confint(emmean2, by = c("type", "trend", "replicate_f"), adjust = "bonferroni")
+int_2 %>% 
+  ggplot(aes(x= replicate_f, y = prob, group = type)) + 
   geom_point(aes(col = type)) + 
   geom_line(alpha = 0.5, lty = "dashed") + 
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL, col = type), 
-                width = 0.2) + 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1), 
-        strip.text.y = element_text(angle = 0),
-        legend.position = "none",
-        axis.title.x = element_blank()) + 
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL, col = replicate_f), 
+                width = 0.2) +
+  facet_grid(trend ~ .) +
   ylab("Estimated Marginal Mean")
 ```
+
+
 
 
 ```{r}
@@ -772,7 +799,6 @@ d_lmer <- d %>% select(group:certainty, detect, detect_f) %>%
     predicted = factor(predicted, levels = c(0,1), labels = c("No", "Yes")))
 
 table(d_lmer$predicted, d_lmer$detect_f)
-
 
 # Hexagon maps have better chance of correct detection
 # Allowing for contributor effects to vary: 0.12 strong residual
@@ -800,11 +826,6 @@ d_lmer2 <- d %>% select(group:certainty, detect, detect_f) %>%
     predicted = factor(predicted, levels = c(0,1), labels = c("No", "Yes")))
 
 table(d_lmer2$predicted, d_lmer2$detect_f)
-```
-
-
-```{r}
-visreg(lmer2, "type", by = "trend", scale = "response", re.form = ~(type|trend))
 ```
 
 

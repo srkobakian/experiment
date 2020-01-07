@@ -337,7 +337,6 @@
 
 % Pandoc syntax highlighting
 
-
 % Pandoc header
 
 \providecommand{\tightlist}{%
@@ -445,7 +444,18 @@ Melbourne, Australia
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-The abstract goes here. On multiple lines eventually.
+Choosing a visualisation method may seem to be a simple task. The
+choropleth map display is commonly used for communicating spatial data.
+The visualisation method used to present geospatial data will influence
+the information derived by map users. Choosing an alternative display
+will influence the communication of the distribution. The hexagon tile
+map is presented as an alternative display. Visual inference is used to
+measure the power of design. The choropleth is used as a comparison
+point. The hexagon tile map display is an effective visualisation for
+communicatin=g population related distributions. The hexagon tile map
+display also allowed identification of the geographic distribution with
+values monotonically decreasing from North West toward South East areas
+of Australia.
 \end{abstract}
 
 % keywords
@@ -476,24 +486,21 @@ statistics; visual inference; geospatial; population
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Geospatial statistics are often presented on the geographic map base. A
-choropleth map is the common display to present aggreagated statistics
-for geographic units, and they are often used to present statistics
-regarding the population. Creating a choropleth map involves drawing the
+A geographic map base is commonly used to present geospatial statistics.
+The statistics presented may also be aggreagated statistics for
+geographic units, in this case the choropleth map is the common display
+used. Choropleth maps are often used to present statistics regarding the
+population. Creating a choropleth map involves drawing the
 administrative boundaries and filling them with colour to communicate
-the value of the statistic. In Australia, there are sets of
-administrative boundaries that define subdivisions of the population at
-various granularities. The set of Australia statistical areas presents
-an example of a heterogrenous distribution of area. The rural
-communicates on a much larger geographic space than small inner city
-communities. This has the negative effect of incorrectly showing the
-spatial distribution of the statistic, especially when a spatial
-distribution is related to the size of the areas, or the population
-density.
-
-An alternative display can also be used to effectively communicate a
-spatial distribution for a set of heterogeneous areas. Viewers of
-spatial distributions may come to incorrect conclusions.
+the value of the statistic. The several sets of Australian statistical
+areas presents an example of a heterogrenous distribution. The rural
+communities in Australia operate on a much larger geographic space than
+small inner city communities. This has the negative effect of
+incorrectly showing the spatial distribution of the statistic,
+especially when a spatial distribution is related to the size of the
+areas, or the population density. An alternative display can be used to
+effectively communicate a spatial distribution for a set of
+heterogeneous areas.
 
 \hypertarget{motivation}{%
 \section{Motivation}\label{motivation}}
@@ -502,7 +509,7 @@ spatial distributions may come to incorrect conclusions.
 \subsection{The Australian Cancer
 Atlas}\label{the-australian-cancer-atlas}}
 
-The Australian Cancer Atlas is an online interactive webtool created to
+The Australian Cancer Atlas is an online interactive web tool created to
 explore the burden of cancer on Australian communities. There are many
 cancer types presented, and they can be explored on an individual or
 aggregate level. The Australian communities are examined at the
@@ -511,17 +518,15 @@ Standard (ASGS)'' \protect\hyperlink{ref-abs2016}{2018}) used by the
 Australian Bureau of Statistics. Bayesian spatial smoothing has been
 applied to incorporate the value of the statistics of the neighbouring
 areas. Spatial smoothing allows for the protection privacy and gives
-stability to the estimates. The statistics that can be mapped are the
-diagnoses (Standardised Incidence Rates) and excess deaths for each SA2,
+stability to the estimates. The statistics mapped are the diagnoses
+(Standardised Incidence Rates) and excess deaths for each SA2,
 communicated as the difference from the Australian average of the
 statistics. The values of the statistic for each geographic area is
 communicated through the colour used to fill the areas, the colours are
-chosen for the diverging colour scheme.
-
-The Australian Cancer Atlas communicates the trends in the distributions
-of cancer over geographic space. It uses a choropleth map display and
-diverging colour scheme to draw attention to relationships between
-neighbouring areas.
+chosen for the diverging colour scheme. The Australian Cancer Atlas
+communicates the trends in the distributions of cancer over geographic
+space. It uses a choropleth map display and diverging colour scheme to
+draw attention to relationships between neighbouring areas.
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -533,29 +538,71 @@ displays}\label{population-focussed-displays}}
 Spatial visualisations communicate the distribution of statistics over
 geographic space. The most common display for spatial data is the
 choropleth map. However, the issue of using a choropleth map base
-becomes obvious when considering the distributions. Map creators have
-the ability to present spatial statistics in alternative displays that
-can highlight the population. This work aims to show that a hexagon tile
-map display is a viable alternative to the geographic map base for
-presenting population statistics. The same data were shown on a
-choropleth map, and on a hexagon tile map. Comparing the results of
-participants who see the choropleth to those who see a hexagon tile map
-will show that population related distributions are spotted more
-frequently in a hexagon tile map display.
+becomes obvious when considering population related distributions. Map
+creators have the ability to present spatial statistics in alternative
+displays that can highlight the population. This work aims to show that
+a hexagon tile map display is a viable alternative to the geographic map
+base for presenting population statistics. When presenting population
+statistics on a geographic map base, the size of the regions can allow
+errornous conclusions to be drawn about the state of the statistic over
+the entire population. This occurs as large regions filled with a
+consistent colour or pettern can draw the attention of map readers, and
+small regions are not paid equal attention. A choropleth map is not the
+only display that can be used for presenting geospatial data.
+Alternative maps include various cartograms, and tesselated tile maps.
+They allow other variables to be included in the display to highlight
+the staistical values of various geographic areas.
 
-When presenting population statistics on a geographic map base, the size
-of the regions can allow errornous conclusions to be drawn about the
-state of the statistic over the entire population. This occurs as large
-regions filled with a consistent colour or pettern can draw the
-attention of map readers, and small regions are not paid equal
-attention. A choropleth map is not the only display that can be used for
-presenting geospatial data. Alternative maps include various cartograms,
-and tesselated tile maps. They allow other variables to be included in
-the display to highlight the staistical values of various geographic
-areas.
+A cartogram transforms the geographic map base. The transformation
+begins with a choropleth map base, and the associated populations. There
+are several algorithms for transforming, they all involve shifting
+boundaries to increase or descrease the area of the geographic units on
+the map depending on the statistics. The shifts of the boundaries result
+in cartograms with accurate map area for each of the geographic units.
+The transformation will keep boundaries of neighbouring areas connected,
+but the result is unfamiliar shapes for each geographic unit.
+
+Alternative displays make the trade off between familiar shapes and
+representation of variables using the area of geographic units. The
+non-contiguous cartgoram method keep the shapes of geographic units
+intact, and change the size to communicate the values of statistics.
+This method breaks the spatial relationship between areas, and
+emphasises the difference between the statistic and the amount of land
+for each geographic unit. The Dorling cartogram is another method that
+does not retain the boundaries of geographic units. Each unit becomes
+one circle on the cartogram dispaly, these can be sized according to the
+value of a variable. Their neighbours can be illustrated by connecting
+the boundaries of the circles. These cartogram methods all allow two
+variables to be shown in the single display.
+
+\begin{figure}
+\centering
+\includegraphics{paper_files/figure-latex/liver-1.pdf}
+\caption{The smoothed average of liver cancer diagnoses for Australian
+males. The divering colour scheme shows dark blue areas with much lower
+than average diagnoses, yellow areas with diagnoses around the
+Australian average, orange with above average and red shows diagnoses
+much higher than average.}
+\end{figure}
+
+Australia is an extreme case of heterogenous geographic units. To
+communicate information regarding the small inner city geographic units
+of Australian cities an alternative display must be employed. This will
+emphasise the value of the statistic that is relating to areas with high
+population levels. Figure @ref(fig:liver) shows the distribution of the
+smoothed average amount of Liver cancer diagnoses for Australian Males
+from XXX years. The hexagon tile map (b) shows orange hexagons for the
+inner city Statistical Areas at Level 2 with higher than average levels
+of diagnoses in the capital cities of Melbourne and Sydney. These inner
+city areas are not visible on the choropleth map (a). There are still
+many light blue areas in both displays. The northern Queensland, and
+Northern Territory SA2's with higher than average rates are still
+visible but utilise less map space on the hexagon tile map.
 
 \hypertarget{methodology}{%
 \subsection{Methodology}\label{methodology}}
+
+To test the
 
 \hypertarget{visual-inference}{%
 \subsection{Visual Inference}\label{visual-inference}}
@@ -569,6 +616,11 @@ areas.
 \item
   Protocol for testing the effectiveness
 \end{itemize}
+
+The same data were shown on a choropleth map, and on a hexagon tile map.
+Comparing the results of participants who see the choropleth to those
+who see a hexagon tile map will show that population related
+distributions are spotted more frequently in a hexagon tile map display.
 
 Classical statistical inference involves hypothesis testing, the process
 of rejecting a null hypothesis in favour of an alternative. This
@@ -850,8 +902,9 @@ fixed effects part of the model to be
 where \(y_{ij} = 0, 1\) whether the subject detected the data plot,
 \(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the map type effect,
 \(\delta_j\) is the trend model effect. We are allowing for an
-interaction between map type and trend model. Because the response is
-binary, a logistic model is used.
+interaction between map type and trend model. As the response for
+whether the participant detected the data plot is binary, a logistic
+model is used.
 
 A similar model will be constructed for the efficiency, using a log
 time, and normal errors.
@@ -867,7 +920,11 @@ Computation will be done using R (R Core Team
 \subsection{Limitations of the data
 collection}\label{limitations-of-the-data-collection}}
 
-This required internet connection for participants to access the survey
+The demographics of the participants showed a skew towards male
+participants. The randomness of the group allocation also resulted in
+more participants being allocated to Group B. Due to the allocation of
+lineup displays the participants all saw six Choropleth displays and six
+Hexagon Tile Map displays.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -891,69 +948,25 @@ by the participants was 70 Bachelors or Masters degree.
 The detection rate for participants reporting the real data trend model
 is used to calculate the accuracy of the responses of participants.
 
-\includegraphics{paper_files/figure-latex/detection_compare-1.pdf} The
-detection rates are usually higher when participants viewed the hexagon
-tile map displays. The difference was greater when viewing a three
-cities trend model. When the trend model affected all cities
+\begin{figure}
+\centering
+\includegraphics{paper_files/figure-latex/detection_compare-1.pdf}
+\caption{The detection rates achieved by participants are contrasted
+when viewing the four replicates of the three trend models. Each point
+shows the probability of detection for the lineup display, the facets
+separate the trend models hidden in the lineup. The points for the same
+data set shown in a choroleth or haxgon tile map display are linked to
+show the difference in the detection rate.}
+\end{figure}
+
+The detection rates are usually higher when participants viewed the
+hexagon tile map displays. The difference was greater when viewing a
+three cities trend model. When the trend model affected all cities
 participants also detected the data display in the lineup of null plots
 more often. The North West to South East data plot was detected with
 similar rates when viewing the choropleth and hexagon tile map displays,
 though for three of the replicates the participants detected the data
 display more often.
-
-\begin{tabular}{l|l|r|r|r}
-\hline
-trend & type & replicate & mean & std.dev\\
-\hline
-NW-SE & Choro. & 1 & 25.00 & 16.41\\
-\hline
-NW-SE & Choro. & 2 & 21.12 & 15.28\\
-\hline
-NW-SE & Choro. & 3 & 21.12 & 17.05\\
-\hline
-NW-SE & Choro. & 4 & 21.20 & 14.52\\
-\hline
-NW-SE & Hex. & 1 & 19.53 & 14.56\\
-\hline
-NW-SE & Hex. & 2 & 21.95 & 16.42\\
-\hline
-NW-SE & Hex. & 3 & 22.02 & 16.12\\
-\hline
-NW-SE & Hex. & 4 & 18.17 & 14.51\\
-\hline
-three cities & Choro. & 1 & 15.30 & 13.88\\
-\hline
-three cities & Choro. & 2 & 25.22 & 14.36\\
-\hline
-three cities & Choro. & 3 & 22.49 & 15.87\\
-\hline
-three cities & Choro. & 4 & 18.68 & 13.74\\
-\hline
-three cities & Hex. & 1 & 20.37 & 17.02\\
-\hline
-three cities & Hex. & 2 & 19.95 & 16.59\\
-\hline
-three cities & Hex. & 3 & 20.02 & 17.19\\
-\hline
-three cities & Hex. & 4 & 18.02 & 16.93\\
-\hline
-all cities & Choro. & 1 & 20.14 & 16.56\\
-\hline
-all cities & Choro. & 2 & 22.75 & 14.72\\
-\hline
-all cities & Choro. & 3 & 19.88 & 15.03\\
-\hline
-all cities & Choro. & 4 & 19.33 & 16.15\\
-\hline
-all cities & Hex. & 1 & 19.83 & 15.87\\
-\hline
-all cities & Hex. & 2 & 16.96 & 14.65\\
-\hline
-all cities & Hex. & 3 & 19.21 & 15.27\\
-\hline
-all cities & Hex. & 4 & 20.03 & 15.11\\
-\hline
-\end{tabular}
 
 A t-test shows the difference between the detection rates for the two
 types of displays. The value of 0.0041593 shows that it is very unlikely
@@ -962,42 +975,51 @@ the difference is due to chance.
 \hypertarget{speed}{%
 \subsection{Speed}\label{speed}}
 
-\begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/hist_height-1.pdf}
-\caption{The time taken to evaluate each display is broken into five
-second windows. The height of the histogram bars show how many
-evaulations were submitted within each time window. The distributions
-for the choropleth and hexagon tile maps are very similar. Both have a
-large peak at 0-5 seconds, and then a secondary peak at 10-20 seconds.
-No response took over one minute.}
-\end{figure}
+The amount of time taken for a participants to submit a response is
+explored. The time considered was the amount of time it took for a
+participant to submit their choice of plot, the reason for their choice,
+and the perceived difficulty of the choice. The time was taken when each
+participant hit ``Next''.
 
-\begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/hist_fill-1.pdf}
-\caption{The time taken to evaluate each display is broken into five
-second windows. The height of the histogram bars show the proportion of
-evaulations that were submitted within each time window.}
-\end{figure}
+The relationship between time taken to submit, and the correct detection
+by the participant of the real data display in a lineup is considered in
+Figure @ref(fig:hist\_height). The bimodal distributions are similar
+across the type of display and the trend model hidden in the real data
+plot. The hexagon map displays have a peak for the group that took up to
+5 seconds to submit a response. When viewing a choropleth map display,
+the second peak occured at around 20 seconds. The longest a participant
+took to respond was 60 seconds.
 
 \includegraphics{paper_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+The proportion of correct and incorrect responses within each 5 second
+time window. For the NW-SE distribution, it is equally likely that quick
+responders will be correct or incorrect. It is more likely that
+participants picked the correct response if they took longer to respond.
+For the Choropelth
+
+However, these quick responders were likely to be either correct or
+incorrect. The quick responders viewing a choropleth display were
+unlikely to choose correctly, unless viewing a NW-SE trend model.
+
+The choropleth map displays that included a distribution of three cities
+was very difficult for participants.
 
 \hypertarget{certainty}{%
 \subsection{Certainty}\label{certainty}}
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{paper_files/figure-latex/certainty-1.pdf}
 \caption{The amount of times each level of certainty was chosen by
 participants when viewing hexagon tile map or choropleth displays.
 Participants were more likely to choose a high certainty when
-considering a Choropleth map. The default certainty of 3 was chosen most
-for the Hexagon tile map displays.}
+considering a Choropleth map. The mid value of 3 was the default
+certainty, it was chosen most for the Hexagon tile map displays.}
 \end{figure}
 
 Certainty levels are measured on a five point scale---they are
-subjective assessments by the participant `how certain are you about
+subjective assessments by the participant `How certain are you about
 your choice?'.
 
 \hypertarget{reason}{%
@@ -1005,37 +1027,35 @@ your choice?'.
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-3-1.pdf}
-\caption{The most common reason for choice of plot when looking at each
-trend model shown in Choropleth and Hexagon Tile maps. Clusters were the
-most common reason when viewing a Hexagon Tile map, trend was the most
-common choice for choropleth displays except for the all cities
-display.}
+\includegraphics{paper_files/figure-latex/reason-1.pdf}
+\caption{The amount of participants that selected each reason for their
+choice of plot when looking at each trend model shown in Choropleth and
+Hexagon Tile maps. The facets show whether or not the choice was
+correct.}
 \end{figure}
+
+The most common choice made by participant was clusters, this response
+was expected when participants viewed the Hexagon display of the all
+cities and three cities distributions.
 
 \hypertarget{contributors}{%
 \subsection{Contributors}\label{contributors}}
 
 \begin{figure}
 \centering
-\includegraphics{paper_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{paper_files/figure-latex/contributors-1.pdf}
 \caption{The probablity of detection acheived by the contributors in
 each group is shown by the points. Group B has a larger range and a
 smaller inter-quartile range. Group A and both had 3 people who did not
 find any of the data maps in the displays.}
 \end{figure}
 
-\hypertarget{reason-1}{%
-\subsection{Reason}\label{reason-1}}
-
-\includegraphics{paper_files/figure-latex/unnamed-chunk-5-1.pdf}
-
 \begin{figure}
 \centering
 \includegraphics{paper_files/figure-latex/choices-1.pdf}
 \caption{Each facet is associated with one lineup, the height of the
 points show the proportion of the participants that made each choice
-when considering each lineup. The points coloureddark blue show the map
+when considering each lineup. The points coloured orange show the map
 which contained a trend model, these are the correct choices. The
 numbers differentiate the replicates of each trend model and type of map
 display. Participants were able to select 0 to indicate they did not
@@ -1043,13 +1063,13 @@ want to choose a map.}
 \end{figure}
 
 The choices made by participants are examined in Figure
-\ref{fig:choices}. Participants were misled by the choropleth display,
+@ref(fig:choices). Participants were misled by the choropleth display,
 but not the hexagon display for all cities displays except (2). The maps
 with a North West to South East trend was chosen with much greater
 frequency in all displays. All of three cities displays, except (4),
 were detected in the hexagon display. All except one lineup had at least
 one participant select the correct map in the lineup as shown in Figure
-\ref{fig:choices}.
+@ref(fig:choices\}.
 
 \hypertarget{anomolies}{%
 \subsection{Anomolies}\label{anomolies}}
@@ -1057,54 +1077,69 @@ one participant select the correct map in the lineup as shown in Figure
 \hypertarget{modeling-the-difference}{%
 \subsection{Modeling the difference}\label{modeling-the-difference}}
 
-A generalized linear mixed effects model can account for each individual
-participants' abilities as it includes a subject-specific random
-intercept. As each participant provides results from 12 lineups.
+The likelihood of detecting the data plot in the lineup can be modelled
+using a generalized linear mixed effects model. The base R (R Core Team
+\protect\hyperlink{ref-RCore}{2019}) \texttt{glm()} function implements
+generalised linear models. The model used includes the two main effects
+map type and trend model, which gives the fixed effects model to be:
 
-This includes the two main effects map type and trend model, which gives
-the fixed effects part of the model to be
-
-\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij}, ~~~ i=1,2; ~j=1,2,3\]
+\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3\]
 
 where \(y_{ij} = 0, 1\) whether the subject detected the data plot,
 \(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the map type effect,
 \(\delta_j\) is the trend model effect. We are allowing for an
 interaction between map type and trend model. Because the response is
-binary, a logistic model is used.
+binary, a logistic model is used. This model can account for each
+individual participants' abilities as it includes a subject-specific
+random intercept. As each participant provides results from 12 lineups.
 
 \hypertarget{detection-rates}{%
 \subsubsection{Detection Rates}\label{detection-rates}}
 
-\begin{tabular}{l|r|r|r|r|l}
+The model specifies a logistic link, this means the predicted values
+from the \texttt{glm} model should be back-transformed to fit between 0
+and 1. They are transformed with the link specified below:
+
+\[\mu = \frac{e^{\eta}}{1 + e^{\eta}}\] \[\eta = f(\tau_i,\delta_j)\]
+
+\begin{tabular}{l|r|r|r|r|l|l}
 \hline
-\_ & terms & Estimate & Error & p.value & sig\\
+\_ & terms & Estimate & Error & Stat & p.value & sig\\
 \hline
-Design & Choro & 0.0217400 & 0.1474507 & 0.8828 & \\
+Design & Intercept & 0.0217400 & 0.1474507 & 0.1474391 & 0.8828 & \\
 \hline
- & Hex & 0.4200928 & 0.2110904 & 0.0466 & *\\
+ & Hex & 0.4200928 & 0.2110904 & 1.9901083 & 0.0466 & *\\
 \hline
-Trend & Three cities & -3.2519793 & 0.4124809 & 0.0000 & ***\\
+Trend & Three cities & -3.2519793 & 0.4124809 & -7.8839514 & 0.0000 & ***\\
 \hline
- & All cities & -1.2398974 & 0.2293327 & 0.0000 & ***\\
+ & All cities & -1.2398974 & 0.2293327 & -5.4065450 & 0.0000 & ***\\
 \hline
-Interactions & Hex : Three cities & 2.3683138 & 0.4645163 & 0.0000 & ***\\
+Interactions & Hex : Three cities & 2.3683138 & 0.4645163 & 5.0984512 & 0.0000 & ***\\
 \hline
- & Hex : All cities & 1.0825772 & 0.3123987 & 0.0005 & ***\\
+ & Hex : All cities & 1.0825772 & 0.3123987 & 3.4653698 & 0.0005 & ***\\
 \hline
 \end{tabular}
 
 \begin{verbatim}
-##      
-##        No Yes
-##   No  431 121
-##   Yes 242 310
+##                 
+##                  Detected? No Detected? Yes
+##   Predicted: No           431           121
+##   Predicted: Yes          242           310
 \end{verbatim}
 
 This gives the model:
 
 \[\widehat{y_{ij}} = 0.0217 + 0.42Hex -3.25_{three} -1.24_{all} + 2.37{Hex.three} + 1.08{Hex.all} \]
 
-\includegraphics{paper_files/figure-latex/unnamed-chunk-8-1.pdf}
+The estimated marginal mean is the fitted value from a model over the
+treatment effects. The treatment effects considered in this model are
+map type displayed, trend model included, and the replicate. The
+\texttt{emmeans} package is used to calculate the estimated marginal
+mean. The value, between 0 and 1, can be interpretted as the probability
+of detecting the real data plot in the lineup, for each combination of
+map type, trend model and replicate.
+
+\includegraphics{paper_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 \begin{verbatim}
 ## # A tibble: 1 x 6
@@ -1119,19 +1154,19 @@ This gives the model:
 ##   <chr>                         <dbl>     <dbl>     <dbl> <chr>      
 ## 1 (Intercept)                   0.505    0.0340     14.9  fixed      
 ## 2 typeHex.                      0.103    0.0448      2.31 fixed      
-## 3 trendthree cities            -0.467    0.0448    -10.4  fixed      
-## 4 trendall cities              -0.277    0.0448     -6.19 fixed      
-## 5 typeHex.:trendthree cities    0.250    0.0633      3.95 fixed      
-## 6 typeHex.:trendall cities      0.239    0.0633      3.77 fixed      
+## 3 trendThree Cities            -0.467    0.0448    -10.4  fixed      
+## 4 trendAll Cities              -0.277    0.0448     -6.19 fixed      
+## 5 typeHex.:trendThree Cities    0.250    0.0633      3.95 fixed      
+## 6 typeHex.:trendAll Cities      0.239    0.0633      3.77 fixed      
 ## 7 sd_(Intercept).contributor    0.118   NA          NA    contributor
 ## 8 sd_Observation.Residual       0.430   NA          NA    Residual
 \end{verbatim}
 
 \begin{verbatim}
 ##      
-##        No Yes
-##   No   49   1
-##   Yes 624 430
+##       Detected? No Detected? Yes
+##   No            49             1
+##   Yes          624           430
 \end{verbatim}
 
 For a base model of Choropleth map, using a NW-SE trend model. The
@@ -1158,12 +1193,10 @@ the log odds of the detection by 0.42.
 
 \begin{verbatim}
 ##      
-##        No Yes
-##   No    0   0
-##   Yes 673 431
+##       Detected? No Detected? Yes
+##   No             0             0
+##   Yes          673           431
 \end{verbatim}
-
-\includegraphics{paper_files/figure-latex/unnamed-chunk-11-1.pdf}
 
 \hypertarget{certainty-1}{%
 \subsubsection{Certainty}\label{certainty-1}}
@@ -1181,9 +1214,9 @@ the log odds of the detection by 0.42.
 ## Fixed Effects:
 ##                (Intercept)                    typeHex.  
 ##                     0.5054                      0.1033  
-##          trendthree cities             trendall cities  
+##          trendThree Cities             trendAll Cities  
 ##                    -0.4674                     -0.2772  
-## typeHex.:trendthree cities    typeHex.:trendall cities  
+## typeHex.:trendThree Cities    typeHex.:trendAll Cities  
 ##                     0.2500                      0.2391
 \end{verbatim}
 
@@ -1274,7 +1307,7 @@ participating in this research.
 \leavevmode\hypertarget{ref-abs2016}{}%
 ``Australian Statistical Geography Standard (ASGS).'' 2018.
 \emph{Australian Bureau of Statistics}. Australian Government.
-\href{\%7Bhttps://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian\%20\%20\%20Statistical\%20Geography\%20Standard\%20(ASGS)\%7D}{\{https://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian   Statistical Geography Standard (ASGS)\}}.
+\url{\%7Bhttps://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian\%20\%20\%20Statistical\%20Geography\%20Standard\%20(ASGS)\%7D}.
 
 \leavevmode\hypertarget{ref-lme4}{}%
 Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015.
