@@ -562,7 +562,21 @@ ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) +
   guides(colour = FALSE)
 ```
 
-
+```{r eval=FALSE}
+# Di playing
+s <- d %>% group_by(type, trend, detect) %>%
+  summarise(m=median(time_taken), 
+            q1=quantile(time_taken, 0.25), 
+            q3=quantile(time_taken, 0.75))
+library(ggbeeswarm)
+ggplot() + 
+  geom_quasirandom(data=d, aes(x=type, y=time_taken), alpha=0.9) + 
+  #geom_hline(data=s, aes(yintercept=m, colour=type)) +
+  geom_point(data=s, aes(x=type, y=m, colour=type), size=5, alpha=0.7) +
+  #geom_errorbar(data=s, aes(x=type, ymin=q1, ymax=q3, colour=type), width=0.3, size=2) +
+  scale_colour_brewer(palette = "Dark2") +
+  facet_grid(trend~detect)
+```
 
 ## Certainty
 
