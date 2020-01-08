@@ -55,6 +55,104 @@ library(emmeans)
 library(kableExtra)
 ```
 
+```{r data}
+trend_colours <- c(
+  "NW-SE" = "#B2DF8A",
+  "Three Cities" = "#A6CEE3",
+  "All Cities" = "#1F78B4")
+  
+type_colours <- c(
+  "Choro." = "#fcae91",
+  "Hex." = "#a50f15")
+
+detect_f_colours <- c(
+  "No" = "#66C2A5",
+  "Yes" = "#FC8D62")
+
+detect_colours <- c(
+  "Detected? No" = "#66C2A5",
+  "Detected? Yes" = "#FC8D62")
+
+  # Downloaded data
+d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
+  filter(!is.na(contributor)) %>%
+  mutate(contributor = factor(contributor))
+
+# Check data set 
+# Need to clean multiple entries, 48, 24
+# remove duplicated entries due to submit button
+d <- d %>% group_by(group, contributor, image_name) %>%
+  slice(1) %>% ungroup() %>% 
+  arrange(group, contributor, plot_order)
+
+# Remove contributors who did not provide answers to most questions
+keep <- d %>% count(contributor, sort = TRUE) %>% filter(n > 10)
+d <- d %>% 
+  filter(contributor %in% keep$contributor) %>%
+  filter(contributor != "1234567890")
+
+# Remove contributors who did not provide any choices
+bad_contribs <- d %>% group_by(contributor) %>% 
+  summarise(sum0 = sum(choice)) %>% 
+  filter(sum0 == 0) %>% 
+  pull(contributor)
+
+d <- d %>% 
+  filter(!(contributor %in% bad_contribs))
+
+
+n_contributors <- d %>% count(contributor, sort=TRUE) %>% 
+  summarise(n_contributors = length(contributor))
+
+d <- d %>% mutate(certainty = factor(as.character(certainty),
+  levels = c("1", "2", "3", "4","5"), ordered=TRUE))
+```
+
+
+```{r reps}
+replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
+                                   "aus_cities_3_geo.png", "aus_cities_3_hex.png",
+                                   "aus_cities_4_geo.png", "aus_cities_4_hex.png",
+                                   "aus_cities_9_geo.png", "aus_cities_9_hex.png",
+                                   "aus_nwse_2_geo.png", "aus_nwse_2_hex.png",
+                                   "aus_nwse_3_geo.png", "aus_nwse_3_hex.png",
+                                   "aus_nwse_5_geo.png", "aus_nwse_5_hex.png",
+                                   "aus_nwse_6_geo.png", "aus_nwse_6_hex.png",
+                                   "aus_three_12_geo.png", "aus_three_12_hex.png",
+                                   "aus_three_5_geo.png", "aus_three_5_hex.png",
+                                   "aus_three_8_geo.png", "aus_three_8_hex.png",
+                                   "aus_three_9_geo.png", "aus_three_9_hex.png"),
+                    replicate = c(1, 1, 2, 2, 3, 3, 4, 4, 
+                                  1, 1, 2, 2, 3, 3, 4, 4,
+                                  1, 1, 2, 2, 3, 3, 4, 4))
+# Add rep info to data
+d <- d %>% left_join(., replicate, by = "image_name")
+```
+
+```{r pdetection_group}
+# Tidy for analysis
+d <- d %>% 
+  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) %>%
+  select(-nothing, -extra) %>%
+  mutate(location = as.numeric(location), 
+    # detect measures the accuracy of the choice
+         detect = ifelse(location == choice, 1, 0)) %>% 
+  mutate(trend = case_when(
+    trend == "nwse" ~ "NW-SE",
+    trend == "cities" ~ "All Cities",
+    trend == "three" ~ "Three Cities")) %>% 
+  mutate(trend = fct_relevel(trend, "NW-SE","Three Cities","All Cities")) %>% 
+  mutate(type = case_when(
+    type == "hex" ~"Hex.",
+    TRUE~"Choro.")) %>% 
+    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("Detected? No", "Detected? Yes")))
+
+plots <- d %>% group_by(group, trend, type, location) %>%
+  # pdetect measures the aggregated accuracy of the choices
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) 
+```
+
+
 Introduction
 =============
 <!-- no \IEEEPARstart -->
@@ -277,21 +375,18 @@ A participant did see the same data for both map types. Four simulated sets of d
 This will generate 24 lineups (12 were geographic maps, and 12 were hexagon tile maps). Participants will evaluate 12 lineups, 6 of each map type. Appendix A shows the experimental design visually.
 For each of the six geographic displays and six hexagon displays, two of each trend model were shown to participants.
 
-\begin{table}[]
-\caption{The Experimental Design}
-\label{tab:my-table}
-\begin{tabular}{|l|l|l|}
-\hline
-Trend & Map type & Replicates \\ \hline
-NW-SE & Choropleth & 2 \\ \hline
- & Hexagon tile & 2 \\ \hline
-Three cities & Choropleth & 2 \\ \hline
- & Hexagon tile & 2 \\ \hline
-All cities & Choropleth & 2 \\ \hline
- & Hexagon tile & 2 \\ \hline
-\end{tabular}
-\end{table}
-
+```{r exp_design, results = "asis"}
+d %>% 
+  mutate(Trend = trend,
+    Group = group,
+    `Map Type` = type) %>% 
+  group_by(Group, Trend, `Map Type`) %>% 
+  summarise(Reps = paste0(sort(unique(replicate)), collapse = ", ")) %>% 
+  pivot_wider(names_from = c("Map Type"), values_from = c("Reps")) %>% 
+  ungroup() %>% 
+  knitr::kable(., format = "latex", booktabs = TRUE, caption = "Experimental design.") %>% kable_styling("striped") %>% 
+  collapse_rows(., columns = 1, custom_latex_hline = c(1:3))
+```
 
 The variables measured as a result of the changes were the probability of detection each display and the time taken to submit responses.
 To measure the accuracy of the detections, the plot chosen for each lineup evaluated was compared to the position of the real spatial trend plot in the lineup. A correct result occurs when the chosen plot matches the position of the real plot, this was recorded in an additional binary variable; 1 = correct; 0 = incorrect.
@@ -312,6 +407,20 @@ For each of the 144 individual maps, the values attributed to each geographic ar
 A random location was selected for each set of lineup data.
 In this location, a trend model was overlaid on the null set of spatially correlated data.
 Each set of lineup data was used to produce a choropleth maps and hexagon tile maps. These matched pairs were split between Group A and Group B.
+
+Replicate 2 of the All Cities distribution is shown in XXX.
+
+```{r cities_lineup, fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled."}
+#knitr::include_graphics("figures/aus_cities_3_geo.png")
+```
+
+!["The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled."](figures/aus_cities_3_geo.png)
+
+```{r nwse_lineup, fig.cap = "A North-West to South East trend was hidden in this lineup of hexagon tile map displays."}
+#knitr::include_graphics("figures/aus_nwse_6_hex.png")
+```
+
+!["A North-West to South East trend was hidden in this lineup of hexagon tile map displays."](figures/aus_nwse_6_hex.png)
 
 ## Participants
 
@@ -393,80 +502,8 @@ The randomness of the group allocation also resulted in more participants being 
 Results
 ============
 
-```{r data}
-trend_colours <- c(
-  "NW-SE" = "#B2DF8A",
-  "Three Cities" = "#A6CEE3",
-  "All Cities" = "#1F78B4")
-  
-type_colours <- c(
-  "Choro." = "#fcae91",
-  "Hex." = "#a50f15")
-
-detect_f_colours <- c(
-  "No" = "#66C2A5",
-  "Yes" = "#FC8D62")
-
-detect_colours <- c(
-  "Detected? No" = "#66C2A5",
-  "Detected? Yes" = "#FC8D62")
-
-  # Downloaded data
-d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
-  filter(!is.na(contributor)) %>%
-  mutate(contributor = factor(contributor))
-
-# Check data set 
-# Need to clean multiple entries, 48, 24
-# remove duplicated entries due to submit button
-d <- d %>% group_by(group, contributor, image_name) %>%
-  slice(1) %>% ungroup() %>% 
-  arrange(group, contributor, plot_order)
-
-# Remove contributors who did not provide answers to most questions
-keep <- d %>% count(contributor, sort = TRUE) %>% filter(n > 10)
-d <- d %>% 
-  filter(contributor %in% keep$contributor) %>%
-  filter(contributor != "1234567890")
-
-# Remove contributors who did not provide any choices
-bad_contribs <- d %>% group_by(contributor) %>% 
-  summarise(sum0 = sum(choice)) %>% 
-  filter(sum0 == 0) %>% 
-  pull(contributor)
-
-d <- d %>% 
-  filter(!(contributor %in% bad_contribs))
-
-
-n_contributors <- d %>% count(contributor, sort=TRUE) %>% 
-  summarise(n_contributors = length(contributor))
-
-d <- d %>% mutate(certainty = factor(as.character(certainty),
-  levels = c("1", "2", "3", "4","5"), ordered=TRUE))
-```
-
 The survey responses from participants were kept only if the participant submitted answers for all 12 displays. This resulted in 92 participants.
 
-```{r reps}
-replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
-                                   "aus_cities_3_geo.png", "aus_cities_3_hex.png",
-                                   "aus_cities_4_geo.png", "aus_cities_4_hex.png",
-                                   "aus_cities_9_geo.png", "aus_cities_9_hex.png",
-                                   "aus_nwse_2_geo.png", "aus_nwse_2_hex.png",
-                                   "aus_nwse_3_geo.png", "aus_nwse_3_hex.png",
-                                   "aus_nwse_5_geo.png", "aus_nwse_5_hex.png",
-                                   "aus_nwse_6_geo.png", "aus_nwse_6_hex.png",
-                                   "aus_three_12_geo.png", "aus_three_12_hex.png",
-                                   "aus_three_5_geo.png", "aus_three_5_hex.png",
-                                   "aus_three_8_geo.png", "aus_three_8_hex.png",
-                                   "aus_three_9_geo.png", "aus_three_9_hex.png"),
-                    replicate = c(1, 1, 2, 2, 3, 3, 4, 4, 
-                                  1, 1, 2, 2, 3, 3, 4, 4,
-                                  1, 1, 2, 2, 3, 3, 4, 4))
-# Add rep info to data
-d <- d %>% left_join(., replicate, by = "image_name")
-```
 
 The contributors who gave various plot choices and reasons for the twelve displays were kept.
 The contributors who detected no plots correctly were analysed further. Three of these contribuotrs gave no choices for any of the twelve displays. They were also removed for the rest of the analysis.
@@ -478,29 +515,6 @@ The education level achieved by the participants was 70 Bachelors or Masters deg
 
 The detection rate for participants reporting the real data trend model is used to calculate the accuracy of the responses of participants.
 
-
-```{r pdetection_group}
-# Tidy for analysis
-d <- d %>% 
-  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) %>%
-  select(-nothing, -extra) %>%
-  mutate(location = as.numeric(location), 
-    # detect measures the accuracy of the choice
-         detect = ifelse(location == choice, 1, 0)) %>% 
-  mutate(trend = case_when(
-    trend == "nwse" ~ "NW-SE",
-    trend == "cities" ~ "All Cities",
-    trend == "three" ~ "Three Cities")) %>% 
-  mutate(trend = fct_relevel(trend, "NW-SE","Three Cities","All Cities")) %>% 
-  mutate(type = case_when(
-    type == "hex" ~"Hex.",
-    TRUE~"Choro.")) %>% 
-    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("Detected? No", "Detected? Yes")))
-
-plots <- d %>% group_by(group, trend, type, location) %>%
-  # pdetect measures the aggregated accuracy of the choices
-  summarise(pdetect = length(detect[detect == 1])/length(detect)) 
-```
 
 
 
@@ -550,7 +564,7 @@ d %>% group_by(type, trend) %>%
   pivot_wider(names_from = "trend", values_from = "value") %>% 
   arrange(type) %>% ungroup() %>% 
   mutate(Type = types) %>% select(Type, `NW-SE`, `Three Cities`, `All Cities`) %>%
-  knitr::kable(., format = "latex", align = "lccc")
+  knitr::kable(., format = "latex", align = "lccc", booktabs = TRUE)
 ```
 
 The probability of detection is explored for each of the combinations of trans and type of display. 
@@ -592,7 +606,7 @@ ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) +
   guides(colour = FALSE)
 ```
 
-```{r}
+```{r beeswarm, fig.cap = "The beeswarm plots show the distribution of the time taken to submit a response for each combination of trend and type of display. The time taken shown by the height of the point for each evaluationq1. The height of the histogram bars show how many evaulations were submitted within each time window. The orange regions of the bars show the amount of correct detections, and the green regions are the amount of incorrect detections."}
 # Di playing
 s <- d %>% group_by(type, trend, detect) %>%
   summarise(m=median(time_taken), 
@@ -608,7 +622,7 @@ ggplot() +
   facet_grid(trend~detect)
 ```
 
-The proportion of correct and incorrect responses within each 5 second time window. For the NW-SE distribution, it is equally likely that quick responders will be correct or incorrect. It is more likely that participants picked the correct response if they took longer to respond. For the Choropelth
+The proportion of correct and incorrect responsesis shown by the width used to distribute the points horizontally. Each point is randomly placed, but regions with more points require points to be placed further from center. For the NW-SE distribution, it is equally likely that quick responders will be correct or incorrect. It is more likely that participants picked the correct response if they took longer to respond. For the Choropelth
 
 However, these quick responders were likely to be either correct or incorrect. The quick responders viewing a choropleth display were unlikely to choose correctly, unless viewing a NW-SE trend model. 
 
@@ -635,22 +649,21 @@ assessments by the participant ‘How certain are you about your choice?’.
 
 ## Reason
 
-```{r reason, fig.cap = "The amount of participants that selected each reason for their choice of plot when looking at each trend model shown in Choropleth and Hexagon Tile maps. The facets show whether or not the choice was correct."}
-###########################################################
+```{r reason, fig.cap = "The amount of participants that selected each reason for their choice of plot when looking at each trend model shown in Choropleth and Hexagon Tile maps. The facets show whether or not the choice was correct.", results = "asis"}
+
 # Qualitative analysis of reason
 d %>% 
   mutate(reason = ifelse(reason =="0.0", "no reason", reason)) %>% 
-  mutate(Detected = gsub("Detected? ", "", detect_f)) %>% 
-  group_by(trend, Detected, type) %>% 
+  mutate(Detected = ifelse(detect_f == "Detected? Yes", "Yes", "No"),
+    Trend = trend) %>% 
+  group_by(Trend, Detected, type) %>% 
   count(reason) %>% 
   mutate(prop = round(n/sum(n), 3), r_prop = paste0(reason, ":", prop)) %>% 
   top_n(1, n) %>% summarise(reasons = paste(reason, collapse=", ")) %>% 
-  pivot_wider(names_from = c("Detected"), values_from = c("reasons")) %>% 
-  arrange(trend, type) %>% 
-  select(Trend = trend, `Map Type` = type,
-    `Yes` = `Detected? Yes`, `No` = `Detected? No`) %>% 
-  knitr::kable(., format = "latex") %>% kable_styling("striped") %>%
-  add_header_above(c(" " = 2, "Detected:" = 2))
+  pivot_wider(names_from = c("type"), values_from = c("reasons")) %>% 
+  ungroup() %>% 
+  knitr::kable(., format = "latex", booktabs = TRUE) %>% kable_styling("striped") %>% 
+  collapse_rows(., columns = 1, custom_latex_hline = c(1:2, 3:4))
 ```
 
 The most common choice made by participant was clusters, this response was expected when participants viewed the Hexagon display of the all cities and three cities distributions.
@@ -671,6 +684,13 @@ contribs %>% ggplot(aes(x = group, y = pdetect)) +
   ylab("Detection rate") + 
   ylim(0,1)
 ```
+
+
+## Anomolies
+
+
+The choices made by participants are examined in Figure \@ref(fig:choices).
+Participants were misled by the choropleth display, but not the hexagon display for all cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of three cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Figure \@ref(fig:choices).
 
 
 
@@ -695,11 +715,8 @@ d %>%
   theme(strip.text.y = element_text(angle = 0))
 ```
 
-The choices made by participants are examined in Figure \@ref(fig:choices).
-Participants were misled by the choropleth display, but not the hexagon display for all cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of three cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Figure \@ref(fig:choices).
 
-
-## Anomolies
+One lineup had extremely similiar detection rates for the Choropleth and Hexagon displays.
 
 
 
@@ -723,7 +740,7 @@ $$\eta = f(\tau_i,\delta_j)$$
 
 
 
-```{r modeling_glm1}
+```{r modeling_glm1, results="asis"}
 # Modelling 
 glm1 <- glm(formula = detect ~ type * trend,
   family = binomial(link = "logit"), data = d)
@@ -733,30 +750,29 @@ pfit <- exp(preds$fit)/(1+exp(preds$fit))
 se.bands.logit = tibble(upper = (preds$fit+2*preds$se.fit), lower = (preds$fit-2*preds$se.fit))
 se.bands = exp(se.bands.logit)/(1+exp(se.bands.logit))
 
-factors <- c("Design", "", "Trend", "", "Interactions", "")
 terms <- c("Intercept", "Hex", "Three cities", "All cities", "Hex : Three cities", "Hex : All cities")
 
-tidy(glm1) %>% 
-  mutate(p.value = round(p.value, 4)) %>%
-  mutate(sig = case_when(
-    p.value <= 0.001 ~ "***", 
-    p.value <= 0.01 ~ "**", 
-    p.value <= 0.05 ~ "*", 
-    p.value <= 0.01 ~ ".",
-    TRUE ~ " ")) %>% 
-  mutate(term = terms,
-    factors = factors) %>% 
-  select(`_` = factors, 
-    terms = term, 
+tidy(glm1) %>%
+  mutate_if(is.numeric, round, 2) %>% 
+  rowwise() %>% 
+  mutate(estimate = case_when(
+    p.value <= 0.001 ~ paste0(estimate,"$^{***}$"),
+    p.value <= 0.01 ~ paste0(estimate, "$^{** }$"), 
+    p.value <= 0.05 ~ paste0(estimate, "$^{*  }$"), 
+    p.value <= 0.01 ~ paste0(estimate, "$^{.  }$"),
+    TRUE ~ paste0(estimate))) %>% 
+  ungroup() %>% 
+  mutate(term = terms) %>% 
+  select(Term = term, 
     Estimate = estimate, 
     Error = std.error, 
     Stat = statistic,
-    p.value, sig) %>% knitr::kable(format = "latex", 
-      align = "lrrrrl")
+    p.value) %>% knitr::kable(format = "latex", escape = FALSE, align= "rcrrr", booktabs = T)
 ```
 
 
-```{r}
+
+```{r pred_glm1}
 d_glm <- d %>% select(group:certainty, detect, detect_f) %>%
   bind_cols(as_tibble(se.bands)) %>% 
   mutate(pfit, 
@@ -774,7 +790,7 @@ $$\widehat{y_{ij}} = 0.0217 + 0.42Hex -3.25_{three} -1.24_{all} + 2.37{Hex.three
 
 
 
-```{r}
+```{r glm2}
 glm2 <- glm(formula = detect ~ type * trend + replicate_f,
   family = binomial(link = "logit"), data = d)
 
@@ -784,18 +800,18 @@ emmean2 <- emmeans(glm2, c("trend", "type", "replicate_f"),
 int_2 <- confint(emmean2, by = c("type", "trend", "replicate_f"), adjust = "bonferroni")
 int_2 %>% 
   ggplot(aes(x= replicate_f, y = prob, group = type)) + 
-  geom_point(aes(col = type)) + 
+  geom_point() + 
   geom_line(alpha = 0.5, lty = "dashed") + 
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL, col = replicate_f), 
-                width = 0.2) +
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL, col = type), width = 0.2) +
+  scale_color_manual(values = type_colours) +
   facet_grid(trend ~ .) +
-  ylab("Estimated Marginal Mean")
+  labs(x = "Replicates", y = "Detection Rate")
 ```
 
 
 
 
-```{r}
+```{r lmer1, results = "asis"}
 # Mixed effects models
 lmer1 <- lmer(detect ~ type*trend + (1|contributor), data = d)
 lmer1_d <- augment(lmer1, d)
@@ -803,17 +819,13 @@ lmer1_d <- augment(lmer1, d)
 preds_lmer <- predict(lmer1, newdata = d)
 pfit_lmer <- exp(preds_lmer)/(1+exp(preds_lmer))
 
-glance(lmer1)
-tidy(lmer1)
+stargazer::stargazer(lmer1)
 
 d_lmer <- d %>% select(group:certainty, detect, detect_f) %>%
   bind_cols(as_tibble(se.bands)) %>% 
   mutate(pfit_lmer, 
     predicted = ifelse(pfit_lmer > 0.5, 1, 0),
     predicted = factor(predicted, levels = c(0,1), labels = c("No", "Yes")))
-
-table(d_lmer$predicted, d_lmer$detect_f)
-
 # Hexagon maps have better chance of correct detection
 # Allowing for contributor effects to vary: 0.12 strong residual
 ```
@@ -822,7 +834,7 @@ table(d_lmer$predicted, d_lmer$detect_f)
 For a base model of Choropleth map, using a NW-SE trend model.
 The detection rate for Hexagon tile maps using a NW-SE trend model changes the log odds of the detection by 0.42.
 
-```{r}
+```{r lmer2, results = "asis"}
 # Mixed effects models
 lmer2 <- lmer(detect ~ (type|trend), data = d)
 lmer2_d <- augment(lmer2, d)
@@ -830,8 +842,7 @@ lmer2_d <- augment(lmer2, d)
 preds_lmer2 <- predict(lmer2, newdata = d)
 pfit_lmer2 <- exp(preds_lmer2)/(1+exp(preds_lmer2))
 
-glance(lmer2)
-tidy(lmer2)
+stargazer::stargazer(lmer2)
 
 d_lmer2 <- d %>% select(group:certainty, detect, detect_f) %>%
   bind_cols(as_tibble(se.bands)) %>% 
@@ -839,27 +850,17 @@ d_lmer2 <- d %>% select(group:certainty, detect, detect_f) %>%
     predicted = ifelse(pfit_lmer2 > 0.5, 1, 0),
     predicted = factor(predicted, levels = c(0,1), labels = c("No", "Yes")))
 
-table(d_lmer2$predicted, d_lmer2$detect_f)
 ```
 
 
 ### Certainty
 
-```{r}
-# Modelling 
-lm1 <- lm(formula = as.numeric(certainty) ~ type, data = d)
-lm1_d <- augment(lm1, d)
-```
 
 
-
-
-
-
-```{r}
+```{r lmer1_model, results = "asis"}
 # Mixed effects models
 lmer1 <- lmer(detect ~ type*trend + (1|contributor), data = d)
-lmer1 
+tidy(lmer1) %>% mutate_if(is.numeric, .f = round, 2) %>% stargazer::stargazer(.)
 
 # Hexagon maps have better chance of correct detection
 # Allowing for contributor effects to vary: 0.12 strong residual
@@ -910,29 +911,25 @@ plots %>% ggplot(aes(x = type, y = pdetect)) +
   ylim(c(0,1))
 ```
 
+
+
+
 ## Subject specific anomolies (0% detection)
 
 ## Demographics:
 
-```{r demogs}
+```{r demogs, results = "asis"}
 # Create one record for each contributor, to examine demographics
 dem_contribs <- d %>%
   group_by(contributor) %>%
   slice(1) %>% ungroup()
 
-###############################################################################
+
 # Demographics of contributors
 #dem_contribs %>% count(gender)
 dem_contribs %>% ggplot() + geom_bar(aes(age))
-dem_contribs %>% count(gender)
-dem_contribs %>% count(education)
-dem_contribs %>% count(gender, education) %>% 
-  spread(gender, n) %>% 
-  mutate(`Col. Total` = He + She) %>% 
-  gather("Gender", "Amount", He:`Col. Total`) %>% 
-  spread(education, Amount) %>% 
-  mutate(`Row Total` = Bach + `High School`, Masters,
-    Gender = factor(Gender, levels = c("He", "She", "Col. Total"), labels = c("He", "She", "Col. Total"))) %>% knitr::kable(format = "latex")
+dem_contribs %>% count(gender) %>% knitr::kable(format = "latex", booktabs = TRUE)
+dem_contribs %>% count(education) %>% knitr::kable(format = "latex", booktabs = TRUE)
 ```
 
 
