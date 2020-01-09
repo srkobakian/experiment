@@ -21,7 +21,7 @@ affiliation:
         - name: Dianne Cook
 keywords: ["statistics", "visual inference", "geospatial", "population"]
 abstract: |
-  Choosing a visualisation method may seem to be a simple task. The choropleth map display is commonly used for communicating spatial data. The visualisation method used to present geospatial data will influence the information derived by map users. Choosing an alternative display will influence the communication of the distribution. The hexagon tile map is presented as an alternative display. Visual inference is used to measure the power of design. The choropleth is used as a comparison point. The hexagon tile map display is an effective visualisation for communicatin=g population related distributions. The hexagon tile map display also allowed identification of the geographic distribution with values monotonically decreasing from North West toward South East areas of Australia.
+  Choosing a visualisation method may seem to be a simple task. The choropleth map display is commonly used for communicating spatial data. However, when used to communicate the spatial distribution of a statistic the sizes of areas can lead to midinterpretation of the distribution. The visualisation method used to present geospatial data will influence the information derived by map users. Choosing an alternative display will influence the communication of the distribution. The hexagon tile map is presented as an alternative display. Visual inference is used to measure the power of design. The choropleth is used as a comparison point. The hexagon tile map display is an effective visualisation for communicatin=g population related distributions. The hexagon tile map display also allowed identification of the geographic distribution with values monotonically decreasing from North West toward South East areas of Australia.
 dev: png
 bibliography: mybibfile.bib
 output: rticles::ieee_article
@@ -35,7 +35,8 @@ knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
   error = FALSE, 
-  message = FALSE)
+  message = FALSE,
+  cache = TRUE)
 ```
 
 ```{r libraries}
@@ -52,6 +53,7 @@ library(ggthemes)
 library(RColorBrewer)
 library(visreg)
 library(emmeans)
+library(knitr)
 library(kableExtra)
 ```
 
@@ -160,14 +162,8 @@ Introduction
 
 <!-- General: comparison of displays, motivate hexagon tile map, enough info to motivate aims -->
 <!-- geographies on choropleth -->
-A geographic map base is commonly used to present geospatial statistics.
-The statistics presented may also be aggreagated statistics for geographic units, in this case the choropleth map is the common display used. Choropleth maps are often used to present statistics regarding the population. 
-Creating a choropleth map involves drawing the administrative boundaries and filling them with colour to communicate the value of the statistic. 
-The several sets of Australian statistical areas presents an example of a heterogrenous distribution.
-The rural communities in Australia operate on a much larger geographic space than small inner city communities.
-This has the negative effect of incorrectly showing the spatial distribution of the statistic, especially when a spatial distribution is related to the size of the areas, or the population density.
-An alternative display can be used to effectively communicate a spatial distribution for a set of heterogeneous areas.
-
+This study contrasts the use of two displays for geospatial statistics, the traditional choropleth map and an alternative tessellated hexagon tile map. The choropleth map is the common choice for visualising aggregated statistics and is familiar because of common administrative boundaries. 
+A hexagon tile map forgoes the familiar boundaries, instead representing each geographic unit as an equally sized hexagon. This alternative display is suggested for communicating distributions that relate to the population values or density of the population in each geographic unit. This study uses the lineup protocol for visual inference testing of the recognition of spatial distributions. The Australian Cancer Atlas explores spatial distributions of cancer incidence and the burden on Australian communities. The spatial distributions of the cancers explored in this atlas inspired the trend models presented to participants in this study. 
 
 Motivation
 =============
@@ -176,34 +172,35 @@ Motivation
 
 ## The Australian Cancer Atlas
 
-The Australian Cancer Atlas is an online interactive web tool created to explore the burden of cancer on Australian communities. There are many cancer types presented, and they can be explored on an individual or aggregate level. 
-The Australian communities are examined at the Statistical Areas at Level 2 (SA2) [@abs2016] used by the Australian Bureau of Statistics. Bayesian spatial smoothing has been applied to incorporate the value of the statistics of the neighbouring areas. Spatial smoothing allows for the protection privacy and gives stability to the estimates. The statistics mapped are the diagnoses (Standardised Incidence Rates) and excess deaths for each SA2, communicated as the difference from the Australian average of the statistics. The values of the statistic for each geographic area is communicated through the colour used to fill the areas, the colours are chosen for the diverging colour scheme. 
-The Australian Cancer Atlas communicates the trends in the distributions of cancer over geographic space. It uses a choropleth map display and diverging colour scheme to draw attention to relationships between neighbouring areas. 
+The Australian Cancer Atlas is an online interactive web tool created to explore the burden of cancer on Australian communities. There are many cancer types to be explored individually or aggregated. 
+The Atlas examines Australian communities at the Statistical Areas at Level 2 (SA2) [@abs2016] used by the Australian Bureau of Statistics. Bayesian spatial smoothing was applied to integrate the values of neighbouring areas. Spatial smoothing protects the privacy and gives stability to the estimated amounts in each SA2. Users of the Atlas can explore the difference of the statistic of each SA2 from the Australian average, for both diagnoses (Standardised Incidence Rates) and excess deaths. It communicates the value of the statistic for each SA2 geographic unit through colour, by filling the areas using the diverging colour scheme ranging from dark blue to red. 
+The Australian Cancer Atlas allows users to explore the patterns in the distributions of cancer statistics over the geographic space of Australia. It uses a choropleth map display and diverging colour scheme to draw attention to relationships between neighbouring areas. 
 
 
 Background
 =============
 
-
 ## Population focussed displays
 
-Spatial visualisations communicate the distribution of statistics over geographic space. The most common display for spatial data is the choropleth map. However, the issue of using a choropleth map base becomes obvious when considering population related distributions.
-Map creators have the ability to present spatial statistics in alternative displays that can highlight the population.
+  
+Spatial visualisations communicate the distribution of statistics over geographic space. The most common display for spatial data is the choropleth map. The choropleth map is the common display used to present aggregated statistics for geographic units such as the population. Creating a choropleth map involves drawing the administrative boundaries and filling them with colour to communicate the value of the statistic. However, using a choropleth map base introduces biases when considering population related distributions.
+Many sets of Australian statistical areas have a large disparity between the smallest and largest units.
+The rural communities in Australia operate on a much larger geographic space than small inner-city communities. When a spatial distribution is related to the size of the areas, or the population density, the size of the regions can allow erroneous conclusions to be drawn about the state of the statistic over the entire population, when presenting the statistics on a geographic map base. This occurs as large regions filled with a consistent colour or pattern can draw the attention of map readers, and small regions are not paid equal attention. An alternative display can be used to effectively communicate a spatial distribution for a set of heterogeneous areas. 
 This work aims to show that a hexagon tile map display is a viable alternative to the geographic map base for presenting population statistics.
-When presenting population statistics on a geographic map base, the size of the regions can allow errornous conclusions to be drawn about the state of the statistic over the entire population.
-This occurs as large regions filled with a consistent colour or pettern can draw the attention of map readers, and small regions are not paid equal attention.
+
+
 A choropleth map is not the only display that can be used for presenting geospatial data. 
-Alternative maps include various cartograms, and tesselated tile maps. They allow other variables to be included in the display to highlight the staistical values of various geographic areas.
+Alternative maps include various cartograms and tessellated tile maps. They allow other variables to be incorporated in the display to highlight the statistical values of various geographic areas.
+
 
 <!-- Cartogram -->
-
-A cartogram transforms the geographic map base. The transformation begins with a choropleth map base, and the associated populations. There are several algorithms for transforming, they all involve shifting boundaries to increase or descrease the area of the geographic units on the map depending on the statistics.
+A cartogram transforms the geographic map base. The transformation begins with a choropleth map, and the values of a statistic such as population, for each geographic unit. There are several algorithms for transformation; they involve shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map.
 <!-- Why not a cartogram-->
-The shifts of the boundaries result in cartograms with accurate map area for each of the geographic units. The transformation will keep boundaries of neighbouring areas connected, but the result is unfamiliar shapes for each geographic unit. 
+The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units. The transformation will keep boundaries of neighbouring areas connected, but the result is unfamiliar shapes for each geographic unit. 
 
 <!-- Tesselated tile gram & hexagon tile map-->
-Alternative displays make the trade off between familiar shapes and representation of variables using the area of geographic units. The non-contiguous cartgoram method keep the shapes of geographic units intact, and change the size to communicate the values of statistics. This method breaks the spatial relationship between areas, and emphasises the difference between the statistic and the amount of land for each geographic unit.
-The Dorling cartogram is another method that does not retain the boundaries of geographic units. Each unit becomes one circle on the cartogram dispaly, these can be sized according to the value of a variable. Their neighbours can be illustrated by connecting the boundaries of the circles.
+Alternative displays make the trade off between familiar shapes and representation of variables using the area of geographic units. The non-contiguous cartgoram method keeps the shapes of geographic units intact, and change the size of the shape to communicate the values of statistics. This method disconnects areas when shrinking boundaries, and breaks the spatial relationship between areas. However, the empty space created emphasises the comparative density of the statistic, the difference between the statistic and the amount of land for each geographic unit.
+The Dorling cartogram is another method that does not retain the boundaries of geographic units. Each unit becomes one circle on the cartogram display; the circles are sized according to the value of a the statistic, such as population. The neighbour relationships can be illustrated by connecting the boundaries of the circles.
 These cartogram methods all allow two variables to be shown in the single display.
 
 ```{r liver, fig.height = 9, fig.width = 6, fig.cap = "The smoothed average of liver cancer diagnoses for Australian males. The divering colour scheme shows dark blue areas with much lower than average diagnoses, yellow areas with diagnoses around the Australian average, orange with above average and red shows diagnoses much higher than average."}
@@ -216,163 +213,88 @@ ggdraw(ylim = c(0,2), xlim = c(0,1.3), clip = "on") +
 ```
 
 <!-- Specific problem for Australia -->
-Australia is an extreme case of heterogenous geographic units.
-To communicate information regarding the small inner city geographic units of Australian cities an alternative display must be employed. This will emphasise the value of the statistic that is relating to areas with high population levels. Figure \@ref(fig:liver) shows the distribution of the smoothed average amount of Liver cancer diagnoses for Australian Males from XXX years. The hexagon tile map (b) shows orange hexagons for the inner city Statistical Areas at Level 2 with higher than average levels of diagnoses in the capital cities of Melbourne and Sydney.
-These inner city areas are not visible on the choropleth map (a). There are still many light blue areas in both displays. The northern Queensland, and Northern Territory SA2's with higher than average rates are still visible but utilise less map space on the hexagon tile map.
+Australia is an extreme case of heterogenous geographic units, with large difference between the smallest and largest geographic units across various granularities.
+To communicate information regarding the small inner-city geographic units of Australian cities an alternative display must be employed. This will emphasise the value of the statistic for areas with high population. Figure \@ref(fig:liver) shows the distribution of the smoothed average amount of Liver cancer diagnoses for Australian Males from 2005-2014.
+These inner-city areas are not visible on the choropleth map (a). The hexagon tile map (b) shows orange hexagons for the inner-city SA2s with higher than average levels of diagnoses in the capital cities of Melbourne and Sydney. The northern Queensland, and Northern Territory SA2's with higher than average rates are still visible but use less map space on the hexagon tile map. There are still many light blue areas in both displays. 
 
-
-## Methodology 
-
-To test the 
 
 ## Visual Inference
-- Communicating data through visualisations
-- Effective displays for types of data
-- Protocol for testing the effectiveness
+
+The hexagon tile map is suggested as an alternative display. To test the effectiveness of these displays there is a formal testing framework. Visual inference considers the communication of data or data summaries through visualisations. It considers these visualisations to be visual statistics, with observable features.
 
 
-The same data were shown on a choropleth map, and on a hexagon tile map.
-Comparing the results of participants who see the choropleth to those who see a hexagon tile map will show that population related distributions are spotted more frequently in a hexagon tile map display.
-
-Classical statistical inference involves hypothesis testing, the process of rejecting a null hypothesis in favour of an alternative. This approach relies on data, the appropriate distributions and their assumptions. 
-Visual inference null hypothesis: independence in the variables (absence of all features), alternative hypothesis: Relationship between the variables (presence of some feature).
-<!--
-GTPCCD
-In visual inference, data plots are considered to be test statistics, and these are compared with plots of data generated from a null hypothesis using a lineup
-
-The null hypothesis underlying a
-lineup is that there is no real structure visible in the data plot, that any
-patterns seen are consistent with randomness, or from a known model.
-If the null hypothesis is true then the plot of the data will not be distinguishable
-from the plots of null data.
-
-Different lineups are created, using the same data, same null plots and
-positions within the lineup, but different plot designs.
-
-Comparing how
-long viewers take and how accurately they report the feature of interest
-will assess which design is better for the task.
--->
-
-<!--
-A null dataset
-is a sample from the null distribution, i.e. an example of an innocent
-dataset, and a null plot is a plot of a null dataset, showing what an
-innocent might look like.
-
-testing can be adapted to work visually instead of numerically.[@GIIV]
-Graphical Inference for Infovis
-Chloropleth maps Is there a spatial trend?
-
-Simulation. We might be interested in a more specific set of hypothesis:
-does time increase linearly with distance from target?
-Does accuracy decrease exponentially as number of distractors
-increases? In those cases we have a probabilistic model and we
-can generate null data sets by sampling from the distribution implied
-by the model. This approach is used in Section 4.2.
--->
-
-The lineup protocol is used for visual inference testing.
-1. simulate null plots 
-2. Insert data with structure into a random location
-3. Ask uninvolved person to select the most different plot
-4. If location is chosen correctly, the existence of a feature is significant at $\alpha = 1/N$.
+Classical statistical inference involves hypothesis testing, the process of rejecting a null hypothesis in favour of an alternative. This approach requires appropriate data, with the appropriate distributions and their assumptions. 
+The lineup protocol was formalised as a test for the effectiveness of a visualisation. Rather than use classical statistical tests, human participants are tasked with finding the display that shows structure between the variables. If the structure is not detected, then it is not significantly different from the null data.
 
 
+Visual inference uses the general hypothesis structure: 
 
-> "In this framework, plots take on the role of test statistics, and human cognition the role of statistical tests." @SIEDAMD
+Null hypothesis: There is NO relationship between the variables,
+Alternative hypothesis: There is a relationship between the variables.
 
-The line up protocol involves placing a "guilty" data visualisation in a lineup of "innocents". Where the guilty data set contains structure, and the innocents are equivalent to a null data set. 
-In a grid of visualisations, an observer is asked to pick the display that is most different, if they select the data set containing structure, they have identified the guilty hidden within the group innocents.
+To test these hypotheses, the line up protocol randomly places a "guilty" data visualisation in a lineup of "innocents". Where the guilty data set contains structure, and the innocents data sets do not.
+In a grid of visualisations, an observer is asked to pick the display that is most different, if they select the data set containing structure, they have identified the guilty hidden within the  innocents [@GTPCCD].
 The guilty data is identified as different from the innocent data with probability $1/m$, where $m$ is the number of null plots plus 1 to account account for the guilty data set. When the guilty data set is chosen, the null hypothesis that it was innocent is rejected with a $1/m$ chance or type I error of being wrong.
 
-The lineup protocol can be used in a variety of testing scenarios. The choropleth map is best used for testing spatial structure in a data set.
+The lineup protocol can be used in a variety of testing scenarios for visualisations. @GIIV suggest the choropleth map for testing spatial structure in a data set. The lineup protocol allows for flexibility in the definition of null data. In the case of spatial visualisations it is likely that neighbours are related to some degree. To account for this, null data sets can be generated by sampling from a known model that accounts for spatial covariance. 
 
-<!--
-The line-up protocol works like a police line-up: the suspect (test
-statistic plot) is hidden in a set of decoys. If the observer, who has not
-seen the suspect, can pick it out as being noticeably different, there is
-evidence that it is not innocent.
--->
-  
+To contrast the effectiveness of two displays, the data set of null data plots with a hidden real data plot can be produced using the different plot designs.
+The time taken by participants to evaluate the same data in the different displays can be compared. Their accuracy in detecting the real data plot can also be calculated and contrasted.
 
 
-Study Design
+
+Methodology
 ============
 
-This study aims to answer several questions around the presentation of spatial distributions:
+This study aimed to answer two key questions around the presentation of spatial distributions:
 
 1. Are spatial disease trends, that impact highly populated small areas, detected with higher accuracy when viewed in a hexagon tile map display?
 
-2. Are people faster in detecting spatial disease trends, that impact highly populated small areas, when
-using a hexagon tile map display?
+2. Are people faster in detecting spatial disease trends, that impact highly populated small areas, when using a hexagon tile map display?
 
-additional considerations when completing this experimental task included exploration of the difficulty experienced by participants
+Additional considerations when completing this experimental task included exploration of the difficulty experienced by participants, and the certainty they felt about their decision.
 
-<!--
- Do people find hexagon tile maps more difficult to read than choropleth maps?
- Are the reasons for choosing a plot different depending on the type of display?
--->
 
-The mean of the detection rate for choropleth map, denoted as $\mu_C$, and the hexagon tile maps, $\mu_H$ will be contrasted. This leads to the following one sided hypothesis for this study:
+The mean of the detection rate for choropleth map, denoted as $\mu_C$, and the hexagon tile maps, $\mu_H$ will be contrasted. This leads to the following one sided hypothesis:
 
 $H_0$ : $\mu_H$ = $\mu_C$
 $H_a$ : $\mu_H$ > $\mu_C$
 
 The detection rate $\hat\pi$ is calculated as the amount of people that made the choice of plot that contained the real data, out of the participants who saw data plot in the lineup of the null data plots.
 
-The difference in the detection rates for the two displays will be compared using the following:
-
-$$ \hat\pi_C - \hat\pi_H \pm t_{1-\alpha,n-1}\sqrt{\hat\pi_C(1-\hat\pi_C)/n_C + \hat\pi_H(1-\hat\pi_H)/n_H} $$
-
-## Experimental design
+The difference in the detection rates for the two displays will be compared using a two sample unpaired t-test.
 
 
-The most common display for spatial cancer data is the choropleth map.
-This will be the comparative visualisation for presenting the lineups [@VVSIALM].
-Most geographic distributions will have some degree of spatial autcorrelation between neighbours.
-This feature will exist in all plots in the lineup displays, the plot that contains the trend feature shown in only one set of data will also be affected by spatial autocorrelation.
-A reasonable amount of null plots $N-1$ in the lineup was chosen to ensure data is well hidden. For the detailed choropleth of Australian SA2 areas, we set $N = 12$ to not overwhelm participants.
-A line up protocol was implemented to arrange 12 maps in each display. 
-Individual displays were created by a combination of map type, and spatial trend model.
+## Participants
+
+Participants were recruited for a survey style task to test the effectiveness of the hexagon tile map display.
+It was expected that the participants were uninvolved judges that had no prior knowledge of the data, to avoid discrimination or advantages.
+The Figure-Eight crowd source platform was used to advertise the survey to potential participants that had acheived level 2 or level 3 on the Figure-Eight Platform.
+The participants were chosen as they have experience with survey tasks that involve evaluating images. They participants on the platform are also required to be at least 18 years old.
+
+Participants were able to choose to participate by selecting this task from the list of tasks available to them.
+There were 95 participants involved in the study. All of these participants read the introductory materials and viewed example questions before proceeding to the survey. Each participant was trained using three test displays orienting them to the evaluation task, these displays are shown in supplementary materials section regarding [training].
+All participants who volunteered to take part were compensated for their time via the payment system of Figure-Eight.
+
+Participants were allocated to either group A or group B when they proceeded to the survey web application, hosted externally from the Figure-Eight website. 
 
 
-The hypotheses for each lineup are
-$H_0$ : All plots look the same
-$H_a$ : One plot looks different to the other plots 
-
-
-Recruited participants to be uninvolved judges with no prior knowledge of the data to avoid discrimination or advantages.
-The online crowdsource platform Figure-Eight was used to recruit participants. 
-
-The researchers contrasted the different plot designs, as hexagon tilemap and geography in the lineups were created using the same data, and same null positions within the lineup.
-
-
-Let $n$ be the number of independent observers and $x_i$ the
-number of observers who picked plot $i$, $i = \{1,...,m\}$
-
-Then $x_i, x_2, ..., x_m$ follows a multinomial
-distribution$Mult_{\pi_1, \pi_2, ...., \pi_m}(x_i, x_2, ..., x_m)$ with 
-$\sum_i \pi_i = 1$, where $\pi_i$ is the probability that plot $i$ is picked by an
-observer, which we can estimate as $\hat{\pi}_i = x_i/n$.
-The researchers compared the length of time taken, and the accuracy of the participants choices.
-The power of a lineup can therefore be estimated as the ratio of correct
-identifications $x$ out of $n$ viewings.
-
-## The variables being manipulated and measured
+## Variables
 
 The variables that were changed between groups were the type of plot shown and the trend model.
+
+The twenty-four lineup displays were created by a combination of map type, and spatial trend model. This set of displays was split into a collection of twelve displays for Group A and twelve displays for Group B. 
 
 Each participant was randomly allocated to either Group A or Group B when they begun the survey. This resulted in 42 participants allocated to Group A, and 53 participants allocated to Group B.
 
     
 The levels of the factors measured in the experiment were:
-- Map type: *Choropleth, Hexagon tile*
-- Trend: *Locations in three population centres, Locations in multiple population centres, South-East to North-West*
 
-Factor combinations examined by each participant amount to 6 (2x3) lineup displays.
-A participant did see the same data for both map types. Four simulated sets of data were generated for each treatment.
-This will generate 24 lineups (12 were geographic maps, and 12 were hexagon tile maps). Participants will evaluate 12 lineups, 6 of each map type. Appendix A shows the experimental design visually.
+  - Map type: *Choropleth, Hexagon tile*
+  - Trend: *Locations in three population centres, Locations in multiple population centres, South-East to North-West*
+
+Each Group did not see the same data for both map types. Four simulated sets of data were generated for each treatment.
+This will generate twenty-four lineups (twelve lineups of geographic maps, and twelve lineups of hexagon tile maps). Participants evaluated twelve lineups, siz of each map type.
 For each of the six geographic displays and six hexagon displays, two of each trend model were shown to participants.
 
 ```{r exp_design, results = "asis"}
@@ -384,8 +306,9 @@ d %>%
   summarise(Reps = paste0(sort(unique(replicate)), collapse = ", ")) %>% 
   pivot_wider(names_from = c("Map Type"), values_from = c("Reps")) %>% 
   ungroup() %>% 
-  knitr::kable(., format = "latex", booktabs = TRUE, caption = "Experimental design.") %>% kable_styling("striped") %>% 
-  collapse_rows(., columns = 1, custom_latex_hline = c(1:3))
+  knitr::kable(., format = "latex", booktabs = TRUE, caption = "Experimental design.") %>% kable_styling("striped")
+#%>% 
+#  collapse_rows(., columns = 1, custom_latex_hline = c(1:3))
 ```
 
 The variables measured as a result of the changes were the probability of detection each display and the time taken to submit responses.
@@ -394,12 +317,16 @@ High efficiency occurs when a small amount of time is taken to evaluate each lin
 
 ## Simulation process
 
+The lineup protocol allows a known model to be imposed on the null data set plots.
 The underlying spatial correlation model was created to provide spatial autocorrelation between neighbouring areas using the longitude and latitude values for the Statistical Areas.
-formula = z ~ 1, locations = ~ longitude + latitude
 
-Simulated spatially dependent data using the model on the centroids of each area, for 12 null plots in 12 lineups.
+$$z = 1$$
+$$locations = longitude + latitude$$
 
-12 sets of data were created.
+The null model imposed suggests that neighbours are related. The randomness imposed was smoothed to mirror the practice taken by the Australian Cancer Atlas. This smoothing allowed neighbours to be related to each other and show distributions similar to the Liver cancer distribution shown in \@ref(fig:liver). 
+
+Spatially dependent data sets were simulated using the variogram model on the centroids of each geographic unit. Twelve simulations from the variogram model were created for each of the twelve lineups.
+
 In these 12 sets of data, each of the 144 maps were smoothed several times to replicate the spatial autocorrelation seen in cancer data sets presented in the Australian Cancer Atlas.
 
 For each of the 144 individual maps, the values attributed to each geographic area are rescaled to show a similar colour scale from deep blue to dark red within each map.
@@ -408,32 +335,16 @@ A random location was selected for each set of lineup data.
 In this location, a trend model was overlaid on the null set of spatially correlated data.
 Each set of lineup data was used to produce a choropleth maps and hexagon tile maps. These matched pairs were split between Group A and Group B.
 
-Replicate 2 of the All Cities distribution is shown in XXX.
+Replicate 3 of the All Cities distribution is shown in \@ref(fig:compare). The same data set is shown in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. Many maps in the Choropleth lineup (a) are coloured yellow, two are half light blue, and two are obviously blue. Only one of the maps looks red. 
 
-```{r cities_lineup, fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled."}
-#knitr::include_graphics("figures/aus_cities_3_geo.png")
+```{r compare, fig.cap = "Comparing the same data presented in two map displays. The choropleth map display in (a) ", fig.height = 9, fig.width = 6}
+ggdraw(ylim = c(0,2), xlim = c(0,1), clip = "on") + 
+  draw_plot(rasterGrob(readPNG("figures/aus_cities_4_geo.png")), 0, 1, 1, 1) +
+  draw_plot(rasterGrob(readPNG("figures/aus_cities_4_hex.png")), 0, 0, 1, 1) +
+  draw_plot_label(c("a", "b"), 
+    c(0.05, 0.05), c(1.95, 1), size = 20, color = "white") + 
+  theme(plot.background = element_rect(fill = "black"))
 ```
-
-!["The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled."](figures/aus_cities_3_geo.png)
-
-```{r nwse_lineup, fig.cap = "A North-West to South East trend was hidden in this lineup of hexagon tile map displays."}
-#knitr::include_graphics("figures/aus_nwse_6_hex.png")
-```
-
-!["A North-West to South East trend was hidden in this lineup of hexagon tile map displays."](figures/aus_nwse_6_hex.png)
-
-## Participants
-
-There were 95 participants involved in the study. 
-We recruited participants using the Figure-Eight crowd source platform by advertising this survey to participants that fulfilled the following crtieria:
-
-- level 2 or level 3 on the Figure-Eight Platform.
-- at least 18 years old
-
-Participants then selected our task from the list of tasks available to them.
-
-Each participant was trained using three test displays orienting them to the evaluation task.
-Participants then proceeded to the survey, this involved evaluating 12 displays.
 
 ## Experiment procudure and data collection
 
@@ -459,6 +370,36 @@ After completing the 12 evaluations, the participants were asked to submit their
 Data was collected through a web application containing the online survey.
 Each participant used the internet to access the survey.
 The data collection took place using a secure link between the survey web application and the googlesheet used to store results. The application would first connect to the googlesheet using the googlesheets [@sheets] R package, and interacted again at the completion of the survey by adding the participant's responses to the 12 displays as 12 rows of data in the googlesheet.
+
+
+## Experimental design
+
+
+The choropleth map was used as the comparative visualisation for presenting the lineups [@VVSIALM] as this is the common display for spatial cancer data.
+Geographic distributions usually have some degree of spatial autcorrelation between neighbours.
+This feature was incorporated in all maps shown in the lineup displays, the map that contained the trend feature shown in only one set of data was also affected by spatial autocorrelation.
+A line up protocol was implemented to arrange $N$ maps in each display. 
+A reasonable amount of null plots $N-1$ in the lineup was chosen to ensure the real data map was well hidden. A reasonable number of plots to show in each lineup, $N = 12$ was chosen to not overwhelm participants due to the detailed choropleth maps of Australian SA3 areas.
+
+The hypotheses for each lineup are
+$H_0$ : All plots look the same
+$H_a$ : One plot looks different to the other plots 
+
+
+The same data was visualised on a choropleth map, and on a hexagon tile map, however in this study the participants only saw one of these two displays. The accuracy and times taken were aggregated for Groups and.
+Comparing the results of participants who see the choropleth to those who see a hexagon tile map will show that population related distributions are spotted more frequently in a hexagon tile map display.
+
+
+Let $n$ be the number of independent observers and $x_i$ the
+number of observers who picked plot $i$, $i = \{1,...,m\}$
+
+Then $x_i, x_2, ..., x_m$ follows a multinomial
+distribution$Mult_{\pi_1, \pi_2, ...., \pi_m}(x_i, x_2, ..., x_m)$ with 
+$\sum_i \pi_i = 1$, where $\pi_i$ is the probability that plot $i$ is picked by an
+observer, which we can estimate as $\hat{\pi}_i = x_i/n$.
+The researchers compared the length of time taken, and the accuracy of the participants choices.
+The power of a lineup can therefore be estimated as the ratio of correct
+identifications $x$ out of $n$ viewings.
 
 ## The methods of data analysis used
 The data analysis methods used in order to analyse and collate the results included downloading the survey submissions and opening them into the analysis software R [@RCore].
@@ -495,6 +436,7 @@ Computation will be done using R [@RCore], with the `lme4` package [@lme4].
 
 ## Limitations of the data collection
 
+A pilot study was conducted to determine whether the lineups were appropriate. All lineups in the pilot study were deemed viable as at least one participant detected the real data plot in each lineup.
 The demographics of the participants showed a skew towards male participants. 
 The randomness of the group allocation also resulted in more participants being allocated to Group B. Due to the allocation of lineup displays the participants all saw six Choropleth displays and six Hexagon Tile Map displays.
 
@@ -502,22 +444,36 @@ The randomness of the group allocation also resulted in more participants being 
 Results
 ============
 
-The survey responses from participants were kept only if the participant submitted answers for all 12 displays. This resulted in 92 participants.
+The results section explores the [Accuracy] and contrasts the detection rate of the real data plot in the lineups.
+The second section considers the [Speed] participants had when submitting their responses to the three questions asked regarding each display.
+The [Certainty] participants felt about their decisions and the [Reason] for their choice in plot is also discussed.
 
 
-The contributors who gave various plot choices and reasons for the twelve displays were kept.
-The contributors who detected no plots correctly were analysed further. Three of these contribuotrs gave no choices for any of the twelve displays. They were also removed for the rest of the analysis.
+
+The survey responses from participants were kept only if the participant various submitted answers for all 12 displays. This resulted in 92 participants.
+The contributors who detected no plots correctly were analysed further. Three of these contribuotrs gave no choices for any of the twelve displays.
 
 Of the 92 participants, 67 were male, and 25 female. Only two of the participants had lived in Australia before.
 The education level achieved by the participants was 70 Bachelors or Masters degree.
 
-# Accuracy
+## Accuracy
 
-The detection rate for participants reporting the real data trend model is used to calculate the accuracy of the responses of participants.
-
-
+The detection rate for participants reporting the real data trend model is used to calculate the accuracy of the responses of participants. The accuracy is contrasted across the two displays with the following hypothesis:
 
 
+$H_0$ : $\mu_H$ = $\mu_C$
+$H_a$ : $\mu_H$ > $\mu_C$
+
+
+```{r ttest}
+# Probability of detection using map types
+test_dt <- d %>% mutate(type = factor(type, levels = c("Hex.", "Choro."))) %>% 
+  t.test(detect ~ type, data = ., alternative = "greater", paired = FALSE)
+
+```
+
+A two sample t-test was used to contrast the difference between the detection rates for the two types of displays.
+The value of `r test_dt$p.value` shows that it is very unlikely the difference in means is due to chance. The null hypothesis that the detection rate for the two groups is equal can be rejected in favour of the alternative, that the means are different.
 
 
 ```{r detection_compare, fig.cap = "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or haxgon tile map display are linked to show the difference in the detection rate."}
@@ -526,6 +482,10 @@ d_smry <- d %>% group_by(trend, type, replicate) %>%
   # pdetect measures the aggregated accuracy of the choices
   summarise(pdetect = length(detect[detect == 1])/length(detect)) %>%
   ungroup()
+
+# Numerical summary
+diffs <- d_smry %>% spread(type, pdetect) %>%
+  mutate(dif = `Hex.` - `Choro.`)
 
 # Plot summary
 ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
@@ -539,20 +499,9 @@ ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
   guides(colour = FALSE)
 ```
 
-The detection rates are usually higher when participants viewed the hexagon tile map displays. The difference was greater when viewing a three cities trend model. When the trend model affected all cities participants also detected the data display in the lineup of null plots more often. The North West to South East data plot was detected with similar rates when viewing the choropleth and  hexagon tile map displays, though for three of the replicates the participants detected the data display more often. 
+The detection rates were higher when participants viewed the hexagon tile map displays. The impact of the trend model is also considered and presented in table \@ref(tab:desc_stats).
+The difference was greater when viewing a three cities trend model. When the trend model affected all cities participants also detected the data display in the lineup of null plots more often. The North West to South East data plot was detected with similar rates when viewing the choropleth and  hexagon tile map displays, though for three of the replicates the participants detected the data display more often. 
 
-
-```{r ttest}
-# Numerical summary
-diffs <- d_smry %>% spread(type, pdetect) %>%
-  mutate(dif = `Hex.` - `Choro.`)
-
-# Probability of detection using map types
-test_dt <- t.test(pdetect ~ type, data = d_smry, alternative = "less")
-```
-
-A t-test shows the difference between the detection rates for the two types of displays.
-The value of `r test_dt$p.value` shows that it is very unlikely the difference is due to chance. 
 
 ```{r desc_stats, results = "asis"}
 types <- c("Choro.", "", "Hex.", "")
@@ -564,7 +513,7 @@ d %>% group_by(type, trend) %>%
   pivot_wider(names_from = "trend", values_from = "value") %>% 
   arrange(type) %>% ungroup() %>% 
   mutate(Type = types) %>% select(Type, `NW-SE`, `Three Cities`, `All Cities`) %>%
-  knitr::kable(., format = "latex", align = "lccc", booktabs = TRUE)
+  knitr::kable(., format = "latex", align = "lccc", booktabs = TRUE, caption = "")
 ```
 
 The probability of detection is explored for each of the combinations of trans and type of display. 
@@ -662,8 +611,9 @@ d %>%
   top_n(1, n) %>% summarise(reasons = paste(reason, collapse=", ")) %>% 
   pivot_wider(names_from = c("type"), values_from = c("reasons")) %>% 
   ungroup() %>% 
-  knitr::kable(., format = "latex", booktabs = TRUE) %>% kable_styling("striped") %>% 
-  collapse_rows(., columns = 1, custom_latex_hline = c(1:2, 3:4))
+  knitr::kable(., format = "latex", booktabs = TRUE) %>% kable_styling("striped") 
+#%>% 
+#  collapse_rows(., columns = 1, custom_latex_hline = c(1:2, 3:4))
 ```
 
 The most common choice made by participant was clusters, this response was expected when participants viewed the Hexagon display of the all cities and three cities distributions.
@@ -717,6 +667,12 @@ d %>%
 
 
 One lineup had extremely similiar detection rates for the Choropleth and Hexagon displays.
+
+
+!["The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for all cities."](figures/aus_cities_3_geo.png)
+
+
+!["A North-West to South East trend was hidden in this lineup of hexagon tile map displays."](figures/aus_nwse_6_hex.png)
 
 
 
@@ -874,20 +830,72 @@ Discussion
 
 Conclusion
 ============
-how do the results found generalise to other work
-- Not just for Aus (Canada new Zealand could also use this effective display)
 
-- For USA alternative methods can also be helpful
+The choropleth map display and the tessellated hexagon tile map have been contrasted in a visual inference study. 
+The hexagon tile map was significantly more effective for spotting a real data trend model hidden in a lineup.
+
+This hexagon tile map display should be considered as a visualisation method when communicating distributions that relate to the population in each geographic unit. Cancer Atlas products may benefit from the opportunity to allow exploration via the traditional choropleth map method as well as an alternative display. The spatial distributions used to test these displays were inspired by the real spatially smoothed estimates of the cancer burden on Australian communities. However, this technique may be extended to other population related distributions, such as other diseases.
+
+The increasing population densities of capital cities despite large land area exaserbates the difference in the smallest and largest communities.
+The population density structure of Australia can be considered similar to that of Canada, New Zealand and many others. Therefore, this display is not only relevant to Australia, but all nations or population collections that experience densely populated cities alongside vast rural expanses.
+
 
 <!-- conference papers do not normally have an appendix -->
 
 Supplementary Materials
 ============
 
-## Training
+## Training {#training}
+
+The participants were trained using three displays. There were relatively simple lineups and are shown in Figure XXX.
+<!--
+
+\begin{figure}[!t] 
+\centering 
+\includegraphics[width=2.5in]{figures/fig8_training1.png}
+\caption{The training lineups of choropleth maps.}
+\label{training1} 
+\end{figure} 
+
+
+\begin{figure}[!t] 
+\centering 
+\includegraphics[width=2.5in]{figures/fig8_training1.png}
+\caption{The training lineups of hexagon tile maps.}
+\label{straining2} 
+\end{figure} 
+-->
 
 ## Survey application
 
+The survey application was hosted on a website external to the Figure-Eight platform. Following suggestions in the documentation, the information and training required for a participant to make a decision was included  that survey
+
+The demonstrative images of the `shinydashboard` web application display the demographic and consent page in Figure \@ref(fig:survey1).
+
+<!--
+\begin{figure}[!t] 
+\centering 
+\includegraphics[width=2.5in]{figures/survey_demogs.png}
+\caption{The demographics questions tab of the shinydashboard survey application.}
+\label{survey_demogs} 
+\end{figure} 
+
+
+\begin{figure}[!t] 
+\centering 
+\includegraphics[width=2.5in]{figures/survey_hex.png}
+\caption{An example of the hexagon tile map lineup shown in the survey tab of the shinydashboard app.}
+\label{survey_hex} 
+\end{figure} 
+
+
+\begin{figure}[!t] 
+\centering 
+\includegraphics[width=2.5in]{figures/survey_choro.png}
+\caption{An example of the choropleth map lineup shown in the survey tab of the shinydashboard app.}
+\label{survey_choro} 
+\end{figure} 
+-->
 ## Overall Performance
 
 ```{r pdetection_trend, eval = FALSE}
@@ -942,14 +950,12 @@ The authors would like to thank...
 Ethics approval for the online survey was granted by QUT’s Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research. 
 
 
-Bibliography styles
-===================
+Bibliography
+=============
 
 \newpage
 References {#references .numbered}
 ==========
-
-
 
 
 
