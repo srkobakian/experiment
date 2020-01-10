@@ -27,7 +27,7 @@ bibliography: mybibfile.bib
 output: rticles::ieee_article
 editor_options: 
   chunk_output_type: inline
-link-citations: yes
+link-citations: true
 ---
 
 ```{r setup, include=FALSE}
@@ -465,7 +465,7 @@ Of the 92 participants, 67 were male, and 25 female. Most participants (56) had 
 
 ## Accuracy
 
-Figure \ref{detection_compare} displays the average detection rates by type of plot, separately for each trend model. Evaluations on the same data set are connected by a line segment. For both the Three Cities and All Cities trend models performance was substantially better for the hexagon tile map. Viewers detected the data plot substantially more often with the hexagon tile map. One replicate for the All Cities group, had similar detection rates for both plot types, and this is discussed in the supplementary [Lineups] section. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
+Figure \ref{fig:detection_compare} displays the average detection rates by type of plot, separately for each trend model. Evaluations on the same data set are connected by a line segment. For both the Three Cities and All Cities trend models performance was substantially better for the hexagon tile map. Viewers detected the data plot substantially more often with the hexagon tile map. One replicate for the All Cities group, had similar detection rates for both plot types, and this is discussed in the supplementary [Lineups] section. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
 
 Table \ref{tab:desc_stats} shows the means and standard deviations of the detection rate for each type of plot and each trend model. This also gives the standard errors, the smallest standard deviation is the Three Cities trend model shown in a Choropleth display. This group had a very small detection rate of 0.038.
 
@@ -516,6 +516,9 @@ The estimate of the intercept represents the detection rate for the Choropleth d
 glmer1 <- glmer(detect ~ type*trend + (1|contributor), 
               family = binomial, data = d)
 
+glmer_terms <- c("Intercept", "Hex.", "Three Cities", "All Cities", 
+  "Hex:Three Cities", "Hex:All Cities")
+  
 tidy(glmer1) %>%
   mutate_at(.vars = c("estimate", "std.error"), round, 2) %>% 
   mutate(p.value = round(p.value, 3)) %>% 
@@ -527,7 +530,8 @@ tidy(glmer1) %>%
   p.value <= 0.01 ~ paste0(estimate, "$^{.  }$"),
   TRUE ~ paste0(estimate))) %>%
   ungroup() %>% 
-  filter(!is.na(std.error)) %>% 
+  filter(!is.na(std.error)) %>%
+  mutate(term = glmer_terms) %>% 
   select(Term = term, 
     Estimate = estimate, 
     `Std. Error` = std.error, 
@@ -535,7 +539,7 @@ tidy(glmer1) %>%
   knitr::kable(format = "latex", escape = FALSE, align= "rcrrr", booktabs = T)
 ```
 
-The model summary in Table \ref{detect_glmer1} shows that the predicted log odds of the detection rate is 0.46 times that of the choropleth lineups, for the lineups of hexagon tile map. 
+The model summary in Table \ref{tab:detect_glmer1} shows that the predicted log odds of the detection rate is 0.46 times that of the choropleth lineups, for the lineups of hexagon tile map. 
 The baseline trend model used is the NW-SE trend, the detection rate is expected to decrease comparatively for choropleth displays of the Three Cities and All Cities trends. However, when the interaction is considered the detection rate is expected to increase for the Three Cities and All Cities trends shows in the Hexagon tile map display.
 
 
