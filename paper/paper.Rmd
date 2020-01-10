@@ -1,5 +1,5 @@
 ---
-title: "Communicating human related spatial distributions: A comparison of spatial visualisations using visual inference."
+title: "Comparing the Effectiveness of the Choropleth Map with a Hexagon Tile Map for Communicating Cancer Statistics"
 affiliation:
   author-columnar: true         ## one column per author
   #institution-columnar: true  ## one column per institution (multiple autors eventually)
@@ -444,20 +444,21 @@ The randomness of the group allocation also resulted in more participants being 
 Results
 ============
 
+<!--
 The results section explores the [Accuracy] and contrasts the detection rate of the real data plot in the lineups.
 The second section considers the [Speed] participants had when submitting their responses to the three questions asked regarding each display.
 The [Certainty] participants felt about their decisions and the [Reason] for their choice in plot is also discussed.
+-->
 
+Responses from 95 participants were collected. Three participants provided no answers for any task, and their data was removed. Set A was evaluated by 42 participants, and 53 evaluated set B. This resulted in 1104 evaluations, corresponding to 92 subjects, each evaluating 12 lineups, that are analysed on accuracy and speed. 
 
+## Participant demographics
 
-The survey responses from participants were kept only if the participant various submitted answers for all 12 displays. This resulted in 92 participants.
-The contributors who detected no plots correctly were analysed further. Three of these contribuotrs gave no choices for any of the twelve displays.
-
-Of the 92 participants, 67 were male, and 25 female. Only two of the participants had lived in Australia before.
-The education level achieved by the participants was 70 Bachelors or Masters degree.
+Of the 92 participants, 67 were male, and 25 female. Most participants (56) had a Bacherlors degree, 13 had a Masters degree, and the remaining 23 had high school diplomas.
 
 ## Accuracy
 
+<!--
 The detection rate for participants reporting the real data trend model is used to calculate the accuracy of the responses of participants. The accuracy is contrasted across the two displays with the following hypothesis:
 
 
@@ -474,7 +475,15 @@ test_dt <- d %>% mutate(type = factor(type, levels = c("Hex.", "Choro."))) %>%
 
 A two sample t-test was used to contrast the difference between the detection rates for the two types of displays.
 The value of `r test_dt$p.value` shows that it is very unlikely the difference in means is due to chance. The null hypothesis that the detection rate for the two groups is equal can be rejected in favour of the alternative, that the means are different.
+-->
 
+Figure \@ref{detection_compare} display the average detection rates by type of plot, separately for each trend model. Evaluations on the same data set are connected by a line segment. For both the Three Cities and All Cities trend models performance was substantially better for the hexagon tile map. Viewers detected the data plot substantially more often with the hexagon tile map. One replicate for the All Cities group, had similar detection rates for both plot types, and this is discussed in a later section. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs equally as well.
+
+Table \ref{tab:desc_stats} shows the means and standard deviations for type of plot and each trend model. 
+
+<!-- The detection rates were higher when participants viewed the hexagon tile map displays. The impact of the trend model is also considered and presented in table \@ref(tab:desc_stats).
+The difference was greater when viewing a three cities trend model. When the trend model affected all cities participants also detected the data display in the lineup of null plots more often. The North West to South East data plot was detected with similar rates when viewing the choropleth and  hexagon tile map displays, though for three of the replicates the participants detected the data display more often. 
+-->
 
 ```{r detection_compare, fig.cap = "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or haxgon tile map display are linked to show the difference in the detection rate."}
 # Detectability rate for each lineup (image)
@@ -499,9 +508,6 @@ ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
   guides(colour = FALSE)
 ```
 
-The detection rates were higher when participants viewed the hexagon tile map displays. The impact of the trend model is also considered and presented in table \@ref(tab:desc_stats).
-The difference was greater when viewing a three cities trend model. When the trend model affected all cities participants also detected the data display in the lineup of null plots more often. The North West to South East data plot was detected with similar rates when viewing the choropleth and  hexagon tile map displays, though for three of the replicates the participants detected the data display more often. 
-
 
 ```{r desc_stats, results = "asis"}
 types <- c("Choro.", "", "Hex.", "")
@@ -516,7 +522,7 @@ d %>% group_by(type, trend) %>%
   knitr::kable(., format = "latex", align = "lccc", booktabs = TRUE, caption = "")
 ```
 
-The probability of detection is explored for each of the combinations of trans and type of display. 
+Table XXX is a summary of the mixed effects model. Blah, blah, what we learn.
 
 ## Speed
 

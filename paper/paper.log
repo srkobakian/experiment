@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  7 JAN 2020 11:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  10 JAN 2020 11:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -244,39 +244,207 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip44
 )
 Package hyperref Info: Option `breaklinks' set `true' on input line 332.
-(./paper.aux)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen132
+\lightrulewidth=\dimen133
+\cmidrulewidth=\dimen134
+\belowrulesep=\dimen135
+\belowbottomsep=\dimen136
+\aboverulesep=\dimen137
+\abovetopsep=\dimen138
+\cmidrulesep=\dimen139
+\cmidrulekern=\dimen140
+\defaultaddspace=\dimen141
+\@cmidla=\count105
+\@cmidlb=\count106
+\@aboverulesep=\dimen142
+\@belowrulesep=\dimen143
+\@thisruleclass=\count107
+\@lastruleclass=\count108
+\@thisrulewidth=\dimen144
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip45
+\LTright=\skip46
+\LTpre=\skip47
+\LTpost=\skip48
+\LTchunksize=\count109
+\LTcapwidth=\dimen145
+\LT@head=\box28
+\LT@firsthead=\box29
+\LT@foot=\box30
+\LT@lastfoot=\box31
+\LT@cols=\count110
+\LT@rows=\count111
+\c@LT@tables=\count112
+\c@LT@chunks=\count113
+\LT@p@ftn=\toks16
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/04/07 v2.4g Tabular extension package (FMi)
+\col@sep=\dimen146
+\ar@mcellbox=\box32
+\extrarowheight=\dimen147
+\NC@list=\toks17
+\extratabsurround=\skip49
+\backup@length=\skip50
+\ar@cellbox=\box33
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip51
+\multirow@cntb=\count114
+\multirow@dima=\skip52
+\bigstrutjot=\dimen148
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen149
+\WF@size=\dimen150
+\c@WF@wrappedlines=\count115
+\WF@box=\box34
+\WF@everypar=\toks18
+Package: wrapfig 2003/01/31  v 3.6
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count116
+\float@exts=\toks19
+\float@box=\box35
+\@float@everytoks=\toks20
+\@floatcapt=\box36
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+\everycr=\toks21
+\minrowclearance=\skip53
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/pdflscape.sty
+Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2011/02/26 v2.8 - flexible LaTeX tabulars (FC)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box37
+\sift@deathcycles=\count117
+\@vwid@loff=\dimen151
+\@vwid@roff=\dimen152
+)
+\c@taburow=\count118
+\tabu@nbcols=\count119
+\tabu@cnt=\count120
+\tabu@Xcol=\count121
+\tabu@alloc=\count122
+\tabu@nested=\count123
+\tabu@target=\dimen153
+\tabu@spreadtarget=\dimen154
+\tabu@naturalX=\dimen155
+\tabucolX=\dimen156
+\tabu@Xsum=\dimen157
+\extrarowdepth=\dimen158
+\abovetabulinesep=\dimen159
+\belowtabulinesep=\dimen160
+\tabustrutrule=\dimen161
+\tabu@thebody=\toks22
+\tabu@footnotes=\toks23
+\tabu@box=\box38
+\tabu@arstrutbox=\box39
+\tabu@hleads=\box40
+\tabu@vleads=\box41
+\tabu@cellskip=\skip54
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box42
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/threeparttablex/threeparttablex.s
+ty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+(/usr/local/texlive/2018/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+(/usr/local/texlive/2018/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+)
+\@envbody=\toks24
+)
+\TPTL@width=\skip55
+) (/usr/local/texlive/2018/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box43
+\UL@hyphenbox=\box44
+\UL@skip=\skip56
+\UL@hook=\toks25
+\UL@height=\dimen162
+\UL@pe=\count124
+\UL@pixel=\dimen163
+\ULC@box=\box45
+Package: ulem 2012/05/18
+\ULdepth=\dimen164
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen165
+\c@nlinenum=\count125
+\TeXr@lab=\toks26
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 709.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) (./paper.aux
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 350.
-LaTeX Font Info:    ... okay on input line 350.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 364.
+LaTeX Font Info:    ... okay on input line 364.
 -- Lines per column: 56 (exact).
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count105
-\scratchdimen=\dimen132
-\scratchbox=\box28
-\nofMPsegments=\count106
-\nofMParguments=\count107
-\everyMPshowfont=\toks16
-\MPscratchCnt=\count108
-\MPscratchDim=\dimen133
-\MPnumerator=\count109
-\makeMPintoPDFobject=\count110
-\everyMPtoPDFconversion=\toks17
+\scratchcounter=\count126
+\scratchdimen=\dimen166
+\scratchbox=\box46
+\nofMPsegments=\count127
+\nofMParguments=\count128
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count129
+\MPscratchDim=\dimen167
+\MPnumerator=\count130
+\makeMPintoPDFobject=\count131
+\everyMPtoPDFconversion=\toks28
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -292,18 +460,18 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 350.
+\AtBeginShipoutBox=\box47
+Package hyperref Info: Link coloring OFF on input line 364.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count111
+\c@section@level=\count132
 )
-LaTeX Info: Redefining \ref on input line 350.
-LaTeX Info: Redefining \pageref on input line 350.
-LaTeX Info: Redefining \nameref on input line 350.
+LaTeX Info: Redefining \ref on input line 364.
+LaTeX Info: Redefining \pageref on input line 364.
+LaTeX Info: Redefining \nameref on input line 364.
 (./paper.out) (./paper.out)
 \@outlinefile=\write3
 \openout3 = `paper.out'.
@@ -316,122 +484,183 @@ LaTeX Info: Redefining \nameref on input line 350.
 File: paper_files/figure-latex/liver-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/liver-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/liver-1.pdf  used on input li
-ne 580.
+ne 610.
 (pdftex.def)             Requested size: 252.0pt x 376.83783pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.655 
+       <./paper_files/figure-latex/liver-1.pdf>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 611.
+(Font)              <7> on input line 664.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 611.
-[2 <./paper_files/figure-latex/liver-1.pdf>]
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 683.
+(Font)              <5> on input line 664.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 709.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/omlptm.fd
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 683.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 709.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 783.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 783.
+[3pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
+as been already used, duplicate ignored
 
-Underfull \hbox (badness 10000) in paragraph at lines 726--734
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.808 
+      ]
+<paper_files/figure-latex/compare-1.pdf, id=213, 435.6275pt x 651.43375pt>
+File: paper_files/figure-latex/compare-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/compare-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/compare-1.pdf  used on input 
+line 853.
+(pdftex.def)             Requested size: 252.0pt x 376.83783pt.
+[4pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.889 
+       <./paper_files/figure-latex/compare-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 920--928
 []\OT1/ptm/m/n/10 Then $\OML/cmm/m/it/10 x[]; x[]; :::; x[]$ \OT1/ptm/m/n/10 fo
 l-lows a multi-no-mial
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 726--734
+Underfull \hbox (badness 1430) in paragraph at lines 920--928
 \OT1/ptm/m/n/10 ob-server, which we can es-ti-mate as $[] \OT1/cmr/m/n/10 = \OM
 L/cmm/m/it/10 x[]=n$\OT1/ptm/m/n/10 . The
  []
 
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 760.
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 763.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 763.
-[3]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 916.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 979.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [4]
-<paper_files/figure-latex/detection_compare-1.pdf, id=236, 463.7325pt x 316.181
-24pt>
-File: paper_files/figure-latex/detection_compare-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/detection_compare-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/detection_compare-1.pdf  used
- on input line 953.
-(pdftex.def)             Requested size: 252.0pt x 171.82085pt.
-<paper_files/figure-latex/unnamed-chunk-1-1.pdf, id=237, 453.695pt x 315.1775pt
->
-File: paper_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/unnamed-chunk-1-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-1-1.pdf  used o
-n input line 993.
-(pdftex.def)             Requested size: 252.0pt x 175.06024pt.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 993--994
-[][] 
- []
-
-<paper_files/figure-latex/certainty-1.pdf, id=238, 459.7175pt x 310.15875pt>
-File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/certainty-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
-t line 1013.
-(pdftex.def)             Requested size: 252.0pt x 170.01991pt.
-<paper_files/figure-latex/reason-1.pdf, id=239, 463.7325pt x 310.15875pt>
-File: paper_files/figure-latex/reason-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/reason-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/reason-1.pdf  used on input l
-ine 1030.
-(pdftex.def)             Requested size: 252.0pt x 168.54807pt.
-[5 <./paper_files/figure-latex/detection_compare-1.pdf> <./paper_files/figure-l
-atex/certainty-1.pdf> <./paper_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<paper_files/figure-latex/contributors-1.pdf, id=277, 463.7325pt x 315.1775pt>
-File: paper_files/figure-latex/contributors-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/contributors-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/contributors-1.pdf  used on i
-nput line 1046.
-(pdftex.def)             Requested size: 252.0pt x 171.27538pt.
-<paper_files/figure-latex/choices-1.pdf, id=278, 716.6775pt x 858.20625pt>
-File: paper_files/figure-latex/choices-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/choices-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/choices-1.pdf  used on input 
-line 1055.
-(pdftex.def)             Requested size: 252.0pt x 301.76477pt.
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 1072
+)
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 1014
 .
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1072.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1014.
 
-[6 <./paper_files/figure-latex/reason-1.pdf> <./paper_files/figure-latex/contri
-butors-1.pdf> <./paper_files/figure-latex/choices-1.pdf>]
-Overfull \hbox (141.49846pt too wide) in paragraph at lines 1105--1122
-[][] 
- []
+[5]
+<paper_files/figure-latex/detection_compare-1.pdf, id=257, 463.7325pt x 316.181
+24pt>
+File: paper_files/figure-latex/detection_compare-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/detection_compare-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/detection_compare-1.pdf  used
+ on input line 1032.
+(pdftex.def)             Requested size: 252.0pt x 171.82085pt.
+<paper_files/figure-latex/beeswarm-1.pdf, id=258, 453.695pt x 315.1775pt>
+File: paper_files/figure-latex/beeswarm-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/beeswarm-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/beeswarm-1.pdf  used on input
+ line 1080.
+(pdftex.def)             Requested size: 252.0pt x 175.06024pt.
+<paper_files/figure-latex/certainty-1.pdf, id=259, 459.7175pt x 310.15875pt>
+File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/certainty-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
+t line 1110.
+(pdftex.def)             Requested size: 252.0pt x 170.01991pt.
+<paper_files/figure-latex/contributors-1.pdf, id=260, 463.7325pt x 315.1775pt>
+File: paper_files/figure-latex/contributors-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/contributors-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/contributors-1.pdf  used on i
+nput line 1151.
+(pdftex.def)             Requested size: 252.0pt x 171.27538pt.
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
+has been already used, duplicate ignored
 
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1169 
+       pdfTeX warning (ext4): destination with the same identifier (name{table.
+2}) has been already used, duplicate ignored
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 1128--1128
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1169 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1169 
+        <./paper_files/figure-latex/detection_compare-1.pdf> <./paper_files/fig
+ure-latex/beeswarm-1.pdf>]
+<paper_files/figure-latex/choices-1.pdf, id=293, 716.6775pt x 858.20625pt>
+File: paper_files/figure-latex/choices-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/choices-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/choices-1.pdf  used on input 
+line 1172.
+(pdftex.def)             Requested size: 252.0pt x 301.76477pt.
+<figures/aus_cities_3_geo.png, id=294, 1300.86pt x 1011.78pt>
+File: figures/aus_cities_3_geo.png Graphic file (type png)
+<use figures/aus_cities_3_geo.png>
+Package pdftex.def Info: figures/aus_cities_3_geo.png  used on input line 1187.
+
+(pdftex.def)             Requested size: 252.0pt x 195.99174pt.
+<figures/aus_nwse_6_hex.png, id=295, 1258.2207pt x 1001.9031pt>
+File: figures/aus_nwse_6_hex.png Graphic file (type png)
+<use figures/aus_nwse_6_hex.png>
+Package pdftex.def Info: figures/aus_nwse_6_hex.png  used on input line 1197.
+(pdftex.def)             Requested size: 252.0pt x 200.65225pt.
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1210 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1210 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1210 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1210 
+        <./paper_files/figure-latex/certainty-1.pdf> <./paper_files/figure-late
+x/contributors-1.pdf> <./paper_files/figure-latex/choices-1.pdf> <./figures/aus
+_cities_3_geo.png (PNG copy)>]
+Overfull \hbox (24.0pt too wide) in paragraph at lines 1249--1249
 []\OT1/pcr/m/n/10 ##                  Detected? No Detected? Yes[] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 1128--1128
+Overfull \hbox (24.0pt too wide) in paragraph at lines 1249--1249
 []\OT1/pcr/m/n/10 ##   Predicted: No           431           121[] 
  []
 
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 1128--1128
+Overfull \hbox (24.0pt too wide) in paragraph at lines 1249--1249
 []\OT1/pcr/m/n/10 ##   Predicted: Yes          242           310[] 
  []
 
 
-Overfull \hbox (57.69727pt too wide) detected at line 1132
+Overfull \hbox (57.69727pt too wide) detected at line 1253
 [] \OT1/cmr/m/n/10 = 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 0217 + 0\OML/cmm/m/it/1
 0 :\OT1/cmr/m/n/10 42\OML/cmm/m/it/10 Hex \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 
 3\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 25[] \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1\
@@ -439,225 +668,72 @@ OML/cmm/m/it/10 :\OT1/cmr/m/n/10 24[] + 2\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 37[]
  + 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 08[]
  []
 
-<paper_files/figure-latex/unnamed-chunk-3-1.pdf, id=317, 457.71pt x 316.18124pt
->
-File: paper_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/unnamed-chunk-3-1.pdf  used o
-n input line 1142.
+<paper_files/figure-latex/glm2-1.pdf, id=333, 457.71pt x 316.18124pt>
+File: paper_files/figure-latex/glm2-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/glm2-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/glm2-1.pdf  used on input lin
+e 1255.
 (pdftex.def)             Requested size: 252.0pt x 174.07872pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1142--1143
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1255--1256
 [][] 
  []
 
 
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1149--1149
-[]\OT1/pcr/m/n/10 ##   sigma logLik   AIC   BIC deviance df.residual[] 
+Overfull \hbox (28.40625pt too wide) in paragraph at lines 1342--1349
+ [][] 
  []
 
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) 
+has been already used, duplicate ignored
 
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1149--1149
-[]\OT1/pcr/m/n/10 ##   <dbl>  <dbl> <dbl> <dbl>    <dbl>       <int>[] 
- []
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1361 
+       pdfTeX warning (ext4): destination with the same identifier (name{table.
+3}) has been already used, duplicate ignored
 
-
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1149--1149
-[]\OT1/pcr/m/n/10 ## 1 0.430  -675. 1367. 1407.    1321.        1096[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ##   term                       estimate std.error statistic 
-group[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ##   <chr>                         <dbl>     <dbl>     <dbl> 
-<chr>[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 1 (Intercept)                   0.505    0.0340     14.9  
-fixed[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 2 typeHex.                      0.103    0.0448      2.31 
-fixed[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 3 trendThree Cities            -0.467    0.0448    -10.4  
-fixed[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 4 trendAll Cities              -0.277    0.0448     -6.19 
-fixed[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 5 typeHex.:trendThree Cities    0.250    0.0633      3.95 
-fixed[] 
- []
-
-
-Overfull \hbox (144.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 6 typeHex.:trendAll Cities      0.239    0.0633      3.77 
-fixed[] 
- []
-
-
-Overfull \hbox (180.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 7 sd_(Intercept).contributor    0.118   NA          NA    
-contributor[] 
- []
-
-
-Overfull \hbox (162.0pt too wide) in paragraph at lines 1163--1163
-[]\OT1/pcr/m/n/10 ## 8 sd_Observation.Residual       0.430   NA          NA    
-Residual[] 
- []
-
-
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1181--1181
-[]\OT1/pcr/m/n/10 ##   sigma logLik   AIC   BIC deviance df.residual[] 
- []
-
-
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1181--1181
-[]\OT1/pcr/m/n/10 ##   <dbl>  <dbl> <dbl> <dbl>    <dbl>       <int>[] 
- []
-
-
-Overfull \hbox (48.0pt too wide) in paragraph at lines 1181--1181
-[]\OT1/pcr/m/n/10 ## 1 0.445  -685. 1380. 1405.    1365.        1099[] 
- []
-
-
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1192--1192
-[]\OT1/pcr/m/n/10 ##   term                           estimate std.error statis
-tic group[] 
- []
-
-
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1192--1192
-[]\OT1/pcr/m/n/10 ##   <chr>                             <dbl>     <dbl>     <d
-bl> <chr>[] 
- []
-
-
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1192--1192
-[]\OT1/pcr/m/n/10 ## 1 (Intercept)                       0.669    0.0501      1
-3.4 fixed[] 
- []
-
-
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1192--1192
-[]\OT1/pcr/m/n/10 ## 2 sd_(Intercept).trend              0.456   NA           N
-A   trend[] 
- []
-
-
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1192--1192
-[]\OT1/pcr/m/n/10 ## 3 sd_typeHex..trend                 0.287   NA           N
-A   trend[] 
- []
-
-
-Overfull \hbox (168.0pt too wide) in paragraph at lines 1192--1192
-[]\OT1/pcr/m/n/10 ## 4 cor_(Intercept).typeHex..trend   -0.989   NA           N
-A   trend[] 
- []
-
-
-Overfull \hbox (186.0pt too wide) in paragraph at lines 1192--1192
-[]\OT1/pcr/m/n/10 ## 5 sd_Observation.Residual           0.445   NA           N
-A   Residual[] 
- []
-
-
-Overfull \hbox (18.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ## Linear mixed model fit by REML ['lmerMod'][] 
- []
-
-
-Overfull \hbox (66.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ## Formula: detect ~ type * trend + (1 | contributor)[] 
- []
-
-
-Overfull \hbox (36.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ## Number of obs: 1104, groups:  contributor, 92[] 
- []
-
-
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ##                (Intercept)                    typeHex.[] 
- []
-
-
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ##                     0.5054                      0.1033[] 
- []
-
-
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ##          trendThree Cities             trendAll Cities[] 
- []
-
-
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ##                    -0.4674                     -0.2772[] 
- []
-
-
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ## typeHex.:trendThree Cities    typeHex.:trendAll Cities[] 
- []
-
-
-Overfull \hbox (90.0pt too wide) in paragraph at lines 1221--1221
-[]\OT1/pcr/m/n/10 ##                     0.2500                      0.2391[] 
- []
-
-<paper_files/figure-latex/demogs-1.pdf, id=318, 459.7175pt x 315.1775pt>
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1361 
+        <./figures/aus_nwse_6_hex.png> <./paper_files/figure-latex/glm2-1.pdf>]
+<paper_files/figure-latex/demogs-1.pdf, id=356, 459.7175pt x 315.1775pt>
 File: paper_files/figure-latex/demogs-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/demogs-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/demogs-1.pdf  used on input l
-ine 1257.
+ine 1410.
 (pdftex.def)             Requested size: 252.0pt x 172.77104pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1257--1258
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1410--1411
 [][] 
  []
 
-[7 <./paper_files/figure-latex/unnamed-chunk-3-1.pdf>]
-Overfull \hbox (4.69835pt too wide) in paragraph at lines 1276--1287
-[][] 
- []
+[9pdfTeX warning (ext4): destination with the same identifier (name{table.4}) h
+as been already used, duplicate ignored
 
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1444 \newpage
+               pdfTeX warning (ext4): destination with the same identifier (nam
+e{table.5}) has been already used, duplicate ignored
 
-Underfull \hbox (badness 2990) in paragraph at lines 1307--1311
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1444 \newpage
+                <./paper_files/figure-latex/demogs-1.pdf>]
+Underfull \hbox (badness 2990) in paragraph at lines 1450--1454
 \OT1/ptm/m/it/10 Aus-tralian Bu-reau of Statis-tics\OT1/ptm/m/n/10 . Aus-tralia
 n Gov-ern-ment.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1307--1311
+Underfull \hbox (badness 10000) in paragraph at lines 1450--1454
 []$\OT1/ptm/m/n/10 %7Bhttps : / / www . abs . gov . au / websitedbs / D3310114 
 . nsf /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1307--1311
+Underfull \hbox (badness 10000) in paragraph at lines 1450--1454
 \OT1/ptm/m/n/10 home / Australian % 20 % 20 % 20Statistical % 20Geography %
  []
 
@@ -672,44 +748,51 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1342.
-[8 <./paper_files/figure-latex/demogs-1.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1342.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1489.
+[10
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1489.
 (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1342.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1342.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1489.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1489.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 2138E7999B3B0C54B29D1F3262E3B5E3;5308.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1342.
+(rerunfilecheck)             Checksum: EEAD29971593A5D49C5CC67FA6097DE2;5152.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1489.
  ) 
 Here is how much of TeX's memory you used:
- 9416 strings out of 492649
- 138370 string characters out of 6129623
- 225669 words of memory out of 5000000
- 13155 multiletter control sequences out of 15000+600000
- 37069 words of font info for 72 fonts, out of 8000000 for 9000
+ 11373 strings out of 492649
+ 164674 string characters out of 6129623
+ 260061 words of memory out of 5000000
+ 15023 multiletter control sequences out of 15000+600000
+ 38311 words of font info for 74 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 28i,7n,33p,548b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,11n,35p,552b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
 live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
 ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
-/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2
-018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2018
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf
--dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2018/texmf-dist/fo
-nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/
-urw/times/utmbi8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times
-/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.p
-fb>
-Output written on paper.pdf (8 pages, 544697 bytes).
+/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2
+018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
+8/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2018/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/
+fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/ty
+pe1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/ti
+mes/utmbi8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmr8
+a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (10 pages, 2361325 bytes).
 PDF statistics:
- 439 PDF objects out of 1000 (max. 8388607)
- 380 compressed objects within 4 object streams
- 101 named destinations out of 1000 (max. 500000)
- 350 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 477 PDF objects out of 1000 (max. 8388607)
+ 408 compressed objects within 5 object streams
+ 111 named destinations out of 1000 (max. 500000)
+ 360 words of extra memory for PDF output out of 10000 (max. 10000000)
 
