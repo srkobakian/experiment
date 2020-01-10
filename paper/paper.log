@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  10 JAN 2020 11:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  10 JAN 2020 14:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -405,14 +405,7 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-) (./paper.aux
-
-LaTeX Warning: Label `' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
-)
+) (./paper.aux)
 \openout1 = `paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 364.
@@ -480,12 +473,15 @@ LaTeX Info: Redefining \nameref on input line 364.
 
 
 ]
-<paper_files/figure-latex/liver-1.pdf, id=172, 435.6275pt x 651.43375pt>
+<paper_files/figure-latex/liver-1.pdf, id=160, 435.6275pt x 651.43375pt>
 File: paper_files/figure-latex/liver-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/liver-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/liver-1.pdf  used on input li
 ne 610.
 (pdftex.def)             Requested size: 252.0pt x 376.83783pt.
+
+LaTeX Warning: Reference `fig:liver' on page 2 undefined on input line 623.
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -518,222 +514,184 @@ as been already used, duplicate ignored
                                                   \fi \fi 
 l.808 
       ]
-<paper_files/figure-latex/compare-1.pdf, id=213, 435.6275pt x 651.43375pt>
-File: paper_files/figure-latex/compare-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/compare-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/compare-1.pdf  used on input 
-line 853.
-(pdftex.def)             Requested size: 252.0pt x 376.83783pt.
-[4pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
-has been already used, duplicate ignored
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.889 
-       <./paper_files/figure-latex/compare-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 920--928
+LaTeX Warning: Reference `fig:liver' on page 4 undefined on input line 823.
+
+
+LaTeX Warning: Reference `fig:compare' on page 4 undefined on input line 844.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 913--921
 []\OT1/ptm/m/n/10 Then $\OML/cmm/m/it/10 x[]; x[]; :::; x[]$ \OT1/ptm/m/n/10 fo
 l-lows a multi-no-mial
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 920--928
+Underfull \hbox (badness 1430) in paragraph at lines 913--921
 \OT1/ptm/m/n/10 ob-server, which we can es-ti-mate as $[] \OT1/cmr/m/n/10 = \OM
 L/cmm/m/it/10 x[]=n$\OT1/ptm/m/n/10 . The
  []
 
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 979.
+[4]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 953.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 1014
+
+LaTeX Warning: Reference `fig:detection_compare' on page 5 undefined on input l
+ine 1029.
+
+<paper_files/figure-latex/detection_compare-1.pdf, id=223, 463.7325pt x 316.181
+24pt>
+File: paper_files/figure-latex/detection_compare-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/detection_compare-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/detection_compare-1.pdf  used
+ on input line 1051.
+(pdftex.def)             Requested size: 252.0pt x 171.82085pt.
+
+LaTeX Warning: Reference `detect_glm1' on page 5 undefined on input line 1076.
+
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 1079
 .
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1014.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1079.
 
 [5]
-<paper_files/figure-latex/detection_compare-1.pdf, id=257, 463.7325pt x 316.181
-24pt>
-File: paper_files/figure-latex/detection_compare-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/detection_compare-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/detection_compare-1.pdf  used
- on input line 1032.
-(pdftex.def)             Requested size: 252.0pt x 171.82085pt.
-<paper_files/figure-latex/beeswarm-1.pdf, id=258, 453.695pt x 315.1775pt>
+
+LaTeX Warning: Reference `fig:beeswarm' on page 6 undefined on input line 1104.
+
+
+<paper_files/figure-latex/beeswarm-1.pdf, id=239, 463.7325pt x 563.10374pt>
 File: paper_files/figure-latex/beeswarm-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/beeswarm-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/beeswarm-1.pdf  used on input
- line 1080.
-(pdftex.def)             Requested size: 252.0pt x 175.06024pt.
-<paper_files/figure-latex/certainty-1.pdf, id=259, 459.7175pt x 310.15875pt>
+ line 1116.
+(pdftex.def)             Requested size: 252.0pt x 306.00475pt.
+<paper_files/figure-latex/certainty-1.pdf, id=240, 459.7175pt x 310.15875pt>
 File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/certainty-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
-t line 1110.
+t line 1131.
 (pdftex.def)             Requested size: 252.0pt x 170.01991pt.
-<paper_files/figure-latex/contributors-1.pdf, id=260, 463.7325pt x 315.1775pt>
-File: paper_files/figure-latex/contributors-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/contributors-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/contributors-1.pdf  used on i
-nput line 1151.
-(pdftex.def)             Requested size: 252.0pt x 171.27538pt.
-[6pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1169 
+l.1142 
        pdfTeX warning (ext4): destination with the same identifier (name{table.
 2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1169 
+l.1142 
+       pdfTeX warning (ext4): destination with the same identifier (name{figure
+.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1142 
        pdfTeX warning (ext4): destination with the same identifier (name{figure
 .4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1169 
+l.1142 
         <./paper_files/figure-latex/detection_compare-1.pdf> <./paper_files/fig
-ure-latex/beeswarm-1.pdf>]
-<paper_files/figure-latex/choices-1.pdf, id=293, 716.6775pt x 858.20625pt>
+ure-latex/beeswarm-1.pdf> <./paper_files/figure-latex/certainty-1.pdf>]
+<paper_files/figure-latex/contributors-1.pdf, id=277, 463.7325pt x 315.1775pt>
+File: paper_files/figure-latex/contributors-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/contributors-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/contributors-1.pdf  used on i
+nput line 1172.
+(pdftex.def)             Requested size: 252.0pt x 171.27538pt.
+
+LaTeX Warning: Reference `fig:choices' on page 7 undefined on input line 1183.
+
+
+LaTeX Warning: Reference `fig:choices' on page 7 undefined on input line 1189.
+
+<paper_files/figure-latex/choices-1.pdf, id=278, 716.6775pt x 858.20625pt>
 File: paper_files/figure-latex/choices-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/choices-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/choices-1.pdf  used on input 
-line 1172.
+line 1193.
 (pdftex.def)             Requested size: 252.0pt x 301.76477pt.
-<figures/aus_cities_3_geo.png, id=294, 1300.86pt x 1011.78pt>
-File: figures/aus_cities_3_geo.png Graphic file (type png)
-<use figures/aus_cities_3_geo.png>
-Package pdftex.def Info: figures/aus_cities_3_geo.png  used on input line 1187.
-
-(pdftex.def)             Requested size: 252.0pt x 195.99174pt.
-<figures/aus_nwse_6_hex.png, id=295, 1258.2207pt x 1001.9031pt>
+<figures/aus_nwse_6_hex.png, id=279, 1258.2207pt x 1001.9031pt>
 File: figures/aus_nwse_6_hex.png Graphic file (type png)
 <use figures/aus_nwse_6_hex.png>
-Package pdftex.def Info: figures/aus_nwse_6_hex.png  used on input line 1197.
+Package pdftex.def Info: figures/aus_nwse_6_hex.png  used on input line 1208.
 (pdftex.def)             Requested size: 252.0pt x 200.65225pt.
 [7pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1210 
+l.1226 
        pdfTeX warning (ext4): destination with the same identifier (name{figure
 .6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1210 
+l.1226 
        pdfTeX warning (ext4): destination with the same identifier (name{figure
 .7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1210 
-       pdfTeX warning (ext4): destination with the same identifier (name{figure
-.8}) has been already used, duplicate ignored
+l.1226 
+        <./paper_files/figure-latex/contributors-1.pdf> <./paper_files/figure-l
+atex/choices-1.pdf> <./figures/aus_nwse_6_hex.png>]
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.1210 
-        <./paper_files/figure-latex/certainty-1.pdf> <./paper_files/figure-late
-x/contributors-1.pdf> <./paper_files/figure-latex/choices-1.pdf> <./figures/aus
-_cities_3_geo.png (PNG copy)>]
-Overfull \hbox (24.0pt too wide) in paragraph at lines 1249--1249
-[]\OT1/pcr/m/n/10 ##                  Detected? No Detected? Yes[] 
- []
+LaTeX Warning: Reference `fig:survey1' on page 8 undefined on input line 1265.
 
+<figures/aus_cities_3_geo.png, id=312, 1300.86pt x 1011.78pt>
+File: figures/aus_cities_3_geo.png Graphic file (type png)
+<use figures/aus_cities_3_geo.png>
+Package pdftex.def Info: figures/aus_cities_3_geo.png  used on input line 1274.
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 1249--1249
-[]\OT1/pcr/m/n/10 ##   Predicted: No           431           121[] 
- []
+(pdftex.def)             Requested size: 252.0pt x 195.99174pt.
+<figures/aus_cities_3_hex.png, id=313, 1300.86pt x 1011.78pt>
+File: figures/aus_cities_3_hex.png Graphic file (type png)
+<use figures/aus_cities_3_hex.png>
+Package pdftex.def Info: figures/aus_cities_3_hex.png  used on input line 1281.
 
+(pdftex.def)             Requested size: 252.0pt x 195.99174pt.
+<paper_files/figure-latex/demogs-1.pdf, id=314, 459.7175pt x 315.1775pt>
+File: paper_files/figure-latex/demogs-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/demogs-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/demogs-1.pdf  used on input l
+ine 1307.
+(pdftex.def)             Requested size: 252.0pt x 172.77104pt.
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 1249--1249
-[]\OT1/pcr/m/n/10 ##   Predicted: Yes          242           310[] 
- []
-
-
-Overfull \hbox (57.69727pt too wide) detected at line 1253
-[] \OT1/cmr/m/n/10 = 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 0217 + 0\OML/cmm/m/it/1
-0 :\OT1/cmr/m/n/10 42\OML/cmm/m/it/10 Hex \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 
-3\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 25[] \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1\
-OML/cmm/m/it/10 :\OT1/cmr/m/n/10 24[] + 2\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 37[]
- + 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 08[]
- []
-
-<paper_files/figure-latex/glm2-1.pdf, id=333, 457.71pt x 316.18124pt>
-File: paper_files/figure-latex/glm2-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/glm2-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/glm2-1.pdf  used on input lin
-e 1255.
-(pdftex.def)             Requested size: 252.0pt x 174.07872pt.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1255--1256
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1307--1308
 [][] 
  []
 
-
-Overfull \hbox (28.40625pt too wide) in paragraph at lines 1342--1349
- [][] 
- []
-
-[8pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) 
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1361 
-       pdfTeX warning (ext4): destination with the same identifier (name{table.
-3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.1361 
-        <./figures/aus_nwse_6_hex.png> <./paper_files/figure-latex/glm2-1.pdf>]
-<paper_files/figure-latex/demogs-1.pdf, id=356, 459.7175pt x 315.1775pt>
-File: paper_files/figure-latex/demogs-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/demogs-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/demogs-1.pdf  used on input l
-ine 1410.
-(pdftex.def)             Requested size: 252.0pt x 172.77104pt.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1410--1411
-[][] 
- []
-
-[9pdfTeX warning (ext4): destination with the same identifier (name{table.4}) h
-as been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.1444 \newpage
-               pdfTeX warning (ext4): destination with the same identifier (nam
-e{table.5}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.1444 \newpage
-                <./paper_files/figure-latex/demogs-1.pdf>]
-Underfull \hbox (badness 2990) in paragraph at lines 1450--1454
+l.1309 \begin{tabular}
+                      {lr} <./figures/aus_cities_3_geo.png (PNG copy)>]
+Underfull \hbox (badness 2990) in paragraph at lines 1344--1348
 \OT1/ptm/m/it/10 Aus-tralian Bu-reau of Statis-tics\OT1/ptm/m/n/10 . Aus-tralia
 n Gov-ern-ment.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1450--1454
+Underfull \hbox (badness 10000) in paragraph at lines 1344--1348
 []$\OT1/ptm/m/n/10 %7Bhttps : / / www . abs . gov . au / websitedbs / D3310114 
 . nsf /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1450--1454
+Underfull \hbox (badness 10000) in paragraph at lines 1344--1348
 \OT1/ptm/m/n/10 home / Australian % 20 % 20 % 20Statistical % 20Geography %
  []
 
@@ -748,51 +706,54 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1489.
-[10
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1383.
+[9pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) 
+has been already used, duplicate ignored
 
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1489.
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1383 \end{document}
+                      <./figures/aus_cities_3_hex.png (PNG copy)> <./paper_file
+s/figure-latex/demogs-1.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1383.
 (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1489.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1489.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1383.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1383.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: EEAD29971593A5D49C5CC67FA6097DE2;5152.
+(rerunfilecheck)             Checksum: CBB39D73CDD7C84CB576DB7BADE00AF0;4542.
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1489.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1383.
  ) 
 Here is how much of TeX's memory you used:
- 11373 strings out of 492649
- 164674 string characters out of 6129623
- 260061 words of memory out of 5000000
- 15023 multiletter control sequences out of 15000+600000
- 38311 words of font info for 74 fonts, out of 8000000 for 9000
+ 11358 strings out of 492649
+ 164253 string characters out of 6129623
+ 256768 words of memory out of 5000000
+ 15019 multiletter control sequences out of 15000+600000
+ 38282 words of font info for 74 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 34i,11n,35p,552b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,9n,35p,567b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
 live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
 ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
-/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2
-018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2018/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/
-fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/ty
-pe1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/ti
-mes/utmbi8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmr8
-a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (10 pages, 2361325 bytes).
+/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2
+018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf
+-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2018/texmf-dist/fo
+nts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/
+urw/times/utmbi8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times
+/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on paper.pdf (9 pages, 1928807 bytes).
 PDF statistics:
- 477 PDF objects out of 1000 (max. 8388607)
- 408 compressed objects within 5 object streams
- 111 named destinations out of 1000 (max. 500000)
- 360 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 420 PDF objects out of 1000 (max. 8388607)
+ 363 compressed objects within 4 object streams
+ 101 named destinations out of 1000 (max. 500000)
+ 331 words of extra memory for PDF output out of 10000 (max. 10000000)
 

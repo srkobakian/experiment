@@ -36,7 +36,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = FALSE, 
   message = FALSE,
-  cache = TRUE)
+  cache = FALSE)
 ```
 
 ```{r libraries}
@@ -457,7 +457,7 @@ The second section considers the [Speed] participants had when submitting their 
 The [Certainty] participants felt about their decisions and the [Reason] for their choice in plot is also discussed.
 -->
 
-Responses from 95 participants were collected. Three participants provided no answers for any task, and their data was removed. Set A was evaluated by 42 participants, and 53 evaluated set B. This resulted in 1104 evaluations, corresponding to 92 subjects, each evaluating 12 lineups, that are analysed on accuracy and speed. 
+Responses from 95 participants were collected. Three participants provided no answers for any task, and their data was removed. Set A was evaluated by 42 participants, and 53 evaluated set B. This resulted in 1104 evaluations, corresponding to 92 subjects, each evaluating 12 lineups, that are analysed on accuracy and speed. The certainty and reasons of subjects in their answers is also examined. 
 
 ## Participant demographics
 
@@ -506,10 +506,7 @@ d %>% group_by(type, trend) %>%
   knitr::kable(., format = "latex", align = "lccc", booktabs = TRUE, caption = "")
 ```
 
-Table \ref{detect_glm1} is a summary of the generalised linear mixed effects model.
-The estimate of the intercept represents the detection rate for the Choropleth display of the NW-SE trend. 
-
-
+Table \ref{detect_glm1} is a summary of the generalised linear mixed effects model, testing the effect of plot type and trend model on detection rate. The results support the summary from Figure \@ref{detection_compare}. All terms are statistically significant. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, which is a pleasant surprise. Detection rate is lower for the Three Cities and All Cities, than the NW-SE group. The hexagon tile map has a substantially higher detection rate than the choropleth for Three Cities and All Cities. XXX Put a number for each of these.
 
 ```{r detect_glmer1, results="asis"}
 # Mixed effects models
@@ -539,18 +536,20 @@ tidy(glmer1) %>%
   knitr::kable(format = "latex", escape = FALSE, align= "rcrrr", booktabs = T)
 ```
 
-The model summary in Table \ref{tab:detect_glmer1} shows that the predicted log odds of the detection rate is 0.46 times that of the choropleth lineups, for the lineups of hexagon tile map. 
+<!-- The model summary in Table \ref{tab:detect_glmer1} shows that the predicted log odds of the detection rate is 0.46 times that of the choropleth lineups, for the lineups of hexagon tile map. 
 The baseline trend model used is the NW-SE trend, the detection rate is expected to decrease comparatively for choropleth displays of the Three Cities and All Cities trends. However, when the interaction is considered the detection rate is expected to increase for the Three Cities and All Cities trends shows in the Hexagon tile map display.
-
+-->
 
 ## Speed
 
-The amount of time taken for a participants to submit a response is explored. 
+Figure \ref{fig:beeswarm} shows the time taken for participants to evaluate each lineup, separately for trend model, whether the data plot was detected or not, and type of plot, as horizontally jittered dot plots.  The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is displayed as a large colored dot on each plot. There is little difference in the average time taken to read a choropleth or hexgon tile map. There is also very little difference in evaluation time whether the data plot was detected or not. 
+
+<!-- The amount of time taken for a participants to submit a response is explored. 
 The time considered was the amount of time it took for a participant to submit their choice of plot, the reason for their choice, and the perceived difficulty of the choice. The time was taken when each participant hit "Next".
 
 The relationship between time taken to submit, and the correct detection by the participant of the real data display in a lineup is considered in Figure \ref{fig:hist_height}. The bimodal distributions are similar across the type of display and the trend model hidden in the real data plot.
 The hexagon map displays have a peak for the group that took up to 5 seconds to submit a response. When viewing a choropleth map display, the second peak occured at around 20 seconds. The longest a participant took to respond was 60 seconds. 
-
+-->
 
 ```{r hist_height,  eval=FALSE, fig.cap = "Six histograms show the distribution of the time taken to submit a response for each combination of trend and type of display. The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The orange regions of the bars show the amount of correct detections, and the green regions are the amount of incorrect detections."}
 ggplot(d %>% rename(Detected = detect_f), 
@@ -580,7 +579,7 @@ ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) +
   guides(colour = FALSE)
 ```
 
-```{r beeswarm, fig.cap = "The beeswarm plots show the distribution of the time taken to submit a response for each combination of trend and type of display. The time taken shown by the height of the point for each evaluationq1. The height of the histogram bars show how many evaulations were submitted within each time window. The orange regions of the bars show the amount of correct detections, and the green regions are the amount of incorrect detections."}
+```{r beeswarm, fig.cap = "The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using horizontally jittered dotplots. The coloured point indicates average time taken for each plot type. Although some participants take just a few seconds per evaluation, and some take as much as mcuh as 60 seconds, but there is very little difference in time taken between plot types.", fig.height=8}
 # Di playing
 s <- d %>% group_by(type, trend, detect) %>%
   summarise(m=median(time_taken), 
@@ -592,16 +591,18 @@ ggplot() +
   #geom_hline(data=s, aes(yintercept=m, colour=type)) +
   geom_point(data=s, aes(x=type, y=m, colour=type), size=5, alpha=0.7) +
   #geom_errorbar(data=s, aes(x=type, ymin=q1, ymax=q3, colour=type), width=0.3, size=2) +
-  scale_colour_brewer(palette = "Dark2") +
-  facet_grid(trend~detect)
+  scale_colour_brewer("", palette = "Dark2") +
+  facet_grid(trend~detect) + 
+  ylab("Time taken (seconds)") + xlab("") +
+  theme(legend.position="bottom")
 ```
 
-The proportion of correct and incorrect responsesis shown by the width used to distribute the points horizontally. Each point is randomly placed, but regions with more points require points to be placed further from center. For the NW-SE distribution, it is equally likely that quick responders will be correct or incorrect. It is more likely that participants picked the correct response if they took longer to respond. For the Choropelth
+<!-- The proportion of correct and incorrect responsesis shown by the width used to distribute the points horizontally. Each point is randomly placed, but regions with more points require points to be placed further from center. For the NW-SE distribution, it is equally likely that quick responders will be correct or incorrect. It is more likely that participants picked the correct response if they took longer to respond. For the Choropelth
 
 However, these quick responders were likely to be either correct or incorrect. The quick responders viewing a choropleth display were unlikely to choose correctly, unless viewing a NW-SE trend model. 
 
 The choropleth map displays that included a distribution of Three Cities was very difficult for participants. 
-
+-->
 
 ## Certainty
 

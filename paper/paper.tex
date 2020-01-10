@@ -326,7 +326,7 @@
 \usepackage[unicode=true]{hyperref}
 
 \hypersetup{
-            pdftitle={An Experiment Comparing the Effectiveness of the Choropleth Map with a Hexagon Tile Map for Communicating Cancer Statistics},
+            pdftitle={Comparing the Effectiveness of the Choropleth Map with a Hexagon Tile Map for Communicating Cancer Statistics},
             pdfkeywords={statistics, visual inference, geospatial, population},
             pdfborder={0 0 0},
             breaklinks=true}
@@ -369,8 +369,8 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{An Experiment Comparing the Effectiveness of the Choropleth Map with a
-Hexagon Tile Map for Communicating Cancer Statistics}
+\title{Comparing the Effectiveness of the Choropleth Map with a Hexagon Tile
+Map for Communicating Cancer Statistics}
 
 % author names and affiliations
 % use a multiple column layout for up to three different
@@ -620,7 +620,7 @@ large difference between the smallest and largest geographic units
 across various granularities. To communicate information regarding the
 small inner-city geographic units of Australian cities an alternative
 display must be employed. This will emphasise the value of the statistic
-for areas with high population. Figure @ref(fig:liver) shows the
+for areas with high population. Figure \ref{fig:liver} shows the
 distribution of the smoothed average amount of Liver cancer diagnoses
 for Australian Males from 2005-2014. These inner-city areas are not
 visible on the choropleth map (a). The hexagon tile map (b) shows orange
@@ -820,7 +820,7 @@ The null model imposed suggests that neighbours are related. The
 randomness imposed was smoothed to mirror the practice taken by the
 Australian Cancer Atlas. This smoothing allowed neighbours to be related
 to each other and show distributions similar to the Liver cancer
-distribution shown in @ref(fig:liver).
+distribution shown in \ref{fig:liver}.
 
 Spatially dependent data sets were simulated using the variogram model
 on the centroids of each geographic unit. Twelve simulations from the
@@ -841,19 +841,12 @@ choropleth maps and hexagon tile maps. These matched pairs were split
 between Group A and Group B.
 
 Replicate 3 of the All Cities distribution is shown in
-@ref(fig:compare). The same data set is shown in both displays, the
+\ref{fig:compare}. The same data set is shown in both displays, the
 difference is the land area of each SA3 is coloured in the choropleth
 and the hexagon representing the SA3 is coloured in the Hexagon Tile
 Map. Many maps in the Choropleth lineup (a) are coloured yellow, two are
 half light blue, and two are obviously blue. Only one of the maps looks
 red.
-
-\begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/compare-1.pdf}
-\caption{Comparing the same data presented in two map displays. The
-choropleth map display in (a)}
-\end{figure}
 
 \hypertarget{experiment-procudure-and-data-collection}{%
 \subsection{Experiment procudure and data
@@ -955,10 +948,26 @@ Plots will be made in R (R Core Team 2019), with the ggplot2 package
 \hypertarget{modeling}{%
 \subsubsection{Modeling}\label{modeling}}
 
-The results will be analysed using a generalised linear model, with a
+The likelihood of detecting the data plot in the lineup can be modelled
+using a linear mixed effects model. The base R (R Core Team
+\protect\hyperlink{ref-RCore}{2019}) \texttt{glm()} function implements
+generalised linear models. The model used includes the two main effects
+map type and trend model, which gives the fixed effects model to be:
+
+\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3\]
+
+where \(y_{ij} = 0, 1\) whether the subject detected the data plot,
+\(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the map type effect,
+\(\delta_j\) is the trend model effect. We are allowing for an
+interaction between map type and trend model. Because the response is
+binary, a logistic model is used. This model can account for each
+individual participants' abilities as it includes a subject-specific
+random intercept. As each participant provides results from 12 lineups.
+
+The results will be analysed using a linear mixed effects model, with a
 subject random effect to account for differences in individuals. There
-will be two main effects: map type and trend model, which gives the
-fixed effects part of the model to be
+will be two main effects: map type and trend model, with an interaction
+between them, which gives the fixed effects part of the model to be:
 
 \[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij}, ~~~ i=1,2; ~j=1,2,3\]
 
@@ -967,7 +976,13 @@ where \(y_{ij} = 0, 1\) whether the subject detected the data plot,
 \(\delta_j\) is the trend model effect. We are allowing for an
 interaction between map type and trend model. As the response for
 whether the participant detected the data plot is binary, a logistic
-model is used.
+link model is used.
+
+The model specifies a logistic link, this means the predicted values
+from the \texttt{glm} model should be back-transformed to fit between 0
+and 1. They are transformed with the link specified below:
+
+\[\mu = \frac{e^{\eta}}{1 + e^{\eta}}\] \[\eta = f(\tau_i,\delta_j)\]
 
 A similar model will be constructed for the efficiency, using a log
 time, and normal errors.
@@ -1011,21 +1026,25 @@ Of the 92 participants, 67 were male, and 25 female. Most participants
 \hypertarget{accuracy}{%
 \subsection{Accuracy}\label{accuracy}}
 
-Figure @ref\{detection\_compare\} display the average detection rates by
-type of plot, separately for each trend model. Evaluations on the same
-data set are connected by a line segment. For both the Three Cities and
-All Cities trend models performance was substantially better for the
+Figure \ref{fig:detection_compare} displays the average detection rates
+by type of plot, separately for each trend model. Evaluations on the
+same data set are connected by a line segment. For both the Three Cities
+and All Cities trend models performance was substantially better for the
 hexagon tile map. Viewers detected the data plot substantially more
 often with the hexagon tile map. One replicate for the All Cities group,
 had similar detection rates for both plot types, and this is discussed
-in a later section. Surprisingly, participants could also detect the
-gradual spatial trend in the NW-SE group from the hexagon tile map. We
-expected that the choropleth map would be superior for the type of
-spatial pattern, but the data suggests the hexagon tile map performs
+in the supplementary \protect\hyperlink{lineups}{Lineups} section.
+Surprisingly, participants could also detect the gradual spatial trend
+in the NW-SE group from the hexagon tile map. We expected that the
+choropleth map would be superior for the type of spatial pattern, but
+the data suggests the hexagon tile map performs slightly better, or
 equally as well.
 
-Table \ref{tab:desc_stats} shows the means and standard deviations for
-type of plot and each trend model.
+Table \ref{tab:desc_stats} shows the means and standard deviations of
+the detection rate for each type of plot and each trend model. This also
+gives the standard errors, the smallest standard deviation is the Three
+Cities trend model shown in a Choropleth display. This group had a very
+small detection rate of 0.038.
 
 \begin{figure}
 \centering
@@ -1047,60 +1066,62 @@ show the difference in the detection rate.}
 Type & NW-SE & Three Cities & All Cities\\
 \midrule
 Choro. & 0.505 & 0.038 & 0.228\\
- & (0.5) & (0.19) & (0.42)\\
+ & (0.501) & (0.192) & (0.421)\\
 Hex. & 0.609 & 0.391 & 0.571\\
- & (0.49) & (0.49) & (0.5)\\
+ & (0.489) & (0.489) & (0.496)\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Table XXX is a summary of the mixed effects model. Blah, blah, what we
-learn.
+Table \ref{detect_glm1} is a summary of the generalised linear mixed
+effects model, testing the effect of plot type and trend model on
+detection rate. The results support the summary from Figure
+@ref\{detection\_compare\}. All terms are statistically significant.
+Overall, the hexagon tile map performs marginally better than the
+choropleth for all trend models, which is a pleasant surprise. Detection
+rate is lower for the Three Cities and All Cities, than the NW-SE group.
+The hexagon tile map has a substantially higher detection rate than the
+choropleth for Three Cities and All Cities. XXX Put a number for each of
+these.
+
+\begin{tabular}{rcrr}
+\toprule
+Term & Estimate & Std. Error & P value\\
+\midrule
+Intercept & 0.02 & 0.17 & 0.896\\
+Hex. & 0.46$^{*  }$ & 0.22 & 0.037\\
+Three Cities & -3.43$^{***}$ & 0.42 & 0.000\\
+All Cities & -1.35$^{***}$ & 0.24 & 0.000\\
+Hex:Three Cities & 2.46$^{***}$ & 0.47 & 0.000\\
+\addlinespace
+Hex:All Cities & 1.17$^{***}$ & 0.33 & 0.000\\
+\bottomrule
+\end{tabular}
 
 \hypertarget{speed}{%
 \subsection{Speed}\label{speed}}
 
-The amount of time taken for a participants to submit a response is
-explored. The time considered was the amount of time it took for a
-participant to submit their choice of plot, the reason for their choice,
-and the perceived difficulty of the choice. The time was taken when each
-participant hit ``Next''.
-
-The relationship between time taken to submit, and the correct detection
-by the participant of the real data display in a lineup is considered in
-Figure @ref(fig:hist\_height). The bimodal distributions are similar
-across the type of display and the trend model hidden in the real data
-plot. The hexagon map displays have a peak for the group that took up to
-5 seconds to submit a response. When viewing a choropleth map display,
-the second peak occured at around 20 seconds. The longest a participant
-took to respond was 60 seconds.
+Figure \ref{fig:beeswarm} shows the time taken for participants to
+evaluate each lineup, separately for trend model, whether the data plot
+was detected or not, and type of plot, as horizontally jittered dot
+plots. The time taken to complete an evaluation ranged from milliseconds
+to 60 seconds. The average time taken for type of display is displayed
+as a large colored dot on each plot. There is little difference in the
+average time taken to read a choropleth or hexgon tile map. There is
+also very little difference in evaluation time whether the data plot was
+detected or not.
 
 \begin{figure}
 \centering
 \includegraphics{paper_files/figure-latex/beeswarm-1.pdf}
-\caption{The beeswarm plots show the distribution of the time taken to
-submit a response for each combination of trend and type of display. The
-time taken shown by the height of the point for each evaluationq1. The
-height of the histogram bars show how many evaulations were submitted
-within each time window. The orange regions of the bars show the amount
-of correct detections, and the green regions are the amount of incorrect
-detections.}
+\caption{The distribution of the time taken (seconds) to submit a
+response for each combination of trend, whether the data plot was
+detected, and type of display, shown using horizontally jittered
+dotplots. The coloured point indicates average time taken for each plot
+type. Although some participants take just a few seconds per evaluation,
+and some take as much as mcuh as 60 seconds, but there is very little
+difference in time taken between plot types.}
 \end{figure}
-
-The proportion of correct and incorrect responsesis shown by the width
-used to distribute the points horizontally. Each point is randomly
-placed, but regions with more points require points to be placed further
-from center. For the NW-SE distribution, it is equally likely that quick
-responders will be correct or incorrect. It is more likely that
-participants picked the correct response if they took longer to respond.
-For the Choropelth
-
-However, these quick responders were likely to be either correct or
-incorrect. The quick responders viewing a choropleth display were
-unlikely to choose correctly, unless viewing a NW-SE trend model.
-
-The choropleth map displays that included a distribution of three cities
-was very difficult for participants.
 
 \hypertarget{certainty}{%
 \subsection{Certainty}\label{certainty}}
@@ -1140,8 +1161,8 @@ All Cities & Yes & clusters, consistent & clusters\\
 \end{table}
 
 The most common choice made by participant was clusters, this response
-was expected when participants viewed the Hexagon display of the all
-cities and three cities distributions.
+was expected when participants viewed the Hexagon display of the All
+Cities and Three Cities distributions.
 
 \hypertarget{contributors}{%
 \subsection{Contributors}\label{contributors}}
@@ -1159,13 +1180,13 @@ find any of the data maps in the displays.}
 \subsection{Anomolies}\label{anomolies}}
 
 The choices made by participants are examined in Figure
-@ref(fig:choices). Participants were misled by the choropleth display,
-but not the hexagon display for all cities displays except (2). The maps
+\ref{fig:choices}. Participants were misled by the choropleth display,
+but not the hexagon display for All Cities displays except (2). The maps
 with a North West to South East trend was chosen with much greater
-frequency in all displays. All of three cities displays, except (4),
+frequency in all displays. All of Three Cities displays, except (4),
 were detected in the hexagon display. All except one lineup had at least
 one participant select the correct map in the lineup as shown in Figure
-@ref(fig:choices).
+\ref{fig:choices}.
 
 \begin{figure}
 \centering
@@ -1184,169 +1205,13 @@ Hexagon displays.
 
 \begin{figure}
 \centering
-\includegraphics{figures/aus_cities_3_geo.png}
-\caption{``The lineup of choropleth map displays shows a distribution
-that affects all capital cities. The values for the inner city areas in
-the capital cities result in them being coloured red. However, the
-colour blue dominates the display as the large rural areas are filled.
-Replicate (2) for all cities.''}
-\end{figure}
-
-\begin{figure}
-\centering
 \includegraphics{figures/aus_nwse_6_hex.png}
 \caption{``A North-West to South East trend was hidden in this lineup of
 hexagon tile map displays.''}
 \end{figure}
 
-\hypertarget{modeling-the-difference}{%
-\subsection{Modeling the difference}\label{modeling-the-difference}}
-
-The likelihood of detecting the data plot in the lineup can be modelled
-using a generalized linear mixed effects model. The base R (R Core Team
-\protect\hyperlink{ref-RCore}{2019}) \texttt{glm()} function implements
-generalised linear models. The model used includes the two main effects
-map type and trend model, which gives the fixed effects model to be:
-
-\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3\]
-
-where \(y_{ij} = 0, 1\) whether the subject detected the data plot,
-\(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the map type effect,
-\(\delta_j\) is the trend model effect. We are allowing for an
-interaction between map type and trend model. Because the response is
-binary, a logistic model is used. This model can account for each
-individual participants' abilities as it includes a subject-specific
-random intercept. As each participant provides results from 12 lineups.
-
-\hypertarget{detection-rates}{%
-\subsubsection{Detection Rates}\label{detection-rates}}
-
-The model specifies a logistic link, this means the predicted values
-from the \texttt{glm} model should be back-transformed to fit between 0
-and 1. They are transformed with the link specified below:
-
-\[\mu = \frac{e^{\eta}}{1 + e^{\eta}}\] \[\eta = f(\tau_i,\delta_j)\]
-
-\begin{tabular}{rcrrr}
-\toprule
-Term & Estimate & Error & Stat & p.value\\
-\midrule
-Intercept & 0.02 & 0.15 & 0.15 & 0.88\\
-Hex & 0.42$^{*  }$ & 0.21 & 1.99 & 0.05\\
-Three cities & -3.25$^{***}$ & 0.41 & -7.88 & 0.00\\
-All cities & -1.24$^{***}$ & 0.23 & -5.41 & 0.00\\
-Hex : Three cities & 2.37$^{***}$ & 0.46 & 5.10 & 0.00\\
-\addlinespace
-Hex : All cities & 1.08$^{***}$ & 0.31 & 3.47 & 0.00\\
-\bottomrule
-\end{tabular}
-
-\begin{verbatim}
-##                 
-##                  Detected? No Detected? Yes
-##   Predicted: No           431           121
-##   Predicted: Yes          242           310
-\end{verbatim}
-
-This gives the model:
-
-\[\widehat{y_{ij}} = 0.0217 + 0.42Hex -3.25_{three} -1.24_{all} + 2.37{Hex.three} + 1.08{Hex.all} \]
-
-\includegraphics{paper_files/figure-latex/glm2-1.pdf}
-
-\% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Fri, Jan
-10, 2020 - 11:55:55
-
-\begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}}lc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-2} 
-\\[-1.8ex] & detect \\ 
-\hline \\[-1.8ex] 
- typeHex. & 0.103$^{**}$ \\ 
-  & (0.045) \\ 
-  & \\ 
- trendThree Cities & $-$0.467$^{***}$ \\ 
-  & (0.045) \\ 
-  & \\ 
- trendAll Cities & $-$0.277$^{***}$ \\ 
-  & (0.045) \\ 
-  & \\ 
- typeHex.:trendThree Cities & 0.250$^{***}$ \\ 
-  & (0.063) \\ 
-  & \\ 
- typeHex.:trendAll Cities & 0.239$^{***}$ \\ 
-  & (0.063) \\ 
-  & \\ 
- Constant & 0.505$^{***}$ \\ 
-  & (0.034) \\ 
-  & \\ 
-\hline \\[-1.8ex] 
-Observations & 1,104 \\ 
-Log Likelihood & $-$675.359 \\ 
-Akaike Inf. Crit. & 1,366.719 \\ 
-Bayesian Inf. Crit. & 1,406.772 \\ 
-\hline 
-\hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-\end{tabular} 
-\end{table}
-
-For a base model of Choropleth map, using a NW-SE trend model. The
-detection rate for Hexagon tile maps using a NW-SE trend model changes
-the log odds of the detection by 0.42.
-
-\% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Fri, Jan
-10, 2020 - 11:55:55
-
-\begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}}lc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-2} 
-\\[-1.8ex] & detect \\ 
-\hline \\[-1.8ex] 
- Constant & 0.669$^{***}$ \\ 
-  & (0.050) \\ 
-  & \\ 
-\hline \\[-1.8ex] 
-Observations & 1,104 \\ 
-Log Likelihood & $-$684.772 \\ 
-Akaike Inf. Crit. & 1,379.544 \\ 
-Bayesian Inf. Crit. & 1,404.578 \\ 
-\hline 
-\hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-\end{tabular} 
-\end{table}
-
 \hypertarget{certainty-1}{%
 \subsubsection{Certainty}\label{certainty-1}}
-
-\% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard
-University. E-mail: hlavac at fas.harvard.edu \% Date and time: Fri, Jan
-10, 2020 - 11:55:55
-
-\begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Pctl(25)} & \multicolumn{1}{c}{Pctl(75)} & \multicolumn{1}{c}{Max} \\ 
-\hline \\[-1.8ex] 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
@@ -1377,6 +1242,8 @@ is not only relevant to Australia, but all nations or population
 collections that experience densely populated cities alongside vast
 rural expanses.
 
+\newpage
+
 \hypertarget{supplementary-materials}{%
 \section{Supplementary Materials}\label{supplementary-materials}}
 
@@ -1395,14 +1262,44 @@ information and training required for a participant to make a decision
 was included that survey
 
 The demonstrative images of the \texttt{shinydashboard} web application
-display the demographic and consent page in Figure @ref(fig:survey1).
+display the demographic and consent page in Figure \ref{fig:survey1}.
+
+\hypertarget{lineups}{%
+\subsection{Lineups}\label{lineups}}
+
+Lineups were created using the Australian Statistical Areas at Level 3.
+
+\begin{figure}
+\centering
+\includegraphics{figures/aus_cities_3_geo.png}
+\caption{The lineup of choropleth map displays hides a distribution that
+affects all capital cities.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{figures/aus_cities_3_hex.png}
+\caption{The lineup of choropleth map displays shows a distribution that
+affects all capital cities. The values for the inner city areas in the
+capital cities result in them being coloured red. However, the colour
+blue dominates the display as the large rural areas are filled.
+Replicate (2) for All Cities.}
+\end{figure}
+
+The values for the inner city areas in the capital cities result in them
+being coloured red. However, the colour blue dominates the display as
+the large rural areas are filled. There were no other choropleth maps
+that were coloured as blue as map (3). This meant the detection rate was
+quite high, participants were able to select the correct distribution
+without being able to see the values of the capital cities. The same
+data showed in the hexagon tile map display shows varied distributions
+across the lineup. They are more diverse in colour than the choropleth
+counterparts. The same location holds the real data plot, the red city
+centres are now visible and surrounded by yellow, and then blue
+hexagons.
 
 \hypertarget{overall-performance}{%
 \subsection{Overall Performance}\label{overall-performance}}
-
-\hypertarget{subject-specific-anomolies-0-detection}{%
-\subsection{Subject specific anomolies (0\%
-detection)}\label{subject-specific-anomolies-0-detection}}
 
 \hypertarget{demographics}{%
 \subsection{Demographics:}\label{demographics}}
@@ -1437,9 +1334,6 @@ Ethics approval for the online survey was granted by QUT's Ethics
 Committee (Ethics Application Number: 1900000991). All applicants
 provided informed consent in line with QUT regulations prior to
 participating in this research.
-
-\hypertarget{bibliography}{%
-\section{Bibliography}\label{bibliography}}
 
 \newpage
 
