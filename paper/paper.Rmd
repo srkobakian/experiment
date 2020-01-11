@@ -173,19 +173,28 @@ Introduction
 
 <!-- General: comparison of displays, motivate hexagon tile map, enough info to motivate aims -->
 <!-- geographies on choropleth -->
-This study contrasts the use of two displays for geospatial statistics, the traditional choropleth map and an alternative tessellated hexagon tile map. The choropleth map is the common choice for visualising aggregated statistics and is familiar because of common administrative boundaries. 
-A hexagon tile map forgoes the familiar boundaries, instead representing each geographic unit as an equally sized hexagon. This alternative display is suggested for communicating distributions that relate to the population values or density of the population in each geographic unit. This study uses the lineup protocol for visual inference testing of the recognition of spatial distributions. The Australian Cancer Atlas explores spatial distributions of cancer incidence and the burden on Australian communities. The spatial distributions of the cancers explored in this atlas inspired the trend models presented to participants in this study. 
+This study compares the effectiveness of a new type of display, a hexagon tile map, against the standard, a choropleth map, for communicating information about disease statistics. The choropleth map is the traditional  approach for visualising aggregated statistics across administrative boundaries. A hexagon tile map forgoes the familiar boundaries, in favor of representing each geographic unit as an equally sized hexagon, placed approximately in the correct spatial location. The hexagon tile map builds on existing displays, such as the cartogram, and tesselated hexagon displays. It differs in that it relaxes the requirement to have connected hexagons, and allows sparsely located hexagons. The algorithm to construct a hexagon tile map is available in the R package sugarbag (XXX ref). This type of display may be useful for other countries, and other purposes. 
+
+The hexagon tile map was designed for Australia, motivated by a need to display spatial statistics for a new Australian Cancer Atlas. None of the existing approaches for creating cartograms or hexagon tiling perform well for the Australian landscape, which has vast open spaces and concentrations of population in small regions clustered on the coastlines. 
+
+<!-- This alternative display is suggested for communicating distributions that relate to the population values or density of the population in each geographic unit. This study uses the lineup protocol for visual inference testing of the recognition of spatial distributions. The Australian Cancer Atlas explores spatial distributions of cancer incidence and the burden on Australian communities. The spatial distributions of the cancers explored in this atlas inspired the trend models presented to participants in this study. 
 
 Motivation
 =============
-
-<!-- Find a new display for the Cancer Atlas -->
+!-- Find a new display for the Cancer Atlas --
 
 ## The Australian Cancer Atlas
+-->
 
-The Australian Cancer Atlas is an online interactive web tool created to explore the burden of cancer on Australian communities. There are many cancer types to be explored individually or aggregated. 
+The Australian Cancer Atlas (XXX ref) is an online interactive web tool created to explore the burden of cancer on Australian communities. There are many cancer types to be explored individually or aggregated. The Australian Cancer Atlas allows users to explore the patterns in the distributions of cancer statistics over the geographic space of Australia. It uses a choropleth map display and diverging colour scheme to draw attention to relationships between neighbouring areas. The hexagon tile map may be a useful alternative display for the atlas. 
+
+The experiment was conducted using the lineup protocol, a visual inference procedure (XXX ref), to objectively test the effectiveness of the two displays. 
+
+The paper is organised as follows. The next section discusses the background of georgraphic data display ane visual inference procedures. Section XXX describes the methods for conducting the experiment and analysing the results. The results are summarized in Section XXX. 
+
+<!--
 The Atlas examines Australian communities at the Statistical Areas at Level 2 (SA2) [@abs2016] used by the Australian Bureau of Statistics. Bayesian spatial smoothing was applied to integrate the values of neighbouring areas. Spatial smoothing protects the privacy and gives stability to the estimated amounts in each SA2. Users of the Atlas can explore the difference of the statistic of each SA2 from the Australian average, for both diagnoses (Standardised Incidence Rates) and excess deaths. It communicates the value of the statistic for each SA2 geographic unit through colour, by filling the areas using the diverging colour scheme ranging from dark blue to red. 
-The Australian Cancer Atlas allows users to explore the patterns in the distributions of cancer statistics over the geographic space of Australia. It uses a choropleth map display and diverging colour scheme to draw attention to relationships between neighbouring areas. 
+-->
 
 
 Background
@@ -691,6 +700,77 @@ The population density structure of Australia can be considered similar to that 
 
 <!-- conference papers do not normally have an appendix -->
 
+
+Acknowledgment
+==============
+
+The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualisations. They would also like to thank Kerrie Mengersen and Dr. Earl Duncan for suggestions and comments.
+
+
+
+Ethics approval for the online survey was granted by QUT’s Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research. 
+
+
+References {#references .numbered}
+==========
+
+
+
+<!-- An example of a floating figure using the graphicx package. -->
+<!-- Note that \label must occur AFTER (or within) \caption. -->
+<!-- For figures, \caption should occur after the \includegraphics. -->
+<!-- Note that IEEEtran v1.7 and later has special internal code that -->
+<!-- is designed to preserve the operation of \label within \caption -->
+<!-- even when the captionsoff option is in effect. However, because -->
+<!-- of issues like this, it may be the safest practice to put all your -->
+<!-- \label just after \caption rather than within \caption{}. -->
+
+<!-- Reminder: the "draftcls" or "draftclsnofoot", not "draft", class -->
+<!-- option should be used if it is desired that the figures are to be -->
+<!-- displayed while in draft mode. -->
+
+<!-- \begin{figure}[!t] -->
+<!-- \centering -->
+<!-- \includegraphics[width=2.5in]{myfigure} -->
+<!-- where an .eps filename suffix were assumed under latex,  -->
+<!-- and a .pdf suffix were assumed for pdflatex; or what has been declared -->
+<!-- via \DeclareGraphicsExtensions. -->
+<!-- \caption{Simulation results for the network.} -->
+<!-- \label{fig_sim} -->
+<!-- \end{figure} -->
+
+<!-- Note that the IEEE typically puts floats only at the top, even when this -->
+<!-- results in a large percentage of a column being occupied by floats. -->
+
+
+<!-- An example of a double column floating figure using two subfigures. -->
+<!-- (The subfig.sty package must be loaded for this to work.) -->
+<!-- The subfigure \label commands are set within each subfloat command, -->
+<!-- and the \label for the overall figure must come after \caption. -->
+<!-- \hfil is used as a separator to get equal spacing. -->
+<!-- Watch out that the combined width of all the subfigures on a  -->
+<!-- line do not exceed the text width or a line break will occur. -->
+
+<!-- \begin{figure*}[!t] -->
+<!-- \centering -->
+<!-- \subfloat[Case I]{\includegraphics[width=2.5in]{box}% -->
+<!-- \label{fig_first_case}} -->
+<!-- \hfil -->
+<!-- \subfloat[Case II]{\includegraphics[width=2.5in]{box}% -->
+<!-- \label{fig_second_case}} -->
+<!-- \caption{Simulation results for the network.} -->
+<!-- \label{fig_sim} -->
+<!-- \end{figure*} -->
+
+<!-- Note that often IEEE papers with subfigures do not employ subfigure -->
+<!-- captions (using the optional argument to \subfloat[]), but instead will -->
+<!-- reference/describe all of them (a), (b), etc., within the main caption. -->
+<!-- Be aware that for subfig.sty to generate the (a), (b), etc., subfigure -->
+<!-- labels, the optional argument to \subfloat must be present. If a -->
+<!-- subcaption is not desired, just leave its contents blank, -->
+<!-- e.g., \subfloat[]. -->
+
+\newpage
 Appendix
 ============
 
@@ -786,7 +866,7 @@ plots %>% ggplot(aes(x = type, y = pdetect)) +
 ```
 
 
-## Contributor Performance
+## Individual performance
 
 ```{r contributors, fig.cap = "The probablity of detection acheived by the contributors in each group is shown by the points. Group B has a larger range and a smaller inter-quartile range. Group A and  both had 3 people who did not find any of the data maps in the displays."}
 # Check contributor performance
@@ -828,75 +908,4 @@ dem_contribs %>%
   mutate(Education = factor(education, levels = c("High School", "Bach", "Masters"), labels = c("High School Diploma", "Bachelors Degree", "Masters Degree"))) %>% 
     count(Education, name =  "Amount") %>% knitr::kable(format = "latex", booktabs = TRUE)
 ```
-
-
-Acknowledgment
-==============
-
-The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualisations. They would also like to thank Kerrie Mengersen and Dr. Earl Duncan for suggestions and comments.
-
-
-
-Ethics approval for the online survey was granted by QUT’s Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research. 
-
-
-\newpage
-References {#references .numbered}
-==========
-
-
-
-<!-- An example of a floating figure using the graphicx package. -->
-<!-- Note that \label must occur AFTER (or within) \caption. -->
-<!-- For figures, \caption should occur after the \includegraphics. -->
-<!-- Note that IEEEtran v1.7 and later has special internal code that -->
-<!-- is designed to preserve the operation of \label within \caption -->
-<!-- even when the captionsoff option is in effect. However, because -->
-<!-- of issues like this, it may be the safest practice to put all your -->
-<!-- \label just after \caption rather than within \caption{}. -->
-
-<!-- Reminder: the "draftcls" or "draftclsnofoot", not "draft", class -->
-<!-- option should be used if it is desired that the figures are to be -->
-<!-- displayed while in draft mode. -->
-
-<!-- \begin{figure}[!t] -->
-<!-- \centering -->
-<!-- \includegraphics[width=2.5in]{myfigure} -->
-<!-- where an .eps filename suffix were assumed under latex,  -->
-<!-- and a .pdf suffix were assumed for pdflatex; or what has been declared -->
-<!-- via \DeclareGraphicsExtensions. -->
-<!-- \caption{Simulation results for the network.} -->
-<!-- \label{fig_sim} -->
-<!-- \end{figure} -->
-
-<!-- Note that the IEEE typically puts floats only at the top, even when this -->
-<!-- results in a large percentage of a column being occupied by floats. -->
-
-
-<!-- An example of a double column floating figure using two subfigures. -->
-<!-- (The subfig.sty package must be loaded for this to work.) -->
-<!-- The subfigure \label commands are set within each subfloat command, -->
-<!-- and the \label for the overall figure must come after \caption. -->
-<!-- \hfil is used as a separator to get equal spacing. -->
-<!-- Watch out that the combined width of all the subfigures on a  -->
-<!-- line do not exceed the text width or a line break will occur. -->
-
-<!-- \begin{figure*}[!t] -->
-<!-- \centering -->
-<!-- \subfloat[Case I]{\includegraphics[width=2.5in]{box}% -->
-<!-- \label{fig_first_case}} -->
-<!-- \hfil -->
-<!-- \subfloat[Case II]{\includegraphics[width=2.5in]{box}% -->
-<!-- \label{fig_second_case}} -->
-<!-- \caption{Simulation results for the network.} -->
-<!-- \label{fig_sim} -->
-<!-- \end{figure*} -->
-
-<!-- Note that often IEEE papers with subfigures do not employ subfigure -->
-<!-- captions (using the optional argument to \subfloat[]), but instead will -->
-<!-- reference/describe all of them (a), (b), etc., within the main caption. -->
-<!-- Be aware that for subfig.sty to generate the (a), (b), etc., subfigure -->
-<!-- labels, the optional argument to \subfloat must be present. If a -->
-<!-- subcaption is not desired, just leave its contents blank, -->
-<!-- e.g., \subfloat[]. -->
 
