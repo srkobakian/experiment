@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  11 JAN 2020 11:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  11 JAN 2020 11:36
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -577,12 +577,12 @@ l.914
 l.914 
        <./paper_files/figure-latex/detect-compare-1.pdf> <./paper_files/figure-
 latex/beeswarm-1.pdf>]
-<paper_files/figure-latex/choices-1.pdf, id=292, 469.755pt x 325.215pt>
+<paper_files/figure-latex/choices-1.pdf, id=292, 433.62pt x 578.16pt>
 File: paper_files/figure-latex/choices-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/choices-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/choices-1.pdf  used on input 
 line 917.
-(pdftex.def)             Requested size: 252.0pt x 174.4622pt.
+(pdftex.def)             Requested size: 252.0pt x 336.00351pt.
 <figures/aus_nwse_6_hex.png, id=293, 1258.2207pt x 1001.9031pt>
 File: figures/aus_nwse_6_hex.png Graphic file (type png)
 <use figures/aus_nwse_6_hex.png>
@@ -593,25 +593,25 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.945 
+l.942 
       pdfTeX warning (ext4): destination with the same identifier (name{table.4
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.945 
+l.942 
       pdfTeX warning (ext4): destination with the same identifier (name{figure.
 5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.945 
+l.942 
       pdfTeX warning (ext4): destination with the same identifier (name{figure.
 6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.945 
+l.942 
        <./paper_files/figure-latex/certainty-1.pdf> <./paper_files/figure-latex
 /choices-1.pdf> <./figures/aus_nwse_6_hex.png>]
 
@@ -730,7 +730,7 @@ Here is how much of TeX's memory you used:
  15583 multiletter control sequences out of 15000+200000
  38282 words of font info for 74 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
- 39i,11n,37p,947b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,11n,37p,947b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
@@ -746,7 +746,7 @@ nts/type1/urw/times/utmb8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.9/fonts
 /type1/urw/times/utmbi8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.9/fonts/t
 ype1/urw/times/utmr8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.9/fonts/type
 1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (10 pages, 1978168 bytes).
+Output written on paper.pdf (10 pages, 1979068 bytes).
 PDF statistics:
  449 PDF objects out of 1000 (max. 8388607)
  111 named destinations out of 1000 (max. 500000)
