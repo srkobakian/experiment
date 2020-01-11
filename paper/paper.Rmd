@@ -32,6 +32,7 @@ editor_options:
   chunk_output_type: inline
 link-citations: true
 citation_package: biblatex
+header-includes: \usepackage{graphicx}
 ---
 
 ```{r setup, include=FALSE}
@@ -40,7 +41,8 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = FALSE, 
   message = FALSE,
-  cache = FALSE)
+  cache = FALSE,
+  dpi = 300)
 ```
 
 ```{r libraries}
@@ -189,9 +191,9 @@ Background
 ## Population focussed displays
 
   
-Spatial visualisations communicate the distribution of statistics over geographic space. The most common display for spatial data is the choropleth map. The choropleth map is the common display used to present aggregated statistics for geographic units such as the population. Creating a choropleth map involves drawing the administrative boundaries and filling them with colour to communicate the value of the statistic. However, using a choropleth map base introduces biases when considering population related distributions.
+Spatial visualisations communicate the distribution of statistics over geographic space. The most common display for spatial data is the choropleth map. It is used to present aggregated statistics for geographic units such as the population. Creating a choropleth map involves drawing the administrative boundaries and filling them with colour to communicate the value of the statistic. However, using a choropleth map base introduces biases when considering population related distributions [@CBATCC].
 Many sets of Australian statistical areas have a large disparity between the smallest and largest units.
-The rural communities in Australia operate on a much larger geographic space than small inner-city communities. When a spatial distribution is related to the size of the areas, or the population density, the size of the regions can allow erroneous conclusions to be drawn about the state of the statistic over the entire population, when presenting the statistics on a geographic map base. This occurs as large regions filled with a consistent colour or pattern can draw the attention of map readers, and small regions are not paid equal attention. An alternative display can be used to effectively communicate a spatial distribution for a set of heterogeneous areas. 
+The rural communities in Australia operate on a much larger geographic space than small inner-city communities. When a spatial distribution is related to the size of the areas, or the population density, the size of the regions can allow erroneous conclusions to be drawn about the state of the statistic over the entire population, when presenting the statistics on a geographic map base. This occurs as large regions filled with a consistent colour or pattern can draw the attention of map readers, and small regions are not paid equal attention [@CTTMB]. An alternative display can be used to honestly communicate a spatial distribution for a set of heterogeneous areas [@NISCC]. 
 This work aims to show that a hexagon tile map display is a viable alternative to the geographic map base for presenting population statistics.
 
 
@@ -200,14 +202,14 @@ Alternative maps include various cartograms and tessellated tile maps. They allo
 
 
 <!-- Cartogram -->
-A cartogram transforms the geographic map base. The transformation begins with a choropleth map, and the values of a statistic such as population, for each geographic unit. There are several algorithms for transformation; they involve shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map.
+A cartogram transforms the geographic map base. The transformation begins with a choropleth map, and the values of a statistic such as population, for each geographic unit. There are several algorithms for transformation [@ACTUC], [@CBATCC]; they involve shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map.
 <!-- Why not a cartogram-->
 The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units. The transformation will keep boundaries of neighbouring areas connected, but the result is unfamiliar shapes for each geographic unit. 
 
 <!-- Tesselated tile gram & hexagon tile map-->
-Alternative displays make the trade off between familiar shapes and representation of variables using the area of geographic units. The non-contiguous cartgoram method keeps the shapes of geographic units intact, and change the size of the shape to communicate the values of statistics. This method disconnects areas when shrinking boundaries, and breaks the spatial relationship between areas. However, the empty space created emphasises the comparative density of the statistic, the difference between the statistic and the amount of land for each geographic unit.
-The Dorling cartogram is another method that does not retain the boundaries of geographic units. Each unit becomes one circle on the cartogram display; the circles are sized according to the value of a the statistic, such as population. The neighbour relationships can be illustrated by connecting the boundaries of the circles.
-These cartogram methods all allow two variables to be shown in the single display.
+Alternative displays make the trade off between familiar shapes and representation of variables using the area of geographic units. The non-contiguous cartgoram method [@NAC] keeps the shapes of geographic units intact, and change the size of the shape to communicate the values of statistics. This method disconnects areas when shrinking boundaries, and breaks the spatial relationship between areas. However, the empty space created emphasises the comparative density of the statistic, the difference between the statistic and the amount of land for each geographic unit.
+The Dorling cartogram [@ACTUC] is another method that does not retain the boundaries of geographic units. Each unit becomes one circle on the cartogram display; the circles are sized according to the value of a the statistic, such as population. The neighbour relationships can be illustrated by connecting the boundaries of the circles. A similar approach was pioneered by Raisz [-@RSCW], using rectangles that tile to align borders of neighbours [@CDWCS].
+These cartogram methods all allow two variables to be shown in the single display. these methods are discussed further in XXX cite review paper
 
 ```{r liver, fig.height = 9, fig.width = 6, fig.cap = "The smoothed average of liver cancer diagnoses for Australian males. The divering colour scheme shows dark blue areas with much lower than average diagnoses, yellow areas with diagnoses around the Australian average, orange with above average and red shows diagnoses much higher than average."}
 ggdraw(ylim = c(0,2), xlim = c(0,1.3), clip = "on") +
@@ -302,7 +304,7 @@ The levels of the factors measured in the experiment were:
 
 Each Group did not see the same data for both map types. Four simulated sets of data were generated for each treatment.
 This will generate twenty-four lineups (twelve lineups of geographic maps, and twelve lineups of hexagon tile maps). Participants evaluated twelve lineups, siz of each map type.
-For each of the six geographic displays and six hexagon displays, two of each trend model were shown to participants. The design is outlined in \@ref(tab:exp-design).
+For each of the six geographic displays and six hexagon displays, two of each trend model were shown to participants. The design is outlined in \ref{tab:exp-design}.
 
 ```{r exp-design, results = "asis"}
 d %>% 
@@ -315,7 +317,7 @@ d %>%
   ungroup() %>% 
   knitr::kable(., format = "latex", booktabs = TRUE, 
     linesep = c("", "", "\\addlinespace"),
-    caption = "The experimental design results in the following allocation of replicate data sets within each trend model to groups A and B.") %>% kable_styling("striped") %>% 
+    caption = "The experimental design results in the following allocation of replicate data sets within each trend model to groups A and B.") %>% kable_styling(bootstrap_options = "hold_position") %>% 
   collapse_rows(., columns = 1, custom_latex_hline = c(1:3))
 ```
 
@@ -348,19 +350,21 @@ Each set of lineup data was used to produce a choropleth maps and hexagon tile m
 The participant answered demographic questions and provided consent before evaluating the lineups.
 
 Demographics were collected regarding the study participants:
-- Gender (female / male / other),
-- Degree education level achieved (high school / bachelors / masters / doctorate / other),
-- Age range (18-24 / 25-34 / 35-44 / 45-54 / 55+ / other)
-- Lived at least for one year in Australia (Yes / No )
+
+ - Gender (female / male / other),
+ - Degree education level achieved (high school / bachelors / masters / doctorate / other),
+ - Age range (18-24 / 25-34 / 35-44 / 45-54 / 55+ / other)
+ - Lived at least for one year in Australia (Yes / No )
 
 Participants then moved to the evaulation phase.
 The set of images differed for Group A and Group B.
 After being allocated to a group, each individual was shown the 12 displays in randomised order.
 
 Three questions were asked regarding each display:
-- Plot choice
-- Reason
-- Difficulty
+
+ - Plot choice
+ - Reason
+ - Difficulty
 
 After completing the 12 evaluations, the participants were asked to submit their responses.
 
@@ -402,8 +406,9 @@ identifications $x$ out of $n$ viewings.
 The data analysis methods used in order to analyse and collate the results included downloading the survey submissions and opening them into the analysis software R [@RCore].
    
 For each of the 12 lineup displays the researchers calculated:
-- accuracy: the proportion of subjects who detected the data plot
-- efficiency: average time taken to respond
+
+ - accuracy: the proportion of subjects who detected the data plot
+ - efficiency: average time taken to respond
 
 ### Visualisations
 Side-by-side dot plots were made of accuracy (efficiency) against map type, facetted by trend model type.
@@ -414,8 +419,6 @@ Plots will be made in R (R Core Team 2019), with the ggplot2 package (Wickham 20
    
    
 ### Modeling
-
-
 
 The likelihood of detecting the data plot in the lineup can be modelled using a linear mixed effects model. 
 The R [@RCore] `glmer()` function in the [@lme4] package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
@@ -463,11 +466,11 @@ Of the 92 participants, 67 were male, and 25 female. Most participants (56) had 
 
 ## Accuracy
 
-Figure \ref{fig:detection_compare} displays the average detection rates by type of plot, separately for each trend model. Evaluations on the same data set are connected by a line segment. For both the Three Cities and All Cities trend models performance was substantially better for the hexagon tile map. Viewers detected the data plot substantially more often with the hexagon tile map. One replicate for the All Cities group, had similar detection rates for both plot types, and this is discussed in the supplementary [Lineups] section. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
+Figure \ref{fig:detect-compare} displays the average detection rates for the two types of plot, separately for each trend model. Evaluations on the same data set are connected by a line segment. For both the Three Cities and All Cities trend models performance was substantially better for the hexagon tile map. Viewers detected the data plot substantially more often with the hexagon tile map. One replicate for the All Cities group, had similar detection rates for both plot types, and this is discussed in the supplementary [Lineups] section. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
 
 Table \ref{tab:desc-stats} shows the means and standard deviations of the detection rate for each type of plot and each trend model. This also gives the standard errors, the smallest standard deviation is the Three Cities trend model shown in a Choropleth display. This group had a very small detection rate of 0.038.
 
-```{r detect-compare, fig.cap = "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or haxgon tile map display are linked to show the difference in the detection rate."}
+```{r detect-compare, fig.cap = "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or haxgon tile map display are linked to show the difference in the detection rate.", fig.height=4}
 # Detectability rate for each lineup (image)
 d_smry <- d %>% group_by(trend, type, replicate) %>%
   # pdetect measures the aggregated accuracy of the choices
@@ -480,7 +483,7 @@ diffs <- d_smry %>% spread(type, pdetect) %>%
 
 # Plot summary
 ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
-  geom_point(size = 3) +  
+  geom_point(size = 2) +  
   geom_line(size = 1, aes(group = replicate)) +  
   facet_wrap(~trend) +
   scale_colour_manual(values = trend_colours) +
@@ -495,8 +498,9 @@ ggplot(d_smry, aes(x=type, y=pdetect, colour = trend)) +
 types <- c("Choro.", "", "Hex.", "")
 
 d %>% group_by(type, trend) %>%
-  summarise(m = round(mean(detect),3),
-    std.dev = paste0("(", as.character(round(sd(detect),3)),")")) %>% 
+  summarise(m = round(mean(detect),2),
+    std.dev = round(sd(detect),2)) %>% 
+  mutate(std.dev = ifelse(std.dev == 0.5, "(0.50)", paste0("(", std.dev, ")"))) %>% 
   gather(stat, value, m, std.dev) %>% 
   pivot_wider(names_from = "trend", values_from = "value") %>% 
   arrange(type) %>% ungroup() %>% 
@@ -506,81 +510,52 @@ d %>% group_by(type, trend) %>%
     caption = "The rate of detection for each trend model has been calculate for the choropleth and hexagon tile map displays. The associated standard errors are also included.")
 ```
 
-Table \ref{detect-glmer1} is a summary of the generalised linear mixed effects model, testing the effect of plot type and trend model on detection rate. The results support the summary from Figure \@ref{detect-compare}. All terms are statistically significant. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, which is a pleasant surprise. Detection rate is lower for the Three Cities and All Cities, than the NW-SE group. The hexagon tile map has a substantially higher detection rate than the choropleth for Three Cities and All Cities. XXX Put a number for each of these.
-
 
 ```{r detect-glmer1, results="asis"}
 # Mixed effects models
 glmer1 <- glmer(detect ~ type*trend + (1|contributor), 
               family = binomial, data = d)
 
-glmer_terms <- c("Intercept", "Hex.", "Three Cities", "All Cities", 
-  "Hex:Three Cities", "Hex:All Cities")
-  
+glmer_terms <- c("Intercept", "Hex.", "Three Cities", "All Cities", "Hex:Three Cities", "Hex:All Cities")
+
+detection_rates <- tidy(glmer1) %>%
+  mutate(detection_rates = round(exp(estimate)/(1+exp(estimate)),2)) %>%
+  select(term, estimate, detection_rates) %>% pull(detection_rates)
+
 tidy(glmer1) %>%
   mutate_at(.vars = c("estimate", "std.error"), round, 2) %>% 
-  mutate(p.value = format(p.value, 2)) %>% 
-  rowwise() %>% 
-  mutate(estimate = case_when(
-  p.value <= 0.001 ~ paste0(estimate,"$^{***}$"),
-  p.value <= 0.01 ~ paste0(estimate, "$^{** }$"),
-  p.value <= 0.05 ~ paste0(estimate, "$^{*  }$"),
-  p.value <= 0.01 ~ paste0(estimate, "$^{.  }$"),
-  TRUE ~ paste0(estimate))) %>%
+  mutate(p.value = round(p.value, digits=2)) %>% 
+  rowwise() %>%
+  mutate(sig = case_when(
+  p.value <= 0.001 ~ "$^{***}$",
+  p.value <= 0.01 ~  "$^{**}$",
+  p.value <= 0.05 ~  "$^{*}$",
+  p.value <= 0.01 ~  "$^{.}$",
+  TRUE ~ "$^{ }$")) %>%
   ungroup() %>% 
   filter(!is.na(std.error)) %>%
   mutate(term = glmer_terms) %>% 
   select(Term = term, 
-    Estimate = estimate, 
+    Est. = estimate, 
+    Sig. = sig,
     `Std. Error` = std.error, 
-    `P value` = p.value) %>% 
-  knitr::kable(format = "latex", escape = FALSE, align= "rclrr", 
-    booktabs = T, linesep = c("", "\\addlinespace", "", "\\addlinespace", ""),
+    `P val` = p.value) %>% 
+  knitr::kable(format = "latex", escape = FALSE, align= "rrlrr", 
+    booktabs = T, linesep = c("", "\\addlinespace", "", "\\addlinespace", ""), 
     caption = "The model output for the generalised linear mixed effect model for detection rate. This model considers the type of display, the trend model hidden in the data plot, and accounts for contributor performance.")
 ```
 
-<!-- The model summary in Table \ref{tab:detect-glmer1} shows that the predicted log odds of the detection rate is 0.46 times that of the choropleth lineups, for the lineups of hexagon tile map. 
-The baseline trend model used is the NW-SE trend, the detection rate is expected to decrease comparatively for choropleth displays of the Three Cities and All Cities trends. However, when the interaction is considered the detection rate is expected to increase for the Three Cities and All Cities trends shows in the Hexagon tile map display.
--->
+
+Table \ref{tab:detect-glmer1} is a summary of the generalised linear mixed effects model, testing the effect of plot type and trend model on detection rate. The results support the summary from Figure \ref{fig:detect-compare}. All terms are statistically significant. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, which is a pleasant surprise. 
+For the NW-SE distribution, the predicted detection rate for the hexagon tile map display increases the predicted probability of detection to `r round(exp(0.461+0.0220)/(1+exp(0.461+0.0220)), 2)` from `r round(exp(0.0220)/(1+exp(0.0220)),2)` for choropleths. 
+
+When a choropleth map display is used, the predicted detection rate for the Three Cities trend, `r round(exp(0.0220-3.43)/(1+exp(0.0220-3.43)),2)`, is extremely low, especially compared to  the NW-SE trend. When the All Cities trend is presented in a choropleth display the predicted probability of detection is `r round(exp(0.0220-1.35)/(1+exp(0.0220-1.35)),2)`. The hexagon tile map has a substantially high detection rate for the display of a Three Cities trend `r round(exp(0.461+0.0220-3.43+2.46)/(1+exp(0.461+0.0220-3.43+2.46)),2)` and All Cities trend `r round(exp(0.461+0.0220-1.35+1.17)/(1+exp(0.461+0.0220-1.35+1.17)),2)`.
+
 
 ## Speed
 
-Figure \ref{fig:beeswarm} shows the time taken for participants to evaluate each lineup, separately for trend model, whether the data plot was detected or not, and type of plot, as horizontally jittered dot plots.  The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is displayed as a large colored dot on each plot. There is little difference in the average time taken to read a choropleth or hexgon tile map. There is also very little difference in evaluation time whether the data plot was detected or not. 
+Figure \ref{fig:beeswarm} shows the time taken for participants to evaluate each lineup, separately for trend model, whether the data plot was detected or not, and type of plot, as horizontally jittered dot plots. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is displayed as a large colored dot on each plot. There is little difference in the average time taken to read a choropleth or hexgon tile map. There is also very little difference in evaluation time whether the data plot was detected or not. 
 
-<!-- The amount of time taken for a participants to submit a response is explored. 
-The time considered was the amount of time it took for a participant to submit their choice of plot, the reason for their choice, and the perceived difficulty of the choice. The time was taken when each participant hit "Next".
-
-The relationship between time taken to submit, and the correct detection by the participant of the real data display in a lineup is considered in Figure \ref{fig:hist-height}. The bimodal distributions are similar across the type of display and the trend model hidden in the real data plot.
-The hexagon map displays have a peak for the group that took up to 5 seconds to submit a response. When viewing a choropleth map display, the second peak occured at around 20 seconds. The longest a participant took to respond was 60 seconds. 
--->
-
-```{r hist-height,  eval=FALSE, fig.cap = "Six histograms show the distribution of the time taken to submit a response for each combination of trend and type of display. The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show how many evaulations were submitted within each time window. The orange regions of the bars show the amount of correct detections, and the green regions are the amount of incorrect detections."}
-ggplot(d %>% rename(Detected = detect_f), 
-  aes(x = time_taken, fill = Detected, group = Detected)) + 
-  scale_fill_manual(values = detect_colours) +
-  geom_histogram(binwidth = 5, boundary = 0) +
-  facet_grid(type ~ trend) + 
-  theme(legend.position = "bottom") +
-  labs(x = "Time taken (Seconds)", y = "Amount of evaluations")
-```
-
-
-```{r hist-fill,  eval=FALSE, fig.cap = "The time taken to evaluate each display is broken into five second windows. The height of the histogram bars show the proportion of evaulations that were submitted within each time window."}
-ggplot(d %>% rename(Detected = detect_f), 
-  aes(x = time_taken, fill = Detected, group = Detected)) +  
-  scale_fill_manual(values = detect_colours) +
-  geom_histogram(binwidth = 5, boundary = 0, position = "fill") +
-  facet_grid(type ~ trend) +
-  labs(x = "Time taken (Seconds)", y = "Proportion of evaluations")
-
-ggplot(d, aes(x = time_taken, colour = detect_f, group = detect_f)) +  
-  scale_fill_manual(values = detect_colours) +
-  geom_freqpoly(binwidth = 3) +
-  facet_grid(type ~ trend) +
-  scale_fill_manual(values = detect_colours) +
-  labs(x = "Time taken (Seconds)", y = "Amount of evaluations") +
-  guides(colour = FALSE)
-```
 
 ```{r beeswarm, fig.cap = "The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using horizontally jittered dotplots. The coloured point indicates average time taken for each plot type. Although some participants take just a few seconds per evaluation, and some take as much as mcuh as 60 seconds, but there is very little difference in time taken between plot types.", fig.height=8}
 # Di playing
@@ -600,29 +575,10 @@ ggplot() +
   theme(legend.position="bottom")
 ```
 
-<!-- The proportion of correct and incorrect responsesis shown by the width used to distribute the points horizontally. Each point is randomly placed, but regions with more points require points to be placed further from center. For the NW-SE distribution, it is equally likely that quick responders will be correct or incorrect. It is more likely that participants picked the correct response if they took longer to respond. For the Choropelth
-However, these quick responders were likely to be either correct or incorrect. The quick responders viewing a choropleth display were unlikely to choose correctly, unless viewing a NW-SE trend model. 
-
-The choropleth map displays that included a distribution of Three Cities was very difficult for participants. 
--->
-
-```{r time-lmer1, eval = FALSE, results="asis"}
-# Mixed effects models
-d %>% mutate(ln_time = time_taken) %>% 
-time_lmer1 <- glmer(ln_time ~ type*trend + (1|contributor),data = .)
-
-lmer_terms <- c("Intercept", "Hex.", "Three Cities", "All Cities", 
-  "Hex:Three Cities", "Hex:All Cities")
-  
-tidy(time_lmer1)
-```
-
-
-
 
 ## Certainty
 
-```{r certainty, fig.cap = "The amount of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen most for the Hexagon tile map displays."}
+```{r certainty, fig.cap = "The amount of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen most for the Hexagon tile map displays.", fig.height=5}
 d <- d %>% 
   mutate(certainty = as_factor(certainty)) %>% 
   mutate(replicate_f = as_factor(replicate)) 
@@ -631,7 +587,7 @@ ggplot(d %>% rename(Detected = detect_f),
    aes(x = certainty, fill = Detected)) +  
   scale_fill_manual(values = detect_colours) +
   geom_bar() + facet_grid(type ~ trend) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") + xlab("Level of certainty")
 ```
 
 Certainty levels are measured on a five point scale—they are subjective
@@ -641,7 +597,6 @@ assessments by the participant ‘How certain are you about your choice?’.
 ## Reason
 
 ```{r reason, results = "asis"}
-
 # Qualitative analysis of reason
 d %>% 
   mutate(reason = ifelse(reason =="0.0", "no reason", reason)) %>% 
@@ -649,15 +604,15 @@ d %>%
     Trend = trend) %>% 
   group_by(Trend, Detected, type) %>% 
   count(reason) %>% 
-  mutate(prop = round(n/sum(n), 3), r_prop = paste0(reason, ":", prop)) %>% 
+  mutate(prop = round(n/sum(n), 2), r_prop = paste0(reason, ":", prop)) %>% 
   top_n(1, n) %>% summarise(reasons = paste(reason, collapse=", ")) %>% 
   pivot_wider(names_from = c("type"), values_from = c("reasons")) %>% 
   ungroup() %>% 
   knitr::kable(., format = "latex", booktabs = TRUE,
     linesep = c("", "\\addlinespace", "", "\\addlinespace",""),
-    caption = "The amount of participants that selected each reason for their choice of plot when looking at each trend model shown in Choropleth and Hexagon Tile maps. The facets show whether or not the choice was correct.") %>% kable_styling("striped") 
-#%>% 
-#  collapse_rows(., columns = 1, custom_latex_hline = c(1:2, 3:4))
+    caption = "The amount of participants that selected each reason for their choice of plot when looking at each trend model shown in Choropleth and Hexagon Tile maps. The facets show whether or not the choice was correct.") %>% 
+  #kable_styling(bootstrap_options = "hold_position") %>% 
+  collapse_rows(., columns = 1)
 ```
 
 The most common choice made by participant was clusters, this response was expected when participants viewed the Hexagon display of the All Cities and Three Cities distributions.
@@ -672,7 +627,7 @@ Participants were misled by the choropleth display, but not the hexagon display 
 
 
 
-```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 12, fig.width=10}
+```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map."}
 d %>% 
   count(type, trend, choice, replicate, choice, detect_f) %>% 
   group_by(type, trend, replicate) %>% 
@@ -757,20 +712,22 @@ The participants were trained using three displays. There were relatively simple
 
 The survey application was hosted on a website external to the Figure-Eight platform. Following suggestions in the documentation, the information and training required for a participant to make a decision was included  that survey
 
-The demonstrative images of the `shinydashboard` web application display the demographic and consent page in Figure \ref{fig:survey1}.
+The demonstrative images of the `shinydashboard` web application display the demographic and consent page in Figure
+\ref{fig:survey_demogs}.
+
 
 <!--
+
 \begin{figure}[!t] 
 \centering 
-\includegraphics[width=2.5in]{figures/survey_demogs.png}
+\includegraphics[width=6in]{figures/survey_demogs.png}
 \caption{The demographics questions tab of the shinydashboard survey application.}
 \label{survey_demogs} 
 \end{figure} 
 
-
 \begin{figure}[!t] 
 \centering 
-\includegraphics[width=2.5in]{figures/survey_hex.png}
+\includegraphics[width=6in]{figures/survey_hex.png}
 \caption{An example of the hexagon tile map lineup shown in the survey tab of the shinydashboard app.}
 \label{survey_hex} 
 \end{figure} 
@@ -778,7 +735,7 @@ The demonstrative images of the `shinydashboard` web application display the dem
 
 \begin{figure}[!t] 
 \centering 
-\includegraphics[width=2.5in]{figures/survey_choro.png}
+\includegraphics[width=6in]{figures/survey_choro.png}
 \caption{An example of the choropleth map lineup shown in the survey tab of the shinydashboard app.}
 \label{survey_choro} 
 \end{figure} 
