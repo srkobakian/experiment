@@ -860,7 +860,7 @@ Hex:All Cities & 1.17 & $^{***}$ & 0.33 & 0.00\\
 \hypertarget{speed}{%
 \subsection{Speed}\label{speed}}
 
-Fig. \ref{fig:beeswarm} shows the time taken for participants to evaluate each lineup, separately for trend model, whether the data plot was detected or not, and type of plot, as horizontally jittered dot plots. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is displayed as a large colored dot on each plot. There is little difference in the average time taken to read a choropleth or hexgon tile map. There is also very little difference in evaluation time whether the data plot was detected or not.
+Fig. \ref{fig:beeswarm} shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup when viewing each type of display. The time are also separated by trend model and whether the data plot was detected or not detected. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is shown as a large colored dot on each plot. when considering the heights of the green and orange dots, there is little difference in the average time taken to read a choropleth or hexgon tile map. Comparing the same coloured dot across each trend model row, there is a slight increase in the time taken to correctly detected the data plot in the hexagon tile map lineup, but little difference in evaluation time for the choropleth display. However, there were substantially less correct detections for choropleth lineups for the Three cities and All Cities trends.
 
 \begin{figure}
 \centering
@@ -871,17 +871,33 @@ Fig. \ref{fig:beeswarm} shows the time taken for participants to evaluate each l
 \hypertarget{certainty}{%
 \subsection{Certainty}\label{certainty}}
 
+Participants provided their level of certainty regarding their choice using a five point scale.
+Unlike the accuracy and speed of reponses that were derived during the data processing phase, this was a subjective
+assessment by the participant prompted by the question: `How certain are you about your choice?'.
+Figure. \ref{certainty} shows the amount of times participants provided each level of certainty. This was separated for each combination of trend models and display type, and coloured depending on whether a participant correctly detected the data plot in the lineup.
+Participants chose 4 or 5 often when viewing the population related trends in the choropelth display, even though they were often incorrect when viewing an All Cities trend and overwhelmingly incorrect for the Three Cities trend. This shows overconfidence in their detection ability when using a choropleth map display. Participants were less likely to be certain when their choice was incorrect and they were viewing a hexagon tile map.
+For each trend model, participants were more likely to doubt their choice and choose 1 or 2 in the hexagon tile map displays, even though many had made the correct choice.
+
 \begin{figure}
 \centering
 \includegraphics{paper_files/figure-latex/certainty-1.pdf}
 \caption{\label{fig:certainty}The amount of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen most for the Hexagon tile map displays.}
 \end{figure}
 
-Certainty levels are measured on a five point scale---they are subjective
-assessments by the participant `How certain are you about your choice?'.
-
 \hypertarget{reason}{%
 \subsection{Reason}\label{reason}}
+
+Participants were asked why they had made their plot choice and were able to select from a set of suggested reasons.
+``Colour trend across the areas'' was the most common selection for NW-SE trend displays.
+The colour scaling applied in Three cities and All cities displays resulted in the rural areas of the real data plot appearing more blue or yellow than the other plots in the lineups.
+Due to the consisent colouring of rural areas in a choropleth display, the choice ``All areas have similar colours'' was most common reason. The All Cities displays coloured the inner-city areas of all capital cities more red, this was observable to participants and explains the equal choice of the city clusters or rural colour consistency.
+
+The reasons used when viewing choropleth displays varied more than the hexagon tile map reasons.
+The hexagon tile map displays resulted in ``Clusters of colour'' as the most common choice made by participants.
+This response was expected when participants viewed the Hexagon tile map display of the All Cities and Three Cities distributions. It was unexpected that it was also the most common reason for the NW-SE hexagon tile map displays.
+Due to the spatial covariance introduced in the smoothing, groups of similarly coloured hexagons were present in all of the hexagon tile map displays. All Cities and Three Cities distributions of real data trends had distinctly different patterns or red inner-city areas, while some of the plots in each lineup may have shared similar features.
+
+The choice ``None of these reasons'' was used as the default value to minimise noise from participants who did not select a response.
 
 \begin{table}
 
@@ -906,10 +922,8 @@ Trend & Detected & Choro. & Hex.\\
 \end{tabular}
 \end{table}
 
-The most common choice made by participant was clusters, this response was expected when participants viewed the Hexagon display of the All Cities and Three Cities distributions.
-
-\hypertarget{anomolies}{%
-\subsection{Anomolies}\label{anomolies}}
+\hypertarget{choices}{%
+\subsection{Choices}\label{choices}}
 
 The choices made by participants are examined in Fig. \ref{fig:choices}.
 Participants were misled by the choropleth display, but not the hexagon display for All Cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. \ref{fig:choices}.
@@ -919,19 +933,6 @@ Participants were misled by the choropleth display, but not the hexagon display 
 \includegraphics{paper_files/figure-latex/choices-1.pdf}
 \caption{\label{fig:choices}Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.}
 \end{figure}
-
-One lineup had extremely similiar detection rates for the Choropleth and Hexagon displays.
-
-\includegraphics{paper_files/figure-latex/unnamed-chunk-1-1.pdf}
-
-\begin{figure}
-\centering
-\includegraphics{figures/aus_nwse_6_hex.png}
-\caption{``A North-West to South East trend was hidden in this lineup of hexagon tile map displays.''}
-\end{figure}
-
-\hypertarget{certainty-1}{%
-\subsubsection{Certainty}\label{certainty-1}}
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
@@ -953,7 +954,7 @@ The population density structure of Australia can be considered similar to that 
 \hypertarget{training}{%
 \subsection{Training}\label{training}}
 
-The participants were trained using three displays. There were relatively simple lineups and are shown in Fig.XXX.
+The participants were trained using three displays. There were relatively simple lineups and are shown in Fig. \ref{fig:training1} and Fig. \ref{fig:training2}.
 
 \begin{figure}
 \centering
@@ -972,8 +973,7 @@ The participants were trained using three displays. There were relatively simple
 
 The survey application was hosted on a website external to the Figure-Eight platform. Following suggestions in the documentation, the information and training required for a participant to make a decision was included that survey
 
-The demonstrative images of the \texttt{shinydashboard} web application display the demographic and consent page in Figure
-\ref{fig:survey-demogs}.
+The demonstrative images of the \texttt{shinydashboard} web application display the demographic and consent page in Fig. \ref{fig:survey-demogs}.
 
 \begin{figure}
 \centering
@@ -1002,18 +1002,18 @@ Lineups were created using the Australian Statistical Areas at Level 3.
 
 \begin{figure}
 \centering
-\includegraphics{figures/aus_cities_3_geo.png}
-\caption{The lineup of choropleth map displays hides a distribution that affects all capital cities.}
+\includegraphics{paper_files/figure-latex/cities-geo-1.pdf}
+\caption{\label{fig:cities-geo}The lineup of choropleth map displays hides a distribution that affects all capital cities.}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics{figures/aus_cities_3_hex.png}
-\caption{The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities.}
+\includegraphics{paper_files/figure-latex/cities-hex-1.pdf}
+\caption{\label{fig:cities-hex}The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities.}
 \end{figure}
 
-The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. There were no other choropleth maps that were coloured as blue as map (3). This meant the detection rate was quite high, participants were able to select the correct distribution without being able to see the values of the capital cities.
-The same data showed in the hexagon tile map display shows varied distributions across the lineup. They are more diverse in colour than the choropleth counterparts. The same location holds the real data plot, the red city centres are now visible and surrounded by yellow, and then blue hexagons.
+The higher values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. There were no other choropleth maps that were coloured as blue as map (3). This meant the detection rate was quite high, participants were able to select the correct distribution without being able to see the values of the capital cities.
+The same data showed in the hexagon tile map display shows varied distributions across the lineup. They are more diverse in colour than the choropleth counterparts. The same location holds the real data plot, the red city centres are now visible and surrounded by yellow, and then blue hexagons. For different reasons the participants were able to make the same correct choice.
 
 \hypertarget{overall-performance}{%
 \subsection{Overall Performance}\label{overall-performance}}
@@ -1030,11 +1030,15 @@ The same data showed in the hexagon tile map display shows varied distributions 
 \hypertarget{demographics}{%
 \subsection{Demographics:}\label{demographics}}
 
+\begin{figure}
+\centering
 \includegraphics{paper_files/figure-latex/demogs-1.pdf}
+\caption{\label{fig:demogs}The distribution of age groups of pariticpants.}
+\end{figure}
 
 \begin{tabular}{lr}
 \toprule
-gender & n\\
+Gender & Amount\\
 \midrule
 He & 67\\
 She & 25\\
@@ -1043,11 +1047,11 @@ She & 25\\
 
 \begin{tabular}{lr}
 \toprule
-education & n\\
+Education & Amount\\
 \midrule
-Bach & 56\\
-High School & 23\\
-Masters & 13\\
+High School Diploma & 23\\
+Bachelors Degree & 56\\
+Masters Degree & 13\\
 \bottomrule
 \end{tabular}
 
