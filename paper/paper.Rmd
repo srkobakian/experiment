@@ -812,10 +812,10 @@ References {#references .numbered}
 
 \newpage
 
-Acknowledgment
+Acknowledgments
 ==============
 
-The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations. They would also like to thank Distinguished Professor Kerrie Mengersen and Doctor Earl Duncan for suggestions and comments.
+The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitch O'Hara-Wild was a co-developer of the taipan R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the numbats (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study. 
 
 The source code to produce this document can be found on [GitHub](https://github.com/srkobakian/experiment/tree/master/paper).
 Supplementary materials have been included to discuss the survey procedures, 
