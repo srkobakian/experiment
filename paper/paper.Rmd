@@ -304,21 +304,21 @@ The lineup protocol expects that the participants are uninvolved judges with no 
 
 Participants were allocated to either group A or group B when they proceeded to the survey web application, which was hosted externally to the Figure-Eight website. There were 95 participants involved in the study. All participants read introductory materials, and was trained using three test displays, to orient them to the evaluation task. All participants who completed the task were compensated $USD5 for their time, via the Figure-Eight payment system.
 
-## Variables
+## Experimental factors
 
-The variables changed between groups were the type of plot shown and the trend model.
+<!-- The variables changed between groups were the type of plot shown and the trend model.-->
 
-A combination of map type and spatial trend model created the twenty-four lineup displays. We split this set of displays into a collection of twelve displays for Group A and twelve displays for Group B. 
-The random allocation of participants to Group A or Group B resulted in 42 participants allocated to Group A and 53 participants allocated to Group B.
-    
-The levels of the factors measured in the experiment were:
+The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the liver cancer data (Figure \ref{fig:liver}). This produces six treatment levels:
 
   - Map type: *Choropleth, Hexagon tile*
-  - Trend: *Locations in three population centres, Locations in multiple population centres, South-East to North-West*
+  - Trend: *South-East to North-West; Locations in three population centres; Locations in multiple population centres, *
 
-Each group did not see the same data for both map types. We generated four simulated sets of data for each treatment.
+Data is generated for each of the trend models, with four replicates, and each displayed both as a choropleth and as a hexagon tile map, which yields 12 data sets, and 24 data plots. This set of displays is divided in half, providing two sets of 12 displays, Group A and Group B. Participants were randomly allocated to Group A or B. Participants saw a data set only once, with as a choropleth or as a hexagon tile map. Table \ref{tab:exp-design} summarise the design. (XXX Maybe replace this table with your diagram illustrating the design??)
+
+<!-- Each group did not see the same data for both map types. We generated four simulated sets of data for each treatment.
 This will generate twenty-four lineups (twelve lineups of geographic maps and twelve lineups of hexagon tile maps). Participants evaluated twelve lineups, size of each map type.
-For each of the six geographic displays and six hexagon displays, two of each trend model were shown to the participants. We outline the design in Table. \ref{tab:exp-design}.
+For each of the six geographic displays and six hexagon displays, two of each trend model were shown to the participants. We outline the design in Table \ref{tab:exp-design}.
+--> 
 
 ```{r exp-design, results = "asis"}
 d %>% 
@@ -335,11 +335,11 @@ d %>%
   collapse_rows(., columns = 1, custom_latex_hline = c(1:3))
 ```
 
-The variables measured as a result of the changes were the probability of detection each display and the time taken to submit responses.
+<!-- The variables measured as a result of the changes were the probability of detection each display and the time taken to submit responses.
 To measure the accuracy of the detections, the plot chosen for each lineup evaluated was compared to the position of the real spatial trend plot in the lineup. A correct result occurs when the chosen plot matches the position of the real plot, this was recorded in an additional binary variable; 1 = correct; 0 = incorrect.
-High efficiency occurs when a small amount of time is taken to evaluate each lineup. This will be measured as the numeric variable measuring the length of time taken to submit the answers to the evaluation of each line up.
+High efficiency occurs when a small amount of time is taken to evaluate each lineup. This will be measured as the numeric variable measuring the length of time taken to submit the answers to the evaluation of each line up.-->
 
-## Simulation process
+## Generating null data
 
 The lineup protocol allows a known model to be imposed on the null data set plots.
 The underlying spatial correlation model was created to provide spatial autocorrelation between neighboring areas using the longitude and latitude values for the Statistical Areas.
