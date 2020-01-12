@@ -22,8 +22,8 @@ affiliation:
 keywords: ["statistics", "visual inference", "geospatial", "population"]
 abstract: |
   The choropleth map display is commonly used for communicating spatial distributions across geographic areas. However, when choropleths are used, the sizes of areas can lead to misinterpretation of the distribution. The visualisation method used to present geospatial data will influence the understanding of the distribution derived by map users. Choosing an effective alternative display could positively influence the communication of the spatial distribution. The hexagon tile map is presented as an alternative display for effectively visualising population related distributions. Visual inference is used to measure the power of design, and the choropleth is used as a comparison. The hexagon tile map display is also tested using a distribution that is directly related to the geography, with values monotonically decreasing from the North West to South East areas of Australia. This study finds the single map in a hexagon tile map lineup that contains a population related distribution is detected with greater probability than the same data displayed in a choropleth map. These findings should encourage map creators to implement alternative displays, and consider a hexagon tile map when presenting spatial distributions of heterogeneous areas.
-dev: png
-bibliography: mybibfile.bib
+dev: pdf
+bibliography: paper.bib
 output:
   bookdown::pdf_book: 
       base_format: rticles::ieee_article
@@ -815,6 +815,7 @@ The source code to produce this document can be found on [GitHub](https://github
 Supplementary materials have been included to discuss the survey procedures, 
 
 The analysis of the work was completed in R [@RCore] with the use of the following packages:
+
  - For document creation: rmarkdown [@rmarkdown], rticles [@rticles], knitr [@knitr].
  - For lineup creation and data analysis: tidyverse [@tidyverse], nullabor [@nullabor], ggthemes [@ggthemes], RColorBrewer [@RColorBrewer].
  - For image displays: cowplot [@cowplot], png [@png], grid [@grid].

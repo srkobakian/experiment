@@ -1,8 +1,11 @@
 ---
 title: "Visual Inference Lineups"
 author: "Stephanie Kobakian and Dianne Cook"
-output: bookdown::pdf_document
-link_citatons: true
+output: pdf_document
+bibliography: supplementary.bib
+link-citations: true
+citation_package: biblatex
+csl: springer-vancouver.csl
 ---
 
 ```{r setup, include=FALSE}
@@ -122,11 +125,18 @@ plots <- d %>% group_by(group, trend, type, location) %>%
 
 ## Lineups
 
-The choices made by participants are examined in Fig. \ref{fig:choices}.
-Participants were misled by the choropleth display, but not the hexagon display for All Cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. \ref{fig:choices}.
+Each lineup had twelve map displays, this gave participants the choice of any plot, and the choice to not provide a response. this non-reponse is indicated by 0.
+The choices made by participants are displayed in Fig. \ref{fig:choices}. The height of each orange lollipop indiates the proportion of participants that selected the map display of real data, they represent the correct choices.
+The green lollipops show the proportion of participants that selected the incorrect displays in each lineup.
 
 
-```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 8, fig.width =6}
+The proportion of choices are also presented separately for each trend model in Table. \ref{tab:choice-nwse}, Table. \ref{tab:choice-three}, and  Table. \ref{tab:choice-all}.
+The correct map display in lineups with a North West to South East trend was chosen correctly with much greater frequency. 
+In the lineups of All Cities displays, participants were misled by the choropleth display, but not the hexagon display for all except (2). 
+All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. \ref{fig:choices}.
+
+
+```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 8, fig.width =6, results = "asis"}
 d %>% 
   count(type, trend, choice, replicate, choice, detect_f) %>% 
   group_by(type, trend, replicate) %>% 
@@ -157,7 +167,8 @@ choice_tabs <- d %>%
   mutate(bottom = 0) %>% 
   select(Trend = trend, Rep = replicate, Type = type, prop, choice) %>% 
   spread(choice, prop, fill = "0") %>% 
-  nest(-Trend)
+  nest(data = c(Rep, Type, `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, 
+    `10`, `11`, `12`))
 ```
 
 ```{r choice-nwse}
