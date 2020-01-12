@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  12 JAN 2020 15:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  12 JAN 2020 16:22
 entering extended mode
 **./lineups.tex
 (lineups.tex
@@ -802,7 +802,7 @@ LaTeX Warning: Reference `fig:pdetect-trend' on page 1 undefined on input line
 96.
 
 
-LaTeX Warning: Reference `fig:pdetection_group' on page 1 undefined on input li
+LaTeX Warning: Reference `fig:pdetection-group' on page 1 undefined on input li
 ne 98.
 
 <lineups_files/figure-latex/pdetect-trend-1.pdf, id=4, 469.755pt x 325.215pt>
@@ -941,10 +941,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14871 strings out of 492484
- 215754 string characters out of 3130514
+ 14870 strings out of 492484
+ 215732 string characters out of 3130514
  362330 words of memory out of 3000000
- 18853 multiletter control sequences out of 15000+200000
+ 18852 multiletter control sequences out of 15000+200000
  48891 words of font info for 78 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  46i,11n,42p,808b,337s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -953,7 +953,7 @@ iKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
 ype1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
 r10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Progra
 m Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb>
-Output written on lineups.pdf (9 pages, 1963459 bytes).
+Output written on lineups.pdf (9 pages, 1963427 bytes).
 PDF statistics:
  147 PDF objects out of 1000 (max. 8388607)
  26 named destinations out of 1000 (max. 500000)

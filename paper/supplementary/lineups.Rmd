@@ -162,7 +162,6 @@ plots %>% ggplot(aes(x = type, y = pdetect, fill = type)) +
 
 
 
-
 # Lineups
 
 Each lineup had twelve map displays, this gave participants the choice of any plot, and the choice to not provide a response. this non-reponse is indicated by 0.
