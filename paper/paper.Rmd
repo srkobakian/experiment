@@ -171,26 +171,11 @@ This study compares the effectiveness of a new type of display, a hexagon tile m
 
 The hexagon tile map was designed for Australia, motivated by a need to display spatial statistics for a new Australian Cancer Atlas. None of the existing approaches for creating cartograms or hexagon tiling perform well for the Australian landscape, which has vast open spaces and concentrations of population in small regions clustered on the coastlines. 
 
-<!-- This alternative display is suggested for communicating distributions that relate to the population values or density of the population in each geographic unit. This study uses the lineup protocol for visual inference testing of the recognition of spatial distributions. The Australian Cancer Atlas explores spatial distributions of cancer incidence and the burden on Australian communities. The spatial distributions of the cancers explored in this atlas inspired the trend models presented to participants in this study. 
-
-Motivation
-=============
-!-- Find a new display for the Cancer Atlas --
-
-## The Australian Cancer Atlas
--->
-
 The Australian Cancer Atlas [@atlas] is an online interactive web tool created to explore the burden of cancer on Australian communities. There are many cancer types to be explored individually or aggregated. The Australian Cancer Atlas allows users to explore the patterns in the distributions of cancer statistics over the geographic space of Australia. It uses a choropleth map display and diverging color scheme to draw attention to relationships between neighboring areas. The hexagon tile map may be a useful alternative display for the atlas. 
 
 The experiment was conducted using the lineup protocol, a visual inference procedure [@GIIV], to objectively test the effectiveness of the two displays. 
 
 The paper is organised as follows. The next section discusses the background of geographic data display and visual inference procedures. The [Methodology] Section describes the methods for conducting the experiment and analysing the results. The results are summarized in Section [Results]. 
-
-<!--
-The Atlas examines Australian communities at the Statistical Areas at Level 2 (SA2) [@abs2016] used by the Australian Bureau of Statistics. Bayesian spatial smoothing was applied to integrate the values of neighboring areas. Spatial smoothing protects the privacy and gives stability to the estimated amounts in each SA2. Users of the Atlas can explore the difference of the statistic of each SA2 from the Australian average, for both diagnoses (Standardised Incidence Rates) and excess deaths. It communicates the value of the statistic for each SA2 geographic unit through color, by filling the areas using the diverging color scheme ranging from dark blue to red. 
--->
-
-
 Background
 =============
 
@@ -235,7 +220,7 @@ A cartogram is a general solution for better displaying a population-based stati
 Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method [@NAC] keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram [@ACTUC] represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by Raisz [-@RSCW], using rectangles that tile to align borders of neighbours [@CDWCS]. A thorough review of the array of methods, as suitable for cancer atlas displays is available in XXX.
 
 <!-- Hexagon tile map -->
-The hexagon tile map algorithm, autmatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag (XXX REF). Figure \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas are expanded out, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is oof interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
+The hexagon tile map algorithm, autmatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag [@sugarbag]. Figure \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas are expanded out, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is oof interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
 
 <!-- Specific problem for Australia 
 Australia is an extreme case of heterogeneous geographic units, with the large differences between the smallest and largest geographic units across various granularities.
@@ -256,9 +241,14 @@ To do hypothesis testing with the lineup protocol requires human evaluation. The
 
 The null hypothesis is explicitly provided by the grammatical plot description. For example, if a histogram is the plot type being used, the null might be that the underlying distribution of the data is a Gaussian. Null data would be generated by simulating from a normal model, with the same mean and standard deviation as the data. In practice, the null hypothesis used is generic, such as *there is NO structure or a pattern in the plot*, and contrasted to an alternative that there is structure. 
 
-The chance that an observer picks the data plot out of a lineup of size $m$ plots accidentally, if the null hypothesis is true is $/m$. With $K$ observers, the probability of $k$ randomly choosing the data plot, roughly follows a binomial distribution with $p=1/m$. Figure XXX (this needs to be placed near here) shows a lineup of the hexagon tile map, of size $m=12$. Plot XXX is the data plot, and the remaining 11 are plots of null data. 
+The chance that an observer picks the data plot out of a lineup of size $m$ plots accidentally, if the null hypothesis is true is $1/m$. With $K$ observers, the probability of $k$ randomly choosing the data plot, roughly follows a binomial distribution with $p=1/m$. Fig. \ref{fig:lineup} shows a lineup of the hexagon tile map, of size $m=12$. Plot 3 is the data plot, and the remaining 11 are plots of null data. 
 
-In order to determine the effectiveness of a type of display, this probability is less relevant than the overall proportion of observers who pick the data plot, $k/K$. The power of the test statistic (data plot) is provided by this proportion. Power in a statistical sense is the ability oof the statistic to *produce a rejection* of the null hypothesis, if it is indeed *not true*. With the same data plotted using two different displays, the display with the highest proportion of people who choose the data plot would be considered to be the most powerful statistic. 
+```{r lineup, fig.cap = "This lineup of twelve hexagon tile map displays contains one map with a real population related structure. The rest are null plots that contain spatial correlation between neighbours.", fig.height = 8, fig.width = 8}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("figures/aus_cities_3_geo.png")))
+```
+
+In order to determine the effectiveness of a type of display, this probability is less relevant than the overall proportion of observers who pick the data plot, $k/K$. The power of the test statistic (data plot) is provided by this proportion. Power in a statistical sense is the ability of the statistic to *produce a rejection* of the null hypothesis, if it is indeed *not true*. With the same data plotted using two different displays, the display with the highest proportion of people who choose the data plot would be considered to be the most powerful statistic. 
 
 <!-- The lineup protocol was formalized as a test for the effectiveness of a visualization. Rather than classical statistical tests, it tasks human participants with finding the display that shows structure between the variables. If they do not detect the structure, then it is not significantly different from the null data.
 
@@ -303,31 +293,16 @@ The detection rate $\hat\pi$ is calculated as the amount of people that made the
 
 <!-- The variables changed between groups were the type of plot shown and the trend model.-->
 
-The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the liver cancer data (Figure \ref{fig:liver}). This produces six treatment levels:
+The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the liver cancer data (Fig. \ref{fig:liver}). This produces six treatment levels:
 
   - Map type: *Choropleth, Hexagon tile*
   - Trend: *South-East to North-West; Locations in three population centres; Locations in multiple population centres, *
 
-Data is generated for each of the trend models, with four replicates, and each displayed both as a choropleth and as a hexagon tile map, which yields 12 data sets, and 24 data plots. This set of displays is divided in half, providing two sets of 12 displays, Group A and Group B. Participants were randomly allocated to Group A or B. Participants saw a data set only once, with as a choropleth or as a hexagon tile map. Table \ref{tab:exp-design} summarise the design. (XXX Maybe replace this table with your diagram illustrating the design??)
+Data is generated for each of the trend models, with four replicates, and each displayed both as a choropleth and as a hexagon tile map, which yields 12 data sets, and 24 data plots. This set of displays is divided in half, providing two sets of 12 displays, Group A and Group B. Participants were randomly allocated to Group A or B. Participants saw a data set only once, with as a choropleth or as a hexagon tile map. Table \ref{fig:exp-design} summarises the design. (XXX Maybe replace this table with your diagram illustrating the design??)
 
-<!-- Each group did not see the same data for both map types. We generated four simulated sets of data for each treatment.
-This will generate twenty-four lineups (twelve lineups of geographic maps and twelve lineups of hexagon tile maps). Participants evaluated twelve lineups, size of each map type.
-For each of the six geographic displays and six hexagon displays, two of each trend model were shown to the participants. We outline the design in Table \ref{tab:exp-design}.
---> 
 
-```{r exp-design, results = "asis"}
-d %>% 
-  mutate(Trend = trend,
-    Group = group,
-    `Map Type` = type) %>% 
-  group_by(Group, Trend, `Map Type`) %>% 
-  summarise(Reps = paste0(sort(unique(replicate)), collapse = ", ")) %>% 
-  pivot_wider(names_from = c("Map Type"), values_from = c("Reps")) %>% 
-  ungroup() %>% 
-  knitr::kable(., format = "latex", booktabs = TRUE, 
-    linesep = c("", "", "\\addlinespace"),
-    caption = "The experimental design results in the following allocation of replicate data sets within each trend model to groups A and B.") %>% kable_styling(bootstrap_options = "hold_position") %>% 
-  collapse_rows(., columns = 1, custom_latex_hline = c(1:3))
+```{r exp-design, results = "asis", fig.width = 8, fig.height = 8}
+ggdraw(xlim = c(0,1), ylim = c(0,1)) + draw_plot(rasterGrob(png::readPNG("figures/experiment_design.png")))
 ```
 
 <!-- The variables measured as a result of the changes were the probability of detection each display and the time taken to submit responses.
@@ -526,7 +501,7 @@ Of the 92 participants, 67 were male, and 25 female. Most participants (56) had 
 
 ## Accuracy
 
-Fig. \ref{fig:detect-compare} displays the average detection rates for the two types of plot separately for each trend model. Each trend model was tested using four repetitions, evaluations on the same data set were seen as either choropleths or hexagon tile maps by each group as specified in Table. \ref{tab:exp-design}; the detection rates for each display are connected by a line segment. The Three Cities and All Cities trend models shown in the hexagon tile map allowed viewers to detect the data plot substantially more often than the choropleth counterparts. One replicate for the All Cities group, had similar detection rates for both plot type. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
+Fig. \ref{fig:detect-compare} displays the average detection rates for the two types of plot separately for each trend model. Each trend model was tested using four repetitions, evaluations on the same data set were seen as either choropleths or hexagon tile maps by each group as specified in Table. \ref{fig:exp-design}; the detection rates for each display are connected by a line segment. The Three Cities and All Cities trend models shown in the hexagon tile map allowed viewers to detect the data plot substantially more often than the choropleth counterparts. One replicate for the All Cities group, had similar detection rates for both plot type. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
 
 ```{r detect-compare, fig.cap = "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or haxgon tile map display are linked to show the difference in the detection rate.", fig.height=4}
 # Detectability rate for each lineup (image)
