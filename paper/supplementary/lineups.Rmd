@@ -1,7 +1,8 @@
 ---
 title: "Visual Inference Lineups"
 author: "Stephanie Kobakian and Dianne Cook"
-output: pdf_document
+output: bookdown::pdf_document
+link_citatons: true
 ---
 
 ```{r setup, include=FALSE}
@@ -9,7 +10,9 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
 ```{r data}
+
 library(tidyverse)
+library(readxl)
 library(cowplot)
 library(png)
 library(grid)
@@ -92,6 +95,7 @@ replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.p
 d <- d %>% left_join(., replicate, by = "image_name")
 ```
 
+
 ```{r pdetection_group}
 # Tidy for analysis
 d <- d %>% 
@@ -115,11 +119,11 @@ plots <- d %>% group_by(group, trend, type, location) %>%
   summarise(pdetect = length(detect[detect == 1])/length(detect)) 
 ```
 
+
 ## Lineups
 
 The choices made by participants are examined in Fig. \ref{fig:choices}.
 Participants were misled by the choropleth display, but not the hexagon display for All Cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. \ref{fig:choices}.
-
 
 
 ```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 8, fig.width =6}
@@ -143,6 +147,43 @@ d %>%
   theme(strip.text.y = element_text(angle = 0))
 ```
 
+
+```{r}
+choice_tabs <- d %>% 
+  count(trend, type, choice, replicate, choice, detect) %>% 
+  group_by(trend, type, replicate) %>% 
+  mutate(prop = round(n/sum(n), 2)) %>% 
+  mutate(repl = paste("Rep:", replicate, ":\n", type,  sep = "")) %>%
+  mutate(bottom = 0) %>% 
+  select(Trend = trend, Rep = replicate, Type = type, prop, choice) %>% 
+  spread(choice, prop, fill = "0") %>% 
+  nest(-Trend)
+```
+
+```{r choice-nwse}
+knitr::kable(choice_tabs$data[[1]], format = "latex", align = "rrrrrrrrrrrrrr",
+  caption = "NW-SE") %>%
+  collapse_rows(., columns = c(1,2))
+```
+
+
+
+```{r choice-three}
+knitr::kable(choice_tabs$data[[2]], format = "latex", align = "rrrrrrrrrrrrrr",
+  caption = "Three Cities") %>%
+  collapse_rows(., columns = c(1,2))
+```
+
+
+```{r choice-all}
+knitr::kable(choice_tabs$data[[3]], format = "latex", align = "rrrrrrrrrrrrrr",
+  caption = "All Cities") %>%
+  collapse_rows(., columns = c(1,2))
+```
+
+
+
+
 # All cities Example 1:
 
 The same data set is shown in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. 
@@ -152,7 +193,7 @@ Lineups were created using the Australian Statistical Areas at Level 3.
 
 Replicate 3 of the All Cities distribution is shown in Fig. \ref{fig:cities-geo4} and Fig. \ref{fig:cities-hex4}. 
 
-```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities.", fig.width = 4, fig.height = 4}
+```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities.", fig.width = 5, fig.height = 4}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/aus_cities_4_geo.png")))
 ```
