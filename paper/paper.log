@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  12 JAN 2020 16:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  12 JAN 2020 16:54
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -479,42 +479,51 @@ LaTeX Info: Redefining \nameref on input line 367.
 
 
 ]
-<paper_files/figure-latex/liver-1.pdf, id=139, 433.62pt x 650.43pt>
+<paper_files/figure-latex/liver-1.pdf, id=140, 433.62pt x 650.43pt>
 File: paper_files/figure-latex/liver-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/liver-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/liver-1.pdf  used on input li
-ne 527.
+ne 518.
 (pdftex.def)             Requested size: 252.0pt x 378.00394pt.
-[2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
-has been already used, duplicate ignored
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.542 
-       <./paper_files/figure-latex/liver-1.pdf>]
+Overfull \hbox (10.0pt too wide) in paragraph at lines 518--519
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+LaTeX Warning: Reference `fig:liver' on page 2 undefined on input line 521.
+
+[2 <./paper_files/figure-latex/liver-1.pdf>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 546.
+(Font)              <7> on input line 535.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 546.
+(Font)              <5> on input line 535.
 LaTeX Font Info:    Trying to load font information for OML+ptm on input line 5
-80.
+69.
 (C:\Users\steff\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\omlptm.fd
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 580.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 569.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 623.
+(Font)              <8> on input line 612.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 623.
+(Font)              <6> on input line 612.
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 727--734
+
+LaTeX Warning: Reference `fig:liver' on page 4 undefined on input line 644.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 716--723
 []\OT1/ptm/m/n/10 Then $\OML/cmm/m/it/10 x[]; x[]; :::; x[]$ \OT1/ptm/m/n/10 fo
 l-lows a multi-no-mial
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 727--734
+Underfull \hbox (badness 1430) in paragraph at lines 716--723
 \OT1/ptm/m/n/10 ob-server, which we can es-ti-mate as $[] \OT1/cmr/m/n/10 = \OM
 L/cmm/m/it/10 x[]=n$\OT1/ptm/m/n/10 . The
  []
@@ -524,82 +533,80 @@ as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.739 
+l.723 
       ]
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 7
-63.
+52.
 (C:\Users\steff\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-<paper_files/figure-latex/detect-compare-1.pdf, id=205, 469.755pt x 289.08pt>
+<paper_files/figure-latex/detect-compare-1.pdf, id=201, 469.755pt x 289.08pt>
 File: paper_files/figure-latex/detect-compare-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/detect-compare-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/detect-compare-1.pdf  used on
- input line 802.
+ input line 791.
 (pdftex.def)             Requested size: 252.0pt x 155.07751pt.
-[5pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
+[5]
+<paper_files/figure-latex/beeswarm-1.pdf, id=224, 469.755pt x 578.16pt>
+File: paper_files/figure-latex/beeswarm-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/beeswarm-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/beeswarm-1.pdf  used on input
+ line 850.
+(pdftex.def)             Requested size: 252.0pt x 310.15504pt.
+<paper_files/figure-latex/certainty-1.pdf, id=226, 469.755pt x 361.35pt>
+File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/certainty-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
+t line 866.
+(pdftex.def)             Requested size: 252.0pt x 193.84691pt.
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.808 
-       <./paper_files/figure-latex/detect-compare-1.pdf>]
-<paper_files/figure-latex/beeswarm-1.pdf, id=231, 469.755pt x 578.16pt>
-File: paper_files/figure-latex/beeswarm-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/beeswarm-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/beeswarm-1.pdf  used on input
- line 861.
-(pdftex.def)             Requested size: 252.0pt x 310.15504pt.
-[6pdfTeX warning (ext4): destination with the same identifier (name{table.2}) h
-as been already used, duplicate ignored
+l.878 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.2
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.874 
+l.878 
       pdfTeX warning (ext4): destination with the same identifier (name{table.3
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.874 
+l.878 
+       <./paper_files/figure-latex/detect-compare-1.pdf>]
+
+LaTeX Warning: Reference `fig:reason' on page 7 undefined on input line 921.
+
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.923 
       pdfTeX warning (ext4): destination with the same identifier (name{figure.
 3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.874 
-       <./paper_files/figure-latex/beeswarm-1.pdf>]
-<paper_files/figure-latex/certainty-1.pdf, id=253, 469.755pt x 361.35pt>
-File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/certainty-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
-t line 877.
-(pdftex.def)             Requested size: 252.0pt x 193.84691pt.
-
-LaTeX Warning: Reference `fig:choices' on page 7 undefined on input line 929.
-
-
-LaTeX Warning: Reference `fig:reason' on page 7 undefined on input line 932.
-
-[7pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) 
-has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.934 
+l.923 
       pdfTeX warning (ext4): destination with the same identifier (name{table.4
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.934 
-       <./paper_files/figure-latex/certainty-1.pdf>] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 995--997
+l.923 
+       <./paper_files/figure-latex/beeswarm-1.pdf> <./paper_files/figure-latex/
+certainty-1.pdf>] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 984--986
 [][]\OT1/ptm/m/n/10 2. Queens-land CC Aus-tralian Can-cer At-las
  []
 
 
-Underfull \hbox (badness 5245) in paragraph at lines 1055--1057
+Underfull \hbox (badness 5245) in paragraph at lines 1044--1046
 [][]\OT1/ptm/m/n/10 22. Neuwirth E (2014) RCol-or-Brewer: Col-or-Brewer
  []
 
@@ -615,30 +622,30 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1070.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1059.
 [10
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1070.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1059.
 (paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1070.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1070.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1059.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1059.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: AF665948B981F6FF89AB78D5B3056DE1;3392.
+(rerunfilecheck)             Checksum: 4CAE2C02FC92CFAE1702FE76BAA09E6A;3357.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1070.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1059.
  ) 
 Here is how much of TeX's memory you used:
- 11455 strings out of 492484
- 166357 string characters out of 3130514
- 263688 words of memory out of 3000000
+ 11454 strings out of 492484
+ 166335 string characters out of 3130514
+ 263369 words of memory out of 3000000
  15534 multiletter control sequences out of 15000+200000
  38282 words of font info for 74 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
- 39i,11n,37p,1272b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,11n,37p,1272b,319s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
@@ -654,9 +661,9 @@ nts/type1/urw/times/utmb8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.9/fonts
 /type1/urw/times/utmbi8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.9/fonts/t
 ype1/urw/times/utmr8a.pfb><C:/Users/steff/AppData/Roaming/MiKTeX/2.9/fonts/type
 1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (10 pages, 527986 bytes).
+Output written on paper.pdf (10 pages, 528035 bytes).
 PDF statistics:
  383 PDF objects out of 1000 (max. 8388607)
- 100 named destinations out of 1000 (max. 500000)
+ 99 named destinations out of 1000 (max. 500000)
  229 words of extra memory for PDF output out of 10000 (max. 10000000)
 
