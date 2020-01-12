@@ -338,9 +338,7 @@
 
 % Pandoc syntax highlighting
 
-
 % Pandoc header
-\usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -355,6 +353,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+
+\usepackage{graphicx}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -509,17 +509,15 @@ The paper is organised as follows. The next section discusses the background of 
 
 Spatial visualisations communicate the distribution of statistics over geographic landscapes. The choropleth map {[}\protect\hyperlink{ref-EI}{4}{]}, {[}\protect\hyperlink{ref-BCM}{5}{]} is a traditional display. It is used to present statistics that have been aggregated on geographic units. Creating a choropleth map involves drawing polygons representing the administrative boundaries, and filling with colour mapped to the value of the statistic. The choropleth map places the statistic in the context of the spatial domain, so that the reader can see whether there are spatial trends, clusters or anomalies. This is important for digesting disease patterns. If there is a trend it may imply that the disease is spreading from one location to another. If there is a cluster, or an anomaly, there may be a localized outbreak of the disease. Aggregating the statistic on administrative units, provides a level of privacy to individuals, while allowing the impact of the disease on the community to be analyzed.
 
+\includegraphics{paper_files/figure-latex/liver-1.pdf}
+
 The choropleth map is effective if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. A choropleth map focuses attention on the geography, and for heterogeously sized areas it presents a biased view of the population related distribution of the statistic {[}\protect\hyperlink{ref-CBATCC}{6}{]}. \emph{Land doesn't get cancer, people do} -- a more effective way to communicate the spatial distributions of cancer statistics is needed.
 
 A cartogram is a general solution for better displaying a population-based statistic. It transforms the geographic map base to reflect the population in the geographic region, while preserving some aspects of the geographic location. There are several cartogram algorithms {[}\protect\hyperlink{ref-ACTUC}{7}{]}, {[}\protect\hyperlink{ref-CBATCC}{6}{]}; each involves shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map. The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units but can result in losing the familiar geographic information. For Australia, the transformations warp the country so that it is no longer recognizable.
 
 Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method {[}\protect\hyperlink{ref-NAC}{8}{]} keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram {[}\protect\hyperlink{ref-ACTUC}{7}{]} represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by Raisz {[}\protect\hyperlink{ref-RSCW}{9}{]}, using rectangles that tile to align borders of neighbours {[}\protect\hyperlink{ref-CDWCS}{10}{]}. A thorough review of the array of methods, as suitable for cancer atlas displays is available in XXX.
 
-\includegraphics{paper_files/figure-latex/liver-1.pdf}
-
-Australia is an extreme case of heterogeneous geographic units, with the large differences between the smallest and largest geographic units across various granularities.
-To communicate information regarding the small inner-city geographic units of Australian cities, an alternative display must be employed. This will emphasize the value of the statistic for areas with a high population. Fig. \ref{fig:liver} shows the distribution of the smoothed average amount of liver cancer diagnoses for Australian Males from 2005 to 2014.
-These inner-city areas are not visible on the choropleth map (a). The hexagon tile map (b) shows orange hexagons for the inner-city SA2s with higher than average levels of diagnoses in the capital cities of Melbourne and Sydney. The northern Queensland and Northern Territory SA2s with higher than average rates are still visible but use less map space on the hexagon tile map. There are still many light blue areas in both displays.
+The hexagon tile map algorithm, autmatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag (XXX REF). Figure \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas are expanded out, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is oof interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
 
 \hypertarget{visual-inference}{%
 \subsection{Visual Inference}\label{visual-inference}}
