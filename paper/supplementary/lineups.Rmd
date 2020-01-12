@@ -1,0 +1,184 @@
+---
+title: "Visual Inference Lineups"
+author: "Stephanie Kobakian and Dianne Cook"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r data}
+library(tidyverse)
+library(cowplot)
+library(png)
+library(grid)
+library(lme4)
+library(ggthemes)
+library(RColorBrewer)
+library(knitr)
+library(kableExtra)
+
+trend_colours <- c(
+  "NW-SE" = "#B2DF8A",
+  "Three Cities" = "#A6CEE3",
+  "All Cities" = "#1F78B4")
+  
+type_colours <- c(
+  "Choro." = "#fcae91",
+  "Hex." = "#a50f15")
+
+detect_f_colours <- c(
+  "No" = "#66C2A5",
+  "Yes" = "#FC8D62")
+
+detect_colours <- c(
+  "Detected? No" = "#66C2A5",
+  "Detected? Yes" = "#FC8D62")
+
+  # Downloaded data
+d <- read_xlsx("../data/experiment-export.xlsx", sheet=2) %>%
+  filter(!is.na(contributor)) %>%
+  mutate(contributor = factor(contributor))
+
+# Check data set 
+# Need to clean multiple entries, 48, 24
+# remove duplicated entries due to submit button
+d <- d %>% group_by(group, contributor, image_name) %>%
+  slice(1) %>% ungroup() %>% 
+  arrange(group, contributor, plot_order)
+
+# Remove contributors who did not provide answers to most questions
+keep <- d %>% count(contributor, sort = TRUE) %>% filter(n > 10)
+d <- d %>% 
+  filter(contributor %in% keep$contributor) %>%
+  filter(contributor != "1234567890")
+
+# Remove contributors who did not provide any choices
+bad_contribs <- d %>% group_by(contributor) %>% 
+  summarise(sum0 = sum(choice)) %>% 
+  filter(sum0 == 0) %>% 
+  pull(contributor)
+
+d <- d %>% 
+  filter(!(contributor %in% bad_contribs))
+
+
+n_contributors <- d %>% count(contributor, sort=TRUE) %>% 
+  summarise(n_contributors = length(contributor))
+
+d <- d %>% mutate(certainty = factor(as.character(certainty),
+  levels = c("1", "2", "3", "4","5"), ordered=TRUE))
+```
+
+
+```{r reps}
+replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
+                                   "aus_cities_3_geo.png", "aus_cities_3_hex.png",
+                                   "aus_cities_4_geo.png", "aus_cities_4_hex.png",
+                                   "aus_cities_9_geo.png", "aus_cities_9_hex.png",
+                                   "aus_nwse_2_geo.png", "aus_nwse_2_hex.png",
+                                   "aus_nwse_3_geo.png", "aus_nwse_3_hex.png",
+                                   "aus_nwse_5_geo.png", "aus_nwse_5_hex.png",
+                                   "aus_nwse_6_geo.png", "aus_nwse_6_hex.png",
+                                   "aus_three_12_geo.png", "aus_three_12_hex.png",
+                                   "aus_three_5_geo.png", "aus_three_5_hex.png",
+                                   "aus_three_8_geo.png", "aus_three_8_hex.png",
+                                   "aus_three_9_geo.png", "aus_three_9_hex.png"),
+                    replicate = c(1, 1, 2, 2, 3, 3, 4, 4, 
+                                  1, 1, 2, 2, 3, 3, 4, 4,
+                                  1, 1, 2, 2, 3, 3, 4, 4))
+# Add rep info to data
+d <- d %>% left_join(., replicate, by = "image_name")
+```
+
+```{r pdetection_group}
+# Tidy for analysis
+d <- d %>% 
+  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) %>%
+  select(-nothing, -extra) %>%
+  mutate(location = as.numeric(location), 
+    # detect measures the accuracy of the choice
+         detect = ifelse(location == choice, 1, 0)) %>% 
+  mutate(trend = case_when(
+    trend == "nwse" ~ "NW-SE",
+    trend == "cities" ~ "All Cities",
+    trend == "three" ~ "Three Cities")) %>% 
+  mutate(trend = fct_relevel(trend, "NW-SE","Three Cities","All Cities")) %>% 
+  mutate(type = case_when(
+    type == "hex" ~"Hex.",
+    TRUE~"Choro.")) %>% 
+    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("Detected? No", "Detected? Yes")))
+
+plots <- d %>% group_by(group, trend, type, location) %>%
+  # pdetect measures the aggregated accuracy of the choices
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) 
+```
+
+## Lineups
+
+The choices made by participants are examined in Fig. \ref{fig:choices}.
+Participants were misled by the choropleth display, but not the hexagon display for All Cities displays except (2). The maps with a North West to South East trend was chosen with much greater frequency in all displays. All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. \ref{fig:choices}.
+
+
+
+```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 8, fig.width =6}
+d %>% 
+  count(type, trend, choice, replicate, choice, detect_f) %>% 
+  group_by(type, trend, replicate) %>% 
+  mutate(prop = n/sum(n)) %>% 
+  mutate(repl = paste("Rep:", replicate, ":\n", type,  sep = "")) %>%
+  mutate(bottom = 0) %>% 
+  ggplot() + 
+  geom_point(aes(x = choice, y = prop, color = detect_f), size = 3) + 
+  geom_segment(aes(x = choice, xend = choice,y = bottom, yend = prop, colour = detect_f), size = 1) +
+  facet_grid(repl ~ trend, 
+    drop = TRUE, as.table = TRUE, scales = "free_y") +
+  labs(x = "Choice of plot in lineup", y = "Amount of choices") +
+  scale_colour_manual(values = detect_colours) +
+  scale_x_continuous(breaks = seq(from = 0, to = 12)) +
+  scale_y_continuous(breaks = seq(from = 0.0, to = 1.0, by = 0.1)) +
+  theme(legend.position = "bottom") + 
+  guides(colour = FALSE, fill = FALSE) +
+  theme(strip.text.y = element_text(angle = 0))
+```
+
+# All cities Example 1:
+
+The same data set is shown in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. 
+
+Lineups were created using the Australian Statistical Areas at Level 3.
+
+
+Replicate 3 of the All Cities distribution is shown in Fig. \ref{fig:cities-geo4} and Fig. \ref{fig:cities-hex4}. 
+
+```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/aus_cities_4_geo.png")))
+```
+
+
+
+```{r cities-hex4, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/aus_cities_4_hex.png")))
+```
+
+
+# All Citites Example 2:
+
+The higher values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. There were no other choropleth maps that were coloured as blue as the map at location 3. This meant the detection rate was quite high, participants were able to select the correct distribution, even without being able to see the colours of inner-city areas of the capital cities.
+
+```{r cities-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/aus_cities_3_geo.png")))
+```
+
+
+The same data showed in the hexagon tile map display shows varied distributions across the lineup. They are more diverse in colour than the choropleth counterparts. The same location, 3, holds the real data plot, the red city centres are now visible and surrounded by yellow, and then blue hexagons. For different reasons the participants were able to make the same correct choice for this replicate, with a detection rate of .
+
+```{r cities-hex3, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/aus_cities_3_hex.png")))
+```
+

@@ -1,0 +1,41 @@
+---
+title: "Survey procedure and participant training"
+author: "Stephanie Kobakian and Dianne Cook"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r libraries}
+library(cowplot)
+library(grid)
+library(gridExtra)
+library(png)
+```
+
+## Lineups
+
+
+
+Replicate 3 of the All Cities distribution is shown in Fig. \ref{fig:cities-geo4} and Fig. \ref{fig:cities-hex4} the correct answer was Location 4 in the displays. The same data set is shown in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. Many maps in the Choropleth lineup (a) are coloured yellow, two are half light blue, and two are obviously blue. Only one of the maps looks red. 
+
+Lineups were created using the Australian Statistical Areas at Level 3.
+
+
+```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("figures/aus_cities_4_geo.png")))
+```
+
+
+
+```{r cities-hex4, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("figures/aus_cities_4_hex.png")))
+```
+
+
+The higher values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. There were no other choropleth maps that were coloured as blue as map (3). This meant the detection rate was quite high, participants were able to select the correct distribution without being able to see the values of the capital cities.
+The same data showed in the hexagon tile map display shows varied distributions across the lineup. They are more diverse in colour than the choropleth counterparts. The same location holds the real data plot, the red city centres are now visible and surrounded by yellow, and then blue hexagons. For different reasons the participants were able to make the same correct choice.

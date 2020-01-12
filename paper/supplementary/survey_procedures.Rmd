@@ -1,0 +1,74 @@
+---
+title: "Survey procedure and participant training"
+author: "Stephanie Kobakian and Dianne Cook"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r libraries}
+library(cowplot)
+library(grid)
+library(gridExtra)
+library(png)
+```
+
+# Survey procedure
+
+Participants were recruited via advertising on the Figure-Eight crowdsource platform.
+Choosing the task from the list directed all potential participants to the page of instructions.
+This page contained written instructions and is shown in Fig. \ref{fig:instruct}. 
+
+
+```{r instruct, results = "asis", fig.cap = "The training lineups of choropleth maps.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/fig8_instruct.png")))
+```
+
+
+## Training
+
+The participants were trained using three displays. There were relatively simple lineups, they are displayed in Fig. \ref{fig:training1} and Fig. \ref{fig:training2}.
+
+
+```{r training1, results = "asis", fig.cap = "The training lineups of choropleth maps.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/fig8_training1.png")))
+```
+
+
+```{r training2, results = "asis", fig.cap = "The training lineups of hexagon tile maps.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/fig8_training2.png")))
+```
+
+
+## Survey application
+
+The survey application was a `shinydashboard` we application, hosted on a website external to the Figure-Eight platform. The link to the survey was located at the bottom of the instructions and training page. Only participants who had read all of the instructions and seen the example image sets continued to the survey via the link.
+This page also contained a question that asked participants for a validation code. The participants unique validation code was generated upon them opening the web application. This code was released to participants when they had considered all twelve lineups and submitted their responses to the `googlesheets` data set. Their validation codes were contained in the data set and associated with each of their responses.
+
+The demographic and consent page of the `shinydashboard` web application are displayed in Fig. \ref{fig:survey-demogs}. Two example lineups are shown, one choropleth map lineup in Fig. \ref{fig:survey-choro} and one heaxgon tile map lineup in Fig. \ref{fig:survey-hex}.
+
+
+```{r survey-demogs, results = "asis", fig.cap = "The demographics questions tab of the shinydashboard survey application.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/survey_demogs.png")))
+```
+
+
+
+```{r survey-choro, results = "asis", fig.cap = "An example of the choropleth map lineup shown in the survey tab of the shinydashboard app.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/survey_choro.png")))
+```
+
+
+
+
+```{r survey-hex, results = "asis", fig.cap = "An example of the hexagon tile map lineup shown in the survey tab of the shinydashboard app.", fig.width = 4, fig.height = 4}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("../figures/survey_hex.png")))
+```
