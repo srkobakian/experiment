@@ -13,7 +13,6 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
 ```{r data}
-
 library(tidyverse)
 library(readxl)
 library(cowplot)
@@ -123,7 +122,48 @@ plots <- d %>% group_by(group, trend, type, location) %>%
 ```
 
 
-## Lineups
+# Overall Performance
+
+The detection rate is considered for each lineup. The detection rates for group A were less varied than the detection rates for the lineups seen by group B. Fig. \ref{fig:pdetection-group} shows the distribution using a boxplot. This shows the median value for detection rate was extremely similar.
+
+```{r pdetection-group}
+plots %>% ggplot(aes(x = group, y = pdetect)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  ylab("Detection rate") + 
+  ylim(c(0,1))
+```
+
+The overall detection rate is considered for each trend model in Fig. \ref{fig:pdetect-trend}.
+The detection rates for the NW-SE trend model was less varied than the detection rates for the Three Cities and All Cities trends. Fig. \ref{fig:pdetection-group} shows the distribution using a boxplot. This shows the distributions of the rates do not overlap for NW-SE and Three Cities trends, the Three cities range was larger, but the median was much higher for the NW-SE trend. The All Cities trend model distribution overlaps with the NW-SE and All Cities trends.
+
+```{r pdetect-trend}
+plots %>% ggplot(aes(x = trend, y = pdetect, fill = trend)) + 
+  geom_boxplot() + 
+  scale_fill_manual(values = trend_colours) +
+  geom_jitter(width = 0.1) +
+  ylab("Detection rate") + 
+  ylim(c(0,1)) 
+```
+
+
+The boxplots in Fig. \ref{fig:pdetection-type} contrast the distribution of the detection rates for eah type of display.
+The detection rates across the lineups was less varied for the hexagon display. There was a large difference in the medians for the types of displays.
+Without considering the relationship for each lineup, the hexagon lineup display allowed the participants to achieve higher detection rates.
+
+```{r pdetection-type}
+plots %>% ggplot(aes(x = type, y = pdetect, fill = type)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  scale_fill_manual(values = type_colours) +
+  ylab("Detection rate") + 
+  ylim(c(0,1))
+```
+
+
+
+
+# Lineups
 
 Each lineup had twelve map displays, this gave participants the choice of any plot, and the choice to not provide a response. this non-reponse is indicated by 0.
 The choices made by participants are displayed in Fig. \ref{fig:choices}. The height of each orange lollipop indiates the proportion of participants that selected the map display of real data, they represent the correct choices.
@@ -173,22 +213,21 @@ choice_tabs <- d %>%
 
 ```{r choice-nwse}
 knitr::kable(choice_tabs$data[[1]], format = "latex", align = "rrrrrrrrrrrrrr",
-  caption = "NW-SE") %>%
+  caption = "The proportion of participants who selected each of the twelve map choices in each lineup for NW-SE displays.") %>%
   collapse_rows(., columns = c(1,2))
 ```
 
 
-
 ```{r choice-three}
 knitr::kable(choice_tabs$data[[2]], format = "latex", align = "rrrrrrrrrrrrrr",
-  caption = "Three Cities") %>%
+  caption = "The proportion of participants who selected each of the twelve map choices in each lineup for Three Cities displays.") %>%
   collapse_rows(., columns = c(1,2))
 ```
 
 
 ```{r choice-all}
 knitr::kable(choice_tabs$data[[3]], format = "latex", align = "rrrrrrrrrrrrrr",
-  caption = "All Cities") %>%
+  caption = "The proportion of participants who selected each of the twelve map choices in each lineup for All Citiesdisplays.") %>%
   collapse_rows(., columns = c(1,2))
 ```
 
@@ -197,21 +236,21 @@ knitr::kable(choice_tabs$data[[3]], format = "latex", align = "rrrrrrrrrrrrrr",
 
 # All cities Example 1:
 
-The same data set is shown in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. 
+The same data set is visualised in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. 
 
 Lineups were created using the Australian Statistical Areas at Level 3.
 
 
 Replicate 3 of the All Cities distribution is shown in Fig. \ref{fig:cities-geo4} and Fig. \ref{fig:cities-hex4}. 
 
-```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities.", fig.width = 5, fig.height = 4}
+```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/aus_cities_4_geo.png")))
 ```
 
 
 
-```{r cities-hex4, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities.", fig.width = 4, fig.height = 4}
+```{r cities-hex4, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/aus_cities_4_hex.png")))
 ```
@@ -221,7 +260,7 @@ ggdraw() +
 
 The higher values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. There were no other choropleth maps that were coloured as blue as the map at location 3. This meant the detection rate was quite high, participants were able to select the correct distribution, even without being able to see the colours of inner-city areas of the capital cities.
 
-```{r cities-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities.", fig.width = 4, fig.height = 4}
+```{r cities-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/aus_cities_3_geo.png")))
 ```
@@ -229,7 +268,7 @@ ggdraw() +
 
 The same data showed in the hexagon tile map display shows varied distributions across the lineup. They are more diverse in colour than the choropleth counterparts. The same location, 3, holds the real data plot, the red city centres are now visible and surrounded by yellow, and then blue hexagons. For different reasons the participants were able to make the same correct choice for this replicate, with a detection rate of .
 
-```{r cities-hex3, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities.", fig.width = 4, fig.height = 4}
+```{r cities-hex3, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/aus_cities_3_hex.png")))
 ```

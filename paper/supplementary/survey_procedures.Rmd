@@ -5,7 +5,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8, fig.height = 8)
 ```
 
 ```{r libraries}
@@ -22,7 +22,7 @@ Choosing the task from the list directed all potential participants to the page 
 This page contained written instructions and is shown in Fig. \ref{fig:instruct}. 
 
 
-```{r instruct, results = "asis", fig.cap = "The training lineups of choropleth maps.", fig.width = 4, fig.height = 4}
+```{r instruct, results = "asis", fig.cap = "The training lineups of choropleth maps."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/fig8_instruct.png")))
 ```
@@ -33,13 +33,13 @@ ggdraw() +
 The participants were trained using three displays. There were relatively simple lineups, they are displayed in Fig. \ref{fig:training1} and Fig. \ref{fig:training2}.
 
 
-```{r training1, results = "asis", fig.cap = "The training lineups of choropleth maps.", fig.width = 4, fig.height = 4}
+```{r training1, results = "asis", fig.cap = "The training lineups of choropleth maps."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/fig8_training1.png")))
 ```
 
 
-```{r training2, results = "asis", fig.cap = "The training lineups of hexagon tile maps.", fig.width = 4, fig.height = 4}
+```{r training2, results = "asis", fig.cap = "The training lineups of hexagon tile maps."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/fig8_training2.png")))
 ```
@@ -53,14 +53,14 @@ This page also contained a question that asked participants for a validation cod
 The demographic and consent page of the `shinydashboard` web application are displayed in Fig. \ref{fig:survey-demogs}. Two example lineups are shown, one choropleth map lineup in Fig. \ref{fig:survey-choro} and one heaxgon tile map lineup in Fig. \ref{fig:survey-hex}.
 
 
-```{r survey-demogs, results = "asis", fig.cap = "The demographics questions tab of the shinydashboard survey application.", fig.width = 4, fig.height = 4}
+```{r survey-demogs, results = "asis", fig.cap = "The demographics questions tab of the shinydashboard survey application."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/survey_demogs.png")))
 ```
 
 
 
-```{r survey-choro, results = "asis", fig.cap = "An example of the choropleth map lineup shown in the survey tab of the shinydashboard app.", fig.width = 4, fig.height = 4}
+```{r survey-choro, results = "asis", fig.cap = "An example of the choropleth map lineup shown in the survey tab of the shinydashboard app."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/survey_choro.png")))
 ```
@@ -68,7 +68,7 @@ ggdraw() +
 
 
 
-```{r survey-hex, results = "asis", fig.cap = "An example of the hexagon tile map lineup shown in the survey tab of the shinydashboard app.", fig.width = 4, fig.height = 4}
+```{r survey-hex, results = "asis", fig.cap = "An example of the hexagon tile map lineup shown in the survey tab of the shinydashboard app."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/survey_hex.png")))
 ```
