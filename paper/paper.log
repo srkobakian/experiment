@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  13 JAN 2020 12:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  13 JAN 2020 12:56
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -475,7 +475,7 @@ LaTeX Info: Redefining \nameref on input line 367.
 \@outlinefile=\write3
 \openout3 = `paper.out'.
 
-<paper_files/figure-latex/liver-1.pdf, id=114, 289.08pt x 433.62pt>
+<paper_files/figure-latex/liver-1.pdf, id=106, 289.08pt x 433.62pt>
 File: paper_files/figure-latex/liver-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/liver-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/liver-1.pdf  used on input li
@@ -500,7 +500,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 532.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 532.
-<paper_files/figure-latex/lineup-1.pdf, id=167, 578.16pt x 578.16pt>
+<paper_files/figure-latex/lineup-1.pdf, id=162, 578.16pt x 578.16pt>
 File: paper_files/figure-latex/lineup-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/lineup-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/lineup-1.pdf  used on input l
@@ -513,7 +513,7 @@ LaTeX Warning: Reference `fig:liver' on page 3 undefined on input line 563.
 LaTeX Warning: Reference `fig:exp-design' on page 3 undefined on input line 573
 .
 
-<paper_files/figure-latex/exp-design-1.pdf, id=168, 578.16pt x 578.16pt>
+<paper_files/figure-latex/exp-design-1.pdf, id=164, 578.16pt x 578.16pt>
 File: paper_files/figure-latex/exp-design-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/exp-design-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/exp-design-1.pdf  used on inp
@@ -542,91 +542,97 @@ LaTeX Warning: Reference `fig:liver' on page 4 undefined on input line 591.
 
 [4]
 
-LaTeX Warning: Reference `fig:exp-design' on page 5 undefined on input line 718
+LaTeX Warning: Reference `fig:exp-design' on page 5 undefined on input line 724
 .
 
-<paper_files/figure-latex/detect-compare-1.pdf, id=211, 469.755pt x 289.08pt>
+<paper_files/figure-latex/detect-compare-1.pdf, id=210, 469.755pt x 289.08pt>
 File: paper_files/figure-latex/detect-compare-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/detect-compare-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/detect-compare-1.pdf  used on
- input line 722.
+ input line 728.
 (pdftex.def)             Requested size: 252.0pt x 155.07751pt.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 733.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 733.
 [5pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.749 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.1
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.749 
+l.734 
        <./paper_files/figure-latex/detect-compare-1.pdf>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 739.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 739.
 <paper_files/figure-latex/beeswarm-1.pdf, id=238, 469.755pt x 578.16pt>
 File: paper_files/figure-latex/beeswarm-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/beeswarm-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/beeswarm-1.pdf  used on input
- line 781.
+ line 787.
 (pdftex.def)             Requested size: 252.0pt x 310.15504pt.
-<paper_files/figure-latex/certainty-1.pdf, id=240, 469.755pt x 361.35pt>
-File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/certainty-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
-t line 797.
-(pdftex.def)             Requested size: 252.0pt x 193.84691pt.
-[6pdfTeX warning (ext4): destination with the same identifier (name{table.2}) h
+[6pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
 as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.806 
+l.800 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.2
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.800 
       pdfTeX warning (ext4): destination with the same identifier (name{figure.
 3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.806 
+l.800 
        <./paper_files/figure-latex/beeswarm-1.pdf>]
+<paper_files/figure-latex/certainty-1.pdf, id=260, 469.755pt x 361.35pt>
+File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/certainty-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
+t line 803.
+(pdftex.def)             Requested size: 252.0pt x 193.84691pt.
 
-LaTeX Warning: Reference `fig:reason' on page 7 undefined on input line 852.
+LaTeX Warning: Reference `fig:reason' on page 7 undefined on input line 858.
 
 [7pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.859 
+l.860 
       pdfTeX warning (ext4): destination with the same identifier (name{table.3
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.859 
+l.860 
        <./paper_files/figure-latex/certainty-1.pdf>]
-Underfull \hbox (badness 2334) in paragraph at lines 903--906
+Underfull \hbox (badness 2334) in paragraph at lines 883--886
 \OT1/ptm/m/n/10 to dis-cuss the sur-vey pro-ce-dures and the line-ups that
  []
 
 
-Overfull \hbox (15.11633pt too wide) in paragraph at lines 903--906
+Overfull \hbox (15.11633pt too wide) in paragraph at lines 883--886
 \OT1/ptm/m/n/10 https://github.com/srkobakian/experiment/tree/master/figures/fi
 nal. 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 932--934
+Underfull \hbox (badness 10000) in paragraph at lines 926--928
 [][]\OT1/ptm/m/n/10 2. Queens-land CC Aus-tralian Can-cer At-las
  []
 
 
-Underfull \hbox (badness 5245) in paragraph at lines 1004--1006
-[][]\OT1/ptm/m/n/10 26. Neuwirth E (2014) RCol-or-Brewer: Col-or-Brewer
+Underfull \hbox (badness 3396) in paragraph at lines 965--967
+[][]\OT1/ptm/m/n/10 15. (2018) Aus-tralian Sta-tis-ti-cal Ge-og-ra-phy Stan-dar
+d
+ []
+
+
+Underfull \hbox (badness 5245) in paragraph at lines 1007--1009
+[][]\OT1/ptm/m/n/10 29. Neuwirth E (2014) RCol-or-Brewer: Col-or-Brewer
  []
 
 
@@ -640,28 +646,28 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1019.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1022.
 [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1019.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1022.
 (paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1019.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1019.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1022.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1022.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: B88318AD0F4DBAE87B0EDFBB9C8F75E3;3278.
+(rerunfilecheck)             Checksum: 03C55E8E265A969523D787DAD72AFB8B;3103.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1019.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1022.
  ) 
 Here is how much of TeX's memory you used:
- 11454 strings out of 492484
- 166573 string characters out of 3130514
- 263419 words of memory out of 3000000
- 15532 multiletter control sequences out of 15000+200000
+ 11449 strings out of 492484
+ 166517 string characters out of 3130514
+ 263351 words of memory out of 3000000
+ 15528 multiletter control sequences out of 15000+200000
  38282 words of font info for 74 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
- 39i,11n,37p,1272b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,11n,37p,1272b,392s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
@@ -673,9 +679,9 @@ s/steff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/s
 teff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/ste
 ff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/steff/
 AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (9 pages, 1000156 bytes).
+Output written on paper.pdf (9 pages, 1001063 bytes).
 PDF statistics:
- 380 PDF objects out of 1000 (max. 8388607)
- 102 named destinations out of 1000 (max. 500000)
- 239 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 378 PDF objects out of 1000 (max. 8388607)
+ 101 named destinations out of 1000 (max. 500000)
+ 223 words of extra memory for PDF output out of 10000 (max. 10000000)
 

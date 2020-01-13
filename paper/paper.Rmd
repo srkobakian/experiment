@@ -217,7 +217,7 @@ The choropleth map is effective if the size of the geographic units is relativel
 A cartogram is a general solution for better displaying a population-based statistic. It transforms the geographic map base to reflect the population in the geographic region, while preserving some aspects of the geographic location. There are several cartogram algorithms [@ACTUC], [@CBATCC]; each involves shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map. The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units but can result in losing the familiar geographic information. For Australia, the transformations warp the country so that it is no longer recognizable.
 
 <!-- Other cartograms -->
-Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method [@NAC] keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram [@ACTUC] represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by Raisz [-@RSCW], using rectangles that tile to align borders of neighbours [@CDWCS]. A thorough review of the array of methods, as suitable for cancer atlas displays is available in XXX.
+Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method [@NAC] keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram [@ACTUC] represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by Raisz [-@RSCW], using rectangles that tile to align borders of neighbours [@CDWCS]. There have been thorough reviews of the array of methods, as suitable for cancer atlas displays [@review], [@BCM].
 
 <!-- Hexagon tile map -->
 The hexagon tile map algorithm, automatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag [@sugarbag]. Figure \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas are expanded out, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is of interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
@@ -278,7 +278,7 @@ This study aims to answer two key questions around the presentation of spatial d
 
 Additional considerations when completing this experimental task included the difficulty experienced by participants and the certainty they had in their decision.
 
-Australia is used for the study, with Statistical Area 2 (SA2) (XXX REF) as the geographic units. The results should apply broadly to any other geographic area of interest. 
+Australia is used for the study, with Statistical Area 2 (SA2) [@abs2016] as the geographic units. The results should apply broadly to any other geographic area of interest. 
 
 <!--
 The mean of the detection rate for choropleth map, denoted as $\mu_C$, and the hexagon tile maps, $\mu_H$ will be contrasted. This leads to the following one sided hypothesis:
@@ -298,7 +298,7 @@ The primary factor in the experiment is the plot type. The secondary factor is a
   - Map type: *Choropleth, Hexagon tile*
   - Trend: *South-East to North-West; Locations in three population centres; Locations in multiple population centres, *
 
-Data is generated for each of the trend models, with four replicates, and each displayed both as a choropleth and as a hexagon tile map, which yields 12 data sets, and 24 data plots. This set of displays is divided in half, providing two sets of 12 displays, Group A and Group B. Participants were randomly allocated to Group A or B. Participants saw a data set only once, with as a choropleth or as a hexagon tile map. Table \ref{fig:exp-design} summarises the design. (XXX Maybe replace this table with your diagram illustrating the design??)
+Data is generated for each of the trend models, with four replicates, and each displayed both as a choropleth and as a hexagon tile map, which yields 12 data sets, and 24 data plots. This set of displays is divided in half, providing two sets of 12 displays, Group A and Group B. Participants were randomly allocated to Group A or B. Participants saw a data set only once, with as a choropleth or as a hexagon tile map. Table \ref{fig:exp-design} summarises the design. 
 
 
 ```{r exp-design, results = "asis", fig.width = 8, fig.height = 8}
@@ -309,7 +309,7 @@ ggdraw(xlim = c(0,1), ylim = c(0,1)) + draw_plot(rasterGrob(png::readPNG("figure
 
 Null data needs to be data with no (interesting) structure. In most scenarios, permutation is the main approach for generating null plots. It is used to break association between variables, while maintaining marginal distributions. This is too simple for spatial data. In spatial data, a key feature is smoothness over the landscape corresponding spatial dependence. To do something simple, like permute the values relative to the geographic location would produce null plots which are too chaotic, and the data plot will be recognisable for its smoothness rather than any structure of interest. 
 
-For spatial data, null data is stationary data, where the mean, variance and spatial dependence are constant over the geographic units. Stationary data is specified by a variogram model (XXX REF). Simulating from a variogram model, where the spatial dependence is specified, generates the stationary spatial data used for the null plots.  The parameters for the Gaussian model were sill=1, range=0.3 with the variance generated by a standard normal distribution. 
+For spatial data, null data is stationary data, where the mean, variance and spatial dependence are constant over the geographic units. Stationary data is specified by a variogram model [@POG]. Simulating from a variogram model, where the spatial dependence is specified, generates the stationary spatial data used for the null plots.  The parameters for the Gaussian model were sill=1, range=0.3 with the variance generated by a standard normal distribution. 
 
 The R package `gstat` [@gstat] was used to simulate 144 null sets, 12 data sets for each plot in a lineup, and 12 sets for 12 lineups.
 
@@ -358,17 +358,23 @@ For each lineup these statistics were calculated:
  - accuracy: the proportion of subjects who detected the data plot
  - efficiency: average time taken to respond
 
-## Web app collecting responses
+## Web application to collect responses
 
-XXX Describe the details of the taipan app used to collect responses
+The taipan [@taipan] package for R was used to create the survey web application. 
+This structure was altered to collect responses regarding participants demographics and their survey responses.
+The survey app contained three tabs, participants were first shown the demographics and consent page.
+This asked participants for their Figure-Eight contributor ID, and their consent to the responses being used for analysis. The demographics collected included participants' preferred pronoun, the highest level of education achieved, their age range and whether they had lived in Australia.
 
-Data was collected through a web application containing the online survey.
+After submitting these responses, the survey application switched to the tab of lineups and associated questions. This allowed participants to easily move through the twelve displays and provide their choice, reason for their choice, and level of certainty. 
+
+When participants completed the twelve evaluations the survey application triggered a data analysis script. This created a data set with one row per evaluation. Along with the responses to the three questions, the script added the title of the image, which indicated the type of map display, the type of distribution hidden in the lineup, and the location of the data plot. It also calculated the time taken by participant to view each lineup.
+
 Each participant used the internet to access the survey.
-The data collection took place using a secure link between the survey web application and the googlesheet used to store results. The application would first connect to the googlesheet using the googlesheets [@sheets] R package, and interacted again at the completion of the survey by adding the participant's responses to the 12 displays as 12 rows of data in the googlesheet.
+The data transfer from the web application to the data set took place using a secure link to the googlesheet used to store results. The application connected to the googlesheet using the googlesheets [@sheets] R package when participants opened the application, and interacted again when participants chosen to submit the survey and indicate their completion. At this time it added the participant's responses to the twelve lineup displays as twelve rows of data in the googlesheet.
 
 ## Participants
 
-Participants were recruited for to evaluate lineups from the Figure Eight crowd sourcing platform [@figeight].
+Participants were recruited to evaluate lineups from the Figure Eight crowdsourcing platform [@figeight].
 The lineup protocol expects that the participants are uninvolved judges with no prior knowledge of the data, to avoid inadvertently affecting results. Potential participants needed to have achieved level 2 or level 3 from prior work. The participants were chosen as they have experience with survey tasks that involve evaluating images XXX Did we really choose participants this way??). All participants were at least 18 years old.
 
 Participants were allocated to either group A or group B when they proceeded to the survey web application, which was hosted externally to the Figure Eight website. There were 95 participants involved in the study. All participants read introductory materials, and was trained using three test displays, to orient them to the evaluation task. All participants who completed the task were compensated $USD5 for their time, via the Figure Eight payment system.
@@ -705,84 +711,6 @@ The increasing population densities of capital cities despite large land area ex
 The population density structure of Australia can be considered similar to that of Canada, New Zealand and many others. Therefore, this display is not only relevant to Australia, but all nations or population distributions that experience densely populated cities separated by vast rural expanses.
 
 
-
-Acknowledgements
-==============
-
-The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations. They would also like to thank Kerrie Mengersen and Dr. Earl Duncan for suggestions and comments.
-
-Ethics approval for the online survey was granted by QUT’s Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research. 
-
-All code to generate the data, of the web app that collected participants responses, conduct the analysis, and produce this manuscript are available on XXX. 
-
-The supplementary material contains:
-
-- Additional analysis of the experimental results
-- Training materials used for the participants
-- 24 lineups used in the experiment
-- 12 data sets used to construct the lineups
-
-References {#references .numbered}
-==========
-
-
-
-<!-- An example of a floating figure using the graphicx package. -->
-<!-- Note that \label must occur AFTER (or within) \caption. -->
-<!-- For figures, \caption should occur after the \includegraphics. -->
-<!-- Note that IEEEtran v1.7 and later has special internal code that -->
-<!-- is designed to preserve the operation of \label within \caption -->
-<!-- even when the captionsoff option is in effect. However, because -->
-<!-- of issues like this, it may be the safest practice to put all your -->
-<!-- \label just after \caption rather than within \caption{}. -->
-
-<!-- Reminder: the "draftcls" or "draftclsnofoot", not "draft", class -->
-<!-- option should be used if it is desired that the figures are to be -->
-<!-- displayed while in draft mode. -->
-
-<!-- \begin{figure}[!t] -->
-<!-- \centering -->
-<!-- \includegraphics[width=2.5in]{myfigure} -->
-<!-- where an .eps filename suffix were assumed under latex,  -->
-<!-- and a .pdf suffix were assumed for pdflatex; or what has been declared -->
-<!-- via \DeclareGraphicsExtensions. -->
-<!-- \caption{Simulation results for the network.} -->
-<!-- \label{fig_sim} -->
-<!-- \end{figure} -->
-
-<!-- Note that the IEEE typically puts floats only at the top, even when this -->
-<!-- results in a large percentage of a column being occupied by floats. -->
-
-
-<!-- An example of a double column floating figure using two subfigures. -->
-<!-- (The subfig.sty package must be loaded for this to work.) -->
-<!-- The subfigure \label commands are set within each subfloat command, -->
-<!-- and the \label for the overall figure must come after \caption. -->
-<!-- \hfil is used as a separator to get equal spacing. -->
-<!-- Watch out that the combined width of all the subfigures on a  -->
-<!-- line do not exceed the text width or a line break will occur. -->
-
-<!-- \begin{figure*}[!t] -->
-<!-- \centering -->
-<!-- \subfloat[Case I]{\includegraphics[width=2.5in]{box}% -->
-<!-- \label{fig_first_case}} -->
-<!-- \hfil -->
-<!-- \subfloat[Case II]{\includegraphics[width=2.5in]{box}% -->
-<!-- \label{fig_second_case}} -->
-<!-- \caption{Simulation results for the network.} -->
-<!-- \label{fig_sim} -->
-<!-- \end{figure*} -->
-
-<!-- Note that often IEEE papers with subfigures do not employ subfigure -->
-<!-- captions (using the optional argument to \subfloat[]), but instead will -->
-<!-- reference/describe all of them (a), (b), etc., within the main caption. -->
-<!-- Be aware that for subfig.sty to generate the (a), (b), etc., subfigure -->
-<!-- labels, the optional argument to \subfloat must be present. If a -->
-<!-- subcaption is not desired, just leave its contents blank, -->
-<!-- e.g., \subfloat[]. -->
-
-\newpage
-
 Acknowledgment
 ==============
 
@@ -791,6 +719,13 @@ The authors would like to thank the Australian Cancer Atlas team for discussions
 The source code to produce this document can be found on [GitHub](https://github.com/srkobakian/experiment/tree/master/paper).
 Supplementary materials have been included to discuss the survey procedures and the lineups that were used.
 The full set of images can also be found at: https://github.com/srkobakian/experiment/tree/master/figures/final. 
+
+The supplementary material contains:
+
+- Additional analysis of the experimental results
+- Survey procedure including training materials for the participants
+- 24 lineups as images, that were used in the experiment
+- 12 data sets used to construct the lineups
 
 The analysis of the work was completed in R [@RCore] with the use of the following packages:
 
@@ -805,59 +740,3 @@ Ethics approval for the online survey was granted by QUT’s Ethics Committee (E
 \newpage
 References {.numbered}
 ==========
-
-
-
-<!-- An example of a floating figure using the graphicx package. -->
-<!-- Note that \label must occur AFTER (or within) \caption. -->
-<!-- For figures, \caption should occur after the \includegraphics. -->
-<!-- Note that IEEEtran v1.7 and later has special internal code that -->
-<!-- is designed to preserve the operation of \label within \caption -->
-<!-- even when the captionsoff option is in effect. However, because -->
-<!-- of issues like this, it may be the safest practice to put all your -->
-<!-- \label just after \caption rather than within \caption{}. -->
-
-<!-- Reminder: the "draftcls" or "draftclsnofoot", not "draft", class -->
-<!-- option should be used if it is desired that the figures are to be -->
-<!-- displayed while in draft mode. -->
-
-<!-- \begin{figure}[!t] -->
-<!-- \centering -->
-<!-- \includegraphics[width=2.5in]{myfigure} -->
-<!-- where an .eps filename suffix were assumed under latex,  -->
-<!-- and a .pdf suffix were assumed for pdflatex; or what has been declared -->
-<!-- via \DeclareGraphicsExtensions. -->
-<!-- \caption{Simulation results for the network.} -->
-<!-- \label{fig_sim} -->
-<!-- \end{figure} -->
-
-<!-- Note that the IEEE typically puts floats only at the top, even when this -->
-<!-- results in a large percentage of a column being occupied by floats. -->
-
-
-<!-- An example of a double column floating figure using two subfigures. -->
-<!-- (The subfig.sty package must be loaded for this to work.) -->
-<!-- The subfigure \label commands are set within each subfloat command, -->
-<!-- and the \label for the overall figure must come after \caption. -->
-<!-- \hfil is used as a separator to get equal spacing. -->
-<!-- Watch out that the combined width of all the subfigures on a  -->
-<!-- line do not exceed the text width or a line break will occur. -->
-
-<!-- \begin{figure*}[!t] -->
-<!-- \centering -->
-<!-- \subfloat[Case I]{\includegraphics[width=2.5in]{box}% -->
-<!-- \label{fig_first_case}} -->
-<!-- \hfil -->
-<!-- \subfloat[Case II]{\includegraphics[width=2.5in]{box}% -->
-<!-- \label{fig_second_case}} -->
-<!-- \caption{Simulation results for the network.} -->
-<!-- \label{fig_sim} -->
-<!-- \end{figure*} -->
-
-<!-- Note that often IEEE papers with subfigures do not employ subfigure -->
-<!-- captions (using the optional argument to \subfloat[]), but instead will -->
-<!-- reference/describe all of them (a), (b), etc., within the main caption. -->
-<!-- Be aware that for subfig.sty to generate the (a), (b), etc., subfigure -->
-<!-- labels, the optional argument to \subfloat must be present. If a -->
-<!-- subcaption is not desired, just leave its contents blank, -->
-<!-- e.g., \subfloat[]. -->
