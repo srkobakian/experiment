@@ -491,7 +491,7 @@ statistics; visual inference; geospatial; population
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-This study compares the effectiveness of a new type of display, a hexagon tile map, against the standard, a choropleth map, for communicating information about disease statistics. The choropleth map is the traditional approach for visualizing aggregated statistics across administrative boundaries. A hexagon tile map forgoes the familiar boundaries, in favor of representing each geographic unit as an equally sized hexagon, placed approximately in the correct spatial location. The hexagon tile map builds on existing displays, such as the cartogram, and tesselated hexagon displays. It differs in that it relaxes the requirement to have connected hexagons, and allows sparsely located hexagons. The algorithm to construct a hexagon tile map is available in the R package sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]}. This type of display may be useful for other countries, and other purposes.
+This study compares the effectiveness of a new type of display, a hexagon tile map, against the standard, a choropleth map, for communicating information about disease statistics. The choropleth map is the traditional approach for visualizing aggregated statistics across administrative boundaries. A hexagon tile map forgoes the familiar boundaries, in favor of representing each geographic unit as an equally sized hexagon, placed approximately in the correct spatial location. The hexagon tile map builds on existing displays, such as the cartogram, and tessellated hexagon displays. It differs in that it relaxes the requirement to have connected hexagons, and allows sparsely located hexagons. The algorithm to construct a hexagon tile map is available in the R package sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]}. This type of display may be useful for other countries, and other purposes.
 
 The hexagon tile map was designed for Australia, motivated by a need to display spatial statistics for a new Australian Cancer Atlas. None of the existing approaches for creating cartograms or hexagon tiling perform well for the Australian landscape, which has vast open spaces and concentrations of population in small regions clustered on the coastlines.
 
@@ -510,20 +510,20 @@ Spatial visualisations communicate the distribution of statistics over geographi
 
 \includegraphics{paper_files/figure-latex/liver-1.pdf}
 
-The choropleth map is effective if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. A choropleth map focuses attention on the geography, and for heterogeously sized areas it presents a biased view of the population related distribution of the statistic {[}\protect\hyperlink{ref-CBATCC}{6}{]}. \emph{Land doesn't get cancer, people do} -- a more effective way to communicate the spatial distributions of cancer statistics is needed.
+The choropleth map is effective if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. A choropleth map focuses attention on the geography, and for heterogeneously sized areas it presents a biased view of the population related distribution of the statistic {[}\protect\hyperlink{ref-CBATCC}{6}{]}. \emph{Land doesn't get cancer, people do} -- a more effective way to communicate the spatial distributions of cancer statistics is needed.
 
 A cartogram is a general solution for better displaying a population-based statistic. It transforms the geographic map base to reflect the population in the geographic region, while preserving some aspects of the geographic location. There are several cartogram algorithms {[}\protect\hyperlink{ref-ACTUC}{7}{]}, {[}\protect\hyperlink{ref-CBATCC}{6}{]}; each involves shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map. The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units but can result in losing the familiar geographic information. For Australia, the transformations warp the country so that it is no longer recognizable.
 
 Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method {[}\protect\hyperlink{ref-NAC}{8}{]} keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram {[}\protect\hyperlink{ref-ACTUC}{7}{]} represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by Raisz {[}\protect\hyperlink{ref-RSCW}{9}{]}, using rectangles that tile to align borders of neighbours {[}\protect\hyperlink{ref-CDWCS}{10}{]}. A thorough review of the array of methods, as suitable for cancer atlas displays is available in XXX.
 
-The hexagon tile map algorithm, autmatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]}. Figure \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas are expanded out, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is oof interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
+The hexagon tile map algorithm, automatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]}. Figure \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas are expanded out, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is of interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
 
 \hypertarget{visual-inference}{%
 \subsection{Visual Inference}\label{visual-inference}}
 
 In order to assess the effectiveness of the hexagon tile map, the lineup protocol {[}\protect\hyperlink{ref-GIIV}{3}{]} from visual inference procedures is employed. The procedures for doing a power comparison of competing plot designed, outlined in {[}\protect\hyperlink{ref-GTPCCD}{12}{]}, are followed. The approach mirrors classical statistical inference.
 
-In classical statistical inference hypothesis testing is coonducted by comparing the value of a test statistic on a standard reference distribution, computed assuming the null hypothesis is true. If the value is extreme, the null hypothesis is rejected, because the test statistic value is unlikely to have been so extreme if it was true. In the lineup protocol, the plot plays the role of the test statistic, and the data plot is embedded in a field of null plots. Defining the plot using a grammar of graphics {[}\protect\hyperlink{ref-ggplot2}{13}{]} makes it a functional mapping of the variables and thus, it can be considered to be a statistic. With the same data, two different plots can be considered to be competing statistics, one possibly a more powerful statistic than the other.
+In classical statistical inference hypothesis testing is conducted by comparing the value of a test statistic on a standard reference distribution, computed assuming the null hypothesis is true. If the value is extreme, the null hypothesis is rejected, because the test statistic value is unlikely to have been so extreme if it was true. In the lineup protocol, the plot plays the role of the test statistic, and the data plot is embedded in a field of null plots. Defining the plot using a grammar of graphics {[}\protect\hyperlink{ref-ggplot2}{13}{]} makes it a functional mapping of the variables and thus, it can be considered to be a statistic. With the same data, two different plots can be considered to be competing statistics, one possibly a more powerful statistic than the other.
 
 To do hypothesis testing with the lineup protocol requires human evaluation. The human judge is required to identify the most different plot among the field of plots. If this corresponds to the data plot -- the test statistic -- the null hypothesis is rejected. It means that the data plot is extreme relative to the reference distribution of null plots.
 
@@ -555,7 +555,7 @@ This study aims to answer two key questions around the presentation of spatial d
 
 Additional considerations when completing this experimental task included the difficulty experienced by participants and the certainty they had in their decision.
 
-Australia is used for the study, with Statistical Area 2 (SA2) (XXX REF) as the geographic units. The results shuold apply broadly to any other geographic area of interest.
+Australia is used for the study, with Statistical Area 2 (SA2) (XXX REF) as the geographic units. The results should apply broadly to any other geographic area of interest.
 
 \hypertarget{experimental-factors}{%
 \subsection{Experimental factors}\label{experimental-factors}}
@@ -577,11 +577,11 @@ Data is generated for each of the trend models, with four replicates, and each d
 \hypertarget{generating-null-data}{%
 \subsection{Generating null data}\label{generating-null-data}}
 
-Null data needs to be data with no (interesting) structure. In most scenarios, permutation is the main approach for generating null plots. It is used to break association between variables, while maintaining marginal distributions. This is too simple for spatial data. In spatial data, a key feature is smoothness over the landscape corresponding spatial dependence. To do something simple, like permute the values relative to the goegraphic location would produce null plots which are too chaotic, and the data plot will be recognisable for its smoothness rather than any structure of interest.
+Null data needs to be data with no (interesting) structure. In most scenarios, permutation is the main approach for generating null plots. It is used to break association between variables, while maintaining marginal distributions. This is too simple for spatial data. In spatial data, a key feature is smoothness over the landscape corresponding spatial dependence. To do something simple, like permute the values relative to the geographic location would produce null plots which are too chaotic, and the data plot will be recognisable for its smoothness rather than any structure of interest.
 
-For spatial data, null data is staionary data, where the mean, variance and spatial dependence are constant over the geographic units. Stationary data is specified by a variogram model (XXX REF). Simulating from a variogram model, where the spatial dependence is specified, generates the stationary spatial data used for the null plots. A Gaussian The parameters for the model were sill=1, range=0.3 with the variance generated by a standard normal distribution (XXX What parameters were used?).
+For spatial data, null data is stationary data, where the mean, variance and spatial dependence are constant over the geographic units. Stationary data is specified by a variogram model (XXX REF). Simulating from a variogram model, where the spatial dependence is specified, generates the stationary spatial data used for the null plots. The parameters for the Gaussian model were sill=1, range=0.3 with the variance generated by a standard normal distribution.
 
-The R package \texttt{gstat} (XXX REF) was used to simulate 144 null sets, 12 data sets for each plot in a lineup, and 12 sets for 12 lineups.
+The R package \texttt{gstat} {[}\protect\hyperlink{ref-gstat}{14}{]} was used to simulate 144 null sets, 12 data sets for each plot in a lineup, and 12 sets for 12 lineups.
 
 \hypertarget{generating-lineups}{%
 \subsection{Generating lineups}\label{generating-lineups}}
@@ -617,15 +617,15 @@ XXX Describe the details of the taipan app used to collect responses
 
 Data was collected through a web application containing the online survey.
 Each participant used the internet to access the survey.
-The data collection took place using a secure link between the survey web application and the googlesheet used to store results. The application would first connect to the googlesheet using the googlesheets {[}\protect\hyperlink{ref-sheets}{14}{]} R package, and interacted again at the completion of the survey by adding the participant's responses to the 12 displays as 12 rows of data in the googlesheet.
+The data collection took place using a secure link between the survey web application and the googlesheet used to store results. The application would first connect to the googlesheet using the googlesheets {[}\protect\hyperlink{ref-sheets}{15}{]} R package, and interacted again at the completion of the survey by adding the participant's responses to the 12 displays as 12 rows of data in the googlesheet.
 
 \hypertarget{participants}{%
 \subsection{Participants}\label{participants}}
 
-Participants were recruited for to evaluate lineups from the Figure-Eight crowdsourcing platform (XXX REF).
+Participants were recruited for to evaluate lineups from the Figure Eight crowd sourcing platform {[}\protect\hyperlink{ref-figeight}{16}{]}.
 The lineup protocol expects that the participants are uninvolved judges with no prior knowledge of the data, to avoid inadvertently affecting results. Potential participants needed to have achieved level 2 or level 3 from prior work. The participants were chosen as they have experience with survey tasks that involve evaluating images XXX Did we really choose participants this way??). All participants were at least 18 years old.
 
-Participants were allocated to either group A or group B when they proceeded to the survey web application, which was hosted externally to the Figure-Eight website. There were 95 participants involved in the study. All participants read introductory materials, and was trained using three test displays, to orient them to the evaluation task. All participants who completed the task were compensated \$USD5 for their time, via the Figure-Eight payment system.
+Participants were allocated to either group A or group B when they proceeded to the survey web application, which was hosted externally to the Figure Eight website. There were 95 participants involved in the study. All participants read introductory materials, and was trained using three test displays, to orient them to the evaluation task. All participants who completed the task were compensated \$USD5 for their time, via the Figure Eight payment system.
 
 XXX Sentence on pilot study which allowed us to estimate the effect size, and thus decide on number of participants to collect responses from
 
@@ -648,7 +648,7 @@ Demographics were collected regarding the study participants:
   Lived at least for one year in Australia (Yes / No )
 \end{itemize}
 
-Participants then moved to the evaulation phase.
+Participants then moved to the evaluation phase.
 The set of images differed for Group A and Group B.
 After being allocated to a group, each individual was shown the 12 displays in randomised order.
 
@@ -674,17 +674,17 @@ After completing the 12 evaluations, the participants were asked to submit their
 
 Mean, standard deviations for lineups, by participant, \ldots{}
 
-Side-by-side dot plots were made of accuracy (efficiency) against map type, facetted by trend model type.
+Side-by-side dot plots were made of accuracy (efficiency) against map type, faceted by trend model type.
 
 Similar plots were made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables.
 
 Plots will be made in R (R Core Team 2019), with the ggplot2 package (Wickham 2016).
 
-\hypertarget{modeling}{%
-\subsubsection{Modeling}\label{modeling}}
+\hypertarget{modelling}{%
+\subsubsection{Modelling}\label{modelling}}
 
 The likelihood of detecting the data plot in the lineup can be modelled using a linear mixed effects model.
-The R {[}\protect\hyperlink{ref-RCore}{15}{]} \texttt{glmer()} function in the {[}\protect\hyperlink{ref-lme4}{16}{]} package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
+The R {[}\protect\hyperlink{ref-RCore}{17}{]} \texttt{glmer()} function in the {[}\protect\hyperlink{ref-lme4}{18}{]} package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
 
 \[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3\]
 
@@ -697,7 +697,7 @@ The model specifies a logistic link, this means the predicted values from the \t
 
 The feedback and demographic variables will possibly be incorporated as covariates.
 
-Computation will be done using R {[}\protect\hyperlink{ref-RCore}{15}{]}, with the \texttt{lme4} package {[}\protect\hyperlink{ref-lme4}{16}{]}.
+Computation will be done using R {[}\protect\hyperlink{ref-RCore}{17}{]}, with the \texttt{lme4} package {[}\protect\hyperlink{ref-lme4}{18}{]}.
 
 \hypertarget{data-cleaning}{%
 \subsubsection{Data cleaning}\label{data-cleaning}}
@@ -710,7 +710,7 @@ Responses from 95 participants were collected. Three participants provided no an
 \hypertarget{participant-demographics}{%
 \subsection{Participant demographics}\label{participant-demographics}}
 
-Of the 92 participants, 67 were male, and 25 female. Most participants (56) had a Bacherlors degree, 13 had a Masters degree, and the remaining 23 had high school diplomas.
+Of the 92 participants, 67 were male, and 25 female. Most participants (56) had a Bachelors degree, 13 had a Masters degree, and the remaining 23 had high school diplomas.
 
 \hypertarget{accuracy}{%
 \subsection{Accuracy}\label{accuracy}}
@@ -743,7 +743,7 @@ Hex. & 0.61 & 0.39 & 0.57\\
 \end{tabular}
 \end{table}
 
-Table. \ref{tab:detect-glmer1} presents a summary of the generalised linear mixed effects model, testing the effect of plot type and trend model on the detection rate. The results support the summary from Fig. \ref{fig:detect-compare} and all terms are statistically significant despite the large standard deviations observed in Table. \ref{tab:desc-stats}. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, which is a pleasant surprise. Allowing for the interaction effect, the difference in detection rate decreases for population related displays for a choroleth map lineup, but increases for a hexagon tile map display.
+Table. \ref{tab:detect-glmer1} presents a summary of the generalised linear mixed effects model, testing the effect of plot type and trend model on the detection rate. The results support the summary from Fig. \ref{fig:detect-compare} and all terms are statistically significant despite the large standard deviations observed in Table. \ref{tab:desc-stats}. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, which is a pleasant surprise. Allowing for the interaction effect, the difference in detection rate decreases for population related displays for a choropleth map lineup, but increases for a hexagon tile map display.
 The log odds of detection show in Table. \ref{tab:detect-glmer1} can be back transformed after taking the sum of all terms for the trend and type of display that are of interest.
 For the NW-SE distribution, the predicted detection rate for the hexagon tile map display increases the predicted probability of detection to 0.62 from 0.51 for choropleths, this is almost exactly the difference seen in the table of means and is significant only at the 0.05 level.
 
@@ -774,7 +774,7 @@ Hex:All Cities & 1.17 & $^{***}$ & 0.33 & 0.00\\
 \hypertarget{speed}{%
 \subsection{Speed}\label{speed}}
 
-Fig. \ref{fig:beeswarm} shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup when viewing each type of display. The time are also separated by trend model and whether the data plot was detected or not detected. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is shown as a large colored dot on each plot. when considering the heights of the green and orange dots, there is little difference in the average time taken to read a choropleth or hexgon tile map. Comparing the same colored dot across each trend model row, there is a slight increase in the time taken to correctly detected the data plot in the hexagon tile map lineup, but little difference in evaluation time for the choropleth display. However, there were substantially less correct detections for choropleth lineups for the Three cities and All Cities trends.
+Fig. \ref{fig:beeswarm} shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup when viewing each type of display. The time are also separated by trend model and whether the data plot was detected or not detected. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is shown as a large colored dot on each plot. when considering the heights of the green and orange dots, there is little difference in the average time taken to read a choropleth or hexagon tile map. Comparing the same colored dot across each trend model row, there is a slight increase in the time taken to correctly detected the data plot in the hexagon tile map lineup, but little difference in evaluation time for the choropleth display. However, there were substantially less correct detections for choropleth lineups for the Three cities and All Cities trends.
 
 \begin{figure}
 \centering
@@ -786,7 +786,7 @@ Fig. \ref{fig:beeswarm} shows horizontally jittered dot plots to contrast the ti
 \subsection{Certainty}\label{certainty}}
 
 Participants provided their level of certainty regarding their choice using a five point scale.
-Unlike the accuracy and speed of reponses that were derived during the data processing phase, this was a subjective
+Unlike the accuracy and speed of responses that were derived during the data processing phase, this was a subjective
 assessment by the participant prompted by the question: `How certain are you about your choice?'.
 Figure. \ref{certainty} shows the amount of times participants provided each level of certainty. This was separated for each combination of trend models and display type, and colored depending on whether a participant correctly detected the data plot in the lineup.
 Participants chose 4 or 5 often when viewing the population related trends in the choropelth display, even though they were often incorrect when viewing an All Cities trend and overwhelmingly incorrect for the Three Cities trend. This shows overconfidence in their detection ability when using a choropleth map display. Participants were less likely to be certain when their choice was incorrect and they were viewing a hexagon tile map.
@@ -850,10 +850,10 @@ The bimodal distributions seen in the Fig. \ref{fig:beeswarm} display showed ver
 
 The responses to the questions asked of participants included the reason for their choice and the certainty around their choice.
 Fig. \ref{fig:reason} shows high levels of certainty of 4 and 5 were chosen by participants when looking at the population distributions in a choropleth map display show that they were over confident when attempting to find the real data plot in the choropleth map displays. Participants performed better on the NW-SE distribution shown in the choropleth display and were reasonably confident about their decisions.
-The high levels of the mid range value of 3 could indicate that the participant did not want to provide a response, as this wasy the default value. Those who chose level 4 or 5 were equally likely to be correct for the three cities lineups, but more likely to be correct than incorrect for the other two trend models.
+The high levels of the mid range value of 3 could indicate that the participant did not want to provide a response, as this was the default value. Those who chose level 4 or 5 were equally likely to be correct for the three cities lineups, but more likely to be correct than incorrect for the other two trend models.
 
 The color scaling applied in Three cities and All cities displays resulted in the rural areas of the real data plot appearing more blue or yellow than the other plots in the lineups.
-Due to the consisent coloring of rural areas in a choropleth display, the choice ``All areas have similar colors'' was most common reason for a participants choice. The All Cities displays colored the inner-city areas of all capital cities more red, this was observable to participants and explains the equal choice of the city clusters or rural color consistency.
+Due to the consistent coloring of rural areas in a choropleth display, the choice ``All areas have similar colors'' was most common reason for a participants choice. The All Cities displays colored the inner-city areas of all capital cities more red, this was observable to participants and explains the equal choice of the city clusters or rural color consistency.
 Choosing ``Clusters of colour'' was expected when participants viewed the Hexagon tile map display of the All Cities and Three Cities distributions. It was unexpected that it was also the most common reason for the NW-SE hexagon tile map displays.
 Due to the spatial covariance introduced in the smoothing, groups of similarly colored hexagons were present in all of the hexagon tile map displays. All Cities and Three Cities distributions of real data trends had distinctly different patterns or red inner-city areas, while some of the plots in each lineup may have shared similar features.
 
@@ -864,7 +864,7 @@ The choropleth map display and the tessellated hexagon tile map have been contra
 
 The hexagon tile map display should be considered as an alternative visualization method when communicating distributions that relate to the population across a set of geographic units. As an additional display to the familiar choropleth map, Cancer Atlas products may benefit from the opportunity to allow exploration via an alternative display. The spatial distributions used to test these displays were inspired by the real spatially smoothed estimates of the cancer burden on Australian communities. However, this technique may be extended to other population related distributions, such as other diseases.
 
-The increasing population densities of capital cities despite large land area exaserbates the difference in the smallest and largest communities.
+The increasing population densities of capital cities despite large land area exacerbates the difference in the smallest and largest communities.
 The population density structure of Australia can be considered similar to that of Canada, New Zealand and many others. Therefore, this display is not only relevant to Australia, but all nations or population distributions that experience densely populated cities separated by vast rural expanses.
 
 \hypertarget{acknowledgements}{%
@@ -881,13 +881,13 @@ The supplementary material contains:
 \begin{itemize}
 \tightlist
 \item
-  Additonal analysis of the experimental results
+  Additional analysis of the experimental results
 \item
   Training materials used for the participants
 \item
   24 lineups used in the experiment
 \item
-  12 data sets used to coonstruct the lineups
+  12 data sets used to construct the lineups
 \end{itemize}
 
 \hypertarget{references}{%
@@ -895,26 +895,27 @@ The supplementary material contains:
 
 \newpage
 
-\hypertarget{acknowledgments}{%
-\section{Acknowledgments}\label{acknowledgments}}
+\hypertarget{acknowledgment}{%
+\section{Acknowledgment}\label{acknowledgment}}
 
-The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitch O'Hara-Wild was a co-developer of the taipan R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the numbats (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study.
+The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the taipan {[}\protect\hyperlink{ref-taipan}{19}{]} R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study.
 
 The source code to produce this document can be found on \href{https://github.com/srkobakian/experiment/tree/master/paper}{GitHub}.
-Supplementary materials have been included to discuss the survey procedures,
+Supplementary materials have been included to discuss the survey procedures and the lineups that were used.
+The full set of images can also be found at: https://github.com/srkobakian/experiment/tree/master/figures/final.
 
-The analysis of the work was completed in R {[}\protect\hyperlink{ref-RCore}{15}{]} with the use of the following packages:
+The analysis of the work was completed in R {[}\protect\hyperlink{ref-RCore}{17}{]} with the use of the following packages:
 
 \begin{itemize}
 \tightlist
 \item
-  For document creation: rmarkdown {[}\protect\hyperlink{ref-rmarkdown}{17}{]}, rticles {[}\protect\hyperlink{ref-rticles}{18}{]}, knitr {[}\protect\hyperlink{ref-knitr}{19}{]}.
+  For document creation: rmarkdown {[}\protect\hyperlink{ref-rmarkdown}{20}{]}, rticles {[}\protect\hyperlink{ref-rticles}{21}{]}, knitr {[}\protect\hyperlink{ref-knitr}{22}{]}.
 \item
-  For lineup creation and data analysis: tidyverse {[}\protect\hyperlink{ref-tidyverse}{20}{]}, nullabor {[}\protect\hyperlink{ref-nullabor}{21}{]}, ggthemes {[}\protect\hyperlink{ref-ggthemes}{22}{]}, RColorBrewer {[}\protect\hyperlink{ref-RColorBrewer}{23}{]}.
+  For lineup creation and data analysis: tidyverse {[}\protect\hyperlink{ref-tidyverse}{23}{]}, nullabor {[}\protect\hyperlink{ref-nullabor}{24}{]}, ggthemes {[}\protect\hyperlink{ref-ggthemes}{25}{]}, RColorBrewer {[}\protect\hyperlink{ref-RColorBrewer}{26}{]}.
 \item
-  For image displays: cowplot {[}\protect\hyperlink{ref-cowplot}{24}{]}, png {[}\protect\hyperlink{ref-png}{25}{]}, grid {[}\protect\hyperlink{ref-grid}{26}{]}.
+  For image displays: cowplot {[}\protect\hyperlink{ref-cowplot}{27}{]}, png {[}\protect\hyperlink{ref-png}{28}{]}, grid {[}\protect\hyperlink{ref-grid}{29}{]}.
 \item
-  For modeling and presentation of models: lme4 {[}\protect\hyperlink{ref-lme4}{16}{]}, kableExtra {[}\protect\hyperlink{ref-kableExtra}{27}{]}.
+  For modelling and presentation of models: gstat {[}\protect\hyperlink{ref-gstat}{14}{]}, lme4 {[}\protect\hyperlink{ref-lme4}{18}{]}, kableExtra {[}\protect\hyperlink{ref-kableExtra}{30}{]}.
 \end{itemize}
 
 Ethics approval for the online survey was granted by QUT's Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research.
@@ -964,47 +965,56 @@ Ethics approval for the online survey was granted by QUT's Ethics Committee (Eth
 \leavevmode\hypertarget{ref-ggplot2}{}%
 13. Wickham H (2009) Ggplot2: Elegant graphics for data analysis. Springer New York
 
+\leavevmode\hypertarget{ref-gstat}{}%
+14. Gräler B, Pebesma E, Heuvelink G (2016) Spatio-temporal interpolation using gstat. The R Journal 8:204--218
+
 \leavevmode\hypertarget{ref-sheets}{}%
-14. Bryan J, Zhao J (2018) Googlesheets: Manage google spreadsheets from r.
+15. Bryan J, Zhao J (2018) Googlesheets: Manage google spreadsheets from r.
+
+\leavevmode\hypertarget{ref-figeight}{}%
+16. (2019) The essential high-quality data annotation platform. Figure Eight
 
 \leavevmode\hypertarget{ref-RCore}{}%
-15. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
+17. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
 
 \leavevmode\hypertarget{ref-lme4}{}%
-16. Bates D, Mächler M, Bolker B, Walker S (2015) Fitting linear mixed-effects models using lme4. Journal of Statistical Software 67:1--48
+18. Bates D, Mächler M, Bolker B, Walker S (2015) Fitting linear mixed-effects models using lme4. Journal of Statistical Software 67:1--48
+
+\leavevmode\hypertarget{ref-taipan}{}%
+19. Kobakian S, O'Hara-Wild M (2018) Taipan: Tool for annotating images in preparation for analysis.
 
 \leavevmode\hypertarget{ref-rmarkdown}{}%
-17. Xie Y, Allaire JJ, Grolemund G (2018) R markdown: The definitive guide. Chapman; Hall/CRC, Boca Raton, Florida
+20. Xie Y, Allaire JJ, Grolemund G (2018) R markdown: The definitive guide. Chapman; Hall/CRC, Boca Raton, Florida
 
 \leavevmode\hypertarget{ref-rticles}{}%
-18. Allaire J, Xie Y, R Foundation, et al (2019) Rticles: Article formats for r markdown.
+21. Allaire J, Xie Y, R Foundation, et al (2019) Rticles: Article formats for r markdown.
 
 \leavevmode\hypertarget{ref-knitr}{}%
-19. Xie Y (2014) Knitr: A comprehensive tool for reproducible research in R. Implementing reproducible computational research
+22. Xie Y (2014) Knitr: A comprehensive tool for reproducible research in R. Implementing reproducible computational research
 
 \leavevmode\hypertarget{ref-tidyverse}{}%
-20. Wickham H, Averick M, Bryan J, et al (2019) Welcome to the tidyverse. Journal of Open Source Software 4:1686
+23. Wickham H, Averick M, Bryan J, et al (2019) Welcome to the tidyverse. Journal of Open Source Software 4:1686
 
 \leavevmode\hypertarget{ref-nullabor}{}%
-21. Wickham H, Chowdhury NR, Cook D, Hofmann H (2018) Nullabor: Tools for graphical inference.
+24. Wickham H, Chowdhury NR, Cook D, Hofmann H (2018) Nullabor: Tools for graphical inference.
 
 \leavevmode\hypertarget{ref-ggthemes}{}%
-22. Arnold JB (2019) Ggthemes: Extra themes, scales and geoms for 'ggplot2'.
+25. Arnold JB (2019) Ggthemes: Extra themes, scales and geoms for 'ggplot2'.
 
 \leavevmode\hypertarget{ref-RColorBrewer}{}%
-23. Neuwirth E (2014) RColorBrewer: ColorBrewer palettes.
+26. Neuwirth E (2014) RColorBrewer: ColorBrewer palettes.
 
 \leavevmode\hypertarget{ref-cowplot}{}%
-24. Wilke CO (2019) Cowplot: Streamlined plot theme and plot annotations for 'ggplot2'.
+27. Wilke CO (2019) Cowplot: Streamlined plot theme and plot annotations for 'ggplot2'.
 
 \leavevmode\hypertarget{ref-png}{}%
-25. Urbanek S (2013) Png: Read and write png images.
+28. Urbanek S (2013) Png: Read and write png images.
 
 \leavevmode\hypertarget{ref-grid}{}%
-26. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
+29. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
 
 \leavevmode\hypertarget{ref-kableExtra}{}%
-27. Zhu H (2019) KableExtra: Construct complex table with 'kable' and pipe syntax.
+30. Zhu H (2019) KableExtra: Construct complex table with 'kable' and pipe syntax.
 
 \end{document}
 
