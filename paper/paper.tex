@@ -586,29 +586,35 @@ The R package \texttt{gstat} {[}\protect\hyperlink{ref-gstat}{17}{]} was used to
 \hypertarget{generating-lineups}{%
 \subsection{Generating lineups}\label{generating-lineups}}
 
-XXX Fill in this structure - see commented text
+One map display in each lineup showed a real trend model.
+To created this real data display different methods were applied for each trend type.
+
+The North West to Soth East (NW-SE) distribution was based on the centroid longitude and latitude values, for each of the each geographic units. First, the difference was found between the minimum latitude and longitude of all centroids, and the values of all other centroids in the set of SA3 geographic units.
+Using this difference the following formula was applied: \$ (-2*latitude) + longitude \$.
+
+The All Cities trend model was created using the distance from the centroid of each geographic unit to the closest capital city in Australia. For each geographic unit, the distance to the closest capital city can be found when creating the hexagon tile map using the sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]} package.
+There are large geographic differences between the centroids of inner-city areas and the rural outback areas.
+To find the geographic units closest to the capital cities, the distance to the closest capital city was rescaled to the power of 8.
+The distances were then scaled between 0 and 1, where very small distance from the capital city were near 0, and the farthest centroid from any capital city was allocated the value of 1. The inner-city geographic units were considered those with a scaled distance of less than 0.85.
+
+A similar process was applied to the three cities' trend model. First a random sample of capital cities was taken from Sydney, Brisbane, Melbourne, Adelaide, Perth, and Hobart.
+Only the three sample cities needed to have larger values in the trend model.
+
+The twelve sets of data were split into three trend model groups, four per group.
 
 The null model imposed suggests that neighbors are related. The randomness imposed was smoothed to mirror the practice taken by the Australian Cancer Atlas. This smoothing allowed neighbors to be related to each other and show distributions similar to the Liver cancer distribution shown in \ref{fig:liver}.
 
-Spatially dependent data sets were simulated using the variogram model on the centroids of each geographic unit. Twelve simulations from the variogram model were created for each of the twelve lineups.
+For each of the 144 individual maps, the values attributed to each geographic area are rescaled to show a similar color scale from deep blue to dark red within each map.
 
 In these 12 sets of data, each of the 144 maps were smoothed several times to replicate the spatial autocorrelation seen in cancer data sets presented in the Australian Cancer Atlas.
 
-For each of the 144 individual maps, the values attributed to each geographic area are rescaled to show a similar color scale from deep blue to dark red within each map.
+This resulted in the smallest values of the trend model (blue) occurring in Western Australia, the North West of Australia, and the largest values of the trend model (red) occurring in the South East. This resulted in Tasmania being colored completely red.
+For the Three cities lineups, scaling was applied separately to the random values simulated for geographic units that were closest to the cities that were not included in the sample.
+This ensured that the minimum simulated value for every map had a dark blue color, and the maximum value was colored red. However, the geographic units that were close to the three cities selected were scaled to a larger maximum value so that their greatest values would appear red.
 
 A random location was selected for each set of lineup data.
-In this location, a trend model was overlaid on the null set of spatially correlated data.
-Each set of lineup data was used to produce a choropleth maps and hexagon tile maps. These matched pairs were split between Group A and Group B.
-
-For each lineup these statistics were calculated:
-
-\begin{itemize}
-\tightlist
-\item
-  accuracy: the proportion of subjects who detected the data plot
-\item
-  efficiency: average time taken to respond
-\end{itemize}
+In this location, the trend model for each lineup was overlaid on the null set of spatially correlated data.
+Each set of lineup data was used to produce a choropleth maps and hexagon tile maps. These matched pairs were split between Group A and Group B according to the 2 x 3 factor experimental design depicted in \ref{fig:exp-design}.
 
 \hypertarget{web-application-to-collect-responses}{%
 \subsection{Web application to collect responses}\label{web-application-to-collect-responses}}
@@ -873,8 +879,6 @@ The hexagon tile map display should be considered as an alternative visualizatio
 The increasing population densities of capital cities despite large land area exacerbates the difference in the smallest and largest communities.
 The population density structure of Australia can be considered similar to that of Canada, New Zealand and many others. Therefore, this display is not only relevant to Australia, but all nations or population distributions that experience densely populated cities separated by vast rural expanses.
 
-\newpage
-
 \hypertarget{acknowledgment}{%
 \section{Acknowledgment}\label{acknowledgment}}
 
@@ -917,7 +921,8 @@ Ethics approval for the online survey was granted by QUT's Ethics Committee (Eth
 \newpage
 
 \hypertarget{references}{%
-\section{References}\label{references}}
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-sugarbag}{}%
