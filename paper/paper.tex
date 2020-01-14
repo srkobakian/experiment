@@ -500,8 +500,9 @@ The Australian Cancer Atlas {[}\protect\hyperlink{ref-atlas}{2}{]} is an online 
 The experiment was conducted using the lineup protocol, a visual inference procedure {[}\protect\hyperlink{ref-GIIV}{3}{]}, to objectively test the effectiveness of the two displays.
 
 The paper is organised as follows. The next section discusses the background of geographic data display and visual inference procedures. The \protect\hyperlink{methodology}{Methodology} Section describes the methods for conducting the experiment and analysing the results. The results are summarized in Section \protect\hyperlink{results}{Results}.
-Background
-=============
+
+\hypertarget{background}{%
+\section{Background}\label{background}}
 
 \hypertarget{spatial-data-displays}{%
 \subsection{Spatial data displays}\label{spatial-data-displays}}
@@ -593,34 +594,72 @@ This smoothing allowed neighbors to be related to each other, but allowed outlie
 \hypertarget{generating-lineups}{%
 \subsection{Generating lineups}\label{generating-lineups}}
 
-The real data display for each trend type was created by applying different methods to the centroid values of each geographic unit.
+Each set of lineup data was used to produce a choropleth map lineup and hexagon tile map lineup. These matched pairs were split between Group A and Group B according to the 2 x 3 factor experimental design depicted in \ref{fig:exp-design}.
 
-The North West to Soth East (NW-SE) distribution was based on the centroid longitude and latitude values. First, the minimum latitude and longitude value of all centroids were found. Then the difference was found between the minimums, and the centroid values of all other centroids in the set of SA3 geographic units.
-The following formula was applied to the difference from the minimums: \$ (-2*latitude) + longitude \$.
+For each trend model, the real data display was created by manipulating the centroid values of each geographic unit.
 
-The All Cities trend model was created using the distance from the centroid of each geographic unit to the closest capital city in Australia. For each geographic unit, the distance to the closest capital city can be found when creating the hexagon tile map using the sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]} package.
-There are large geographic differences between the centroids of greater capital city areas and the rural outback areas.
-To find the geographic units closest to the capital cities, the distance to the closest capital city was rescaled to the power of 8 to help differentiate between the smallest distances.
-The distances were then scaled between 0 and 1, where very small distance from the capital city were near 0, and the farthest centroid from any capital city were near to 1. The greater capital city geographic units were considered those with a scaled distance of less than 0.85, this resulted in 201 units considered ``close''. This was chosen to make red spots around the cities visible, even if they were not overtly noticeable in the choropleth display.
+The North West to South East (NW-SE) distribution was created using a linear equation of the centroid longitude and latitude values.
 
-A similar process was applied to the three cities' trend model. For each of the four replicates for the Three Cities trend, a random sample of capital cities was taken from Sydney, Brisbane, Melbourne, Adelaide, Perth, and Hobart.
-The same process used for the All Cities trend was applied, but only to the areas nearest to the three cities in the sample for each of the four replicates.
-For the Three cities lineups, scaling was applied separately to the values for geographic units that were and were not closest to the cities that were included in the sample. The geographic units that were close to the three cities selected were scaled to a larger maximum value so that their greatest values would appear red.
+The All Cities trend model was created using the distance from the centroid of each geographic unit to the closest capital city in Australia. The distance to the closest capital city for each geographic unit was found when creating the hexagon tile map using the sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]} package.
+201 Statistical Areas were considered greater capital city areas, the values of these areas were increased to create red clusters. They were chosen to make clusters around the cities visible, even if they were not overtly noticeable in the choropleth display.
 
-One of the lineup map locations was randomly chosen to embed the real trend model data, in each of the four replicates, for the three trend models.
-In this location, real data display of the trend model was added to the null values of the spatially correlated data for each lineup.
+A similar selection process was applied to the Three Cities' trend model. However, for each of the four replicates for the Three Cities trend, a random sample of capital cities was taken from Sydney, Brisbane, Melbourne, Adelaide, Perth, and Hobart. Only values of the areas nearest to the three cities were increased to create clusters.
 
-For each of the 144 individual maps, the values attributed to each geographic area are rescaled to show a similar color scale from deep blue to dark red within each map.
+One of the lineup map locations was chosen to embed the real trend model data, in each of the four replicates, for the three trend models.
+In this location, real data display of the trend model was added to the null values of the spatially correlated data for each lineup. This location, the associated trend values and the null data were used to create both a choropleth and hexagon tile map display.
+The choropleth and hexagon lineups were split between group A and B, according to the experimental design shown in \ref{fig:exp-design}.
+The location was chosen from a sub sample of the 12 possible locations. The chance of reptition using resampling was introduced to prevent participants from inducing the location by elimination, the locations 1, 7, 10 and 11 were not used.
+
+For each of the 144 individual maps, the values attributed to each geographic area were rescaled to create a similar color scale from deep blue to dark red within each map.
 This allowed at least one geographic unit to be colour dark blue, and at least one to be red, in every map display of every lineup.
 
 For the geographic NW-SE distribution, this resulted in the smallest values of the trend model (blue) occurring in Western Australia, the North West of Australia, and the largest values of the trend model (red) occurring in the South East. This resulted in Tasmania being colored completely red.
 
-Each set of lineup data was used to produce a choropleth maps and hexagon tile maps. These matched pairs were split between Group A and Group B according to the 2 x 3 factor experimental design depicted in \ref{fig:exp-design}.
+For the population related displays, the clusters in the cities appeared more red than the rest of Australia.
+
+\hypertarget{analysis}{%
+\subsection{Analysis}\label{analysis}}
+
+\hypertarget{data-cleaning}{%
+\subsubsection{Data Cleaning}\label{data-cleaning}}
+
+The first step in the data cleaning process involved checking that survey responses collected for each participants were only included once in the data set.
+The data cleaning process also involved filtering out participants' who did not provide any choices when considering each of the twelve lineups. These participants achieved a detection rate of 0. If participants had made various plot choices for the 12 displays they saw they were still included in the dataset.
+
+\hypertarget{descriptive-statistics}{%
+\subsubsection{Descriptive statistics}\label{descriptive-statistics}}
+
+Mean, standard deviations for lineups, by participant, \ldots{}
+
+Side-by-side dot plots were made of accuracy (efficiency) against map type, faceted by trend model type.
+
+Similar plots were made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables.
+
+Plots will be made in R (R Core Team 2019), with the ggplot2 package (Wickham 2016).
+
+\hypertarget{modelling}{%
+\subsubsection{Modelling}\label{modelling}}
+
+The likelihood of detecting the data plot in the lineup can be modelled using a linear mixed effects model.
+The R {[}\protect\hyperlink{ref-RCore}{18}{]} \texttt{glmer()} function in the {[}\protect\hyperlink{ref-lme4}{19}{]} package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
+
+\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3\]
+
+where \(y_{ij} = 0, 1\) whether the subject detected the data plot, \(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the map type effect, \(\delta_j\) is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. This model can account for each individual participants' abilities as it includes a subject-specific random intercept. As each participant provides results from 12 lineups.
+
+The model specifies a logistic link, this means the predicted values from the \texttt{glmer} model should be back-transformed to fit between 0 and 1. They are transformed with the link specified below:
+
+\[\mu = \frac{e^{\eta}}{1 + e^{\eta}}\] \label{eq:transform}
+\[\eta = f(\tau_i,\delta_j)\]
+
+The feedback and demographic variables will possibly be incorporated as covariates.
+
+Computation will be done using R {[}\protect\hyperlink{ref-RCore}{18}{]}, with the \texttt{lme4} package {[}\protect\hyperlink{ref-lme4}{19}{]}.
 
 \hypertarget{web-application-to-collect-responses}{%
 \subsection{Web application to collect responses}\label{web-application-to-collect-responses}}
 
-The taipan {[}\protect\hyperlink{ref-taipan}{18}{]} package for R was used to create the survey web application.
+The taipan {[}\protect\hyperlink{ref-taipan}{20}{]} package for R was used to create the survey web application.
 This structure was altered to collect responses regarding participants demographics and their survey responses.
 The survey app contained three tabs, participants were first shown the demographics and consent page.
 This asked participants for their Figure-Eight contributor ID, and their consent to the responses being used for analysis. The demographics collected included participants' preferred pronoun, the highest level of education achieved, their age range and whether they had lived in Australia.
@@ -630,12 +669,12 @@ After submitting these responses, the survey application switched to the tab of 
 When participants completed the twelve evaluations the survey application triggered a data analysis script. This created a data set with one row per evaluation. Along with the responses to the three questions, the script added the title of the image, which indicated the type of map display, the type of distribution hidden in the lineup, and the location of the data plot. It also calculated the time taken by participant to view each lineup.
 
 Each participant used the internet to access the survey.
-The data transfer from the web application to the data set took place using a secure link to the googlesheet used to store results. The application connected to the googlesheet using the googlesheets {[}\protect\hyperlink{ref-sheets}{19}{]} R package when participants opened the application, and interacted again when participants chosen to submit the survey and indicate their completion. At this time it added the participant's responses to the twelve lineup displays as twelve rows of data in the googlesheet.
+The data transfer from the web application to the data set took place using a secure link to the googlesheet used to store results. The application connected to the googlesheet using the googlesheets {[}\protect\hyperlink{ref-sheets}{21}{]} R package when participants opened the application, and interacted again when participants chosen to submit the survey and indicate their completion. At this time it added the participant's responses to the twelve lineup displays as twelve rows of data in the googlesheet.
 
 \hypertarget{participants}{%
 \subsection{Participants}\label{participants}}
 
-Participants were recruited to evaluate lineups from the Figure Eight crowdsourcing platform {[}\protect\hyperlink{ref-figeight}{20}{]}.
+Participants were recruited to evaluate lineups from the Figure Eight crowdsourcing platform {[}\protect\hyperlink{ref-figeight}{22}{]}.
 The lineup protocol expects that the participants are uninvolved judges with no prior knowledge of the data, to avoid inadvertently affecting results. Potential participants needed to have achieved level 2 or level 3 from prior work. All participants were at least 18 years old.
 
 Participants were allocated to either group A or group B when they proceeded to the survey web application, which was hosted externally to the Figure Eight website. There were 95 participants involved in the study. All participants read introductory materials, and was trained using three test displays, to orient them to the evaluation task. All participants who completed the task were compensated \$USD5 for their time, via the Figure Eight payment system.
@@ -678,42 +717,6 @@ Three questions were asked regarding each display:
 \end{itemize}
 
 After completing the 12 evaluations, the participants were asked to submit their responses.
-
-\hypertarget{analysis}{%
-\subsection{Analysis}\label{analysis}}
-
-\hypertarget{descriptive-statistics}{%
-\subsubsection{Descriptive statistics}\label{descriptive-statistics}}
-
-Mean, standard deviations for lineups, by participant, \ldots{}
-
-Side-by-side dot plots were made of accuracy (efficiency) against map type, faceted by trend model type.
-
-Similar plots were made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables.
-
-Plots will be made in R (R Core Team 2019), with the ggplot2 package (Wickham 2016).
-
-\hypertarget{modelling}{%
-\subsubsection{Modelling}\label{modelling}}
-
-The likelihood of detecting the data plot in the lineup can be modelled using a linear mixed effects model.
-The R {[}\protect\hyperlink{ref-RCore}{21}{]} \texttt{glmer()} function in the {[}\protect\hyperlink{ref-lme4}{22}{]} package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
-
-\[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3\]
-
-where \(y_{ij} = 0, 1\) whether the subject detected the data plot, \(\mu\) is the overall mean, \(\tau_i, i=1,2\) is the map type effect, \(\delta_j\) is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. This model can account for each individual participants' abilities as it includes a subject-specific random intercept. As each participant provides results from 12 lineups.
-
-The model specifies a logistic link, this means the predicted values from the \texttt{glmer} model should be back-transformed to fit between 0 and 1. They are transformed with the link specified below:
-
-\[\mu = \frac{e^{\eta}}{1 + e^{\eta}}\] \label{eq:transform}
-\[\eta = f(\tau_i,\delta_j)\]
-
-The feedback and demographic variables will possibly be incorporated as covariates.
-
-Computation will be done using R {[}\protect\hyperlink{ref-RCore}{21}{]}, with the \texttt{lme4} package {[}\protect\hyperlink{ref-lme4}{22}{]}.
-
-\hypertarget{data-cleaning}{%
-\subsubsection{Data cleaning}\label{data-cleaning}}
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -883,7 +886,7 @@ The population density structure of Australia can be considered similar to that 
 \hypertarget{acknowledgment}{%
 \section{Acknowledgment}\label{acknowledgment}}
 
-The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the taipan {[}\protect\hyperlink{ref-taipan}{18}{]} R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study.
+The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the taipan {[}\protect\hyperlink{ref-taipan}{20}{]} R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study.
 
 The source code to produce this document can be found on \href{https://github.com/srkobakian/experiment/tree/master/paper}{GitHub}.
 Supplementary materials have been included to discuss the survey procedures and the lineups that were used.
@@ -903,7 +906,7 @@ The supplementary material contains:
   12 data sets used to construct the lineups
 \end{itemize}
 
-The analysis of the work was completed in R {[}\protect\hyperlink{ref-RCore}{21}{]} with the use of the following packages:
+The analysis of the work was completed in R {[}\protect\hyperlink{ref-RCore}{18}{]} with the use of the following packages:
 
 \begin{itemize}
 \tightlist
@@ -914,7 +917,7 @@ The analysis of the work was completed in R {[}\protect\hyperlink{ref-RCore}{21}
 \item
   For image displays: cowplot {[}\protect\hyperlink{ref-cowplot}{30}{]}, png {[}\protect\hyperlink{ref-png}{31}{]}, grid {[}\protect\hyperlink{ref-grid}{32}{]}.
 \item
-  For modelling and presentation of models: gstat {[}\protect\hyperlink{ref-gstat}{17}{]}, lme4 {[}\protect\hyperlink{ref-lme4}{22}{]}, kableExtra {[}\protect\hyperlink{ref-kableExtra}{33}{]}.
+  For modelling and presentation of models: gstat {[}\protect\hyperlink{ref-gstat}{17}{]}, lme4 {[}\protect\hyperlink{ref-lme4}{19}{]}, kableExtra {[}\protect\hyperlink{ref-kableExtra}{33}{]}.
 \end{itemize}
 
 Ethics approval for the online survey was granted by QUT's Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research.
@@ -977,20 +980,20 @@ Ethics approval for the online survey was granted by QUT's Ethics Committee (Eth
 \leavevmode\hypertarget{ref-gstat}{}%
 17. Gräler B, Pebesma E, Heuvelink G (2016) Spatio-temporal interpolation using gstat. The R Journal 8:204--218
 
-\leavevmode\hypertarget{ref-taipan}{}%
-18. Kobakian S, O'Hara-Wild M (2018) Taipan: Tool for annotating images in preparation for analysis.
-
-\leavevmode\hypertarget{ref-sheets}{}%
-19. Bryan J, Zhao J (2018) Googlesheets: Manage google spreadsheets from r.
-
-\leavevmode\hypertarget{ref-figeight}{}%
-20. (2019) The essential high-quality data annotation platform. Figure Eight
-
 \leavevmode\hypertarget{ref-RCore}{}%
-21. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
+18. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
 
 \leavevmode\hypertarget{ref-lme4}{}%
-22. Bates D, Mächler M, Bolker B, Walker S (2015) Fitting linear mixed-effects models using lme4. Journal of Statistical Software 67:1--48
+19. Bates D, Mächler M, Bolker B, Walker S (2015) Fitting linear mixed-effects models using lme4. Journal of Statistical Software 67:1--48
+
+\leavevmode\hypertarget{ref-taipan}{}%
+20. Kobakian S, O'Hara-Wild M (2018) Taipan: Tool for annotating images in preparation for analysis.
+
+\leavevmode\hypertarget{ref-sheets}{}%
+21. Bryan J, Zhao J (2018) Googlesheets: Manage google spreadsheets from r.
+
+\leavevmode\hypertarget{ref-figeight}{}%
+22. (2019) The essential high-quality data annotation platform. Figure Eight
 
 \leavevmode\hypertarget{ref-rmarkdown}{}%
 23. Xie Y, Allaire JJ, Grolemund G (2018) R markdown: The definitive guide. Chapman; Hall/CRC, Boca Raton, Florida

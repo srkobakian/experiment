@@ -176,6 +176,8 @@ The Australian Cancer Atlas [@atlas] is an online interactive web tool created t
 The experiment was conducted using the lineup protocol, a visual inference procedure [@GIIV], to objectively test the effectiveness of the two displays. 
 
 The paper is organised as follows. The next section discusses the background of geographic data display and visual inference procedures. The [Methodology] Section describes the methods for conducting the experiment and analysing the results. The results are summarized in Section [Results]. 
+
+
 Background
 =============
 
@@ -222,18 +224,10 @@ Alternative algorithms make various trade offs between familiar shapes and repre
 <!-- Hexagon tile map -->
 The hexagon tile map algorithm, automatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag [@sugarbag]. Figure \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas are expanded out, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is of interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
 
-<!-- Specific problem for Australia 
-Australia is an extreme case of heterogeneous geographic units, with the large differences between the smallest and largest geographic units across various granularities.
-To communicate information regarding the small inner-city geographic units of Australian cities, an alternative display must be employed. This will emphasize the value of the statistic for areas with a high population. Fig. \ref{fig:liver} shows the distribution of the smoothed average amount of liver cancer diagnoses for Australian Males from 2005 to 2014.
-These inner-city areas are not visible on the choropleth map (a). The hexagon tile map (b) shows orange hexagons for the inner-city SA2s with higher than average levels of diagnoses in the capital cities of Melbourne and Sydney. The northern Queensland and Northern Territory SA2s with higher than average rates are still visible but use less map space on the hexagon tile map. There are still many light blue areas in both displays. 
--->
 
 ## Visual Inference
 
 In order to assess the effectiveness of the hexagon tile map, the lineup protocol [@GIIV,@BCHLLSW09] from visual inference procedures is employed. The procedures for doing a power comparison of competing plot designed, outlined in @GTPCCD, are followed. The approach mirrors classical statistical inference. 
-
-<!--We suggest the hexagon tile map as an alternative display. To test the effectiveness of these displays, there is a formal testing framework. Visual inference considers the communication of data or data summaries through visualizations. It considers these visualizations to be visual statistics, with observable features.
--->
 
 In classical statistical inference hypothesis testing is conducted by comparing the value of a test statistic on a standard reference distribution, computed assuming the null hypothesis is true. If the value is extreme,  the null hypothesis is rejected, because the test statistic value is unlikely to have been so extreme if it was true. In the lineup protocol, the plot plays the role of the test statistic, and the data plot is embedded in a field of null plots. Defining the plot using a grammar of graphics [@ggplot2] makes it a functional mapping of the variables and thus, it can be considered to be a statistic. With the same data, two different plots can be considered to be competing statistics, one possibly a more powerful statistic than the other. 
 
@@ -250,24 +244,6 @@ ggdraw() +
 
 In order to determine the effectiveness of a type of display, this probability is less relevant than the overall proportion of observers who pick the data plot, $k/K$. The power of the test statistic (data plot) is provided by this proportion. Power in a statistical sense is the ability of the statistic to *produce a rejection* of the null hypothesis, if it is indeed *not true*. With the same data plotted using two different displays, the display with the highest proportion of people who choose the data plot would be considered to be the most powerful statistic. 
 
-<!-- The lineup protocol was formalized as a test for the effectiveness of a visualization. Rather than classical statistical tests, it tasks human participants with finding the display that shows structure between the variables. If they do not detect the structure, then it is not significantly different from the null data.
-
-
-Visual inference uses the general hypothesis structure: 
-
- - Null hypothesis: There is \bf{no} relationship between the variables
- - Alternative hypothesis: There is a relationship between the variables
-
-To test these hypotheses, the line up protocol randomly places a "guilty" data visualization in a lineup of "innocents". Where the guilty data set contains structure, and the innocents data sets do not.
-In a grid of visualizations, an observer is asked to pick the display that is most different, if they select the data set containing structure, they have identified the guilty hidden within the  innocents [@GTPCCD].
-The participants identify the guilty data as different from the innocent data with probability $1/m$, where $m$ is the number of null plots plus 1 to account for the guilty data set. When the guilty data set is chosen we reject the null hypothesis that it was innocent is rejected with a $1/m$ chance or type I error of being wrong.
-
-The lineup protocol can be used in a variety of testing scenarios for visualizations. @GIIV suggest the choropleth map for testing spatial structure in a data set. The lineup protocol allows for flexibility in the definition of null data. In the case of spatial visualizations, it is likely that neighbors are related. To account for this, null data sets can be generated by sampling from a known model that accounts for spatial covariance. 
-
-To contrast the effectiveness of two displays, we can produce null data plots with a hidden real data plot using the different plot designs.
-We can compare the time taken by participants to evaluate the same data in the different displays. We can also contrast the accuracy achieved by participants in detecting the real data plot.
--->
-
 Methodology
 ============
 
@@ -279,15 +255,6 @@ This study aims to answer two key questions around the presentation of spatial d
 Additional considerations when completing this experimental task included the difficulty experienced by participants and the certainty they had in their decision.
 
 Australia is used for the study, with Statistical Area 2 (SA2) [@abs2016] as the geographic units. The results should apply broadly to any other geographic area of interest. 
-
-<!--
-The mean of the detection rate for choropleth map, denoted as $\mu_C$, and the hexagon tile maps, $\mu_H$ will be contrasted. This leads to the following one sided hypothesis:
-
-$H_0$ : $\mu_H$ = $\mu_C$
-$H_a$ : $\mu_H$ > $\mu_C$
-
-The detection rate $\hat\pi$ is calculated as the amount of people that made the choice of plot that contained the real data, out of the participants who saw data plot in the lineup of the null data plots.
--->
 
 ## Experimental factors
 
@@ -331,39 +298,80 @@ A list of neighbors for each geographic unit was generated to use when smoothing
 This smoothing allowed neighbors to be related to each other, but allowed outliers, and showed distributions similar to the Liver cancer distribution shown in \ref{fig:liver}. 
 
 
-
-
 ## Generating lineups
 
+
+Each set of lineup data was used to produce a choropleth map lineup and hexagon tile map lineup. These matched pairs were split between Group A and Group B according to the 2 x 3 factor experimental design depicted in \ref{fig:exp-design}.
+
 <!-- Discuss simulating the trend data -->
-The real data display for each trend type was created by applying different methods to the centroid values of each geographic unit.
+For each trend model, the real data display was created by manipulating the centroid values of each geographic unit.
 
-The North West to Soth East (NW-SE) distribution was based on the centroid longitude and latitude values. First,  the minimum latitude and longitude value of all centroids were found. Then the difference was found between the minimums, and the centroid values of all other centroids in the set of SA3 geographic units.
-The following formula was applied to the difference from the minimums: $ (-2*latitude) + longitude $.
+The North West to South East (NW-SE) distribution was created using a linear equation of the centroid longitude and latitude values. 
 
-The All Cities trend model was created using the distance from the centroid of each geographic unit to the closest capital city in Australia. For each geographic unit, the distance to the closest capital city can be found when creating the hexagon tile map using the sugarbag [@sugarbag] package.
-There are large geographic differences between the centroids of greater capital city areas and the rural outback areas. 
-To find the geographic units closest to the capital cities, the distance to the closest capital city was rescaled to the power of 8 to help differentiate between the smallest distances.
-The distances were then scaled between 0 and 1, where very small distance from the capital city were near 0, and the farthest centroid from any capital city were near to 1. The greater capital city geographic units were considered those with a scaled distance of less than 0.85, this resulted in 201 units considered "close". This was chosen to make red spots around the cities visible, even if they were not overtly noticeable in the choropleth display.
+The All Cities trend model was created using the distance from the centroid of each geographic unit to the closest capital city in Australia. The distance to the closest capital city for each geographic unit was found when creating the hexagon tile map using the sugarbag [@sugarbag] package.
+201 Statistical Areas were considered greater capital city areas, the values of these areas were increased to create red clusters. They were chosen to make clusters around the cities visible, even if they were not overtly noticeable in the choropleth display.
 
-A similar process was applied to the three cities' trend model. For each of the four replicates for the Three Cities trend, a random sample of capital cities was taken from Sydney, Brisbane, Melbourne, Adelaide, Perth, and Hobart.
-The same process used for the All Cities trend was applied, but only to the areas nearest to the three cities in the sample for each of the four replicates. 
-For the Three cities lineups, scaling was applied separately to the values for geographic units that were and were not closest to the cities that were included in the sample. The geographic units that were close to the three cities selected were scaled to a larger maximum value so that their greatest values would appear red.
+A similar selection process was applied to the Three Cities' trend model. However, for each of the four replicates for the Three Cities trend, a random sample of capital cities was taken from Sydney, Brisbane, Melbourne, Adelaide, Perth, and Hobart. Only values of the areas nearest to the three cities were increased to create clusters.
 
 
 <!-- Location of data plot -->
 
-One of the lineup map locations was randomly chosen to embed the real trend model data, in each of the four replicates, for the three trend models.
-In this location, real data display of the trend model was added to the null values of the spatially correlated data for each lineup.
+One of the lineup map locations was chosen to embed the real trend model data, in each of the four replicates, for the three trend models.
+In this location, real data display of the trend model was added to the null values of the spatially correlated data for each lineup. This location, the associated trend values and the null data were used to create both a choropleth and hexagon tile map display.
+The choropleth and hexagon lineups were split between group A and B, according to the experimental design shown in \ref{fig:exp-design}.
+The location was chosen from a sub sample of the 12 possible locations. The chance of reptition using resampling was introduced to prevent participants from inducing the location by elimination, the locations 1, 7, 10 and 11 were not used.
+
 
 <!-- Scaling data within a lineup -->
 
-For each of the 144 individual maps, the values attributed to each geographic area are rescaled to show a similar color scale from deep blue to dark red within each map.
+For each of the 144 individual maps, the values attributed to each geographic area were rescaled to create a similar color scale from deep blue to dark red within each map.
 This allowed at least one geographic unit to be colour dark blue, and at least one to be red, in every map display of every lineup.
 
 For the geographic NW-SE distribution, this resulted in the smallest values of the trend model (blue) occurring in Western Australia, the North West of Australia, and the largest values of the trend model (red) occurring in the South East. This resulted in Tasmania being colored completely red.
 
-Each set of lineup data was used to produce a choropleth maps and hexagon tile maps. These matched pairs were split between Group A and Group B according to the 2 x 3 factor experimental design depicted in \ref{fig:exp-design}.
+For the population related displays, the clusters in the cities appeared more red than the rest of Australia.
+
+
+## Analysis
+
+### Data Cleaning
+
+The first step in the data cleaning process involved checking that survey responses collected for each participants were only included once in the data set. 
+The data cleaning process also involved filtering out participants' who did not provide any choices when considering each of the twelve lineups. These participants achieved a detection rate of 0. If participants had made various plot choices for the 12 displays they saw they were still included in the dataset.
+
+
+### Descriptive statistics
+
+Mean, standard deviations for lineups, by participant, ...
+
+Side-by-side dot plots were made of accuracy (efficiency) against map type, faceted by trend model type.
+
+Similar plots were made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables.
+
+Plots will be made in R (R Core Team 2019), with the ggplot2 package (Wickham 2016).   
+   
+   
+### Modelling
+
+The likelihood of detecting the data plot in the lineup can be modelled using a linear mixed effects model. 
+The R [@RCore] `glmer()` function in the [@lme4] package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
+
+
+$$\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3$$
+
+where $y_{ij} = 0, 1$ whether the subject detected the data plot, $\mu$ is the overall mean, $\tau_i, i=1,2$ is the map type effect, $\delta_j$ is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. This model can account for each individual participants’ abilities as it includes a subject-specific random intercept. As each participant provides results from 12 lineups.
+
+The model specifies a logistic link, this means the predicted values from the `glmer` model should be back-transformed to fit between 0 and 1. They are transformed with the link specified below:
+
+
+$$\mu = \frac{e^{\eta}}{1 + e^{\eta}}$$ \label{eq:transform}
+$$\eta = f(\tau_i,\delta_j)$$
+
+
+The feedback and demographic variables will possibly be incorporated as covariates.
+
+Computation will be done using R [@RCore], with the `lme4` package [@lme4].
+
 
 
 
@@ -453,47 +461,6 @@ For each of the 12 lineup displays the researchers calculated:
  - efficiency: average time taken to respond
 -->
 
-## Analysis
-
-### Descriptive statistics
-
-Mean, standard deviations for lineups, by participant, ...
-
-Side-by-side dot plots were made of accuracy (efficiency) against map type, faceted by trend model type.
-
-Similar plots were made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables.
-
-Plots will be made in R (R Core Team 2019), with the ggplot2 package (Wickham 2016).   
-   
-   
-### Modelling
-
-The likelihood of detecting the data plot in the lineup can be modelled using a linear mixed effects model. 
-The R [@RCore] `glmer()` function in the [@lme4] package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
-
-
-$$\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3$$
-
-where $y_{ij} = 0, 1$ whether the subject detected the data plot, $\mu$ is the overall mean, $\tau_i, i=1,2$ is the map type effect, $\delta_j$ is the trend model effect. We are allowing for an interaction between map type and trend model. Because the response is binary, a logistic model is used. This model can account for each individual participants’ abilities as it includes a subject-specific random intercept. As each participant provides results from 12 lineups.
-
-The model specifies a logistic link, this means the predicted values from the `glmer` model should be back-transformed to fit between 0 and 1. They are transformed with the link specified below:
-
-
-$$\mu = \frac{e^{\eta}}{1 + e^{\eta}}$$ \label{eq:transform}
-$$\eta = f(\tau_i,\delta_j)$$
-
-
-The feedback and demographic variables will possibly be incorporated as covariates.
-
-Computation will be done using R [@RCore], with the `lme4` package [@lme4].
-
-
-### Data cleaning
-
-<!-- A pilot study was conducted to determine whether the lineups were appropriate. All lineups in the pilot study were deemed viable as at least one participant detected the real data plot in each lineup.
-The demographics of the participants showed a skew towards male participants. 
-The randomness of the group allocation also resulted in more participants being allocated to Group B. Due to the allocation of lineup displays the participants all saw six Choropleth displays and six Hexagon Tile Map displays.
--->
 
 Results
 ============
