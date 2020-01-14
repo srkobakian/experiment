@@ -42,7 +42,7 @@ detect_colours <- c(
   "Detected? Yes" = "#FC8D62")
 
   # Downloaded data
-d <- read_xlsx("../data/experiment-export.xlsx", sheet=2) %>%
+d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
   filter(!is.na(contributor)) %>%
   mutate(contributor = factor(contributor))
 
@@ -231,44 +231,183 @@ knitr::kable(choice_tabs$data[[3]], format = "latex", align = "rrrrrrrrrrrrrr",
 ```
 
 
+# Lineups
 
-
-# All cities Example 1:
+## North West - South East
 
 The same data set is visualised in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. 
 
 Lineups were created using the Australian Statistical Areas at Level 3.
 
+## All Cities
 
-Replicate 3 of the All Cities distribution is shown in Fig. \ref{fig:cities-geo4} and Fig. \ref{fig:cities-hex4}. 
+### Replicate 1
 
-```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities."}
+```{r cities-geo12, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects all capital cities."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("../figures/aus_cities_4_geo.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_12_geo.png")))
+```
+
+
+```{r cities-hex12, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 12 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_12_hex.png")))
+```
+
+
+### Replicate 2
+
+```{r cities-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_3_geo.png")))
+```
+
+
+```{r cities-hex3, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 3 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_3_hex.png")))
+```
+
+### Replicate 3
+
+```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_4_geo.png")))
+```
+
+
+```{r cities-hex4, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 4 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_4_hex.png")))
+```
+
+
+### Replicate 4
+
+```{r cities-geo9, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_9_geo.png")))
+```
+
+
+```{r cities-hex9, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 9 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_9_hex.png")))
+```
+
+
+## Three Cities
+
+### Replicate 1
+
+```{r three-geo12, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_12_geo.png")))
+```
+
+
+```{r three-hex12, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 12 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_12_hex.png")))
+```
+
+
+### Replicate 2
+
+```{r three-geo5, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_5_geo.png")))
+```
+
+
+```{r three-hex5, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 3 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_5_hex.png")))
+```
+
+### Replicate 3
+
+```{r three-geo8, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_8_geo.png")))
+```
+
+
+```{r three-hex8, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 4 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_8_hex.png")))
+```
+
+
+### Replicate 4
+
+```{r three-geo9, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_9_geo.png")))
+```
+
+
+```{r three-hex9, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 9 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_9_hex.png")))
 ```
 
 
 
-```{r cities-hex4, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities."}
+## North West to South East Geographic Trend
+
+### Replicate 1
+
+```{r nwse-geo2, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects all capital nwse."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("../figures/aus_cities_4_hex.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_2_geo.png")))
 ```
 
 
-# All Citites Example 2:
-
-The higher values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. There were no other choropleth maps that were coloured as blue as the map at location 3. This meant the detection rate was quite high, participants were able to select the correct distribution, even without being able to see the colours of inner-city areas of the capital cities.
-
-```{r cities-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays hides a distribution that affects all capital cities."}
+```{r nwse-hex2, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 12 contains a distribution that affects all capital nwse."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("../figures/aus_cities_3_geo.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_2_geo.png")))
 ```
 
 
-The same data showed in the hexagon tile map display shows varied distributions across the lineup. They are more diverse in colour than the choropleth counterparts. The same location, 3, holds the real data plot, the red city centres are now visible and surrounded by yellow, and then blue hexagons. For different reasons the participants were able to make the same correct choice for this replicate, with a detection rate of .
+### Replicate 2
 
-```{r cities-hex3, results = "asis", fig.cap = "The lineup of choropleth map displays shows a distribution that affects all capital cities. The values for the inner city areas in the capital cities result in them being coloured red. However, the colour blue dominates the display as the large rural areas are filled. Replicate (2) for All Cities."}
+```{r nwse-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects all capital nwse."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("../figures/aus_cities_3_hex.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_3_geo.png")))
 ```
+
+
+```{r nwse-hex3, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 3 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_3_geo.png")))
+```
+
+### Replicate 3
+
+```{r nwse-geo5, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_5_geo.png")))
+```
+
+
+```{r nwse-hex5, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 4 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_5_geo.png")))
+```
+
+
+### Replicate 4
+
+```{r nwse-geo6, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_6_geo.png")))
+```
+
+
+```{r nwse-hex6, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 9 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_6_geo.png")))
+```
+
 
