@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  14 JAN 2020 22:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  15 JAN 2020 20:46
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -412,7 +412,8 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-) (paper.aux)
+)
+No file paper.aux.
 \openout1 = `paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 367.
@@ -471,228 +472,23 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 367.
 LaTeX Info: Redefining \pageref on input line 367.
 LaTeX Info: Redefining \nameref on input line 367.
-(paper.out) (paper.out)
 \@outlinefile=\write3
 \openout3 = `paper.out'.
 
-<paper_files/figure-latex/liver-1.pdf, id=110, 289.08pt x 433.62pt>
-File: paper_files/figure-latex/liver-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/liver-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/liver-1.pdf  used on input li
-ne 512.
-(pdftex.def)             Requested size: 252.0pt x 378.00064pt.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 512--513
-[][] 
- []
-
-[1{C:/Users/steff/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
-
-
-]
-Underfull \vbox (badness 3690) has occurred while \output is active []
-
-
-LaTeX Warning: Reference `fig:liver' on page 2 undefined on input line 520.
-
-[2 <./paper_files/figure-latex/liver-1.pdf>]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 533.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 533.
-<paper_files/figure-latex/lineup-1.pdf, id=167, 578.16pt x 578.16pt>
-File: paper_files/figure-latex/lineup-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/lineup-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/lineup-1.pdf  used on input l
-ine 537.
-(pdftex.def)             Requested size: 252.0pt x 252.00041pt.
-
-LaTeX Warning: Reference `fig:liver' on page 3 undefined on input line 564.
-
-
-LaTeX Warning: Reference `fig:exp-design' on page 3 undefined on input line 574
-.
-
-<paper_files/figure-latex/exp-design-1.pdf, id=169, 578.16pt x 578.16pt>
-File: paper_files/figure-latex/exp-design-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/exp-design-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/exp-design-1.pdf  used on inp
-ut line 576.
-(pdftex.def)             Requested size: 252.0pt x 252.00041pt.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 576--577
-[][] 
- []
-
-[3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
-has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.582 
-       <./paper_files/figure-latex/lineup-1.pdf> <./paper_files/figure-latex/ex
-p-design-1.pdf>]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 5
-85.
-(C:\Users\steff\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-
-LaTeX Warning: Reference `fig:liver' on page 4 undefined on input line 592.
-
-
-LaTeX Warning: Reference `fig:exp-design' on page 4 undefined on input line 597
-.
-
-
-LaTeX Warning: Reference `fig:exp-design' on page 4 undefined on input line 610
-.
-
-[4] [5]
-
-LaTeX Warning: Reference `fig:exp-design' on page 6 undefined on input line 734
-.
-
-<paper_files/figure-latex/detect-compare-1.pdf, id=229, 469.755pt x 289.08pt>
-File: paper_files/figure-latex/detect-compare-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/detect-compare-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/detect-compare-1.pdf  used on
- input line 738.
-(pdftex.def)             Requested size: 252.0pt x 155.07751pt.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 749.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 749.
-[6pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
-has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.794 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.1
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.794 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.2
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.794 
-       <./paper_files/figure-latex/detect-compare-1.pdf>]
-<paper_files/figure-latex/beeswarm-1.pdf, id=252, 469.755pt x 578.16pt>
-File: paper_files/figure-latex/beeswarm-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/beeswarm-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/beeswarm-1.pdf  used on input
- line 797.
-(pdftex.def)             Requested size: 252.0pt x 310.15504pt.
-<paper_files/figure-latex/certainty-1.pdf, id=254, 469.755pt x 361.35pt>
-File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
-<use paper_files/figure-latex/certainty-1.pdf>
-Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
-t line 813.
-(pdftex.def)             Requested size: 252.0pt x 193.84691pt.
-[7pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
-has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.860 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-4}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.860 
-       <./paper_files/figure-latex/beeswarm-1.pdf> <./paper_files/figure-latex/
-certainty-1.pdf>]
-
-LaTeX Warning: Reference `fig:reason' on page 8 undefined on input line 868.
-
-
-Underfull \hbox (badness 2334) in paragraph at lines 891--894
-\OT1/ptm/m/n/10 to dis-cuss the sur-vey pro-ce-dures and the line-ups that
- []
-
-
-Overfull \hbox (15.11633pt too wide) in paragraph at lines 891--894
-\OT1/ptm/m/n/10 https://github.com/srkobakian/experiment/tree/master/figures/fi
-nal. 
- []
-
-[8pdfTeX warning (ext4): destination with the same identifier (name{table.3}) h
-as been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.894 
-      ]
-Underfull \hbox (badness 10000) in paragraph at lines 935--937
-[][]\OT1/ptm/m/n/10 2. Queens-land CC Aus-tralian Can-cer At-las
- []
-
-
-Underfull \hbox (badness 3396) in paragraph at lines 974--976
-[][]\OT1/ptm/m/n/10 15. (2018) Aus-tralian Sta-tis-ti-cal Ge-og-ra-phy Stan-dar
-d
- []
-
-[9]
-Underfull \hbox (badness 5245) in paragraph at lines 1016--1018
-[][]\OT1/ptm/m/n/10 29. Neuwirth E (2014) RCol-or-Brewer: Col-or-Brewer
- []
-
-
-** Conference Paper **
-Before submitting the final camera ready copy, remember to:
-
- 1. Manually equalize the lengths of two columns on the last page
- of your paper;
-
- 2. Ensure that any PostScript and/or PDF output post-processing
- uses only Type 1 fonts and that every step in the generation
- process uses the appropriate paper size.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1031.
-[10
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1031.
-(paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1031.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1031.
-
-Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: D09B82BBC8E82CF92389B14FEBB389AD;3198.
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1031.
- ) 
+! I can't write on file `paper.pdf'.
+Please type another file name for output
+! Emergency stop.
+<to be read again> 
+                   \edef 
+l.367 \begin{document}
+                       
 Here is how much of TeX's memory you used:
- 11454 strings out of 492484
- 166568 string characters out of 3130514
- 261395 words of memory out of 3000000
- 15530 multiletter control sequences out of 15000+200000
- 38282 words of font info for 74 fonts, out of 3000000 for 9000
+ 11168 strings out of 492484
+ 161728 string characters out of 3130514
+ 246029 words of memory out of 3000000
+ 15386 multiletter control sequences out of 15000+200000
+ 24816 words of font info for 55 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
- 39i,11n,37p,1272b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cms
-y7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/User
-s/steff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/s
-teff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/ste
-ff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/steff/
-AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (10 pages, 1004592 bytes).
-PDF statistics:
- 389 PDF objects out of 1000 (max. 8388607)
- 104 named destinations out of 1000 (max. 500000)
- 231 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 39i,1n,37p,242b,269s stack positions out of 5000i,500n,10000p,200000b,50000s
 
+!  ==> Fatal error occurred, no output PDF file produced!
