@@ -313,16 +313,6 @@
 
 
 \usepackage{longtable,booktabs}
-\usepackage{graphicx}
-% We will generate all images so they have a width \maxwidth. This means
-% that they will get their normal width if they fit onto the page, but
-% are scaled down if they would overflow the margins.
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
-\else\Gin@nat@width\fi}
-\makeatother
-\let\Oldincludegraphics\includegraphics
-\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 
 \usepackage[unicode=true]{hyperref}
 
@@ -509,7 +499,13 @@ The paper is organised as follows. The next section discusses the background of 
 
 Spatial visualisations communicate the distribution of statistics over geographic landscapes. The choropleth map {[}\protect\hyperlink{ref-EI}{4}{]}, {[}\protect\hyperlink{ref-BCM}{5}{]} is a traditional display. It is used to present statistics that have been aggregated on geographic units. Creating a choropleth map involves drawing polygons representing the administrative boundaries, and filling with colour mapped to the value of the statistic. The choropleth map places the statistic in the context of the spatial domain, so that the reader can see whether there are spatial trends, clusters or anomalies. This is important for digesting disease patterns. If there is a trend it may imply that the disease is spreading from one location to another. If there is a cluster, or an anomaly, there may be a localized outbreak of the disease. Aggregating the statistic on administrative units, provides a level of privacy to individuals, while allowing the impact of the disease on the community to be analyzed.
 
-\includegraphics{paper_files/figure-latex/liver-1.pdf}
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/liver-1} \caption{A choropleth map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.}\label{fig:liver}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/liver-hex-1} \caption{A hexagon tile map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.}\label{fig:liver-hex}
+\end{figure}
 
 The choropleth map is effective if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. A choropleth map focuses attention on the geography, and for heterogeneously sized areas it presents a biased view of the population related distribution of the statistic {[}\protect\hyperlink{ref-CBATCC}{6}{]}. \emph{Land doesn't get cancer, people do} -- a more effective way to communicate the spatial distributions of cancer statistics is needed.
 
@@ -533,9 +529,7 @@ The null hypothesis is explicitly provided by the grammatical plot description. 
 The chance that an observer picks the data plot out of a lineup of size \(m\) plots accidentally, if the null hypothesis is true is \(1/m\). With \(K\) observers, the probability of \(k\) randomly choosing the data plot, roughly follows a binomial distribution with \(p=1/m\). Fig. \ref{fig:lineup} shows a lineup of the hexagon tile map, of size \(m=12\). Plot 3 is the data plot, and the remaining 11 are plots of null data.
 
 \begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/lineup-1.pdf}
-\caption{\label{fig:lineup}This lineup of twelve hexagon tile map displays contains one map with a real population related structure. The rest are null plots that contain spatial correlation between neighbours.}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/lineup-1} \caption{This lineup of twelve hexagon tile map displays contains one map with a real population related structure. The rest are null plots that contain spatial correlation between neighbours.}\label{fig:lineup}
 \end{figure}
 
 In order to determine the effectiveness of a type of display, this probability is less relevant than the overall proportion of observers who pick the data plot, \(k/K\). The power of the test statistic (data plot) is provided by this proportion. Power in a statistical sense is the ability of the statistic to \emph{produce a rejection} of the null hypothesis, if it is indeed \emph{not true}. With the same data plotted using two different displays, the display with the highest proportion of people who choose the data plot would be considered to be the most powerful statistic.
@@ -573,7 +567,9 @@ The primary factor in the experiment is the plot type. The secondary factor is a
 
 Data is generated for each of the trend models, with four replicates, and each displayed both as a choropleth and as a hexagon tile map, which yields 12 data sets, and 24 data plots. This set of displays is divided in half, providing two sets of 12 displays, Group A and Group B. Participants were randomly allocated to Group A or B. Participants saw a data set only once, with as a choropleth or as a hexagon tile map. Table \ref{fig:exp-design} summarises the design.
 
-\includegraphics{paper_files/figure-latex/exp-design-1.pdf}
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/exp-design-1} \caption{The experimental design used in the visual inference study.}\label{fig:exp-design}
+\end{figure}
 
 \hypertarget{generating-null-data}{%
 \subsection{Generating null data}\label{generating-null-data}}
@@ -635,13 +631,13 @@ Side-by-side dot plots were made of accuracy (efficiency) against map type, face
 
 Similar plots were made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables.
 
-Plots will be made in R {[}{\textbf{???}}{]}, with the \pkg{ggplot2} package {[}\protect\hyperlink{ref-ggplot2}{14}{]}.
+Plots will be made in R {[}\protect\hyperlink{ref-RCore}{18}{]}, with the \texttt{ggplot2} package {[}\protect\hyperlink{ref-ggplot2}{14}{]}.
 
 \hypertarget{modelling}{%
 \subsubsection{Modelling}\label{modelling}}
 
 The likelihood of detecting the data plot in the lineup can be modelled using a linear mixed effects model.
-The R {[}\protect\hyperlink{ref-RCore}{18}{]} \texttt{glmer()} function in the \pkg{lme4} {[}\protect\hyperlink{ref-lme4}{19}{]} package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
+The R {[}\protect\hyperlink{ref-RCore}{18}{]} \texttt{glmer()} function in the \texttt{lme4} {[}\protect\hyperlink{ref-lme4}{19}{]} package implements generalised linear mixed effect models. The model used includes the two main effects map type and trend model, which gives the fixed effects model to be:
 
 \[\widehat{y_{ij}} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \epsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3\]
 
@@ -734,12 +730,10 @@ Of the 92 participants, 67 were male, and 25 female. Most participants (56) had 
 Fig. \ref{fig:detect-compare} displays the average detection rates for the two types of plot separately for each trend model. Each trend model was tested using four repetitions, evaluations on the same data set were seen as either choropleths or hexagon tile maps by each group as specified in Table. \ref{fig:exp-design}; the detection rates for each display are connected by a line segment. The Three Cities and All Cities trend models shown in the hexagon tile map allowed viewers to detect the data plot substantially more often than the choropleth counterparts. One replicate for the All Cities group, had similar detection rates for both plot type. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
 
 \begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/detect-compare-1.pdf}
-\caption{\label{fig:detect-compare}The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or hexagon tile map display are linked to show the difference in the detection rate.}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/detect-compare-1} \caption{The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or hexagon tile map display are linked to show the difference in the detection rate.}\label{fig:detect-compare}
 \end{figure}
 
-Table. \ref{tab:desc-stats} shows the means and standard deviations of the detection rate for each type of plot and each trend model. This also gives the standard errors, the smallest standard deviation for all sets of replicates is the Three Cities trend model shown in a Choropleth display. This group of displays had a very small detection rate of 0.04. The mean detection rate for the Three Cities trend model shown as choropleth map lineups was also the smallest at 0.40.
+Table. \ref{tab:desc-stats} shows the means and standard deviations of the detection rate for each type of plot and each trend model. This also gives the standard errors, the smallest standard deviation for all sets of replicates was the Three Cities trend model shown in a Choropleth display. This group of displays had a very small detection rate of 0.04. The mean detection rate for the Three Cities trend model shown as choropleth map lineups was also the smallest at 0.40.
 The North-West to South-East (NW-SE) trend model unexpectedly had a higher mean detection rate for the hexagon tile map displays, but the difference in the means of detection rate was only 0.10.
 
 \begin{table}
@@ -750,10 +744,10 @@ The North-West to South-East (NW-SE) trend model unexpectedly had a higher mean 
 \toprule
 Type & NW-SE & Three Cities & All Cities\\
 \midrule
-Choro. & 0.52 & 0.04 & 0.23\\
+Choro. & ((0.50)) & ((0.19)) & ((0.42))\\
  & (0.50) & (0.19) & (0.42)\\
 \addlinespace
-Hex. & 0.62 & 0.4 & 0.58\\
+Hex. & ((0.49)) & (0.40) & ((0.49))\\
  & (0.49) & (0.49) & (0.49)\\
 \bottomrule
 \end{tabular}
@@ -793,9 +787,7 @@ Hex:All Cities & 1.16 & $^{***}$ & 0.33 & 0.00\\
 Fig. \ref{fig:beeswarm} shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup when viewing each type of display. The time are also separated by trend model and whether the data plot was detected or not detected. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is shown as a large colored dot on each plot. when considering the heights of the green and orange dots, there is little difference in the average time taken to read a choropleth or hexagon tile map. Comparing the same colored dot across each trend model row, there is a slight increase in the time taken to correctly detected the data plot in the hexagon tile map lineup, but little difference in evaluation time for the choropleth display. However, there were substantially less correct detections for choropleth lineups for the Three cities and All Cities trends.
 
 \begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/beeswarm-1.pdf}
-\caption{\label{fig:beeswarm}The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using horizontally jittered dotplots. The colored point indicates average time taken for each plot type. Although some participants take just a few seconds per evaluation, and some take as much as mcuh as 60 seconds, but there is very little difference in time taken between plot types.}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/beeswarm-1} \caption{The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using horizontally jittered dotplots. The colored point indicates average time taken for each plot type. Although some participants take just a few seconds per evaluation, and some take as much as mcuh as 60 seconds, but there is very little difference in time taken between plot types.}\label{fig:beeswarm}
 \end{figure}
 
 \hypertarget{certainty}{%
@@ -809,9 +801,7 @@ Participants chose 4 or 5 often when viewing the population related trends in th
 For each trend model, participants were more likely to doubt their choice and choose 1 or 2 in the hexagon tile map displays, even though many had made the correct choice.
 
 \begin{figure}
-\centering
-\includegraphics{paper_files/figure-latex/certainty-1.pdf}
-\caption{\label{fig:certainty}The amount of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen most for the Hexagon tile map displays.}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/certainty-1} \caption{The amount of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen most for the Hexagon tile map displays.}\label{fig:certainty}
 \end{figure}
 
 \hypertarget{reason}{%

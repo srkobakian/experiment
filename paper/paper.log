@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  15 JAN 2020 20:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.31)  16 JAN 2020 12:37
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -146,24 +146,6 @@ Package: booktabs 2019/10/08 v1.6180339 publication quality tables
 \@thisruleclass=\count102
 \@lastruleclass=\count103
 \@thisrulewidth=\dimen139
-) ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
-Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
-("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks16
-) ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
-Package: graphics 2019/11/01 v1.3d Standard LaTeX Graphics (DPC,SPQR)
-("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty"
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-) ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 105.
-("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
-))
-\Gin@req@height=\dimen140
-\Gin@req@width=\dimen141
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty"
 Package: hyperref 2019/11/10 v7.00c Hypertext links for LaTeX
 ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
@@ -179,6 +161,9 @@ Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
 ) ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\kvsetkeys.sty"
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\etexcmds.sty"
@@ -202,7 +187,7 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen142
+\@linkdim=\dimen140
 \Hy@linkcounter=\count104
 \Hy@pagecounter=\count105
 ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\pd1enc.def"
@@ -236,7 +221,7 @@ Package hyperref Info: Bookmarks ON on input line 4788.
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5147.
-\XeTeXLinkMargin=\dimen143
+\XeTeXLinkMargin=\dimen141
 ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\bitset.sty"
 Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\bigintcalc.sty"
@@ -244,8 +229,8 @@ Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
 ))
 \Fld@menulength=\count108
-\Field@Width=\dimen144
-\Fld@charsize=\dimen145
+\Field@Width=\dimen142
+\Fld@charsize=\dimen143
 Package hyperref Info: Hyper figures OFF on input line 6418.
 Package hyperref Info: Link nesting OFF on input line 6423.
 Package hyperref Info: Hyper index ON on input line 6426.
@@ -283,8 +268,23 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip48
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 333.
-("C:\Program Files\MiKTeX 2.9\tex/latex/tools\array.sty"
+Package hyperref Info: Option `breaklinks' set `true' on input line 323.
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
+Package: graphics 2019/11/01 v1.3d Standard LaTeX Graphics (DPC,SPQR)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen144
+\Gin@req@width=\dimen145
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/tools\array.sty"
 Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \col@sep=\dimen146
 \ar@mcellbox=\box33
@@ -412,39 +412,56 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-)
-No file paper.aux.
+) (paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 367.
-LaTeX Font Info:    ... okay on input line 367.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 357.
+LaTeX Font Info:    ... okay on input line 357.
 -- Lines per column: 56 (exact).
+\AtBeginShipoutBox=\box47
+Package hyperref Info: Link coloring OFF on input line 357.
+("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\refcount.sty"
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+) ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\gettitlestring.sty"
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count126
+)
+LaTeX Info: Redefining \ref on input line 357.
+LaTeX Info: Redefining \pageref on input line 357.
+LaTeX Info: Redefining \nameref on input line 357.
+(paper.out) (paper.out)
+\@outlinefile=\write3
+\openout3 = `paper.out'.
+
 ("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count126
+\scratchcounter=\count127
 \scratchdimen=\dimen166
-\scratchbox=\box47
-\nofMPsegments=\count127
-\nofMParguments=\count128
+\scratchbox=\box48
+\nofMPsegments=\count128
+\nofMParguments=\count129
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count129
+\MPscratchCnt=\count130
 \MPscratchDim=\dimen167
-\MPnumerator=\count130
-\makeMPintoPDFobject=\count131
+\MPnumerator=\count131
+\makeMPintoPDFobject=\count132
 \everyMPtoPDFconversion=\toks28
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/epstopdf-pkg\epstopdf-base.sty"
 Package: epstopdf-base 2019/11/24 v2.7 Base part for package epstopdf
@@ -458,37 +475,211 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 460.
 )
-\AtBeginShipoutBox=\box48
-Package hyperref Info: Link coloring OFF on input line 367.
-("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
-Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
-("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\refcount.sty"
-Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
-) ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\gettitlestring.sty"
-Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
-)
-\c@section@level=\count132
-)
-LaTeX Info: Redefining \ref on input line 367.
-LaTeX Info: Redefining \pageref on input line 367.
-LaTeX Info: Redefining \nameref on input line 367.
-\@outlinefile=\write3
-\openout3 = `paper.out'.
+<paper_files/figure-latex/liver-1.pdf, id=110, 289.08pt x 289.08pt>
+File: paper_files/figure-latex/liver-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/liver-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/liver-1.pdf  used on input li
+ne 503.
+(pdftex.def)             Requested size: 252.0pt x 252.00041pt.
+<paper_files/figure-latex/liver-hex-1.pdf, id=111, 289.08pt x 289.08pt>
+File: paper_files/figure-latex/liver-hex-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/liver-hex-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/liver-hex-1.pdf  used on inpu
+t line 507.
+(pdftex.def)             Requested size: 252.0pt x 252.00041pt.
+[1{C:/Users/steff/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
-! I can't write on file `paper.pdf'.
-Please type another file name for output
-! Emergency stop.
-<to be read again> 
-                   \edef 
-l.367 \begin{document}
-                       
+
+] [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.522 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.522 
+       <./paper_files/figure-latex/liver-1.pdf> <./paper_files/figure-latex/liv
+er-hex-1.pdf>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 529.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 529.
+<paper_files/figure-latex/lineup-1.pdf, id=172, 578.16pt x 578.16pt>
+File: paper_files/figure-latex/lineup-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/lineup-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/lineup-1.pdf  used on input l
+ine 532.
+(pdftex.def)             Requested size: 252.0pt x 252.00041pt.
+<paper_files/figure-latex/exp-design-1.pdf, id=176, 578.16pt x 578.16pt>
+File: paper_files/figure-latex/exp-design-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/exp-design-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/exp-design-1.pdf  used on inp
+ut line 571.
+(pdftex.def)             Requested size: 252.0pt x 252.00041pt.
+[3pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.578 
+       <./paper_files/figure-latex/lineup-1.pdf>]
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 5
+81.
+(C:\Users\steff\AppData\Roaming\MiKTeX\2.9\tex/latex/psnfss\ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [4pdfTeX warning (ext4): destination with the same identifier (name{figure.4}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.613 
+       <./paper_files/figure-latex/exp-design-1.pdf>] [5]
+<paper_files/figure-latex/detect-compare-1.pdf, id=245, 469.755pt x 289.08pt>
+File: paper_files/figure-latex/detect-compare-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/detect-compare-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/detect-compare-1.pdf  used on
+ input line 733.
+(pdftex.def)             Requested size: 252.0pt x 155.07751pt.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 743.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 743.
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.763 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.1
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.763 
+       <./paper_files/figure-latex/detect-compare-1.pdf>]
+<paper_files/figure-latex/beeswarm-1.pdf, id=266, 469.755pt x 578.16pt>
+File: paper_files/figure-latex/beeswarm-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/beeswarm-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/beeswarm-1.pdf  used on input
+ line 790.
+(pdftex.def)             Requested size: 252.0pt x 310.15504pt.
+<paper_files/figure-latex/certainty-1.pdf, id=268, 469.755pt x 361.35pt>
+File: paper_files/figure-latex/certainty-1.pdf Graphic file (type pdf)
+<use paper_files/figure-latex/certainty-1.pdf>
+Package pdftex.def Info: paper_files/figure-latex/certainty-1.pdf  used on inpu
+t line 804.
+(pdftex.def)             Requested size: 252.0pt x 193.84691pt.
+
+Underfull \vbox (badness 1496) has occurred while \output is active []
+
+[7pdfTeX warning (ext4): destination with the same identifier (name{table.2}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.848 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.848 
+       <./paper_files/figure-latex/beeswarm-1.pdf>]
+
+LaTeX Warning: Reference `fig:reason' on page 8 undefined on input line 858.
+
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.872 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.3
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.872 
+       <./paper_files/figure-latex/certainty-1.pdf>]
+Underfull \hbox (badness 2334) in paragraph at lines 881--884
+\OT1/ptm/m/n/10 to dis-cuss the sur-vey pro-ce-dures and the line-ups that
+ []
+
+
+Overfull \hbox (15.11633pt too wide) in paragraph at lines 881--884
+\OT1/ptm/m/n/10 https://github.com/srkobakian/experiment/tree/master/figures/fi
+nal. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 925--927
+[][]\OT1/ptm/m/n/10 2. Queens-land CC Aus-tralian Can-cer At-las
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 964--966
+[][]\OT1/ptm/m/n/10 15. (2018) Aus-tralian Sta-tis-ti-cal Ge-og-ra-phy Stan-dar
+d
+ []
+
+[9]
+Underfull \hbox (badness 5245) in paragraph at lines 1006--1008
+[][]\OT1/ptm/m/n/10 29. Neuwirth E (2014) RCol-or-Brewer: Col-or-Brewer
+ []
+
+
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
+
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1021.
+[10
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1021.
+(paper.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1021.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1021.
+
+Package rerunfilecheck Info: File `paper.out' has not changed.
+(rerunfilecheck)             Checksum: D09B82BBC8E82CF92389B14FEBB389AD;3198.
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1021.
+ ) 
 Here is how much of TeX's memory you used:
- 11168 strings out of 492484
- 161728 string characters out of 3130514
- 246029 words of memory out of 3000000
- 15386 multiletter control sequences out of 15000+200000
- 24816 words of font info for 55 fonts, out of 3000000 for 9000
+ 11468 strings out of 492484
+ 167073 string characters out of 3130514
+ 261458 words of memory out of 3000000
+ 15540 multiletter control sequences out of 15000+200000
+ 38282 words of font info for 74 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
- 39i,1n,37p,242b,269s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,11n,37p,1272b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cms
+y7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/User
+s/steff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/s
+teff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/ste
+ff/AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/steff/
+AppData/Roaming/MiKTeX/2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (10 pages, 1010002 bytes).
+PDF statistics:
+ 405 PDF objects out of 1000 (max. 8388607)
+ 107 named destinations out of 1000 (max. 500000)
+ 236 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!
