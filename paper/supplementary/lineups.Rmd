@@ -9,7 +9,7 @@ csl: springer-vancouver.csl
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.path = "alldisplays/")
 ```
 
 ```{r data}
@@ -366,7 +366,7 @@ ggdraw() +
 
 ```{r nwse-hex2, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 12 contains a distribution that affects all capital nwse."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_2_geo.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_2_hex.png")))
 ```
 
 
@@ -380,7 +380,7 @@ ggdraw() +
 
 ```{r nwse-hex3, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 3 contains a distribution that affects all capital nwse."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_3_geo.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_3_hex.png")))
 ```
 
 ### Replicate 3
@@ -393,7 +393,7 @@ ggdraw() +
 
 ```{r nwse-hex5, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 4 contains a distribution that affects all capital nwse."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_5_geo.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_5_hex.png")))
 ```
 
 
@@ -407,7 +407,7 @@ ggdraw() +
 
 ```{r nwse-hex6, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 9 contains a distribution that affects all capital nwse."}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_6_geo.png")))
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_6_hex.png")))
 ```
 
 
