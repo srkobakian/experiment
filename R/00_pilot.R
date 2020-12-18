@@ -21,6 +21,14 @@ sa3 <- absmapsdata::sa32016
 sa3 <- rmapshaper::ms_simplify(sa3, 
   keep = 0.5, keep_shapes = TRUE, explode = FALSE, drop_null_geometries = TRUE)
 
+sa3_neighbours <- sf::st_intersects(sa3$geometry,sa3$geometry)  %>% 
+  as_tibble() %>% 
+  filter(row.id != col.id) %>% 
+  rename(sa3neighbours = col.id) %>% 
+  group_by(row.id) %>% 
+  count(name = "sa3")
+
+
 # filter out Islands
 Islands <- c("Cocos (Keeling) Islands",	"Christmas Island", "Norfolk Island", "Lord Howe Island")
 sa3 <- sa3 %>% 
@@ -74,10 +82,21 @@ hexagons_sf <- hexagons %>%
   st_cast("POLYGON") %>%
   st_cast("MULTIPOLYGON")
 
-# Add hexagons to cen
+# Add hexagons to centroids
 hex <- left_join(hexagons_sf, sa3_centroids)
 
+hex_neighbours <- st_intersects(hex, hex) %>% 
+  as_tibble() %>% 
+  filter(row.id != col.id) %>% 
+  rename(hexneighbours = col.id) %>% 
+  group_by(row.id) %>% 
+  count(name = "hex") 
 
+# Compare neighbours of hexmap and geo 
+hex_neighbours <- hex_neighbours %>%
+  left_join(sa3_neighbours, by = "row.id") %>% 
+  mutate(diff = sa3 - hex)
+  
 ###########################################################
 ###########################################################
 ############ CREATE SPATIAL RELATIONSHIPS #################

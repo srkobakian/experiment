@@ -1,0 +1,19 @@
+---
+title: "UK"
+author: "Stephanie"
+date: "18/07/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rgdal)
+library(spdplyr)
+library(geojsonio)
+library(rmapshaper)
+```
+
+```{r}
+
+```
+
