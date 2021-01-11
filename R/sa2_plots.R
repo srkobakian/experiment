@@ -1,6 +1,5 @@
 #sa2_plots
 
-
 # Create a choropleth of Australia
 library(sugarbag)
 library(tidyverse)
