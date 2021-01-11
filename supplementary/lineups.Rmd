@@ -1,0 +1,413 @@
+---
+title: "Visual Inference Lineups"
+author: "Stephanie Kobakian and Dianne Cook"
+output: pdf_document
+bibliography: supplementary.bib
+link-citations: true
+citation_package: biblatex
+csl: springer-vancouver.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.path = "alldisplays/")
+```
+
+```{r data}
+library(tidyverse)
+library(readxl)
+library(cowplot)
+library(png)
+library(grid)
+library(lme4)
+library(ggthemes)
+library(RColorBrewer)
+library(knitr)
+library(kableExtra)
+
+trend_colours <- c(
+  "NW-SE" = "#B2DF8A",
+  "Three Cities" = "#A6CEE3",
+  "All Cities" = "#1F78B4")
+  
+type_colours <- c(
+  "Choro." = "#fcae91",
+  "Hex." = "#a50f15")
+
+detect_f_colours <- c(
+  "No" = "#66C2A5",
+  "Yes" = "#FC8D62")
+
+detect_colours <- c(
+  "Detected? No" = "#66C2A5",
+  "Detected? Yes" = "#FC8D62")
+
+  # Downloaded data
+d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
+  filter(!is.na(contributor)) %>%
+  mutate(contributor = factor(contributor))
+
+# Check data set 
+# Need to clean multiple entries, 48, 24
+# remove duplicated entries due to submit button
+d <- d %>% group_by(group, contributor, image_name) %>%
+  slice(1) %>% ungroup() %>% 
+  arrange(group, contributor, plot_order)
+
+# Remove contributors who did not provide answers to most questions
+keep <- d %>% count(contributor, sort = TRUE) %>% filter(n > 10)
+d <- d %>% 
+  filter(contributor %in% keep$contributor) %>%
+  filter(contributor != "1234567890")
+
+# Remove contributors who did not provide any choices
+bad_contribs <- d %>% group_by(contributor) %>% 
+  summarise(sum0 = sum(choice)) %>% 
+  filter(sum0 == 0) %>% 
+  pull(contributor)
+
+d <- d %>% 
+  filter(!(contributor %in% bad_contribs))
+
+
+n_contributors <- d %>% count(contributor, sort=TRUE) %>% 
+  summarise(n_contributors = length(contributor))
+
+d <- d %>% mutate(certainty = factor(as.character(certainty),
+  levels = c("1", "2", "3", "4","5"), ordered=TRUE))
+```
+
+
+```{r reps}
+replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
+                                   "aus_cities_3_geo.png", "aus_cities_3_hex.png",
+                                   "aus_cities_4_geo.png", "aus_cities_4_hex.png",
+                                   "aus_cities_9_geo.png", "aus_cities_9_hex.png",
+                                   "aus_nwse_2_geo.png", "aus_nwse_2_hex.png",
+                                   "aus_nwse_3_geo.png", "aus_nwse_3_hex.png",
+                                   "aus_nwse_5_geo.png", "aus_nwse_5_hex.png",
+                                   "aus_nwse_6_geo.png", "aus_nwse_6_hex.png",
+                                   "aus_three_12_geo.png", "aus_three_12_hex.png",
+                                   "aus_three_5_geo.png", "aus_three_5_hex.png",
+                                   "aus_three_8_geo.png", "aus_three_8_hex.png",
+                                   "aus_three_9_geo.png", "aus_three_9_hex.png"),
+                    replicate = c(1, 1, 2, 2, 3, 3, 4, 4, 
+                                  1, 1, 2, 2, 3, 3, 4, 4,
+                                  1, 1, 2, 2, 3, 3, 4, 4))
+# Add rep info to data
+d <- d %>% left_join(., replicate, by = "image_name")
+```
+
+
+```{r pdetection_group}
+# Tidy for analysis
+d <- d %>% 
+  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) %>%
+  select(-nothing, -extra) %>%
+  mutate(location = as.numeric(location), 
+    # detect measures the accuracy of the choice
+         detect = ifelse(location == choice, 1, 0)) %>% 
+  mutate(trend = case_when(
+    trend == "nwse" ~ "NW-SE",
+    trend == "cities" ~ "All Cities",
+    trend == "three" ~ "Three Cities")) %>% 
+  mutate(trend = fct_relevel(trend, "NW-SE","Three Cities","All Cities")) %>% 
+  mutate(type = case_when(
+    type == "hex" ~"Hex.",
+    TRUE~"Choro.")) %>% 
+    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("Detected? No", "Detected? Yes")))
+
+plots <- d %>% group_by(group, trend, type, location) %>%
+  # pdetect measures the aggregated accuracy of the choices
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) 
+```
+
+
+# Overall Performance
+
+The detection rate is considered for each lineup. The detection rates for group A were less varied than the detection rates for the lineups seen by group B. Fig. \ref{fig:pdetection-group} shows the distribution using a boxplot. This shows the median value for detection rate was extremely similar.
+
+```{r pdetection-group}
+plots %>% ggplot(aes(x = group, y = pdetect)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  ylab("Detection rate") + 
+  ylim(c(0,1))
+```
+
+The overall detection rate is considered for each trend model in Fig. \ref{fig:pdetect-trend}.
+The detection rates for the NW-SE trend model was less varied than the detection rates for the Three Cities and All Cities trends. Fig. \ref{fig:pdetection-group} shows the distribution using a boxplot. This shows the distributions of the rates do not overlap for NW-SE and Three Cities trends, the Three cities range was larger, but the median was much higher for the NW-SE trend. The All Cities trend model distribution overlaps with the NW-SE and All Cities trends.
+
+```{r pdetect-trend}
+plots %>% ggplot(aes(x = trend, y = pdetect, fill = trend)) + 
+  geom_boxplot() + 
+  scale_fill_manual(values = trend_colours) +
+  geom_jitter(width = 0.1) +
+  ylab("Detection rate") + 
+  ylim(c(0,1)) 
+```
+
+
+The boxplots in Fig. \ref{fig:pdetection-type} contrast the distribution of the detection rates for eah type of display.
+The detection rates across the lineups was less varied for the hexagon display. There was a large difference in the medians for the types of displays.
+Without considering the relationship for each lineup, the hexagon lineup display allowed the participants to achieve higher detection rates.
+
+```{r pdetection-type}
+plots %>% ggplot(aes(x = type, y = pdetect, fill = type)) + 
+  geom_boxplot() + 
+  geom_jitter(width = 0.1) +
+  scale_fill_manual(values = type_colours) +
+  ylab("Detection rate") + 
+  ylim(c(0,1))
+```
+
+
+
+# Lineups
+
+Each lineup had twelve map displays, this gave participants the choice of any plot, and the choice to not provide a response. this non-reponse is indicated by 0.
+The choices made by participants are displayed in Fig. \ref{fig:choices}. The height of each orange lollipop indiates the proportion of participants that selected the map display of real data, they represent the correct choices.
+The green lollipops show the proportion of participants that selected the incorrect displays in each lineup.
+
+
+The proportion of choices are also presented separately for each trend model in Table. \ref{tab:choice-nwse}, Table. \ref{tab:choice-three}, and  Table. \ref{tab:choice-all}.
+The correct map display in lineups with a North West to South East trend was chosen correctly with much greater frequency. 
+In the lineups of All Cities displays, participants were misled by the choropleth display, but not the hexagon display for all except (2). 
+All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. \ref{fig:choices}.
+
+
+```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 8, fig.width =6, results = "asis"}
+d %>% 
+  count(type, trend, choice, replicate, choice, detect_f) %>% 
+  group_by(type, trend, replicate) %>% 
+  mutate(prop = n/sum(n)) %>% 
+  mutate(repl = paste("Rep:", replicate, ":\n", type,  sep = "")) %>%
+  mutate(bottom = 0) %>% 
+  ggplot() + 
+  geom_point(aes(x = choice, y = prop, color = detect_f), size = 3) + 
+  geom_segment(aes(x = choice, xend = choice,y = bottom, yend = prop, colour = detect_f), size = 1) +
+  facet_grid(repl ~ trend, 
+    drop = TRUE, as.table = TRUE, scales = "free_y") +
+  labs(x = "Choice of plot in lineup", y = "Amount of choices") +
+  scale_colour_manual(values = detect_colours) +
+  scale_x_continuous(breaks = seq(from = 0, to = 12)) +
+  scale_y_continuous(breaks = seq(from = 0.0, to = 1.0, by = 0.1)) +
+  theme(legend.position = "bottom") + 
+  guides(colour = FALSE, fill = FALSE) +
+  theme(strip.text.y = element_text(angle = 0))
+```
+
+
+```{r}
+choice_tabs <- d %>% 
+  count(trend, type, choice, replicate, choice, detect) %>% 
+  group_by(trend, type, replicate) %>% 
+  mutate(prop = round(n/sum(n), 2)) %>% 
+  mutate(repl = paste("Rep:", replicate, ":\n", type,  sep = "")) %>%
+  mutate(bottom = 0) %>% 
+  select(Trend = trend, Rep = replicate, Type = type, prop, choice) %>% 
+  spread(choice, prop, fill = "0") %>% 
+  nest(data = c(Rep, Type, `0`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, 
+    `10`, `11`, `12`))
+```
+
+```{r choice-nwse}
+knitr::kable(choice_tabs$data[[1]], format = "latex", align = "rrrrrrrrrrrrrr",
+  caption = "The proportion of participants who selected each of the twelve map choices in each lineup for NW-SE displays.") %>%
+  collapse_rows(., columns = c(1,2))
+```
+
+
+```{r choice-three}
+knitr::kable(choice_tabs$data[[2]], format = "latex", align = "rrrrrrrrrrrrrr",
+  caption = "The proportion of participants who selected each of the twelve map choices in each lineup for Three Cities displays.") %>%
+  collapse_rows(., columns = c(1,2))
+```
+
+
+```{r choice-all}
+knitr::kable(choice_tabs$data[[3]], format = "latex", align = "rrrrrrrrrrrrrr",
+  caption = "The proportion of participants who selected each of the twelve map choices in each lineup for All Citiesdisplays.") %>%
+  collapse_rows(., columns = c(1,2))
+```
+
+
+# Lineups
+
+## North West - South East
+
+The same data set is visualised in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. 
+
+Lineups were created using the Australian Statistical Areas at Level 3.
+
+## All Cities
+
+### Replicate 1
+
+```{r cities-geo12, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_12_geo.png")))
+```
+
+
+```{r cities-hex12, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 12 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_12_hex.png")))
+```
+
+
+### Replicate 2
+
+```{r cities-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_3_geo.png")))
+```
+
+
+```{r cities-hex3, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 3 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_3_hex.png")))
+```
+
+### Replicate 3
+
+```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_4_geo.png")))
+```
+
+
+```{r cities-hex4, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 4 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_4_hex.png")))
+```
+
+
+### Replicate 4
+
+```{r cities-geo9, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_9_geo.png")))
+```
+
+
+```{r cities-hex9, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 9 contains a distribution that affects all capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_cities_9_hex.png")))
+```
+
+
+## Three Cities
+
+### Replicate 1
+
+```{r three-geo12, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_12_geo.png")))
+```
+
+
+```{r three-hex12, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 12 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_12_hex.png")))
+```
+
+
+### Replicate 2
+
+```{r three-geo5, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_5_geo.png")))
+```
+
+
+```{r three-hex5, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 3 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_5_hex.png")))
+```
+
+### Replicate 3
+
+```{r three-geo8, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_8_geo.png")))
+```
+
+
+```{r three-hex8, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 4 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_8_hex.png")))
+```
+
+
+### Replicate 4
+
+```{r three-geo9, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_9_geo.png")))
+```
+
+
+```{r three-hex9, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 9 contains a distribution that affects three of the Australian capital cities."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_three_9_hex.png")))
+```
+
+
+
+## North West to South East Geographic Trend
+
+### Replicate 1
+
+```{r nwse-geo2, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_2_geo.png")))
+```
+
+
+```{r nwse-hex2, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 12 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_2_hex.png")))
+```
+
+
+### Replicate 2
+
+```{r nwse-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_3_geo.png")))
+```
+
+
+```{r nwse-hex3, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 3 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_3_hex.png")))
+```
+
+### Replicate 3
+
+```{r nwse-geo5, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_5_geo.png")))
+```
+
+
+```{r nwse-hex5, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 4 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_5_hex.png")))
+```
+
+
+### Replicate 4
+
+```{r nwse-geo6, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_6_geo.png")))
+```
+
+
+```{r nwse-hex6, results = "asis", fig.cap = "The lineup of hexagon tile map displays, location 9 contains a distribution that affects all capital nwse."}
+ggdraw() +
+  draw_plot(rasterGrob(readPNG("lineups/aus_nwse_6_hex.png")))
+```
+
+
