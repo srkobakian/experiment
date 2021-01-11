@@ -34,7 +34,7 @@ sa2 <- sa2 %>%
 
 SIR <- read_csv("data/SIR Downloadable Data.csv") %>% 
   dplyr::select(Cancer_name, SA2_name, Sex_name, p50) %>% 
-  filter(Cancer_name == "Lung", Sex_name == "Persons")
+  filter(Cancer_name == "Liver", Sex_name == "Persons")
 ERP <- read_csv("data/ABS_ERP_ASGS_26112019122253900.csv") %>%
   filter(REGIONTYPE == "SA2", Time == 2011, Sex == "Persons", Region %in% SIR$SA2_name) %>% 
   dplyr::select(Region, Value)
@@ -53,25 +53,25 @@ aus_colours <- function(sir_p50){
 }
 
 # Join with sa2 sf object
-sa2lung_ERP <- SIR %>% 
+sa2liver_ERP <- SIR %>% 
   left_join(sa2, ., by = c("sa2_name_2011" = "SA2_name")) %>%
   left_join(., ERP %>% dplyr::select(Region, 
                                      Population = Value), by = c("sa2_name_2011"= "Region")) %>% 
   filter(!st_is_empty(geometry))
 
 
-sa2lung_ERP <- sa2lung_ERP %>% 
+sa2liver_ERP <- sa2liver_ERP %>% 
   filter(!is.na(Population)) %>% 
   mutate(SIR = map_chr(p50, aus_colours)) %>% 
   st_as_sf() 
 
-sa2lung_ERP <- st_transform(sa2lung_ERP, 3112)
+sa2liver_ERP <- st_transform(sa2liver_ERP, 3112)
 
-b <- st_bbox(sa2lung_ERP)
+b <- st_bbox(sa2liver_ERP)
 b["xmin"]<- -2181807
 b["xmax"]<- 1933081
 
-sa2lung_ERP_fort <- fortify_sfc(sa2lung_ERP)
+sa2liver_ERP_fort <- fortify_sfc(sa2liver_ERP)
 
 aus <- absmapsdata::state2016 %>% 
   filter(!(state_name_2016 == "Other Territories"))
@@ -91,7 +91,7 @@ invthm <- theme_void() + theme(
 )
 
 # Create a choropleth
-aus_ggchoro <- ggplot(sa2lung_ERP) + 
+aus_ggchoro <- ggplot(sa2liver_ERP) + 
   geom_sf(aes(fill = SIR)) +
   invthm + theme(legend.position ="bottom") +
   labs(fill = "SIR") + scale_fill_identity()
@@ -107,7 +107,7 @@ save(aus_legend, file = "figures/aus_legend.rda")
 # Cartograms
 
 # Contiguous Cartograms
-cont <- sa2lung_ERP %>%
+cont <- sa2liver_ERP %>%
   cartogram_cont(.,
                  weight = "Population", itermax = 20) %>%
   st_as_sf()
@@ -127,18 +127,18 @@ ggsave(filename = "figures/aus_ggcont.png", device = "png",  bg = "transparent",
 # Non - Contiguous Cartograms
 # Needs a scaling factor
 
-sa2lung_ERP <- sa2lung_ERP %>% 
+sa2liver_ERP <- sa2liver_ERP %>% 
   mutate(sva = sqrt(as.numeric(Population)/as.numeric(albers_sqkm)))
-sa2lung_ERP %>% 
+sa2liver_ERP %>% 
   ggplot(.) +
   geom_density(aes(x = sva)) + geom_vline(aes(xintercept = 7))
 
-ncont <- cartogram_ncont(sa2lung_ERP, k = 1/5,
+ncont <- cartogram_ncont(sa2liver_ERP, k = 1/5,
                          weight = "Population") %>% st_as_sf()
 aus_ggncont <- ggplot(ncont) + 
   geom_sf(data=aus, fill = NA, colour = "grey", size = 0.01) +
   geom_sf(aes(fill = SIR), colour = NA) + 
-  coord_sf(crs = CRS("+init=epsg:3112"), xlim =
+  coord_sf(crs = 3112, xlim =
              c(b["xmin"], b["xmax"]), ylim = c(b["ymin"], b["ymax"])) +
   #scale_fill_distiller(type = "seq", palette = "Purples",  direction = 1) + 
   scale_size_identity() + 
@@ -147,7 +147,7 @@ aus_ggncont
 
 perth_ggncont <- ggplot(ncont %>% filter(gcc_name_2011 == "Greater Perth")) + 
   geom_rect(aes(xmin =-1736000, xmax = -1639000, ymin=-3824000, ymax=-3672300), fill = NA, colour = "black") +
-  geom_sf(data= sa2lung_ERP %>% filter(gcc_name_2011 == "Greater Perth"),
+  geom_sf(data= sa2liver_ERP %>% filter(gcc_name_2011 == "Greater Perth"),
           fill = NA, colour = "grey", size = 0.001) +
   geom_sf(aes(fill = SIR), colour = NA) + 
   scale_fill_identity() + invthm +
@@ -165,7 +165,7 @@ ggsave(filename = "figures/aus_ggncont.png", plot = full_ggncont,
 
 ###############################################################################
 # Non - Contiguous Dorling Cartograms
-dorl <- sa2lung_ERP %>%
+dorl <- sa2liver_ERP %>%
   mutate(pop = (Population/max(Population))*10) %>% 
   cartogram_dorling(., k = 0.01, weight = "pop", m_weight = 1) %>% st_as_sf()
 d <- st_bbox(dorl)
@@ -178,9 +178,9 @@ ggsave(filename = "figures/aus_ggdorl.png", device = "png", bg = "transparent", 
 
 
 ###############################################################################
-sa2lung_ERPmap <- st_transform(sa2lung_ERP, "+proj=longlat +datum=WGS84 +no_defs")
-centroids <- create_centroids(sa2lung_ERPmap, "sa2_name_2011")
-lung_neighbours <- st_intersects(sa2lung_ERPmap,sa2lung_ERPmap)
+sa2liver_ERPmap <- st_transform(sa2liver_ERP, "+proj=longlat +datum=WGS84 +no_defs")
+centroids <- create_centroids(sa2liver_ERPmap, "sa2_name_2011")
+liver_neighbours <- st_intersects(sa2liver_ERPmap,sa2liver_ERPmap)
 
 grid <- create_grid(centroids = centroids, 
                     hex_size = 0.25, buffer_dist = 11)
@@ -191,7 +191,7 @@ hexmap <- allocate(
 )
 
 hexagons <- fortify_hexagon(hexmap, sf_id = "sa2_name_2011", hex_size = 0.25) %>% 
-  left_join(st_drop_geometry(sa2lung_ERP))
+  left_join(st_drop_geometry(sa2liver_ERP))
 
 hexagons_sf <- hexagons %>% 
   select(sa2_name_2011, long, lat) %>% 
@@ -201,20 +201,20 @@ hexagons_sf <- hexagons %>%
   st_cast("POLYGON")
 
 # Remove geometry of sa2 geographic areas
-sa2_ng <- sf::st_drop_geometry(sa2lung_ERP)
+sa2_ng <- sf::st_drop_geometry(sa2liver_ERP)
 
-hex <- sa2lung_ERP %>% 
+hex <- sa2liver_ERP %>% 
   # ensure correct order by ordering alphabetically
   arrange(sa2_name_2011) %>% 
   mutate(geometry = hexagons_sf$geometry)
 
 aus_gghexmap <- ggplot(hex) + 
-  geom_sf(data=aus, fill = NA, colour = "grey", size = 0.001) +
+  geom_sf(data=aus, fill = NA, colour = "grey", size = 1) +
   geom_sf(aes(fill = SIR), colour = NA) + 
   coord_sf(crs = CRS("+init=epsg:3112"), xlim = c(b["xmin"], b["xmax"]), ylim = c(b["ymin"], b["ymax"])) +
   scale_fill_identity() + invthm + guides(fill=FALSE)
 aus_gghexmap
-ggsave(filename = "figures/aus_gghexmap.png", plot = aus_gghexmap,
+ggsave(filename = "figures/aus_liver_m_hex.png", plot = aus_gghexmap,
        device = "png",   bg = "transparent", dpi = 300,  width = 7, height = 6)
 
 
@@ -255,12 +255,12 @@ ggsave(filename = "figures/aus_points.png", plot = aus_points,
 #####
 # Animate
 library(gganimate)
-sa2lung_ERP_order <- fortify_sfc(sa2lung_ERP) %>% 
+sa2liver_ERP_order <- fortify_sfc(sa2liver_ERP) %>% 
   left_join(hexmap %>% dplyr::select(sa2_name_2016, focal_dist, rownumber))
 
-ggplot(sa2lung_ERP_order) + geom_sf() + transition_reveal(rownumber)
+ggplot(sa2liver_ERP_order) + geom_sf() + transition_reveal(rownumber)
 
-anim <- ggplot(sa2lung_ERP_order, aes(long, lat, polygon)) +
+anim <- ggplot(sa2liver_ERP_order, aes(long, lat, polygon)) +
   transition_layers(layer_length = 1, transition_length = 2) +
   enter_fade() + enter_grow()
 
