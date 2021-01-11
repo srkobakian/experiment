@@ -7,3 +7,9 @@ experiment.Rproj
 .httr-oauth
 experiment-export.xlsx
 *f1463460.csv
+data/DAT_HexmapPilotData_V1_20191115.csv
+data/DAT_HexmapTest_V1_20191209.csv
+data/authentication.rds
+data/SIR Downloadable Data.csv
+data/ERP.cvs
+data/ABS_ERP_ASGS_26112019122253900.csv
