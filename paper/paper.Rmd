@@ -29,7 +29,7 @@ output:
       base_format: rticles::ieee_article
       number_sections: true
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 link-citations: true
 citation_package: biblatex
 csl: springer-vancouver.csl
@@ -37,6 +37,9 @@ header-includes: \usepackage{graphicx}
 ---
 
 <!-- Regular paper – 12 double column pages (Submissions may be up to 18 pages in length, subject to MOPC. All regular paper page limits include references and author biographies.) -->
+
+<!-- Changes: thyroid instead of liver - check; lineup need to be hexmap; check language with chatgpt/grammarly; get refs formatted and paper into 10 pages -->
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -54,6 +57,7 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(readxl)
 library(broom)
+library(broom.mixed)
 library(cowplot)
 library(png)
 library(grid)
@@ -164,6 +168,116 @@ plots <- d %>% group_by(group, trend, type, location) %>%
   summarise(pdetect = length(detect[detect == 1])/length(detect)) 
 ```
 
+```{r makethyroidplots}
+library(cartogram)
+library(sugarbag)
+library(sf)
+
+# Spatial polygons files sourced from: https://github.com/wfmackey/absmapsdata
+load("data/sa22011.rda")
+load("data/state2011.rda")
+
+invthm <- theme_map() + 
+  theme(
+    panel.background = element_rect(fill = "transparent", colour = NA), 
+    plot.background = element_rect(fill = "transparent", colour = NA),
+    legend.background = element_rect(fill = "transparent", colour = NA),
+    legend.key = element_rect(fill = "transparent", colour = NA),
+    text = element_text(colour = "white"),
+    axis.text = element_text(colour = "white")
+  )
+
+# function to allocate colours to regions
+aus_colours <- function(sir_p50){
+  value <- case_when(
+    sir_p50 <  0.74 ~ "#33809d",
+    sir_p50 >= 0.74 & sir_p50 < 0.98 ~ "#aec6c7",
+    sir_p50 >= 0.98 & sir_p50 < 1.05 ~ "#fff4bc",
+    sir_p50 >= 1.05 & sir_p50 < 1.45 ~ "#ff9a64",
+    sir_p50 >= 1.45 ~ "#ff3500",
+    TRUE ~ "#FFFFFF")
+  return(value)
+}
+
+sa2 <- sa22011 %>% 
+  filter(!st_is_empty(geometry)) %>% 
+  filter(!state_name_2011 == "Other Territories") %>% 
+  filter(!sa2_name_2011 == "Lord Howe Island")
+
+SIR <- read_csv("data/SIR Downloadable Data.csv") %>% 
+  filter(SA2_name %in% sa2$sa2_name_2011) %>% 
+  dplyr::select(Cancer_name, SA2_name, Sex_name, p50) %>% 
+  filter(Cancer_name == "Thyroid", Sex_name == "Females")
+ERP <- read_csv("data/ERP.csv") %>%
+  filter(REGIONTYPE == "SA2", Time == 2011, Region %in% SIR$SA2_name) %>% 
+  dplyr::select(Region, Value)
+# Alternative maps
+# Join with sa2 sf object
+sa2thyroid_ERP <- SIR %>% 
+  left_join(sa2, ., by = c("sa2_name_2011" = "SA2_name")) %>%
+  left_join(., ERP %>% 
+              dplyr::select(Region, 
+              Population = Value), by = c("sa2_name_2011"= "Region")) %>% 
+  filter(!st_is_empty(geometry))
+sa2thyroid_ERP <- sa2thyroid_ERP %>% 
+  #filter(!is.na(Population)) %>% 
+  filter(!sa2_name_2011 == "Lord Howe Island") %>% 
+  mutate(SIR = map_chr(p50, aus_colours)) %>% 
+  st_as_sf() 
+
+# Make choropleth
+aus_ggchoro <- ggplot(sa2thyroid_ERP) + 
+  geom_sf(aes(fill = SIR), size = 0.1) + 
+  scale_fill_identity() + invthm
+
+# Make hexmap
+if (!file.exists("data/aus_hexmap.rda")) {
+
+## Check the projection uses long and lat
+## Create centroids set
+sa2centroids <- sa2 %>% 
+  create_centroids(., "sa2_name_2011")
+## Create hexagon grid
+# For speed, consider if the buffer distance beyond the centroids is necessary
+grid <- create_grid(centroids = sa2centroids,
+                    hex_size = 0.15,
+                    buffer_dist = 4, verbose = TRUE)
+## Allocate polygon centroids to hexagon grid points
+# This is a time consuming process for a large data set
+aus_hexmap <- allocate(
+  centroids = sa2centroids,
+  hex_grid = grid,
+  sf_id = "sa2_name_2011",
+  ## same column used in create_centroids
+  hex_size = 0.15,
+  hex_filter = 8,
+  focal_points = capital_cities,
+  width = 25,
+  verbose = TRUE)
+save(aus_hexmap, file = "data/aus_hexmap.rda") 
+}
+
+load("data/aus_hexmap.rda")
+
+## Prepare to plot
+fort_hex <- fortify_hexagon(data = aus_hexmap,
+                            sf_id = "sa2_name_2011",
+                            hex_size = 0.3) %>% 
+            left_join(sa2thyroid_ERP %>%
+            select(sa2_name_2011, SIR, p50))
+fort_aus <- sa2thyroid_ERP %>%
+  fortify_sfc()
+## Make a plot
+aus_hexmap_plot <- ggplot() +
+  geom_polygon(aes(x = long,  y = lat,  
+        group = interaction(sa2_name_2011, polygon)),
+               fill = "black",  colour = "darkgrey", 
+               linewidth = 0.1, data = fort_aus) +
+  geom_polygon(aes(x = long, y = lat, group = hex_id, 
+                   fill = SIR), data = fort_hex) +
+  scale_fill_identity() +
+  invthm + coord_equal()
+```
 
 Introduction
 =============
@@ -197,12 +311,12 @@ A choropleth map is not the only display that can be used for presenting geospat
 Alternative maps include various cartograms and tessellated tile maps. They allow other variables to be incorporated in the display to highlight the statistical values of various geographic areas.
 -->
 
-```{r liver, fig.height = 4, fig.width = 4, fig.cap = "A choropleth map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.", results = "asis"}
+```{r liver, eval=FALSE, fig.height = 4, fig.width = 4, fig.cap = "A choropleth map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.", results = "asis"}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("figures/aus_liver_m.png")))
 ```
 
-```{r liver-hex, fig.height = 4, fig.width = 4, fig.cap = "A hexagon tile map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.", results = "asis"}
+```{r liver-hex, eval=FALSE, fig.height = 4, fig.width = 4, fig.cap = "A hexagon tile map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.", results = "asis"}
 
 ggdraw() +
   draw_plot(rasterGrob(readPNG("figures/aus_liver_m_hex.png")))
@@ -217,7 +331,11 @@ This will create the figure as needed in the paper, but I can't get the width ar
 \end{figure*}
 -->
 
-The choropleth map is an effective spatial display if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. A choropleth map focuses attention on the geography, and for heterogeneously sized areas it presents a biased view of the population related distribution of the statistic [@CBATCC]. *Land doesn't get cancer, people do* -- a more effective way to communicate the spatial distributions of cancer statistics is needed. 
+```{r thyroid-choro, out.height = "30%", fig.height = 3, fig.width = 4, fig.align='center', fig.cap = "A choropleth map of thyroid incidence among females across the Statistical Areas of Australia at Level 2. Blue indicates lower than average and red indicates higher than average incidence. A cluster of high incidence is visible on the east coast."}
+aus_ggchoro
+```
+
+The choropleth map is an effective spatial display if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. Fig. \ref{fig:thyroid-choro} shows the choropleth map of thyroid cancer rates in Australia. The choropleth map focuses attention on the geography, and for heterogeneously sized areas it presents a biased view of the population related distribution of the statistic [@CBATCC]. *Land doesn't get cancer, people do* -- a more effective way to communicate the spatial distributions of cancer statistics is needed. 
 
 <!-- Cartogram -->
 A cartogram is a general solution for better displaying a population-based statistic. It transforms the geographic map base to reflect the population in the geographic region, while preserving some aspects of the geographic location. There are several cartogram algorithms [@ACTUC], [@CBATCC]; each involves shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map. The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units but can result in losing the familiar geographic information. For Australia, the transformations warp the country so that it is no longer recognizable.
@@ -225,8 +343,12 @@ A cartogram is a general solution for better displaying a population-based stati
 <!-- Other cartograms -->
 Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method [@NAC] keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram [@ACTUC] represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by Raisz [-@RSCW], using rectangles that tile to align borders of neighbours [@CDWCS]. There have been thorough reviews of the array of methods, as suitable for cancer atlas displays [@review], [@BCM].
 
+```{r thyroid-hex, out.height = "30%", fig.height = 3, fig.width = 4, fig.align='center', fig.cap = "A hexagon tile map of female thyroid cancer incidence in Australia, the same data as shown in the choropleth map in Figure 1. The high incidence in several of the metropolitan regions (Brisbane, Sydney and Perth) can now be seen, along with numerous isolated spots."}
+aus_hexmap_plot
+```
+
 <!-- Hexagon tile map -->
-The hexagon tile map algorithm, automatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag [@sugarbag]. Fig. \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas have expanded, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is of interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
+The hexagon tile map algorithm, automatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag [@sugarbag]. Fig. \ref{fig:thyroid-hex} shows the hexagon tile map. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas have expanded, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is of interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
 
 
 ## Visual Inference
@@ -264,7 +386,7 @@ Australia is used for the study, with Statistical Area 3 (SA3) [@abs2016] as the
 
 <!-- The variables changed between groups were the type of plot shown and the trend model.-->
 
-The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the liver cancer data (Fig. \ref{fig:liver}). This produces six treatment levels:
+The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the thyroid cancer data (Fig. \ref{fig:thyroid}). This produces six treatment levels:
 
   - Map type: *Choropleth, Hexagon tile*
   - Trend: *South-East to North-West; Locations in three population centres; Locations in multiple population centres, *
@@ -299,7 +421,7 @@ In these 12 sets of data, each of the 12 maps were smoothed several times to rep
 
 A list of neighbors for each geographic unit was generated to use when smoothing the distributions. For each geographic unit the same spatial smoother was applied in each layer of smoothing. It kept half of the units' previous value, and derived the new half as the mean of the values of its neighbors at the previous layer of smoothing.  
 
-This smoothing allowed neighbors to be related to each other, but also allowed outliers, and showed distributions similar to the Liver cancer distribution (Fig. \ref{fig:liver}). 
+This smoothing allowed neighbors to be related to each other, but also allowed outliers, and showed distributions similar to the thyroid cancer distribution (Fig. \ref{fig:thyroid}). 
 
 
 ## Generating lineups
@@ -498,7 +620,7 @@ ggplot(d_smry, aes(x = type, y = pdetect, color = trend)) +
   xlab("Type of areas visualized") +
   ylab("Detection rate") + 
   ylim(0,1) +
-  guides(color = FALSE)
+  guides(scale = "none")
 ```
 
 
@@ -692,9 +814,9 @@ Acknowledgment
 
 The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the taipan [@taipan] R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study. 
 
-The source code to produce this document can be found on [GitHub](https://github.com/srkobakian/experiment/tree/master/paper).
+The source code to produce this document can be found on [GitHub](https://github.com/srkobakian/experiment/paper).
 Supplementary materials have been included to discuss the survey procedures and the lineups that were used.
-The full set of images can also be found at: https://github.com/srkobakian/experiment/tree/master/figures/final. 
+The full set of images can be found here, too. 
 
 The supplementary material contains:
 
@@ -712,7 +834,5 @@ The analysis of the work was completed in R [@RCore] with the use of the followi
 
 Ethics approval for the online survey was granted by QUT’s Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research. 
 
-
-\newpage
 References {.numbered}
 ==========

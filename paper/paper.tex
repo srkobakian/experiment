@@ -152,9 +152,7 @@
 % You can find documentation about the pdfTeX application at:
 % http://www.tug.org/applications/pdftex
 
-
-
-
+\usepackage{graphicx}
 
 % *** MATH PACKAGES ***
 %
@@ -312,8 +310,6 @@
 %% BEGIN MY ADDITIONS %%
 
 
-\usepackage{longtable,booktabs}
-
 \usepackage[unicode=true]{hyperref}
 
 \hypersetup{
@@ -326,10 +322,53 @@
 % Pandoc toggle for numbering sections (defaults to be off)
 \setcounter{secnumdepth}{5}
 
-% Pandoc syntax highlighting
 
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-% Pandoc header
+% From pandoc table feature
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
+% Pandoc citation processing
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -345,9 +384,6 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %% END MY ADDITIONS %%
 
@@ -500,20 +536,30 @@ The paper is organised as follows. The next section discusses the background of 
 Spatial visualisations communicate the distribution of statistics over geographic landscapes. The choropleth map {[}\protect\hyperlink{ref-EI}{4}{]}, {[}\protect\hyperlink{ref-BCM}{5}{]} is a traditional display. It is used to present statistics that have been aggregated on geographic units. Creating a choropleth map involves drawing polygons representing the administrative boundaries, and filling with colour mapped to the value of the statistic. The choropleth map places the statistic in the context of the spatial domain, so that the reader can see whether there are spatial trends, clusters or anomalies. This is important for digesting disease patterns. If there is a trend it may imply that the disease is spreading from one location to another. If there is a cluster, or an anomaly, there may be a localized outbreak of the disease. Aggregating the statistic on administrative units, provides a level of privacy to individuals, while allowing the impact of the disease on the community to be analyzed.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{paper_files/figure-latex/liver-1} \caption{A choropleth map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.}\label{fig:liver}
+
+{\centering \includegraphics[width=1\linewidth,height=0.3\textheight]{paper_files/figure-latex/thyroid-choro-1} 
+
+}
+
+\caption{A choropleth map of thyroid incidence among females across the Statistical Areas of Australia at Level 2. Blue indicates lower than average and red indicates higher than average incidence. A cluster of high incidence is visible on the east coast.}\label{fig:thyroid-choro}
 \end{figure}
 
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_files/figure-latex/liver-hex-1} \caption{A hexagon tile map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.}\label{fig:liver-hex}
-\end{figure}
-
-The choropleth map is an effective spatial display if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. A choropleth map focuses attention on the geography, and for heterogeneously sized areas it presents a biased view of the population related distribution of the statistic {[}\protect\hyperlink{ref-CBATCC}{6}{]}. \emph{Land doesn't get cancer, people do} -- a more effective way to communicate the spatial distributions of cancer statistics is needed.
+The choropleth map is an effective spatial display if the size of the geographic units is relatively uniform. This is not the case for most countries. Size heterogeneity in administrative units is particularly extreme in Australia: most of the landscape of Australia is sparsely settled, with the population densely clustered into the narrow coastal strips. Fig. \ref{fig:thyroid-choro} shows the choropleth map of thyroid cancer rates in Australia. The choropleth map focuses attention on the geography, and for heterogeneously sized areas it presents a biased view of the population related distribution of the statistic {[}\protect\hyperlink{ref-CBATCC}{6}{]}. \emph{Land doesn't get cancer, people do} -- a more effective way to communicate the spatial distributions of cancer statistics is needed.
 
 A cartogram is a general solution for better displaying a population-based statistic. It transforms the geographic map base to reflect the population in the geographic region, while preserving some aspects of the geographic location. There are several cartogram algorithms {[}\protect\hyperlink{ref-ACTUC}{7}{]}, {[}\protect\hyperlink{ref-CBATCC}{6}{]}; each involves shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map. The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units but can result in losing the familiar geographic information. For Australia, the transformations warp the country so that it is no longer recognizable.
 
 Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method {[}\protect\hyperlink{ref-NAC}{8}{]} keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram {[}\protect\hyperlink{ref-ACTUC}{7}{]} represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by Raisz {[}\protect\hyperlink{ref-RSCW}{9}{]}, using rectangles that tile to align borders of neighbours {[}\protect\hyperlink{ref-CDWCS}{10}{]}. There have been thorough reviews of the array of methods, as suitable for cancer atlas displays {[}\protect\hyperlink{ref-review}{11}{]}, {[}\protect\hyperlink{ref-BCM}{5}{]}.
 
-The hexagon tile map algorithm, automatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]}. Fig. \ref{fig:liver} shows the hexagon tile map, along with the choropleth map of liver cancer rates in Australia. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas have expanded, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is of interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=0.3\textheight]{paper_files/figure-latex/thyroid-hex-1} 
+
+}
+
+\caption{A hexagon tile map of female thyroid cancer incidence in Australia, the same data as shown in the choropleth map in Figure 1. The high incidence in several of the metropolitan regions (Brisbane, Sydney and Perth) can now be seen, along with numerous isolated spots.}\label{fig:thyroid-hex}
+\end{figure}
+
+The hexagon tile map algorithm, automatically matches spatial regions to their nearest hexagon tile, from a grid of tiles. It has the effect of spreading out the inner city areas while maintaining the spatial locations or regions in remote areas. The algorithm is available in the R package, sugarbag {[}\protect\hyperlink{ref-sugarbag}{1}{]}. Fig. \ref{fig:thyroid-hex} shows the hexagon tile map. Colour maps from substantially below average (blue) to substantially above average (red) rates. The inner city areas have expanded, making it possible to see the cancer incidence in the small, densely populated areas. Remote regions are represented by isolated hexagons, which is not ideal, but maintains the spatial location of these data values. It is of interest to know how well the spatial distribution is perceived for this display, in comparison to the choropleth.
 
 \hypertarget{visual-inference}{%
 \subsection{Visual Inference}\label{visual-inference}}
@@ -555,7 +601,7 @@ Australia is used for the study, with Statistical Area 3 (SA3) {[}\protect\hyper
 \hypertarget{experimental-factors}{%
 \subsection{Experimental factors}\label{experimental-factors}}
 
-The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the liver cancer data (Fig. \ref{fig:liver}). This produces six treatment levels:
+The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the thyroid cancer data (Fig. \ref{fig:thyroid}). This produces six treatment levels:
 
 \begin{itemize}
 \tightlist
@@ -585,7 +631,7 @@ In these 12 sets of data, each of the 12 maps were smoothed several times to rep
 
 A list of neighbors for each geographic unit was generated to use when smoothing the distributions. For each geographic unit the same spatial smoother was applied in each layer of smoothing. It kept half of the units' previous value, and derived the new half as the mean of the values of its neighbors at the previous layer of smoothing.
 
-This smoothing allowed neighbors to be related to each other, but also allowed outliers, and showed distributions similar to the Liver cancer distribution (Fig. \ref{fig:liver}).
+This smoothing allowed neighbors to be related to each other, but also allowed outliers, and showed distributions similar to the thyroid cancer distribution (Fig. \ref{fig:thyroid}).
 
 \hypertarget{generating-lineups}{%
 \subsection{Generating lineups}\label{generating-lineups}}
@@ -872,9 +918,9 @@ The population density structure of Australia can be considered similar to that 
 
 The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the taipan {[}\protect\hyperlink{ref-taipan}{20}{]} R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study.
 
-The source code to produce this document can be found on \href{https://github.com/srkobakian/experiment/tree/master/paper}{GitHub}.
+The source code to produce this document can be found on \href{https://github.com/srkobakian/experiment/paper}{GitHub}.
 Supplementary materials have been included to discuss the survey procedures and the lineups that were used.
-The full set of images can also be found at: https://github.com/srkobakian/experiment/tree/master/figures/final.
+The full set of images can be found here, too.
 
 The supplementary material contains:
 
@@ -906,112 +952,145 @@ The analysis of the work was completed in R {[}\protect\hyperlink{ref-RCore}{18}
 
 Ethics approval for the online survey was granted by QUT's Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research.
 
-\newpage
-
 \hypertarget{references}{%
 \section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\leavevmode\hypertarget{ref-sugarbag}{}%
-1. Kobakian S, Cook D (2019) Sugarbag: Create tessellated hexagon maps.
+\begin{CSLReferences}{0}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-sugarbag}{}}%
+\CSLLeftMargin{1. }%
+\CSLRightInline{Kobakian S, Cook D (2019) Sugarbag: Create tessellated hexagon maps. }
 
-\leavevmode\hypertarget{ref-atlas}{}%
-2. Cancer Council Queensland Australian Cancer Atlas (https://atlas.cancer.org.au).
+\leavevmode\vadjust pre{\hypertarget{ref-atlas}{}}%
+\CSLLeftMargin{2. }%
+\CSLRightInline{Cancer Council Queensland {Australian Cancer Atlas (https://atlas.cancer.org.au)}. }
 
-\leavevmode\hypertarget{ref-GIIV}{}%
-3. Wickham H, Cook D, Hofmann H, Buja A (2010) Graphical inference for infovis. IEEE Transactions on Visualization and Computer Graphics (Proc InfoVis '10) 16:973--979
+\leavevmode\vadjust pre{\hypertarget{ref-GIIV}{}}%
+\CSLLeftMargin{3. }%
+\CSLRightInline{Wickham H, Cook D, Hofmann H, Buja A (2010) Graphical inference for infovis. IEEE Transactions on Visualization and Computer Graphics (Proc InfoVis '10) 16:973--979}
 
-\leavevmode\hypertarget{ref-EI}{}%
-4. Tufte ER (1990) Envisioning Information. Graphics Press
+\leavevmode\vadjust pre{\hypertarget{ref-EI}{}}%
+\CSLLeftMargin{4. }%
+\CSLRightInline{Tufte ER (1990) {Envisioning Information}. Graphics Press}
 
-\leavevmode\hypertarget{ref-BCM}{}%
-5. Skowronnek A (2016) Beyond Choropleth Maps -- A Review of Techniques to Visualize Quantitative Areal Geodata. In: Infovis Reading Group WS 2015/16. \url{https://alsino.io/static/papers/BeyondChoropleths_AlsinoSkowronnek.pdf}.
+\leavevmode\vadjust pre{\hypertarget{ref-BCM}{}}%
+\CSLLeftMargin{5. }%
+\CSLRightInline{Skowronnek A (2016) {Beyond Choropleth Maps -- A Review of Techniques to Visualize Quantitative Areal Geodata}. In: {Infovis Reading Group WS 2015/16}. \href{https://alsino.io/static/papers/BeyondChoropleths_AlsinoSkowronnek.pdf}{https://alsino.io/static/papers/BeyondChoropleths\_AlsinoSkowronnek.pdf. }}
 
-\leavevmode\hypertarget{ref-CBATCC}{}%
-6. Kocmoud C, House D (1998) A Constraint-based Approach to Constructing Continuous Cartograms. In: Proc. Symp. Spatial data handling. pp 236--246
+\leavevmode\vadjust pre{\hypertarget{ref-CBATCC}{}}%
+\CSLLeftMargin{6. }%
+\CSLRightInline{Kocmoud C, House D (1998) {A Constraint-based Approach to Constructing Continuous Cartograms}. In: Proc. Symp. Spatial data handling. pp 236--246}
 
-\leavevmode\hypertarget{ref-ACTUC}{}%
-7. Dorling D (2011) Area Cartograms: Their Use and Creation. In: Concepts and techniques in modern geography (catmog). pp 252--260
+\leavevmode\vadjust pre{\hypertarget{ref-ACTUC}{}}%
+\CSLLeftMargin{7. }%
+\CSLRightInline{Dorling D (2011) \href{https://doi.org/10.1002/9780470979587.ch33}{{Area Cartograms: Their Use and Creation}}. In: Concepts and techniques in modern geography (CATMOG). pp 252--260}
 
-\leavevmode\hypertarget{ref-NAC}{}%
-8. Olson JM (1976) Noncontiguous Area Cartograms. The Professional Geographer 28:371--380
+\leavevmode\vadjust pre{\hypertarget{ref-NAC}{}}%
+\CSLLeftMargin{8. }%
+\CSLRightInline{Olson JM (1976) \href{https://doi.org/10.1111/j.0033-0124.1976.00371.x}{{Noncontiguous Area Cartograms}}. The Professional Geographer 28:371--380}
 
-\leavevmode\hypertarget{ref-RSCW}{}%
-9. Raisz E (1963) Rectangular Statistical Cartograms of the World. Journal of Geography 35:8--10
+\leavevmode\vadjust pre{\hypertarget{ref-RSCW}{}}%
+\CSLLeftMargin{9. }%
+\CSLRightInline{Raisz E (1963) \href{https://doi.org/10.1080/00221343608987880}{{Rectangular Statistical Cartograms of the World}}. Journal of Geography 35:8--10}
 
-\leavevmode\hypertarget{ref-CDWCS}{}%
-10. Monmonier M (2005) Cartography: Distortions, World-views and Creative Solutions. Progress in Human Geography 29:217--224
+\leavevmode\vadjust pre{\hypertarget{ref-CDWCS}{}}%
+\CSLLeftMargin{10. }%
+\CSLRightInline{Monmonier M (2005) \href{https://doi.org/10.1191/0309132505ph540pr}{{Cartography: Distortions, World-views and Creative Solutions}}. Progress in Human Geography 29:217--224}
 
-\leavevmode\hypertarget{ref-review}{}%
-11. (2019) Cancer applications of choropleth maps, and the potential of cartograms and alternative map displays. Manuscript submitted for publication.
+\leavevmode\vadjust pre{\hypertarget{ref-review}{}}%
+\CSLLeftMargin{11. }%
+\CSLRightInline{(2019) Cancer applications of choropleth maps, and the potential of cartograms and alternative map displays. Manuscript submitted for publication. }
 
-\leavevmode\hypertarget{ref-BCHLLSW09}{}%
-12. Buja A, Cook D, Hofmann H, Lawrence M, Lee E-K, Swayne DF, Wickham H (2009) Statistical inference for exploratory data analysis and model diagnostics. Philosophical Transactions of the Royal Society, A (Invited) 367:4361--4383
+\leavevmode\vadjust pre{\hypertarget{ref-BCHLLSW09}{}}%
+\CSLLeftMargin{12. }%
+\CSLRightInline{Buja A, Cook D, Hofmann H, Lawrence M, Lee E-K, Swayne DF, Wickham H (2009) Statistical inference for exploratory data analysis and model diagnostics. Philosophical Transactions of the Royal Society, A (Invited) 367:4361--4383}
 
-\leavevmode\hypertarget{ref-GTPCCD}{}%
-13. Hofmann H, Follett L, Majumder M, Cook D (2012) Graphical tests for power comparison of competing designs. IEEE Transactions on Visualization and Computer Graphics 18:2441--2448
+\leavevmode\vadjust pre{\hypertarget{ref-GTPCCD}{}}%
+\CSLLeftMargin{13. }%
+\CSLRightInline{Hofmann H, Follett L, Majumder M, Cook D (2012) Graphical tests for power comparison of competing designs. IEEE Transactions on Visualization and Computer Graphics 18:2441--2448}
 
-\leavevmode\hypertarget{ref-ggplot2}{}%
-14. Wickham H (2009) Ggplot2: Elegant graphics for data analysis. Springer New York
+\leavevmode\vadjust pre{\hypertarget{ref-ggplot2}{}}%
+\CSLLeftMargin{14. }%
+\CSLRightInline{Wickham H (2009) \href{http://had.co.nz/ggplot2/book}{ggplot2: Elegant graphics for data analysis}. Springer New York}
 
-\leavevmode\hypertarget{ref-abs2016}{}%
-15. (2018) Australian Statistical Geography Standard (ASGS). Australian Bureau of Statistics
+\leavevmode\vadjust pre{\hypertarget{ref-abs2016}{}}%
+\CSLLeftMargin{15. }%
+\CSLRightInline{(2018) \href{\%7Bhttps://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian\%20\%20\%20Statistical\%20Geography\%20Standard\%20(ASGS)\%7D}{{Australian Statistical Geography Standard (ASGS)}}. Australian Bureau of Statistics }
 
-\leavevmode\hypertarget{ref-POG}{}%
-16. Matheron G (1963) Principles of geostatistics. Economic Geology 58:1246--1266
+\leavevmode\vadjust pre{\hypertarget{ref-POG}{}}%
+\CSLLeftMargin{16. }%
+\CSLRightInline{Matheron G (1963) \href{http://dx.doi.org/10.2113/gsecongeo.58.8.1246}{Principles of geostatistics}. Economic Geology 58:1246--1266}
 
-\leavevmode\hypertarget{ref-gstat}{}%
-17. Gräler B, Pebesma E, Heuvelink G (2016) Spatio-temporal interpolation using gstat. The R Journal 8:204--218
+\leavevmode\vadjust pre{\hypertarget{ref-gstat}{}}%
+\CSLLeftMargin{17. }%
+\CSLRightInline{Gräler B, Pebesma E, Heuvelink G (2016) \href{https://journal.r-project.org/archive/2016/RJ-2016-014/index.html}{Spatio-temporal interpolation using gstat}. The R Journal 8:204--218}
 
-\leavevmode\hypertarget{ref-RCore}{}%
-18. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
+\leavevmode\vadjust pre{\hypertarget{ref-RCore}{}}%
+\CSLLeftMargin{18. }%
+\CSLRightInline{R Core Team (2019) \href{https://www.R-project.org/}{R: A language and environment for statistical computing}. R Foundation for Statistical Computing, Vienna, Austria}
 
-\leavevmode\hypertarget{ref-lme4}{}%
-19. Bates D, Mächler M, Bolker B, Walker S (2015) Fitting linear mixed-effects models using lme4. Journal of Statistical Software 67:1--48
+\leavevmode\vadjust pre{\hypertarget{ref-lme4}{}}%
+\CSLLeftMargin{19. }%
+\CSLRightInline{Bates D, Mächler M, Bolker B, Walker S (2015) \href{https://doi.org/10.18637/jss.v067.i01}{Fitting linear mixed-effects models using {lme4}}. Journal of Statistical Software 67:1--48}
 
-\leavevmode\hypertarget{ref-taipan}{}%
-20. Kobakian S, O'Hara-Wild M (2018) Taipan: Tool for annotating images in preparation for analysis.
+\leavevmode\vadjust pre{\hypertarget{ref-taipan}{}}%
+\CSLLeftMargin{20. }%
+\CSLRightInline{Kobakian S, O'Hara-Wild M (2018) \href{https://CRAN.R-project.org/package=taipan}{Taipan: Tool for annotating images in preparation for analysis}. }
 
-\leavevmode\hypertarget{ref-sheets}{}%
-21. Bryan J, Zhao J (2018) Googlesheets: Manage google spreadsheets from r.
+\leavevmode\vadjust pre{\hypertarget{ref-sheets}{}}%
+\CSLLeftMargin{21. }%
+\CSLRightInline{Bryan J, Zhao J (2018) \href{https://CRAN.R-project.org/package=googlesheets}{Googlesheets: Manage google spreadsheets from r}. }
 
-\leavevmode\hypertarget{ref-figeight}{}%
-22. (2019) The essential high-quality data annotation platform. Figure Eight
+\leavevmode\vadjust pre{\hypertarget{ref-figeight}{}}%
+\CSLLeftMargin{22. }%
+\CSLRightInline{(2019) \href{https://www.figure-eight.com/}{The essential high-quality data annotation platform}. Figure Eight }
 
-\leavevmode\hypertarget{ref-rmarkdown}{}%
-23. Xie Y, Allaire JJ, Grolemund G (2018) R markdown: The definitive guide. Chapman; Hall/CRC, Boca Raton, Florida
+\leavevmode\vadjust pre{\hypertarget{ref-rmarkdown}{}}%
+\CSLLeftMargin{23. }%
+\CSLRightInline{Xie Y, Allaire JJ, Grolemund G (2018) \href{https://bookdown.org/yihui/rmarkdown}{R markdown: The definitive guide}. Chapman; Hall/CRC, Boca Raton, Florida}
 
-\leavevmode\hypertarget{ref-rticles}{}%
-24. Allaire J, Xie Y, R Foundation, et al (2019) Rticles: Article formats for r markdown.
+\leavevmode\vadjust pre{\hypertarget{ref-rticles}{}}%
+\CSLLeftMargin{24. }%
+\CSLRightInline{Allaire J, Xie Y, R Foundation, et al (2019) \href{https://CRAN.R-project.org/package=rticles}{Rticles: Article formats for r markdown}. }
 
-\leavevmode\hypertarget{ref-knitr}{}%
-25. Xie Y (2014) Knitr: A comprehensive tool for reproducible research in R. Implementing reproducible computational research
+\leavevmode\vadjust pre{\hypertarget{ref-knitr}{}}%
+\CSLLeftMargin{25. }%
+\CSLRightInline{Xie Y (2014) \href{http://www.crcpress.com/product/isbn/9781466561595}{Knitr: A comprehensive tool for reproducible research in {R}}. Implementing reproducible computational research }
 
-\leavevmode\hypertarget{ref-tidyverse}{}%
-26. Wickham H, Averick M, Bryan J, et al (2019) Welcome to the tidyverse. Journal of Open Source Software 4:1686
+\leavevmode\vadjust pre{\hypertarget{ref-tidyverse}{}}%
+\CSLLeftMargin{26. }%
+\CSLRightInline{Wickham H, Averick M, Bryan J, et al (2019) \href{https://doi.org/10.21105/joss.01686}{Welcome to the {tidyverse}}. Journal of Open Source Software 4:1686}
 
-\leavevmode\hypertarget{ref-nullabor}{}%
-27. Wickham H, Chowdhury NR, Cook D, Hofmann H (2018) Nullabor: Tools for graphical inference.
+\leavevmode\vadjust pre{\hypertarget{ref-nullabor}{}}%
+\CSLLeftMargin{27. }%
+\CSLRightInline{Wickham H, Chowdhury NR, Cook D, Hofmann H (2018) \href{https://CRAN.R-project.org/package=nullabor}{Nullabor: Tools for graphical inference}. }
 
-\leavevmode\hypertarget{ref-ggthemes}{}%
-28. Arnold JB (2019) Ggthemes: Extra themes, scales and geoms for 'ggplot2'.
+\leavevmode\vadjust pre{\hypertarget{ref-ggthemes}{}}%
+\CSLLeftMargin{28. }%
+\CSLRightInline{Arnold JB (2019) \href{https://CRAN.R-project.org/package=ggthemes}{Ggthemes: Extra themes, scales and geoms for 'ggplot2'}. }
 
-\leavevmode\hypertarget{ref-RColorBrewer}{}%
-29. Neuwirth E (2014) RColorBrewer: ColorBrewer palettes.
+\leavevmode\vadjust pre{\hypertarget{ref-RColorBrewer}{}}%
+\CSLLeftMargin{29. }%
+\CSLRightInline{Neuwirth E (2014) \href{https://CRAN.R-project.org/package=RColorBrewer}{RColorBrewer: ColorBrewer palettes}. }
 
-\leavevmode\hypertarget{ref-cowplot}{}%
-30. Wilke CO (2019) Cowplot: Streamlined plot theme and plot annotations for 'ggplot2'.
+\leavevmode\vadjust pre{\hypertarget{ref-cowplot}{}}%
+\CSLLeftMargin{30. }%
+\CSLRightInline{Wilke CO (2019) \href{https://CRAN.R-project.org/package=cowplot}{Cowplot: Streamlined plot theme and plot annotations for 'ggplot2'}. }
 
-\leavevmode\hypertarget{ref-png}{}%
-31. Urbanek S (2013) Png: Read and write png images.
+\leavevmode\vadjust pre{\hypertarget{ref-png}{}}%
+\CSLLeftMargin{31. }%
+\CSLRightInline{Urbanek S (2013) \href{https://CRAN.R-project.org/package=png}{Png: Read and write PNG images}. }
 
-\leavevmode\hypertarget{ref-grid}{}%
-32. R Core Team (2019) R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria
+\leavevmode\vadjust pre{\hypertarget{ref-grid}{}}%
+\CSLLeftMargin{32. }%
+\CSLRightInline{R Core Team (2019) \href{https://www.R-project.org/}{R: A language and environment for statistical computing}. R Foundation for Statistical Computing, Vienna, Austria}
 
-\leavevmode\hypertarget{ref-kableExtra}{}%
-33. Zhu H (2019) KableExtra: Construct complex table with 'kable' and pipe syntax.
+\leavevmode\vadjust pre{\hypertarget{ref-kableExtra}{}}%
+\CSLLeftMargin{33. }%
+\CSLRightInline{Zhu H (2019) \href{https://CRAN.R-project.org/package=kableExtra}{kableExtra: Construct complex table with 'kable' and pipe syntax}. }
+
+\end{CSLReferences}
 
 \end{document}
-
 
