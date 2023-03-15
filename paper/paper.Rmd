@@ -22,7 +22,6 @@ affiliation:
 keywords: ["statistics", "visual inference", "geospatial", "population"]
 abstract: |
   The choropleth map display is commonly used for communicating spatial distributions across geographic areas. However, when choropleths are used the size of the geographic units will influence the understanding of the distribution derived by map users. The hexagon tile map is presented as an alternative display for visualizing population related distributions effectively. Visual inference is used to measure the power of the hexagon tile map design, and the choropleth is used as a comparison. The hexagon tile map display is tested using a distribution that is directly related to the geography, with values monotonically increasing from the North-West to South-East areas of Australia. This study finds in a hexagon tile map lineup the single map that contains a population related distribution is detected with greater probability than the same data displayed in a choropleth map. These findings should encourage map creators to implement alternative displays and consider a hexagon tile map when presenting spatial distributions of heterogeneous areas.
-dev: pdf
 bibliography: paper.bib
 output:
   bookdown::pdf_book: 
@@ -38,7 +37,7 @@ header-includes: \usepackage{graphicx}
 
 <!-- Regular paper – 12 double column pages (Submissions may be up to 18 pages in length, subject to MOPC. All regular paper page limits include references and author biographies.) -->
 
-<!-- Changes: thyroid instead of liver - check; lineup need to be hexmap; check language with chatgpt/grammarly; get refs formatted and paper into 10 pages -->
+<!-- Changes: thyroid instead of liver - check; lineup need to be hexmap; check language with chatgpt/grammarly; get refs formatted and paper into 10 pages; use new template -->
 
 
 ```{r setup, include=FALSE}
@@ -365,7 +364,7 @@ The chance that an observer picks the data plot out of a lineup of size $m$ plot
 
 ```{r lineup, fig.cap = "This lineup of twelve hexagon tile map displays contains one map with a real population related structure. The rest are null plots that contain spatial correlation between neighbours.", fig.height = 8, fig.width = 8}
 ggdraw() +
-  draw_plot(rasterGrob(readPNG("figures/aus_cities_3_geo.png")))
+  draw_plot(rasterGrob(readPNG("figures/aus_cities_3_hex.png")))
 ```
 
 In order to determine the effectiveness of a type of display, this probability is less relevant than the overall proportion of observers who pick the data plot, $k/K$. The power of the test statistic (data plot) is provided by this proportion. Power in a statistical sense is the ability of the statistic to *produce a rejection* of the null hypothesis, if it is indeed *not true*. With the same data plotted using two different displays, the display with the highest proportion of people who choose the data plot would be considered to be the most powerful statistic. 
