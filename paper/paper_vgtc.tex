@@ -66,11 +66,11 @@
 
 %% Abstract section.
 \abstract{%
- The choropleth map display is commonly used for communicating spatial distributions across geographic areas. However, when choropleths are used the size of the geographic units will influence the understanding of the distribution derived by map users. The hexagon tile map is presented as an alternative display for visualizing population related distributions effectively. Visual inference is used to measure the power of the hexagon tile map design, and the choropleth is used as a comparison. The hexagon tile map display is tested using a distribution that is directly related to the geography, with values monotonically increasing from the North-West to South-East areas of Australia. This study finds in a hexagon tile map lineup the single map that contains a population related distribution is detected with greater probability than the same data displayed in a choropleth map. These findings should encourage map creators to implement alternative displays and consider a hexagon tile map when presenting spatial distributions of heterogeneous areas.
+ The choropleth map display is commonly used for communicating spatial distributions across geographic areas. However, when choropleths are used the size of the geographic units will influence the understanding of the distribution derived by map users. The hexagon tile map is presented as an alternative display for visualizing population-related distributions effectively. Visual inference is used to measure the power of the hexagon tile map design, in comparison to the choropleth. The hexagon tile map display is tested using a distribution that is directly related to the geography, with values monotonically increasing from the North-West to South-East areas of Australia. This study finds in a hexagon tile map lineup the single map that contains a population-related distribution is detected with greater probability than the same data displayed in a choropleth map. These findings should encourage map creators to implement alternative displays and consider a hexagon tile map when presenting spatial distributions of heterogeneous areas.
   %
   %% We recommend that you link to your supplemental material here in the abstract, as well
   %% as in the Supplemental Materials section at the end.
-  A free copy of this paper and all supplemental materials are available at \url{https://github.com/srkobakian/experiment}.
+  %A copy of this paper and all supplemental materials are available at \url{https://github.com/srkobakian/experiment}.
 }
 
 % keywords
@@ -199,14 +199,14 @@ Maps of Australia, with Statistical Area 3 (SA3)~\cite{abs2016} as the geographi
 \hypertarget{experimental-factors}{%
 \subsection{Experimental factors}\label{experimental-factors}}
 
-The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing levels of inner city hot spots. These latter two reflect the structure seen in the thyroid cancer data (Fig. \ref{fig:teaser}). Fig. \ref{fig:factors}) shows examples of the different trend models displayed using a hexagon tile map. This produces six treatment levels:
+The primary factor in the experiment is the plot type. The secondary factor is a trend model. Three trend models were developed:  two with differing levels of inner city hot spots, and one mirroring a large spatial trend for which the choropleth would be expected to do well. Fig. \ref{fig:factors} shows examples of the different trend models displayed using a hexagon tile map.  The inner city hotspots trend model reflects the structure seen in the thyroid cancer data (Fig. \ref{fig:teaser}). This produces six treatment levels:
 
 \begin{itemize} \itemsep 0in
 %tightlist
 \item
   Map type: \emph{Choropleth, Hexagon tile}
 \item
-  Trend: \emph{South-East to North-West; Locations in three population centres; Locations in multiple population centres, }
+  Trend: \emph{North West to South East; Locations in three population centres; Locations in multiple population centres, }
 \end{itemize}
 
 Data is generated for each of the trend models, with four replicates, and each is displayed both as a choropleth and as a hexagon tile map, which yields 12 data sets, and 24 data plots. This set of displays is divided in half, providing two sets of 12 displays, Group A and Group B. Participants were randomly allocated to Group A or B. Participants saw a data set only once, either as a choropleth or as a hexagon tile map. Fig. \ref{fig:exp-design} summarises the design and the allocation of the displays.
@@ -365,13 +365,13 @@ Of the 92 participants, 67 were male, and 25 female. Most participants (56) had 
 \hypertarget{accuracy}{%
 \subsection{Accuracy}\label{accuracy}}
 
-Fig. \ref{fig:detect-compare} displays the average detection rates for the two types of plots separately for each trend model. Each trend model was tested using four repetitions, and evaluations on the same data set were seen as either choropleths or hexagon tile maps by each group as specified in Table. \ref{fig:exp-design}; the detection rates for each display are connected by a line segment. The Three Cities and All Cities trend models shown in the hexagon tile map allowed viewers to detect the data plot substantially more often than the choropleth counterparts. One replicate for the All Cities group had similar detection rates for both plot types, the rate of detection using the choropleth map was much higher than other replicates. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
+Fig. \ref{fig:detect-compare} displays the average detection rates for the two types of plots separately for each trend model. Each trend model was tested using four repetitions, and evaluations on the same data set were seen as either choropleths or hexagon tile maps by each group as specified in Fig. \ref{fig:exp-design}; the detection rates for each display are connected by a line segment. The Three Cities and All Cities trend models shown in the hexagon tile map allowed viewers to detect the data plot substantially more often than the choropleth counterparts. One replicate for the All Cities group had similar detection rates for both plot types, the rate of detection using the choropleth map was much higher than other replicates. Surprisingly, participants could also detect the gradual spatial trend in the NW-SE group from the hexagon tile map. We expected that the choropleth map would be superior for the type of spatial pattern, but the data suggests the hexagon tile map performs slightly better, or equally as well.
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{paper_files/figure-latex/detect-compare-1} \caption{The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choropleth or hexagon tile map display are linked to show the difference in the detection rate.}\label{fig:detect-compare}
 \end{figure}
 
-Table. \ref{tab:desc-stats} shows the means and standard deviations of the detection rate for each type of plot and each trend model. This also gives the standard deviations, the smallest standard deviation for all sets of replicates was the Three Cities trend model shown in a Choropleth display. This group of displays had a very small detection rate of 0.04. The mean detection rate for the Three Cities trend model shown as choropleth map lineups was also the smallest at 0.40.
+Table \ref{tab:desc-stats} shows the means and standard deviations of the detection rate for each type of plot and each trend model. This also gives the standard deviations, the smallest standard deviation for all sets of replicates was the Three Cities trend model shown in a Choropleth display. This group of displays had a very small detection rate of 0.04. The mean detection rate for the Three Cities trend model shown as choropleth map lineups was also the smallest at 0.40.
 The North-West to South-East (NW-SE) trend model unexpectedly had a higher mean detection rate for the hexagon tile map displays, but the difference in the means of detection rate was only 0.10.
 
 \begin{table}[h]
@@ -390,8 +390,8 @@ Hex. & 0.62 & 0.40 & 0.58\\
 \end{tabular}
 \end{table}
 
-Table. \ref{tab:detect-glmer1} presents a summary of the generalized linear mixed effects model, testing the effect of plot type and trend model on the detection rate. The results support the summary from Fig. \ref{fig:detect-compare} and all parameters are statistically significant despite the large standard deviations observed in Table. \ref{tab:desc-stats}. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, which is a pleasant surprise. Allowing for the interaction effect, the difference in detection rate decreases for population-related displays for a choropleth map lineup, but increases for a hexagon tile map display.
-The log odds of detection are shown in Table. \ref{tab:detect-glmer1} can be back-transformed after taking the sum of all terms for the trend and type of display that are of interest.
+Table \ref{tab:detect-glmer1} presents a summary of the generalized linear mixed effects model, testing the effect of plot type and trend model on the detection rate. The results support the summary from Fig. \ref{fig:detect-compare} and all parameters are statistically significant despite the large standard deviations observed in Table \ref{tab:desc-stats}. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, which is a pleasant surprise. Allowing for the interaction effect, the difference in detection rate decreases for population-related displays for a choropleth map lineup but increases for a hexagon tile map display.
+The log odds of detection are shown in Table \ref{tab:detect-glmer1} can be back-transformed after taking the sum of all terms for the trend and type of display that are of interest.
 For the NW-SE distribution, the predicted detection rate for the hexagon tile map display increases the predicted probability of detection to 0.63 from 0.52 for choropleths, this is almost exactly the difference seen in the table of means and is significant only at the 0.05 level.
 
 When a choropleth map display is used, the predicted detection rate for the Three Cities trend, 0.03; this is extremely low, especially compared to the NW-SE trend of 0.52.
@@ -478,21 +478,17 @@ Trend & Detected & Choro. & Hex.\\
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-The intention of this study was to contrast the use of the choropleth map and the hexagon tile map.
-The visual inference lineup protocol was employed to contrast the effectiveness of the displays.
-The results have shown that overall the use of the hexagon tile map display allows participants to find the data plot in the lineup more often.
-Using the visual inference protocol this result can be extended to show that it is a valid alternative display to communicate spatial distributions of population-related data.
+%The intention of this study was to contrast the use of the choropleth map and the hexagon tile map. The visual inference lineup protocol was employed to contrast the effectiveness of the displays. The results have shown that overall the use of the hexagon tile map display allows participants to find the data plot in the lineup more often. Using the visual inference protocol this result can be extended to show that it is a valid alternative display to communicate spatial distributions of population-related data.
+The objective of this study was to compare the effectiveness of the choropleth map and the hexagon tile map in displaying population-related data. To achieve this, we employed the visual inference lineup protocol, which helped us evaluate the efficacy of each display. Our results indicate that participants were more successful in identifying the data plot in the hexagon tile map display, making it a superior option for representing spatial distributions of population-related data. Thus, our study concludes that the hexagon tile map display is a valid and effective alternative to the choropleth map display for communicating this type of information.
 
-We expected that the choropleth map would be superior for communicating the spatial pattern of geographic distributions. The data suggest that the participants perform slightly better or equally as well for each replicate in each trend model across the two displays. Table II shows that the difference in the mean detection rate for the two trend models was 0.10.
+%We expected that the choropleth map would be superior for communicating a spatial dependence trend pattern across the geography. The data suggest that the participants perform slightly better, or equally as well, for each replicate in each trend model across the two displays. Table \ref{tab:desc-stats} shows that the difference in the mean detection rate for the two trend models was 0.10. The differences are seen in the \ref{fig:detect-compare} plot and Table. \ref{tab:desc-stats} are reflected in the model results. Surprisingly the difference in the geographic distribution was significant at the 0.05 level. It also showed that the hexagon tile map display performs marginally better than the choropleth for all trend models. Unexpectedly the detection rate suffers when using a choropleth map to display population-related distributions.
 
-The differences are seen in the \ref{fig:detect-compare} plot and Table. \ref{tab:desc-stats} are reflected in the model results. Surprisingly the difference in the geographic distribution was significant at the 0.05 level.
-It also showed that the hexagon tile map display performs marginally better than the choropleth for all trend models. Unexpectedly the detection rate suffers when using a choropleth map to display population-related distributions.
+Our initial expectation was that the hexagon tile map would be superior to the choropleth map for the two inner city hotspots pattern (All Cities, Three Cities), but that the choropleth would outperform the hexagon tile map for conveying a spatial dependence trend pattern across geography (NW-SE). We surprisingly found that the hexagon tile map was more effective in all three trend models. The detection rate was significantly higher for the hexagon tile map, although the margin was small for the NW-SE trend model.  This was reflected in Fig. \ref{fig:detect-compare}, the descriptive statistics in Table \ref{fig:detect-compare}, and the linear model summary in Table \ref{tab:detect-glmer1}.
 
-While the significance of the difference in detection was the key focus of this experiment, the secondary focus was the time taken by participants. it was expected that the participants may take longer to consider the hexagon tile map distribution but would be able to detect the data plot in the lineup.
-The bimodal distributions seen in Fig. \ref{fig:beeswarm} showed very little difference in the mean evaluation times. As the maximum time of all of the distributions approached 60 seconds it cannot be said that the participants took longer to evaluate the hexagon tile map displays.
+While the significance of the difference in detection was the primary focus of this experiment, a secondary focus was the time taken by participants. It was expected that the participants may take longer to consider the hexagon tile map distribution but would be able to detect the data plot in the lineup. The bimodal distributions seen in Fig. \ref{fig:beeswarm} showed very little difference in the mean evaluation times. As the maximum time of all of the distributions approached 60 seconds it cannot be said that the participants took longer to evaluate the hexagon tile map displays.
 
 The responses to the questions asked of participants included the reason for their choice and the certainty around their choice.
-Fig. \ref{tab:reason} shows high levels of certainty of 4 and 5 were chosen by participants when looking at the population distributions in a choropleth map display showing that they were overconfident when attempting to find the real data plot in the choropleth map displays. Participants performed better on the NW-SE distribution shown in the choropleth display and were reasonably confident about their decisions.
+Fig. \ref{fig:certainty} shows high levels of certainty of 4 and 5 were chosen by participants when looking at the population distributions in a choropleth map display showing that they were overconfident when attempting to find the real data plot in the choropleth map displays. Participants performed better on the NW-SE distribution shown in the choropleth display and were reasonably confident about their decisions.
 The high levels of the mid-range value of 3 could indicate that the participant did not want to provide a response, as this was the default value. Those who chose level 4 or 5 were equally likely to be correct for the three cities lineups, but more likely to be correct than incorrect for the other two trend models.
 
 The color scaling applied in Three cities and All cities displays resulted in the rural areas of the real data plot appearing more blue or yellow than the other plots in the lineups.
@@ -500,15 +496,14 @@ Due to the consistent coloring of rural areas in a choropleth display, the choic
 Choosing ``Clusters of color'' was expected when participants viewed the Hexagon tile map display of the All Cities and Three Cities distributions. It was unexpected that it was also the most common reason for the NW-SE hexagon tile map displays.
 Due to the spatial covariance introduced in the smoothing, groups of similarly colored hexagons were present in all of the hexagon tile map displays. All Cities and Three Cities distributions of real data trends had distinctly different patterns or red inner-city areas, while some of the plots in each lineup may have shared similar features.
 
-\hypertarget{conclusion}{%
-\section{Conclusion}\label{conclusion}}
+%\hypertarget{conclusion}{%
+%\section{Conclusion}\label{conclusion}}
 
-The choropleth map display and the tessellated hexagon tile map have been contrasted using the lineup protocol. The hexagon tile map was significantly more effective for spotting a real population-related data trend model hidden in a lineup.
+%The choropleth map display and the tessellated hexagon tile map have been contrasted using the lineup protocol. The hexagon tile map was significantly more effective for spotting a real population-related data trend model hidden in a lineup.
 
-The hexagon tile map display should be considered as an alternative visualization method when communicating distributions that relate to the population across a set of geographic units. As an additional display to the familiar choropleth map, cancer atlas products may benefit from the opportunity to allow exploration via an alternative display. The spatial distributions used to test these displays were inspired by the real spatially smoothed estimates of the cancer burden on Australian communities. However, this technique may be extended to other population-related distributions, such as other diseases.
+%The hexagon tile map display should be considered as an alternative visualization method when communicating distributions that relate to the population across a set of geographic units. As an additional display to the familiar choropleth map, cancer atlas products may benefit from the opportunity to allow exploration via an alternative display. The spatial distributions used to test these displays were inspired by the real spatially smoothed estimates of the cancer burden on Australian communities. However, this technique may be extended to other population-related distributions, such as other diseases.
 
-The increasing population densities of capital cities despite small land areas exacerbates the difference between the smallest and largest communities.
-The population density structure of Australia can be considered similar to that of Canada, New Zealand, and many other countries. Therefore, this display is not only relevant to Australia but all nations or population distributions that experience densely populated cities separated by vast rural expanses.
+%The increasing population densities of capital cities despite small land areas exacerbates the difference between the smallest and largest communities.The population density structure of Australia can be considered similar to that of Canada, New Zealand, and many other countries. Therefore, this display is not only relevant to Australia but all nations or population distributions that experience densely populated cities separated by vast rural expanses.
 
 \hypertarget{acknowledgment}{%
 \section{Acknowledgment}\label{acknowledgment}}
@@ -553,145 +548,4 @@ Ethics approval for the online survey was granted by QUT's Ethics Committee (Eth
 \bibliography{paper.bib}
 
 \end{document}
-
-\hypertarget{references}{%
-\section*{References}\label{references}}
-\addcontentsline{toc}{section}{References}
-
-\hypertarget{refs}{}
-\begin{CSLReferences}{0}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-sugarbag}{}}%
-\CSLLeftMargin{1. }%
-\CSLRightInline{Kobakian S, Cook D (2019) Sugarbag: Create tessellated hexagon maps. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-atlas}{}}%
-\CSLLeftMargin{2. }%
-\CSLRightInline{Cancer Council Queensland {Australian Cancer Atlas (https://atlas.cancer.org.au)}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-GIIV}{}}%
-\CSLLeftMargin{3. }%
-\CSLRightInline{Wickham H, Cook D, Hofmann H, Buja A (2010) Graphical inference for infovis. IEEE Transactions on Visualization and Computer Graphics (Proc InfoVis '10) 16:973--979}
-
-\leavevmode\vadjust pre{\hypertarget{ref-EI}{}}%
-\CSLLeftMargin{4. }%
-\CSLRightInline{Tufte ER (1990) {Envisioning Information}. Graphics Press}
-
-\leavevmode\vadjust pre{\hypertarget{ref-BCM}{}}%
-\CSLLeftMargin{5. }%
-\CSLRightInline{Skowronnek A (2016) {Beyond Choropleth Maps -- A Review of Techniques to Visualize Quantitative Areal Geodata}. In: {Infovis Reading Group WS 2015/16}. \href{https://alsino.io/static/papers/BeyondChoropleths_AlsinoSkowronnek.pdf}{https://alsino.io/static/papers/BeyondChoropleths\_AlsinoSkowronnek.pdf. }}
-
-\leavevmode\vadjust pre{\hypertarget{ref-CBATCC}{}}%
-\CSLLeftMargin{6. }%
-\CSLRightInline{Kocmoud C, House D (1998) {A Constraint-based Approach to Constructing Continuous Cartograms}. In: Proc. Symp. Spatial data handling. pp 236--246}
-
-\leavevmode\vadjust pre{\hypertarget{ref-ACTUC}{}}%
-\CSLLeftMargin{7. }%
-\CSLRightInline{Dorling D (2011) \href{https://doi.org/10.1002/9780470979587.ch33}{{Area Cartograms: Their Use and Creation}}. In: Concepts and techniques in modern geography (CATMOG). pp 252--260}
-
-\leavevmode\vadjust pre{\hypertarget{ref-NAC}{}}%
-\CSLLeftMargin{8. }%
-\CSLRightInline{Olson JM (1976) \href{https://doi.org/10.1111/j.0033-0124.1976.00371.x}{{Noncontiguous Area Cartograms}}. The Professional Geographer 28:371--380}
-
-\leavevmode\vadjust pre{\hypertarget{ref-RSCW}{}}%
-\CSLLeftMargin{9. }%
-\CSLRightInline{Raisz E (1963) \href{https://doi.org/10.1080/00221343608987880}{{Rectangular Statistical Cartograms of the World}}. Journal of Geography 35:8--10}
-
-\leavevmode\vadjust pre{\hypertarget{ref-CDWCS}{}}%
-\CSLLeftMargin{10. }%
-\CSLRightInline{Monmonier M (2005) \href{https://doi.org/10.1191/0309132505ph540pr}{{Cartography: Distortions, World-views and Creative Solutions}}. Progress in Human Geography 29:217--224}
-
-\leavevmode\vadjust pre{\hypertarget{ref-review}{}}%
-\CSLLeftMargin{11. }%
-\CSLRightInline{(2019) Cancer applications of choropleth maps, and the potential of cartograms and alternative map displays. Manuscript submitted for publication. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-BCHLLSW09}{}}%
-\CSLLeftMargin{12. }%
-\CSLRightInline{Buja A, Cook D, Hofmann H, Lawrence M, Lee E-K, Swayne DF, Wickham H (2009) Statistical inference for exploratory data analysis and model diagnostics. Philosophical Transactions of the Royal Society, A (Invited) 367:4361--4383}
-
-\leavevmode\vadjust pre{\hypertarget{ref-GTPCCD}{}}%
-\CSLLeftMargin{13. }%
-\CSLRightInline{Hofmann H, Follett L, Majumder M, Cook D (2012) Graphical tests for power comparison of competing designs. IEEE Transactions on Visualization and Computer Graphics 18:2441--2448}
-
-\leavevmode\vadjust pre{\hypertarget{ref-ggplot2}{}}%
-\CSLLeftMargin{14. }%
-\CSLRightInline{Wickham H (2009) \href{http://had.co.nz/ggplot2/book}{ggplot2: Elegant graphics for data analysis}. Springer New York}
-
-\leavevmode\vadjust pre{\hypertarget{ref-abs2016}{}}%
-\CSLLeftMargin{15. }%
-\CSLRightInline{(2018) \href{\%7Bhttps://www.abs.gov.au/websitedbs/D3310114.nsf/home/Australian\%20\%20\%20Statistical\%20Geography\%20Standard\%20(ASGS)\%7D}{{Australian Statistical Geography Standard (ASGS)}}. Australian Bureau of Statistics }
-
-\leavevmode\vadjust pre{\hypertarget{ref-POG}{}}%
-\CSLLeftMargin{16. }%
-\CSLRightInline{Matheron G (1963) \href{http://dx.doi.org/10.2113/gsecongeo.58.8.1246}{Principles of geostatistics}. Economic Geology 58:1246--1266}
-
-\leavevmode\vadjust pre{\hypertarget{ref-gstat}{}}%
-\CSLLeftMargin{17. }%
-\CSLRightInline{Gräler B, Pebesma E, Heuvelink G (2016) \href{https://journal.r-project.org/archive/2016/RJ-2016-014/index.html}{Spatio-temporal interpolation using gstat}. The R Journal 8:204--218}
-
-\leavevmode\vadjust pre{\hypertarget{ref-RCore}{}}%
-\CSLLeftMargin{18. }%
-\CSLRightInline{R Core Team (2019) \href{https://www.R-project.org/}{R: A language and environment for statistical computing}. R Foundation for Statistical Computing, Vienna, Austria}
-
-\leavevmode\vadjust pre{\hypertarget{ref-lme4}{}}%
-\CSLLeftMargin{19. }%
-\CSLRightInline{Bates D, Mächler M, Bolker B, Walker S (2015) \href{https://doi.org/10.18637/jss.v067.i01}{Fitting linear mixed-effects models using {lme4}}. Journal of Statistical Software 67:1--48}
-
-\leavevmode\vadjust pre{\hypertarget{ref-taipan}{}}%
-\CSLLeftMargin{20. }%
-\CSLRightInline{Kobakian S, O'Hara-Wild M (2018) \href{https://CRAN.R-project.org/package=taipan}{Taipan: Tool for annotating images in preparation for analysis}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-sheets}{}}%
-\CSLLeftMargin{21. }%
-\CSLRightInline{Bryan J, Zhao J (2018) \href{https://CRAN.R-project.org/package=googlesheets}{Googlesheets: Manage google spreadsheets from r}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-figeight}{}}%
-\CSLLeftMargin{22. }%
-\CSLRightInline{(2019) \href{https://www.figure-eight.com/}{The essential high-quality data annotation platform}. Figure Eight }
-
-\leavevmode\vadjust pre{\hypertarget{ref-rmarkdown}{}}%
-\CSLLeftMargin{23. }%
-\CSLRightInline{Xie Y, Allaire JJ, Grolemund G (2018) \href{https://bookdown.org/yihui/rmarkdown}{R markdown: The definitive guide}. Chapman; Hall/CRC, Boca Raton, Florida}
-
-\leavevmode\vadjust pre{\hypertarget{ref-rticles}{}}%
-\CSLLeftMargin{24. }%
-\CSLRightInline{Allaire J, Xie Y, R Foundation, et al (2019) \href{https://CRAN.R-project.org/package=rticles}{Rticles: Article formats for r markdown}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-knitr}{}}%
-\CSLLeftMargin{25. }%
-\CSLRightInline{Xie Y (2014) \href{http://www.crcpress.com/product/isbn/9781466561595}{Knitr: A comprehensive tool for reproducible research in {R}}. Implementing reproducible computational research }
-
-\leavevmode\vadjust pre{\hypertarget{ref-tidyverse}{}}%
-\CSLLeftMargin{26. }%
-\CSLRightInline{Wickham H, Averick M, Bryan J, et al (2019) \href{https://doi.org/10.21105/joss.01686}{Welcome to the {tidyverse}}. Journal of Open Source Software 4:1686}
-
-\leavevmode\vadjust pre{\hypertarget{ref-nullabor}{}}%
-\CSLLeftMargin{27. }%
-\CSLRightInline{Wickham H, Chowdhury NR, Cook D, Hofmann H (2018) \href{https://CRAN.R-project.org/package=nullabor}{Nullabor: Tools for graphical inference}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-ggthemes}{}}%
-\CSLLeftMargin{28. }%
-\CSLRightInline{Arnold JB (2019) \href{https://CRAN.R-project.org/package=ggthemes}{Ggthemes: Extra themes, scales and geoms for 'ggplot2'}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-RColorBrewer}{}}%
-\CSLLeftMargin{29. }%
-\CSLRightInline{Neuwirth E (2014) \href{https://CRAN.R-project.org/package=RColorBrewer}{RColorBrewer: ColorBrewer palettes}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-cowplot}{}}%
-\CSLLeftMargin{30. }%
-\CSLRightInline{Wilke CO (2019) \href{https://CRAN.R-project.org/package=cowplot}{Cowplot: Streamlined plot theme and plot annotations for 'ggplot2'}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-png}{}}%
-\CSLLeftMargin{31. }%
-\CSLRightInline{Urbanek S (2013) \href{https://CRAN.R-project.org/package=png}{Png: Read and write PNG images}. }
-
-\leavevmode\vadjust pre{\hypertarget{ref-grid}{}}%
-\CSLLeftMargin{32. }%
-\CSLRightInline{R Core Team (2019) \href{https://www.R-project.org/}{R: A language and environment for statistical computing}. R Foundation for Statistical Computing, Vienna, Austria}
-
-\leavevmode\vadjust pre{\hypertarget{ref-kableExtra}{}}%
-\CSLLeftMargin{33. }%
-\CSLRightInline{Zhu H (2019) \href{https://CRAN.R-project.org/package=kableExtra}{kableExtra: Construct complex table with 'kable' and pipe syntax}. }
-
-\end{CSLReferences}
-
 

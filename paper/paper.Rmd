@@ -156,7 +156,7 @@ d <- d %>%
     trend == "nwse" ~ "NW-SE",
     trend == "cities" ~ "All Cities",
     trend == "three" ~ "Three Cities")) %>% 
-  mutate(trend = fct_relevel(trend, "NW-SE","Three Cities","All Cities")) %>% 
+  mutate(trend = fct_relevel(trend,"All Cities","Three Cities", "NW-SE")) %>% 
   mutate(type = case_when(
     type == "hex" ~"Hex.",
     TRUE~"Choro.")) %>% 
@@ -179,11 +179,11 @@ load("data/state2011.rda")
 invthm <- theme_map() + 
   theme(
     panel.background = element_rect(fill = "transparent", colour = NA), 
-    plot.background = element_rect(fill = "transparent", colour = NA),
+    plot.background = element_rect(fill = "black", colour = NA),
     legend.background = element_rect(fill = "transparent", colour = NA),
     legend.key = element_rect(fill = "transparent", colour = NA),
     text = element_text(colour = "white"),
-    axis.text = element_text(colour = "white")
+    axis.text = element_blank()
   )
 
 # function to allocate colours to regions
