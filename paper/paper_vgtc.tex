@@ -120,7 +120,7 @@ The paper is organized as follows. The next section discusses the background of 
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.9\linewidth]{paper_files/figure-latex/lineup-1} \caption{An example of the lineups shown to participants. This lineup of twelve hexagon tile map displays contains one map with a simulated population-related structure and the remainder are null plots that contain only spatial correlation between neighbors. In this lineup, the population structure is the concentration in all cities, and is located in position 3.}\label{fig:lineup}
+\includegraphics[width=0.98\linewidth]{paper_files/figure-latex/lineup-1} \caption{An example of the lineups shown to participants. This lineup of twelve hexagon tile map displays contains one map with a simulated population-related structure and the remainder are null plots that contain only spatial correlation between neighbors. In this lineup, the population structure is the concentration in all cities, and is located in position 3.}\label{fig:lineup}
 \end{figure*}
 
 \hypertarget{background}{%
@@ -192,7 +192,7 @@ Maps of Australia, with Statistical Area 3 (SA3)~\cite{abs2016} as the geographi
 
 \begin{figure*}[h]
 \centering 
-  \includegraphics[width=0.9\linewidth]{figures/factors.pdf} 
+  \includegraphics[width=0.98\linewidth]{figures/factors.pdf} 
 \caption{The three trend models, displayed as a hexagon tile map. One would expect the choropleth to do best only on the "northwest to southeast" pattern, and the hexagon tile map to perform better with the "all cities" and "three cities".}\label{fig:factors}
 \end{figure*}
 
@@ -427,30 +427,17 @@ Fig. \ref{fig:beeswarm} shows horizontally jittered dot plots to contrast the ti
 \includegraphics[width=1\linewidth]{paper_files/figure-latex/beeswarm-1} \caption{The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using horizontally jittered dot plots. The colored point indicates the average time taken for each plot type. Although some participants take just a few seconds per evaluation, and some take as much as much as 60 seconds, there is very little difference in time taken between plot types.}\label{fig:beeswarm}
 \end{figure}
 
+\begin{figure}
+\includegraphics[width=1\linewidth]{paper_files/figure-latex/certainty-1} \caption{The number of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen mostly for the Hexagon tile map displays.}\label{fig:certainty}
+\end{figure}
+
 \hypertarget{certainty}{%
 \subsection{Certainty}\label{certainty}}
 
 Participants provided their level of certainty regarding their choice using a five-point scale.
 Unlike the accuracy and speed of responses that were derived during the data processing phase, this was a subjective
 assessment by the participant prompted by the question: `How certain are you about your choice?'.
-Fig. \ref{fig:certainty} shows the number of times participants provided each level of certainty. This was separated for each combination of trend models and display type, and colored depending on whether a participant correctly detected the data plot in the lineup.
-Participants often chose 4 or 5 when viewing the population-related trends in the choropelth display, even though they were often incorrect when viewing an All Cities trend and overwhelmingly incorrect for the Three Cities trend. This shows overconfidence in their detection ability when using a choropleth map display. Participants were less likely to be certain when their choice was incorrect and they were viewing a hexagon tile map.
-For each trend model, participants were more likely to doubt their choice and choose 1 or 2 in the hexagon tile map displays, even though many had made the correct choice.
-
-\begin{figure}
-\includegraphics[width=1\linewidth]{paper_files/figure-latex/certainty-1} \caption{The number of times each level of certainty was chosen by participants when viewing hexagon tile map or choropleth displays. Participants were more likely to choose a high certainty when considering a Choropleth map. The mid value of 3 was the default certainty, it was chosen most for the Hexagon tile map displays.}\label{fig:certainty}
-\end{figure}
-
-\hypertarget{reason}{%
-\subsection{Reason}\label{reason}}
-
-Participants were asked why they had made their plot choice and were able to select from a set of suggested reasons.
-``Color trend across the areas'' was the most common selection for NW-SE trend displays.
-
-The reasons chosen by participants from the list provided to them varied more when viewing choropleth displays than the hexagon tile map.
-The hexagon tile map displays resulted in ``Clusters of color'' as the most common choice made by participants.
-
-The choice ``None of these reasons'' was used as the default value to minimize noise from participants who did not select a response.
+Fig. \ref{fig:certainty} shows a bar chart of the participants' reported certainty, faceted by trend model and display type. Color indicates whether the data was detected or not. Participants often chose 4 or 5 (highly certain) more often for choropleth than the hexagon tile map, indicating that they were more certain they had the correct answer.  This was especially strong with the All Cities and Three Cities trends. What is interesting is that they were more often wrong in their answer! This suggests that there is overconfidence in their detection ability when using a choropleth map. %Participants were less likely to be certain when their choice was incorrect and they were viewing a hexagon tile map. For each trend model, participants were more likely to doubt their choice and choose 1 or 2 in the hexagon tile map displays, even though many had made the correct choice.
 
 \begin{table}
 
@@ -475,26 +462,41 @@ Trend & Detected & Choro. & Hex.\\
 \end{tabular}
 \end{table}
 
+\hypertarget{reason}{%
+\subsection{Reason}\label{reason}}
+
+To understand how participants made their decisions they were asked to select from a fixed set of reasons for choosing a plot: "None of these reasons" (default), "Clusters of colour", "Colour trend across the areas", "Big differences between neighbours" or "All areas have similar colours". Table \ref{tab:reason} shows the top reason for the different trend models, whether the data plot was detected or not, and the two displays. 
+
+Interestingly, regardless of the spatial trend model, or whether the data plot was detected, the most common reason for the hexagon tile map was "Clusters of colour". It is a bit surprising that "Colour trend across the areas" was not the top reason for the NW-SE model.
+
+For the choropleth map the reason for choosing varied substantially. For the NW-SE model, whether the data plot was detected or not, participants' top reason was "Colour trend across the areas", which is as expected. However, very interestingly, this was also the top reason given when the data plot was NOT detected for "All cities" and "Three cities". This suggests that the participants did not find the data because they were looking for the wrong pattern, perhaps people are pre-conditioned to read choropleths only in one way to the extent of missing other strong patterns. "Clusters of colour" was the top choice when participants detected the data plot in the "All Cities" pattern. It is also informative to see that ``All areas have similar colours'' was the top reason when participants detected the data plot in "All Cities" and "Three cities". It actually makes sense, because the color scaling applied in these models resulted in the rural areas of the data plot appearing more blue or yellow than the null plots in each lineup.
+
+%``Color trend across the areas'' was the most common selection for NW-SE trend displays.
+
+%The reasons chosen by participants from the list provided to them varied more when viewing choropleth displays than the hexagon tile map.The hexagon tile map displays resulted in ``Clusters of color'' as the most common choice made by participants.
+
+%The choice ``None of these reasons'' was used as the default value to minimize noise from participants who did not select a response.
+
 \hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
+\section{Conclusions}\label{discussion}}
 
 %The intention of this study was to contrast the use of the choropleth map and the hexagon tile map. The visual inference lineup protocol was employed to contrast the effectiveness of the displays. The results have shown that overall the use of the hexagon tile map display allows participants to find the data plot in the lineup more often. Using the visual inference protocol this result can be extended to show that it is a valid alternative display to communicate spatial distributions of population-related data.
 The objective of this study was to compare the effectiveness of the choropleth map and the hexagon tile map in displaying population-related data. To achieve this, we employed the visual inference lineup protocol, which helped us evaluate the efficacy of each display. Our results indicate that participants were more successful in identifying the data plot in the hexagon tile map display, making it a superior option for representing spatial distributions of population-related data. Thus, our study concludes that the hexagon tile map display is a valid and effective alternative to the choropleth map display for communicating this type of information.
 
 %We expected that the choropleth map would be superior for communicating a spatial dependence trend pattern across the geography. The data suggest that the participants perform slightly better, or equally as well, for each replicate in each trend model across the two displays. Table \ref{tab:desc-stats} shows that the difference in the mean detection rate for the two trend models was 0.10. The differences are seen in the \ref{fig:detect-compare} plot and Table. \ref{tab:desc-stats} are reflected in the model results. Surprisingly the difference in the geographic distribution was significant at the 0.05 level. It also showed that the hexagon tile map display performs marginally better than the choropleth for all trend models. Unexpectedly the detection rate suffers when using a choropleth map to display population-related distributions.
 
-Our initial expectation was that the hexagon tile map would be superior to the choropleth map for the two inner city hotspots pattern (All Cities, Three Cities), but that the choropleth would outperform the hexagon tile map for conveying a spatial dependence trend pattern across geography (NW-SE). We surprisingly found that the hexagon tile map was more effective in all three trend models. The detection rate was significantly higher for the hexagon tile map, although the margin was small for the NW-SE trend model.  This was reflected in Fig. \ref{fig:detect-compare}, the descriptive statistics in Table \ref{fig:detect-compare}, and the linear model summary in Table \ref{tab:detect-glmer1}.
+Our initial expectation was that the hexagon tile map would be superior to the choropleth map for the two inner city hotspot patterns (All Cities, Three Cities), but that the choropleth would outperform the hexagon tile map for conveying a spatial dependence trend pattern across geography (NW-SE). We surprisingly found that the hexagon tile map was more effective in all three trend models. The detection rate was significantly higher for the hexagon tile map, although the margin was small for the NW-SE trend model.  This was reflected in Fig. \ref{fig:detect-compare}, the descriptive statistics in Table \ref{fig:detect-compare}, and the linear model summary in Table \ref{tab:detect-glmer1}.
 
-While the significance of the difference in detection was the primary focus of this experiment, a secondary focus was the time taken by participants. It was expected that the participants may take longer to consider the hexagon tile map distribution but would be able to detect the data plot in the lineup. The bimodal distributions seen in Fig. \ref{fig:beeswarm} showed very little difference in the mean evaluation times. As the maximum time of all of the distributions approached 60 seconds it cannot be said that the participants took longer to evaluate the hexagon tile map displays.
+While detection was the primary focus of this experiment, a secondary focus was the time taken by participants. It was expected that the participants may take longer to evaluate the hexagon tile maps. Fig. \ref{fig:beeswarm} shows that this was not the case, because there is little difference in the mean evaluation times. The distribution of evaluation times is similar for both choropleths and hexagon tile maps.
 
-The responses to the questions asked of participants included the reason for their choice and the certainty around their choice.
-Fig. \ref{fig:certainty} shows high levels of certainty of 4 and 5 were chosen by participants when looking at the population distributions in a choropleth map display showing that they were overconfident when attempting to find the real data plot in the choropleth map displays. Participants performed better on the NW-SE distribution shown in the choropleth display and were reasonably confident about their decisions.
-The high levels of the mid-range value of 3 could indicate that the participant did not want to provide a response, as this was the default value. Those who chose level 4 or 5 were equally likely to be correct for the three cities lineups, but more likely to be correct than incorrect for the other two trend models.
+Some interesting behavior is revealed from the participants' responses for reason and certainty in their choices of plots. People were more confident in their choices when viewing the choropleth maps, but they were more often wrong. The reasons given for plot choices suggest that people may be misled by choropleth maps by tending to focus on spatial trends at the risk of failing to detect the clustering patterns.
 
-The color scaling applied in Three cities and All cities displays resulted in the rural areas of the real data plot appearing more blue or yellow than the other plots in the lineups.
-Due to the consistent coloring of rural areas in a choropleth display, the choice ``All areas have similar colors'' was the most common reason for a participant's choice. The All Cities displays colored the inner-city areas of all capital cities redder, this was observable to participants and explains the equal choice of the city clusters or rural color consistency.
-Choosing ``Clusters of color'' was expected when participants viewed the Hexagon tile map display of the All Cities and Three Cities distributions. It was unexpected that it was also the most common reason for the NW-SE hexagon tile map displays.
-Due to the spatial covariance introduced in the smoothing, groups of similarly colored hexagons were present in all of the hexagon tile map displays. All Cities and Three Cities distributions of real data trends had distinctly different patterns or red inner-city areas, while some of the plots in each lineup may have shared similar features.
+In summary, the hexagon tile map display should be considered an effective alternative visualization method when communicating distributions that relate to the population across a set of geographic units. Cancer atlas products may benefit from the inclusion of this type of display to more accurately report the incidence. Although the spatial distributions used to test these displays were inspired by the real spatially smoothed estimates of the cancer burden on Australian communities, the results likely extend to other population-related distributions and other diseases or statistics. This new display is especially valuable for countries like Australia that have huge sparsely populated areas. 
+
+%The responses to the questions asked of participants included the reason for their choice and the certainty around their choice.Fig. \ref{fig:certainty} shows high levels of certainty of 4 and 5 were chosen by participants when looking at the population distributions in a choropleth map display showing that they were overconfident when attempting to find the real data plot in the choropleth map displays. Participants performed better on the NW-SE distribution shown in the choropleth display and were reasonably confident about their decisions.The high levels of the mid-range value of 3 could indicate that the participant did not want to provide a response, as this was the default value. Those who chose level 4 or 5 were equally likely to be correct for the three cities lineups, but more likely to be correct than incorrect for the other two trend models.
+
+
+%The color scaling applied in Three cities and All cities displays resulted in the rural areas of the real data plot appearing more blue or yellow than the other plots in the lineups. Due to the consistent coloring of rural areas in a choropleth display, the choice ``All areas have similar colors'' was the most common reason for a participant's choice. The All Cities displays colored the inner-city areas of all capital cities redder, this was observable to participants and explains the equal choice of the city clusters or rural color consistency. Choosing ``Clusters of color'' was expected when participants viewed the Hexagon tile map display of the All Cities and Three Cities distributions. It was unexpected that it was also the most common reason for the NW-SE hexagon tile map displays. Due to the spatial covariance introduced in the smoothing, groups of similarly colored hexagons were present in all of the hexagon tile map displays. All Cities and Three Cities distributions of real data trends had distinctly different patterns or red inner-city areas, while some of the plots in each lineup may have shared similar features.
 
 %\hypertarget{conclusion}{%
 %\section{Conclusion}\label{conclusion}}
@@ -509,6 +511,25 @@ Due to the spatial covariance introduced in the smoothing, groups of similarly c
 \section{Acknowledgment}\label{acknowledgment}}
 
 The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualizations, and Professor Kerrie Mengersen and Dr. Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the \texttt{taipan}~\cite{taipan} R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful to the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study.
+
+The analysis of the work was completed in R  \cite{RCore} with the use of the following packages:
+
+\begin{itemize} \itemsep 0in
+%tightlist
+\item
+  For document creation: \texttt{rmarkdown}~\cite{rmarkdown}, \texttt{rticles}~\cite{rticles}, \texttt{knitr}~\cite{knitr}.
+\item
+  For lineup creation and data analysis: \texttt{tidyverse}~\cite{tidyverse}, \texttt{nullabor}~\cite{nullabor}, \texttt{ggthemes}~\cite{ggthemes}, \texttt{RColorBrewer}~\cite{RColorBrewer}.
+\item
+  For image displays: \texttt{cowplot}~\cite{cowplot}, \texttt{png}~\cite{png}, \texttt{grid}~\cite{grid}.
+\item
+  For modelling and presentation of models: \texttt{gstat}~\cite{gstat}, \texttt{lme4}~\cite{lme4}, \texttt{kableExtra}~\cite{kableExtra}.
+\end{itemize}
+
+Ethics approval for the online survey was granted by QUT's Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research.
+
+\hypertarget{supplementary}{%
+\section{Supplementary Materialst}\label{supplementary}}
 
 The source code to produce this document can be found at \url{https://github.com/srkobakian/experiment/paper}.
 Supplementary materials have been included to discuss the survey procedures and the lineups that were used.
@@ -528,21 +549,6 @@ The supplementary material contains:
   12 data sets used to construct the lineups
 \end{itemize}
 
-The analysis of the work was completed in R  \cite{RCore} with the use of the following packages:
-
-\begin{itemize} \itemsep 0in
-%tightlist
-\item
-  For document creation: \texttt{rmarkdown}~\cite{rmarkdown}, \texttt{rticles}~\cite{rticles}, \texttt{knitr}~\cite{knitr}.
-\item
-  For lineup creation and data analysis: \texttt{tidyverse}~\cite{tidyverse}, \texttt{nullabor}~\cite{nullabor}, \texttt{ggthemes}~\cite{ggthemes}, \texttt{RColorBrewer}~\cite{RColorBrewer}.
-\item
-  For image displays: \texttt{cowplot}~\cite{cowplot}, \texttt{png}~\cite{png}, \texttt{grid}~\cite{grid}.
-\item
-  For modelling and presentation of models: \texttt{gstat}~\cite{gstat}, \texttt{lme4}~\cite{lme4}, \texttt{kableExtra}~\cite{kableExtra}.
-\end{itemize}
-
-Ethics approval for the online survey was granted by QUT's Ethics Committee (Ethics Application Number: 1900000991). All applicants provided informed consent in line with QUT regulations prior to participating in this research.
 
 \bibliographystyle{abbrv-doi-hyperref}
 \bibliography{paper.bib}

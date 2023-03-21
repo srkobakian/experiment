@@ -9,7 +9,10 @@ csl: springer-vancouver.csl
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.path = "alldisplays/")
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE, 
+                      fig.path = "alldisplays/")
 ```
 
 ```{r data}
@@ -42,7 +45,7 @@ detect_colours <- c(
   "Detected? Yes" = "#FC8D62")
 
   # Downloaded data
-d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
+d <- read_xlsx("../data/experiment-export.xlsx", sheet=2) %>%
   filter(!is.na(contributor)) %>%
   mutate(contributor = factor(contributor))
 
@@ -124,9 +127,9 @@ plots <- d %>% group_by(group, trend, type, location) %>%
 
 # Overall Performance
 
-The detection rate is considered for each lineup. The detection rates for group A were less varied than the detection rates for the lineups seen by group B. Fig. \ref{fig:pdetection-group} shows the distribution using a boxplot. This shows the median value for detection rate was extremely similar.
+The detection rate is considered for each lineup. The detection rates for group A were less varied than the detection rates for the lineups seen by group B. Fig. 1 shows the distribution using a boxplot. This shows the median value for detection rate was extremely similar.
 
-```{r pdetection-group}
+```{r pdetection-group, fig.cap="Comparison of performance of groups A and B."}
 plots %>% ggplot(aes(x = group, y = pdetect)) + 
   geom_boxplot() + 
   geom_jitter(width = 0.1) +
@@ -134,10 +137,10 @@ plots %>% ggplot(aes(x = group, y = pdetect)) +
   ylim(c(0,1))
 ```
 
-The overall detection rate is considered for each trend model in Fig. \ref{fig:pdetect-trend}.
-The detection rates for the NW-SE trend model was less varied than the detection rates for the Three Cities and All Cities trends. Fig. \ref{fig:pdetection-group} shows the distribution using a boxplot. This shows the distributions of the rates do not overlap for NW-SE and Three Cities trends, the Three cities range was larger, but the median was much higher for the NW-SE trend. The All Cities trend model distribution overlaps with the NW-SE and All Cities trends.
+The overall detection rate is considered for each trend model in Fig. 2.
+The detection rates for the NW-SE trend model was less varied than the detection rates for the Three Cities and All Cities trends. This shows the distributions of the rates do not overlap for NW-SE and Three Cities trends, the Three cities range was larger, but the median was much higher for the NW-SE trend. The All Cities trend model distribution overlaps with the NW-SE and All Cities trends.
 
-```{r pdetect-trend}
+```{r pdetect-trend, fig.cap="Comparison of performance across trend models."}
 plots %>% ggplot(aes(x = trend, y = pdetect, fill = trend)) + 
   geom_boxplot() + 
   scale_fill_manual(values = trend_colours) +
@@ -147,11 +150,11 @@ plots %>% ggplot(aes(x = trend, y = pdetect, fill = trend)) +
 ```
 
 
-The boxplots in Fig. \ref{fig:pdetection-type} contrast the distribution of the detection rates for eah type of display.
+The boxplots in Fig. 3 contrast the distribution of the detection rates for each type of display.
 The detection rates across the lineups was less varied for the hexagon display. There was a large difference in the medians for the types of displays.
 Without considering the relationship for each lineup, the hexagon lineup display allowed the participants to achieve higher detection rates.
 
-```{r pdetection-type}
+```{r pdetection-type, fig.cap="Comparison of performance across display types."}
 plots %>% ggplot(aes(x = type, y = pdetect, fill = type)) + 
   geom_boxplot() + 
   geom_jitter(width = 0.1) +
@@ -165,17 +168,17 @@ plots %>% ggplot(aes(x = type, y = pdetect, fill = type)) +
 # Lineups
 
 Each lineup had twelve map displays, this gave participants the choice of any plot, and the choice to not provide a response. this non-reponse is indicated by 0.
-The choices made by participants are displayed in Fig. \ref{fig:choices}. The height of each orange lollipop indiates the proportion of participants that selected the map display of real data, they represent the correct choices.
+The choices made by participants are displayed in Fig. 4. The height of each orange lollipop indiates the proportion of participants that selected the map display of real data, they represent the correct choices.
 The green lollipops show the proportion of participants that selected the incorrect displays in each lineup.
 
 
-The proportion of choices are also presented separately for each trend model in Table. \ref{tab:choice-nwse}, Table. \ref{tab:choice-three}, and  Table. \ref{tab:choice-all}.
+The proportion of choices are also presented separately for each trend model in Table.
 The correct map display in lineups with a North West to South East trend was chosen correctly with much greater frequency. 
 In the lineups of All Cities displays, participants were misled by the choropleth display, but not the hexagon display for all except (2). 
-All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. \ref{fig:choices}.
+All of Three Cities displays, except (4), were detected in the hexagon display. All except one lineup had at least one participant select the correct map in the lineup as shown in Fig. 4.
 
 
-```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 8, fig.width =6, results = "asis"}
+```{r choices, fig.cap = "Each facet is associated with one lineup, the height of the points show the proportion of the participants that made each choice when considering each lineup. The points coloured orange show the map which contained a trend model, these are the correct choices. The numbers differentiate the replicates of each trend model and type of map display. Participants were able to select 0 to indicate they did not want to choose a map.", fig.height = 8, fig.width = 6,}
 d %>% 
   count(type, trend, choice, replicate, choice, detect_f) %>% 
   group_by(type, trend, replicate) %>% 
@@ -233,15 +236,15 @@ knitr::kable(choice_tabs$data[[3]], format = "latex", align = "rrrrrrrrrrrrrr",
 
 # Lineups
 
-## North West - South East
+<!-- ## North West - South East-->
 
 The same data set is visualised in both displays, the difference is the land area of each SA3 is coloured in the choropleth and the hexagon representing the SA3 is coloured in the Hexagon Tile Map. 
 
 Lineups were created using the Australian Statistical Areas at Level 3.
 
-## All Cities
+<!-- ## All Cities
 
-### Replicate 1
+### Replicate 1-->
 
 ```{r cities-geo12, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects all capital cities."}
 ggdraw() +
@@ -255,7 +258,7 @@ ggdraw() +
 ```
 
 
-### Replicate 2
+<!-- ### Replicate 2-->
 
 ```{r cities-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects all capital cities."}
 ggdraw() +
@@ -268,7 +271,7 @@ ggdraw() +
   draw_plot(rasterGrob(readPNG("lineups/aus_cities_3_hex.png")))
 ```
 
-### Replicate 3
+<!-- ### Replicate 3-->
 
 ```{r cities-geo4, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects all capital cities."}
 ggdraw() +
@@ -282,7 +285,7 @@ ggdraw() +
 ```
 
 
-### Replicate 4
+<!--### Replicate 4-->
 
 ```{r cities-geo9, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects all capital cities."}
 ggdraw() +
@@ -296,9 +299,9 @@ ggdraw() +
 ```
 
 
-## Three Cities
+<!--## Three Cities
 
-### Replicate 1
+### Replicate 1-->
 
 ```{r three-geo12, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects three of the Australian capital cities."}
 ggdraw() +
@@ -312,7 +315,7 @@ ggdraw() +
 ```
 
 
-### Replicate 2
+<!--### Replicate 2-->
 
 ```{r three-geo5, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects three of the Australian capital cities."}
 ggdraw() +
@@ -325,7 +328,7 @@ ggdraw() +
   draw_plot(rasterGrob(readPNG("lineups/aus_three_5_hex.png")))
 ```
 
-### Replicate 3
+<!--### Replicate 3-->
 
 ```{r three-geo8, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects three of the Australian capital cities."}
 ggdraw() +
@@ -339,7 +342,7 @@ ggdraw() +
 ```
 
 
-### Replicate 4
+<!--### Replicate 4-->
 
 ```{r three-geo9, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects three of the Australian capital cities."}
 ggdraw() +
@@ -354,9 +357,9 @@ ggdraw() +
 
 
 
-## North West to South East Geographic Trend
+<!--## North West to South East Geographic Trend
 
-### Replicate 1
+### Replicate 1-->
 
 ```{r nwse-geo2, results = "asis", fig.cap = "The lineup of choropleth map displays, location 12 contains a distribution that affects all capital nwse."}
 ggdraw() +
@@ -370,7 +373,7 @@ ggdraw() +
 ```
 
 
-### Replicate 2
+<!--### Replicate 2-->
 
 ```{r nwse-geo3, results = "asis", fig.cap = "The lineup of choropleth map displays, location 3 contains a distribution that affects all capital nwse."}
 ggdraw() +
@@ -383,7 +386,7 @@ ggdraw() +
   draw_plot(rasterGrob(readPNG("lineups/aus_nwse_3_hex.png")))
 ```
 
-### Replicate 3
+<!--### Replicate 3-->
 
 ```{r nwse-geo5, results = "asis", fig.cap = "The lineup of choropleth map displays, location 4 contains a distribution that affects all capital nwse."}
 ggdraw() +
@@ -397,7 +400,7 @@ ggdraw() +
 ```
 
 
-### Replicate 4
+<!--### Replicate 4-->
 
 ```{r nwse-geo6, results = "asis", fig.cap = "The lineup of choropleth map displays, location 9 contains a distribution that affects all capital nwse."}
 ggdraw() +

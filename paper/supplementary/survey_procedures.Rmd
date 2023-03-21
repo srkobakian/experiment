@@ -19,10 +19,10 @@ library(png)
 
 Participants were recruited via advertising on the Figure-Eight crowdsource platform.
 Choosing the task from the list directed all potential participants to the page of instructions.
-This page contained written instructions and is shown in Fig. \ref{fig:instruct}. 
+This page contained written instructions and is shown below. 
 
 
-```{r instruct, results = "asis", fig.cap = "The training lineups of choropleth maps."}
+```{r instruct, results = "asis", fig.cap = "Introductory information provided to participants."}
 ggdraw() +
   draw_plot(rasterGrob(readPNG("../figures/fig8_instruct.png")))
 ```
@@ -30,7 +30,7 @@ ggdraw() +
 
 ## Training
 
-The participants were trained using three displays. There were relatively simple lineups, they are displayed in Fig. \ref{fig:training1} and Fig. \ref{fig:training2}.
+The participants were trained using simple lineups of three displays as shown in Figs. 2, 3.
 
 
 ```{r training1, results = "asis", fig.cap = "The training lineups of choropleth maps."}
@@ -50,7 +50,7 @@ ggdraw() +
 The survey application was a `shinydashboard` we application, hosted on a website external to the Figure-Eight platform. The link to the survey was located at the bottom of the instructions and training page. Only participants who had read all of the instructions and seen the example image sets continued to the survey via the link.
 This page also contained a question that asked participants for a validation code. The participants unique validation code was generated upon them opening the web application. This code was released to participants when they had considered all twelve lineups and submitted their responses to the `googlesheets` data set. Their validation codes were contained in the data set and associated with each of their responses.
 
-The demographic and consent page of the `shinydashboard` web application are displayed in Fig. \ref{fig:survey-demogs}. Two example lineups are shown, one choropleth map lineup in Fig. \ref{fig:survey-choro} and one heaxgon tile map lineup in Fig. \ref{fig:survey-hex}.
+The demographic and consent page of the `shinydashboard` web application are displayed in Fig. 4. Two example lineups are shown, one choropleth map lineup in Fig. 5 and one heaxgon tile map lineup in Fig. 6.
 
 
 ```{r survey-demogs, results = "asis", fig.cap = "The demographics questions tab of the shinydashboard survey application."}
