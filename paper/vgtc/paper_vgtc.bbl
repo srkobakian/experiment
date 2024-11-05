@@ -1,0 +1,244 @@
+\begin{thebibliography}{10}
+
+\bibitem{rticles}
+J.~Allaire, Y.~Xie, {R Foundation}, H.~Wickham, {Journal of Statistical
+  Software}, R.~Vaidyanathan, {Association for Computing Machinery},
+  C.~Boettiger, {Elsevier}, K.~Broman, K.~Mueller, B.~Quast, R.~Pruim,
+  B.~Marwick, C.~Wickham, O.~Keyes, M.~Yu, D.~Emaasit, T.~Onkelinx,
+  A.~Gasparini, M.-A. Desautels, D.~Leutnant, {MDPI}, {Taylor and Francis},
+  O.~Ögreden, D.~Hance, D.~Nüst, P.~Uvesten, E.~Campitelli, J.~Muschelli,
+  Z.~N. Kamvar, N.~Ross, and R.~Cannoodt.
+\newblock {\em rticles: Article Formats for R Markdown}, 2019.
+\newblock R package version 0.13.
+
+\bibitem{ggthemes}
+J.~B. Arnold.
+\newblock {\em ggthemes: Extra Themes, Scales and Geoms for 'ggplot2'}, 2019.
+\newblock R package version 4.2.0.
+
+\bibitem{abs2016}
+{Australian Bureau of Statistics}.
+\newblock {Australian Statistical Geography Standard (ASGS)}, Jul 2018.
+
+\bibitem{lme4}
+D.~Bates, M.~M{\"a}chler, B.~Bolker, and S.~Walker.
+\newblock Fitting linear mixed-effects models using {lme4}.
+\newblock {\em Journal of Statistical Software}, 67(1):1--48, 2015.
+  \href{https://doi.org/10.18637/jss.v067.i01}
+{doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}18637\discretionary{/}{%
+}{/}jss\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}v067\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}i01}}}
+
+
+\bibitem{sheets}
+J.~Bryan and J.~Zhao.
+\newblock {\em googlesheets: Manage Google Spreadsheets from R}, 2018.
+\newblock R package version 0.3.0.
+
+\bibitem{BCHLLSW09}
+A.~Buja, D.~Cook, H.~Hofmann, M.~Lawrence, E.-K. Lee, D.~F. Swayne, and
+  H.~Wickham.
+\newblock Statistical inference for exploratory data analysis and model
+  diagnostics.
+\newblock {\em Philosophical Transactions of the Royal Society, A (Invited)},
+  367:4361--4383, 2009. \href{https://doi.org/10.1098/rsta.2009.0120}
+{doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1098\discretionary{/}{%
+}{/}rsta\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}2009\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}0120}}}
+
+
+\bibitem{atlas}
+{Cancer Council Queensland}.
+\newblock {Australian Cancer Atlas}, publisher = {{Queensland University of
+  Technology, Cooperative Research Centre for Spatial Information}}, issue =
+  {Version 09}, url={https://atlas.cancer.org.au}, year = {2018}, accessed =
+  {Jan 12 2020}.
+
+\bibitem{ACTUC}
+D.~Dorling.
+\newblock {\em {Area Cartograms: Their Use and Creation}}, vol.~59, pp. 252 --
+  260.
+\newblock University of East Anglia: Environmental Publications, 04 2011.
+  \href{https://doi.org/10.1002/9780470979587.ch33}
+{doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1002\discretionary{/}{%
+}{/}9780470979587\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}ch33}}}
+
+
+\bibitem{figeight}
+{Figure Eight Inc}.
+\newblock The essential high-quality data annotation platform, 2019.
+
+\bibitem{gstat}
+B.~Gräler, E.~Pebesma, and G.~Heuvelink.
+\newblock Spatio-temporal interpolation using gstat.
+\newblock {\em The R Journal}, 8:204--218, 2016.
+
+\bibitem{GTPCCD}
+H.~Hofmann, L.~Follett, M.~Majumder, and D.~Cook.
+\newblock Graphical tests for power comparison of competing designs.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  18:2441--2448, 2012.
+
+\bibitem{sugarbag}
+S.~Kobakian and D.~Cook.
+\newblock {\em sugarbag: Create Tessellated Hexagon Maps}, 2019.
+\newblock https://srkobakian.github.io/sugarbag/,
+  https://github.com/srkobakian/sugarbag.
+
+\bibitem{review}
+S.~Kobakian, D.~Cook, and J.~Roberts.
+\newblock Mapping cancer: the potential of cartograms and alternative map
+  displays.
+\newblock {\em Annals of Cancer Epidemiology}, 4(0), 2020.
+
+\bibitem{taipan}
+S.~Kobakian and M.~O'Hara-Wild.
+\newblock {\em taipan: Tool for Annotating Images in Preparation for Analysis},
+  2018.
+\newblock R package version 0.1.2.
+
+\bibitem{CBATCC}
+C.~Kocmoud and D.~House.
+\newblock {A Constraint-based Approach to Constructing Continuous Cartograms}.
+\newblock In {\em Proc. Symp. Spatial Data Handling}, pp. 236--246, 1998.
+
+\bibitem{POG}
+G.~Matheron.
+\newblock Principles of geostatistics.
+\newblock {\em Economic Geology}, 58:1246--1266, 1963.
+
+\bibitem{CDWCS}
+M.~Monmonier.
+\newblock {Cartography: Distortions, World-views and Creative Solutions}.
+\newblock {\em Progress in Human Geography}, 29(2):217--224, 2005.
+  \href{https://doi.org/10.1191/0309132505ph540pr}
+{doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1191\discretionary{/}{%
+}{/}0309132505ph540pr}}}
+
+
+\bibitem{grid}
+P.~Murrell.
+\newblock The grid graphics package.
+\newblock {\em R News}, 2:14--19, 2002.
+\newblock https://journal.r-project.org/articles/RN-2002-010/.
+
+\bibitem{RColorBrewer}
+E.~Neuwirth.
+\newblock {\em RColorBrewer: ColorBrewer Palettes}, 2014.
+\newblock R package version 1.1-2.
+
+\bibitem{NAC}
+J.~M. Olson.
+\newblock {Noncontiguous Area Cartograms}.
+\newblock {\em The Professional Geographer}, 28(4):371--380, 1976.
+  \href{https://doi.org/10.1111/j.0033-0124.1976.00371.x}
+{doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1111\discretionary{/}{%
+}{/}j\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}0033\discretionary{%
+}{-}{-}0124\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1976\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}00371\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}x}}}
+
+
+\bibitem{RCore}
+{R Core Team}.
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria, 2019.
+
+\bibitem{RSCW}
+E.~Raisz.
+\newblock {Rectangular Statistical Cartograms of the World}.
+\newblock {\em Journal of Geography}, 35:8--10, 1963.
+  \href{https://doi.org/10.1080/00221343608987880}
+{doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}1080\discretionary{/}{%
+}{/}00221343608987880}}}
+
+
+\bibitem{BCM}
+A.~Skowronnek.
+\newblock {Beyond Choropleth Maps – A Review of Techniques to Visualize
+  Quantitative Areal Geodata}, 2016.
+
+\bibitem{EI}
+E.~R. Tufte.
+\newblock {\em {Envisioning Information}}.
+\newblock Graphics Press, 1990.
+
+\bibitem{png}
+S.~Urbanek.
+\newblock {\em png: Read and write PNG images}, 2013.
+\newblock R package version 0.1-7.
+
+\bibitem{ggplot2}
+H.~Wickham.
+\newblock {\em ggplot2: elegant graphics for data analysis}.
+\newblock Springer New York, 2009.
+
+\bibitem{tidyverse}
+H.~Wickham, M.~Averick, J.~Bryan, W.~Chang, L.~D. McGowan, R.~François,
+  G.~Grolemund, A.~Hayes, L.~Henry, J.~Hester, M.~Kuhn, T.~L. Pedersen,
+  E.~Miller, S.~M. Bache, K.~Müller, J.~Ooms, D.~Robinson, D.~P. Seidel,
+  V.~Spinu, K.~Takahashi, D.~Vaughan, C.~Wilke, K.~Woo, and H.~Yutani.
+\newblock Welcome to the {tidyverse}.
+\newblock {\em Journal of Open Source Software}, 4(43):1686, 2019.
+  \href{https://doi.org/10.21105/joss.01686}
+{doi: {{%
+10\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}21105\discretionary{/}{%
+}{/}joss\hspace{.1pt}\discretionary{.}{%
+}{.}\hspace{.4pt}01686}}}
+
+
+\bibitem{nullabor}
+H.~Wickham, N.~R. Chowdhury, D.~Cook, and H.~Hofmann.
+\newblock {\em nullabor: Tools for Graphical Inference}, 2018.
+\newblock R package version 0.3.5.
+
+\bibitem{GIIV}
+H.~Wickham, D.~Cook, H.~Hofmann, and A.~Buja.
+\newblock Graphical inference for infovis.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics (Proc.
+  InfoVis '10)}, 16(6):973–979, 2010.
+
+\bibitem{cowplot}
+C.~O. Wilke.
+\newblock {\em cowplot: Streamlined Plot Theme and Plot Annotations for
+  'ggplot2'}, 2019.
+\newblock R package version 1.0.0.
+
+\bibitem{knitr}
+Y.~Xie.
+\newblock knitr: A comprehensive tool for reproducible research in {R}.
+\newblock In V.~Stodden, F.~Leisch, and R.~D. Peng, eds., {\em Implementing
+  Reproducible Computational Research}. Chapman and Hall/CRC, 2014.
+\newblock ISBN 978-1466561595.
+
+\bibitem{rmarkdown}
+Y.~Xie, J.~Allaire, and G.~Grolemund.
+\newblock {\em R Markdown: The Definitive Guide}.
+\newblock Chapman and Hall/CRC, Boca Raton, Florida, 2018.
+\newblock ISBN 9781138359338.
+
+\bibitem{kableExtra}
+H.~Zhu.
+\newblock {\em kableExtra: Construct Complex Table with 'kable' and Pipe
+  Syntax}, 2019.
+\newblock R package version 1.1.0.
+
+\end{thebibliography}

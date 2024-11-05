@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: paper_vgtc.aux
+The style file: abbrv-doi-hyperref.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: paper.bib
+You've used 33 entries,
+            2607 wiz_defined-function locations,
+            817 strings with 10888 characters,
+and the built_in function-call counts, 16686 in all, are:
+= -- 2739
+> -- 671
+< -- 343
++ -- 610
+- -- 242
+* -- 830
+:= -- 2637
+add.period$ -- 99
+call.type$ -- 33
+change.case$ -- 200
+chr.to.int$ -- 0
+cite$ -- 33
+duplicate$ -- 356
+empty$ -- 803
+format.name$ -- 235
+if$ -- 3966
+int.to.chr$ -- 0
+int.to.str$ -- 33
+missing$ -- 22
+newline$ -- 213
+num.names$ -- 68
+pop$ -- 229
+preamble$ -- 1
+purify$ -- 182
+quote$ -- 0
+skip$ -- 262
+stack$ -- 0
+substring$ -- 812
+swap$ -- 66
+text.length$ -- 187
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 124
+warning$ -- 0
+while$ -- 99
+width$ -- 35
+write$ -- 556

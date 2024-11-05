@@ -24,9 +24,9 @@ abstract: |
   The choropleth map display is commonly used for communicating spatial distributions across geographic areas. However, when choropleths are used the size of the geographic units will influence the understanding of the distribution derived by map users. The hexagon tile map is presented as an alternative display for visualizing population related distributions effectively. Visual inference is used to measure the power of the hexagon tile map design, and the choropleth is used as a comparison. The hexagon tile map display is tested using a distribution that is directly related to the geography, with values monotonically increasing from the North-West to South-East areas of Australia. This study finds in a hexagon tile map lineup the single map that contains a population related distribution is detected with greater probability than the same data displayed in a choropleth map. These findings should encourage map creators to implement alternative displays and consider a hexagon tile map when presenting spatial distributions of heterogeneous areas.
 bibliography: paper.bib
 output:
-  pdf_document: 
+  bookdown::pdf_book: 
+      base_format: rticles::ieee_article
       number_sections: true
-      keep_tex: true
 editor_options: 
   chunk_output_type: console
 link-citations: true
