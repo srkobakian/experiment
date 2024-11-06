@@ -70,7 +70,7 @@ The choropleth map display is commonly used for communicating spatial
 distributions across geographic areas. However, when choropleths are
 used the size of the geographic units will influence the understanding
 of the distribution derived by map users. The hexagon tile map is
-presented as an alternative display for effectively visualizing population related
+presented as an alternative display for effectively visualizing population-related
 distributions. Visual inference is used to measure the power
 of the hexagon tile map design, and the choropleth is used as a
 comparison. The hexagon tile map display is tested using a distribution
@@ -150,8 +150,9 @@ to be analyzed.
 \begin{figure}
 
 {\centering 
-\includegraphics[width=0.46\linewidth]{paper_files/figure-latex/thyroid-choro-1} 
-\includegraphics[width=0.54\linewidth]{paper_files/figure-latex/thyroid-hex-1} 
+%\includegraphics[width=0.46\linewidth]{paper_files/figure-latex/thyroid-choro-1} 
+%\includegraphics[width=0.54\linewidth]{paper_files/figure-latex/thyroid-hex-1} 
+\includegraphics[width=\linewidth]{figures/thyroid.pdf}
 }
 
 \caption{Thyroid incidence among females across the Statistical Areas of Australia at Level 2, displayed using a choropleth (left) and a hexagon tile map (right). Blue indicates lower than average, and red indicates higher than average incidence. The choropleth suggests high incidence is clustered on the east coast but misses the high incidence in Perth and a few locations in inner Melbourne visible in the hexagon tile map.}\label{fig:thyroid}
@@ -162,7 +163,7 @@ geographic units is relatively uniform. This is not the case for most
 countries. Size heterogeneity in administrative units is particularly
 extreme in Australia: most of the landscape of Australia is sparsely
 settled, with the population densely clustered into the narrow coastal
-strips. Fig. \ref{fig:thyroid} shows the choropleth map of thyroid
+strips. Figure \ref{fig:thyroid} shows the choropleth map of thyroid
 cancer rates in Australia. The choropleth map focuses attention on the
 geography, and for heterogeneously sized areas it presents a biased view
 of the population-related distribution of the statistic
@@ -210,7 +211,7 @@ The hexagon tile map algorithm, automatically matches spatial regions to
 their nearest hexagon tile, from a grid of tiles. It has the effect of
 spreading out the inner city areas while maintaining the spatial
 locations or regions in remote areas. The algorithm is available in the
-R package,  \texttt{sugarbag} \citep{sugarbag}. Fig.
+R package,  \texttt{sugarbag} \citep{sugarbag}. Figure
 \ref{fig:thyroid} shows the hexagon tile map. Colour maps from
 substantially below average (blue) to substantially above average (red)
 rates. The inner city areas have expanded, making it possible to see the
@@ -261,7 +262,7 @@ that there is structure.
 The chance that an observer picks the data plot out of a lineup of size
 \(m\) plots accidentally, if the null hypothesis is true is \(1/m\).
 With \(K\) observers, the probability of \(k\) randomly choosing the
-data plot, roughly follows a binomial distribution with \(p=1/m\). Fig.
+data plot, roughly follows a binomial distribution with \(p=1/m\). Figure
 \ref{fig:lineup} shows a lineup of the hexagon tile map, of size
 \(m=12\). Plot 3 is the data plot, and the remaining 11 are plots of
 null data.
@@ -310,7 +311,7 @@ factor is a trend model. Three trend models were developed, one
 mirroring a large spatial trend for which the choropleth would be
 expected to do well, and two with differing levels of inner-city hot
 spots. These latter two reflect the structure seen in thyroid cancer
-data (Fig. \ref{fig:thyroid}). This
+data (Figure \ref{fig:thyroid}). This
 produces six treatment levels:
 
 \begin{itemize}
@@ -327,7 +328,7 @@ yields 12 data sets, and 24 data plots. This set of displays is divided
 in half, providing two sets of 12 displays, Group A and Group B.
 Participants were randomly allocated to Group A or B. Participants saw a
 data set only once, either as a choropleth or as a hexagon tile map.
-Table \ref{fig:exp-design} summarises the design and the allocation of
+Figure \ref{fig:exp-design} summarises the design and the allocation of
 the displays.
 
 \begin{figure}
@@ -375,7 +376,7 @@ values of its neighbours at the previous layer of smoothing.
 
 This smoothing allowed neighbors to be related to each other, but also
 allowed outliers, and showed distributions similar to the thyroid cancer
-distribution (Fig. \ref{fig:thyroid}).
+distribution (Figure \ref{fig:thyroid}).
 
 \subsection{Generating lineups}\label{generating-lineups}
 
@@ -599,11 +600,11 @@ Of the 92 participants, 67 were male, and 25 female. Most participants
 
 \subsection{Accuracy}\label{accuracy}
 
-Fig. \ref{fig:detect-compare} displays the average detection rates for
+Figure \ref{fig:detect-compare} displays the average detection rates for
 the two types of plot separately for each trend model. Each trend model
 was tested using four repetitions, evaluations on the same data set were
 seen as either choropleths or hexagon tile maps by each group as
-specified in Table. \ref{fig:exp-design}; the detection rates for each
+specified in Figure \ref{fig:exp-design}; the detection rates for each
 display are connected by a line segment. The Three Cities and All Cities
 trend models shown in the hexagon tile map allowed viewers to detect the
 data plot substantially more often than the choropleth counterparts. One
@@ -619,7 +620,7 @@ performs slightly better, or equally as well.
 \includegraphics[width=1\linewidth]{paper_files/figure-latex/detect-compare-1} \caption{The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choropleth or hexagon tile map display are linked to show the difference in the detection rate.}\label{fig:detect-compare}
 \end{figure}
 
-Table. \ref{tab:desc-stats} shows the means and standard deviations of
+Table \ref{tab:desc-stats} shows the means and standard deviations of
 the detection rate for each type of plot and each trend model. This also
 gives the standard deviations, the smallest standard deviation for all
 sets of replicates was the Three Cities trend model shown in a
@@ -630,34 +631,17 @@ North-West to South-East (NW-SE) trend model unexpectedly had a higher
 mean detection rate for the hexagon tile map displays, but the
 difference in the means of detection rate was only 0.10.
 
-\begin{table}
-
-\caption{\label{tab:desc-stats}The mean and standard deviation of the rate of detection for each trend model, calculated for the choropleth and hexagon tile map displays.}
-\centering
-\begin{tabular}[t]{lccc}
-\toprule
-Type & NW-SE & Three Cities & All Cities\\
-\midrule
-Choro. & 0.52 & 0.04 & 0.23\\
- & (0.50) & (0.19) & (0.42)\\
-\addlinespace
-Hex. & 0.62 & 0.40 & 0.58\\
- & (0.49) & (0.49) & (0.49)\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Table. \ref{tab:detect-glmer1} presents a summary of the generalised
+Table \ref{tab:detect-glmer1} presents a summary of the generalised
 linear mixed effects model, testing the effect of plot type and trend
-model on the detection rate. The results support the summary from Fig.
+model on the detection rate. The results support the summary from Figure
 \ref{fig:detect-compare} and all parameters are statistically
-significant despite the large standard deviations observed in Table.
+significant despite the large standard deviations observed in Table
 \ref{tab:desc-stats}. Overall, the hexagon tile map performs marginally
 better than the choropleth for all trend models, which is a pleasant
 surprise. Allowing for the interaction effect, the difference in
 detection rate decreases for population-related displays for a
 choropleth map lineup but increases for a hexagon tile map display. The
-log odds of detection shown in Table. \ref{tab:detect-glmer1} can be back-transformed after taking the sum of all terms for the trend and type of
+log odds of detection shown in Table \ref{tab:detect-glmer1} can be back-transformed after taking the sum of all terms for the trend and type of
 display that are of interest. For the NW-SE distribution, the predicted
 detection rate for the hexagon tile map display increases the predicted
 probability of detection to 0.63 from 0.52 for choropleths, this is
@@ -671,29 +655,9 @@ choropleth display the predicted probability of detection is 0.22. The
 hexagon tile map has a substantially high detection rate for the display
 of a Three Cities trend 0.39 and All Cities trend 0.59.
 
-\begin{table}
-
-\caption{\label{tab:detect-glmer1}The model output for the generalised linear mixed effect model for detection rate. This model considers the type of display, the trend model hidden in the data plot, and accounts for contributor performance.}
-\centering
-\begin{tabular}[t]{rrlrr}
-\toprule
-Term & Est. & Sig. & Std. Error & P val\\
-\midrule
-Intercept & -1.27 & $^{***}$ & 0.19 & 0.00\\
-Hex. & 1.63 & $^{***}$ & 0.24 & 0.00\\
-\addlinespace
-Three Cities & -2.07 & $^{***}$ & 0.43 & 0.00\\
-All Cities & 1.34 & $^{***}$ & 0.24 & 0.00\\
-\addlinespace
-Hex:Three Cities & 1.28 & $^{**}$ & 0.48 & 0.01\\
-Hex:All Cities & -1.16 & $^{***}$ & 0.33 & 0.00\\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \subsection{Speed}\label{speed}
 
-Fig. \ref{fig:beeswarm} shows horizontally jittered dot plots to
+Figure \ref{fig:beeswarm} shows horizontally jittered dot plots to
 contrast the time taken by participants to evaluate each lineup when
 viewing each type of display. The time is also separated by the trend model
 and whether the data plot was detected or not detected. The time taken
@@ -718,7 +682,7 @@ Participants provided their level of certainty regarding their choice
 using a five-point scale. Unlike the accuracy and speed of responses
 that were derived during the data processing phase, this was a
 subjective assessment by the participant prompted by the question: `How
-certain are you about your choice?'. Fig. \ref{fig:certainty} shows the
+certain are you about your choice?'. Figure \ref{fig:certainty} shows the
 number of times participants provided each level of certainty. This was
 separated for each combination of trend models and display type, and
 colored depending on whether a participant correctly detected the data
@@ -750,29 +714,6 @@ common choice made by participants.
 The choice ``None of these reasons'' was used as the default value to
 minimise noise from participants who did not select a response.
 
-\begin{table}
-
-\caption{\label{tab:reason}The number of participants that selected each reason for their choice of plot when looking at each trend model shown in choropleth and hexagon tile maps. The facets show whether or not the choice was correct.}
-\centering
-\begin{tabular}[t]{llll}
-\toprule
-Trend & Detected & Choro. & Hex.\\
-\midrule
- & No & trend & clusters\\
-\cmidrule{2-4}
-\multirow{-2}{*}{\raggedright\arraybackslash All Cities} & Yes & clusters, consistent & clusters\\
-\cmidrule{1-4}
- & No & trend & clusters\\
-\cmidrule{2-4}
-\multirow{-2}{*}{\raggedright\arraybackslash Three Cities} & Yes & consistent & clusters\\
-\cmidrule{1-4}
- & No & trend & clusters\\
-\cmidrule{2-4}
-\multirow{-2}{*}{\raggedright\arraybackslash NW-SE} & Yes & trend & clusters\\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \section{Discussion}\label{discussion}
 
 The intention of this study was to contrast the use of the choropleth
@@ -787,11 +728,11 @@ population related data.
 We expected that the choropleth map would be superior for communicating
 the spatial pattern of geographic distributions. The data suggest that
 the participants perform slightly better or equally as well for each
-replicate in each trend model across the two displays. Table II shows
+replicate in each trend model across the two displays. Table \ref{tab:desc-stats} shows
 that the difference in the mean detection rate for the two trend models
 was 0.10.
 
-The differences are seen in the \ref{fig:detect-compare} plot and Table.
+The differences are seen in Figure \ref{fig:detect-compare} and Table
 \ref{tab:desc-stats} are reflected in the model results. Surprisingly
 the difference in the geographic distribution was significant at the
 0.05 level. It also showed that the hexagon tile map display performs
@@ -803,14 +744,14 @@ While the significance of the difference in detection was the key focus
 of this experiment, the secondary focus was the time taken by
 participants. it was expected that the participants might take longer to
 consider the hexagon tile map distribution but would be able to detect
-the data plot in the lineup. The bimodal distributions seen in Fig.
+the data plot in the lineup. The bimodal distributions seen in Figure
 \ref{fig:beeswarm} showed very little difference in the mean evaluation
 times. As the maximum time of all of the distributions approached 60
 seconds it cannot be said that the participants took longer to evaluate
 the hexagon tile map displays.
 
 The responses to the questions asked of participants included the reason
-for their choice and the certainty around their choice. Fig.
+for their choice and the certainty around their choice. Figure
 \ref{tab:reason} shows high levels of certainty of 4 and 5 were chosen
 by participants when looking at the population distributions in a
 choropleth map display showing that they were overconfident when
@@ -927,5 +868,67 @@ participating in this research.
 
 \bibliographystyle{anzsj}
 \bibliography{paper.bib}
+
+\newpage
+
+\begin{table}[t]
+
+\caption{\label{tab:desc-stats}The mean and standard deviation of the rate of detection for each trend model, calculated for the choropleth and hexagon tile map displays.}
+\centering
+\begin{tabular}[t]{lccc}
+\toprule
+Type & NW-SE & Three Cities & All Cities\\
+\midrule
+Choro. & 0.52 & 0.04 & 0.23\\
+ & (0.50) & (0.19) & (0.42)\\
+\addlinespace
+Hex. & 0.62 & 0.40 & 0.58\\
+ & (0.49) & (0.49) & (0.49)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+
+\caption{\label{tab:detect-glmer1}The model output for the generalised linear mixed effect model for detection rate. This model considers the type of display, the trend model hidden in the data plot, and accounts for contributor performance.}
+\centering
+\begin{tabular}[t]{rrlrr}
+\toprule
+Term & Est. & Sig. & Std. Error & P val\\
+\midrule
+Intercept & -1.27 & $^{***}$ & 0.19 & 0.00\\
+Hex. & 1.63 & $^{***}$ & 0.24 & 0.00\\
+\addlinespace
+Three Cities & -2.07 & $^{***}$ & 0.43 & 0.00\\
+All Cities & 1.34 & $^{***}$ & 0.24 & 0.00\\
+\addlinespace
+Hex:Three Cities & 1.28 & $^{**}$ & 0.48 & 0.01\\
+Hex:All Cities & -1.16 & $^{***}$ & 0.33 & 0.00\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+
+\caption{\label{tab:reason}The number of participants that selected each reason for their choice of plot when looking at each trend model shown in choropleth and hexagon tile maps. The facets show whether or not the choice was correct.}
+\centering
+\begin{tabular}[t]{llll}
+\toprule
+Trend & Detected & Choro. & Hex.\\
+\midrule
+ & No & trend & clusters\\
+\cmidrule{2-4}
+\multirow{-2}{*}{\raggedright\arraybackslash All Cities} & Yes & clusters, consistent & clusters\\
+\cmidrule{1-4}
+ & No & trend & clusters\\
+\cmidrule{2-4}
+\multirow{-2}{*}{\raggedright\arraybackslash Three Cities} & Yes & consistent & clusters\\
+\cmidrule{1-4}
+ & No & trend & clusters\\
+\cmidrule{2-4}
+\multirow{-2}{*}{\raggedright\arraybackslash NW-SE} & Yes & trend & clusters\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{document}
