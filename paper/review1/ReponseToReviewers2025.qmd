@@ -6,25 +6,7 @@ editor: visual
 
 ## Response to Editor and reviewers
 
-Add letter format
-
-Add introductory thank you to reviewers for their work, and the editor for their consideration.
-
-## To Do
-
-Make a release version on github of current copy before changes
-
-all points made be reviewers, must be addressed with a response using different font types for review comment v our response
-
-In our Rmd file use XXX for difficult change to make - allocated to Di or Steph 
-
-# Review of “Comparing the Effectiveness of the Choropleth Map with a Hexagon Tile Map  for Communicating Cancer Statistics” 
-
-Associate Editor
-
-Dear associate editor XXX,
-
-Thank you for the opportunity to improve this paper with the suggestions made in the comments provided. Please find our responses to the comments provided in *italics* below each paragraph or comment.
+Thank you for the careful reviews of our paper. Please find *our responses to provided in italics* point-by-point with the comments.
 
 Comments to the Author:
 
@@ -36,9 +18,85 @@ Referee(s)' Comments to Author:
 
 ## Referee: 1
 
-Comments to the Author
+Overall Comments:
 
-Please see attached review.
+This paper performs a user study to compare and contrast the ability of two visual displays, a choropleth map and a hexagon tile map. It uses a line up protocol to test the effectiveness of the two displays. The study showed that the hexagon tile map was significantly more effective than the choropleth map with the authors advocating for its use in the cancer atlas.
+
+The authors do a nice job introducing each map, the benefits of both and outlined how each would be applied to communicate cancer statistics as part of the Cancer Atlas. I think that Section 3 could be tightened up in places, especially with regards to generating the lineups and the section that outlines the analysis (see below for specifics).
+
+Overall, I see this as an important contribution not only to the visualisation community but also to the statistics community who often leave the communication of statistics and modelled outputs as an afterthought. I therefore recommend this paper be published after the authors consider my comments and revisions below, largely relating tao Section 3. I also believe the Cancer Atlas could benefit from such a visualisation and  would encourage the authors to work with the authors of the Atlas to have this considered. As the acknowledgements suggest the Cancer Atlas team were involved in discussions, I suspect this would be an easy ask.
+
+Specific Comments:
+
+P7,L7 While the introduction focuses specifically on the maps communicating disease statistics, it would be good in the conclusion to extrapolate beyond that to gain a broader interest.
+
+XXX
+
+P8, L31-32. I would consider adding to the last sentence to write the following: "The results are summarized in Section 4, followed by a discussion about the broader implications for the use of this map style."
+
+*Done*
+
+P9, L52. I'm on sure if the text in italics appears in the literature or if this is the author's view. If the author's view then I would replace "doesn't" with "does not". If it appears in the literature, please reference.
+
+*Attributed to sentiment suggested by Monmonier (2018) How to Lie with Maps*
+
+P9, L55. I would suggest replacing "better" with "adequately".
+
+*Done*
+
+P9, L77-78. Consider the following: "Figure 1 shows the hexagon tile map, where the map is coloured from …"
+
+*Done*
+
+P10, L97. Omit the words "To do".
+
+*Done*
+
+P13, L167-170. Are you able to outline the smoothing procedure. This seems a little vague.
+
+*We've reduced this part to a single sentence. The exact smoothing procedures for processing the null data sets can be found in the code on the GitHub repo. It is not important enough to report in detail. The `gstat` function produced null sets with insufficient spatial dependence, despite substantial adjusting parameters,  and so further simple smoothing was done. These were compared with the Atlas plots, which had very complicated procedures to produce the cancer maps, that also ensured privacy of information.*
+
+P14, L178-183. The process here seems a little subjective. Can you provide some reasoning as to why these decisions were made?
+
+*Several sentences have been added explaining why these three trend models was used.*
+
+P14, L191-192. Why were the locations 1, 7, 10 and 11 not used?
+
+*Explained. It is because locations were randomly sampled.*
+
+P14, L193-195. This sentence does not make sense. Please revise.
+
+*Paragraph revised*
+
+P15, L226. Replace "will be" with "were".
+
+*Sentence removed because software is cited in the Acknowledgements.*
+
+P15, L234. y_ij = 0,1 represents whether the subject detected the data plot (1) or did not (0). Please fix.
+
+*Done*
+
+P15, L239-240. This could be written better. Should read a "logit" link. I would consider writing the model as follows:
+
+y_ij \~ Bernoulli(p_ij), where
+
+logit(p_ij) = mu + tau_i + delta_j + (tau delta)\_ij i=1,2. J=1,2,3.
+
+Then discuss the random effects.
+
+*Done*
+
+P16, L247. What is a "Figure Eight contributor ID"?: 
+
+*This was used by the respondent to uniquely identify themselves and allow us to link them to the paid account we used for recruitment and payment. This reference has been replaced with a unique identifier created for each participant.*
+
+P11, Section 3.7. Could this information be captured more succinctly in a table perhaps? Line 290-293 just lists words. There are no questions relating to these 3 dotpoints. I'm also wondering why participants do not submit their responses as they go? Do they also have a chance to go back and change a response? It is difficult to determine what this process is.
+
+*Re-written. Responses were recorded on each lineup evaluation, but not saved in the Google sheet until the participant clicked Submit.*
+
+P18, L297-301. The math does not seem to work unless I’m missing something.  Responses were collected from 92 participants. Five were removed which leaves 87 for  evaluation. However you go on to say that Set A were evaluated by 42 participants and  set B, 53 which adds up to 95 participants. Then you go on to say this resulted in 1104  evaluations. Could you please revise and provide a more detailed outline of the  evaluations you performed? 
+
+P22 Discussion through to Conclusions. As highlighted earlier, it would be good to  extrapolate the results to other modelled outputs beyond cancer statistics to obtain  broader coverage. There is considerable value in using a hexagon tile map for showing  statistics and modelled output in statistical area levels across Australia or similar. 
 
 ## Referee: 2
 
@@ -216,60 +274,3 @@ Reference as broader lit:
 
 Vanderplas, S., & Hofmann, H. (2016). Spatial Reasoning and Data Displays. IEEE Transactions on Visualization and Computer Graphics, 22(1), 459–468. IEEE Transactions on Visualization and Computer Graphics. https://doi.org/10.1109/TVCG.2015.2469125
 
-Overall Comments: 
-
-This paper performs a user study to compare and contrast the ability of two visual  displays, a choropleth map and a hexagon tile map. It uses a line up protocol to test the  effectiveness of the two displays. The study showed that the hexagon tile map was  significantly more effective than the choropleth map with the authors advocating for its  use in the cancer atlas. 
-
-The authors do a nice job introducing each map, the benefits of both and outlined how  each would be applied to communicate cancer statistics as part of the Cancer Atlas. I  think that Section 3 could be tightened up in places, especially with regards to  generating the lineups and the section that outlines the analysis (see below for  specifics). 
-
-Overall, I see this as an important contribution not only to the visualisation community  but also to the statistics community who often leave the communication of statistics  and modelled outputs as an afterthought. I therefore recommend this paper be  published after the authors consider my comments and revisions below, largely relating  tao Section 3. I also believe the Cancer Atlas could benefit from such a visualisation and  would encourage the authors to work with the authors of the Atlas to have this  considered. As the acknowledgements suggest the Cancer Atlas team were involved in  discussions, I suspect this would be an easy ask.  
-
-Specific Comments: 
-
-P7,L7 While the introduction focuses specifically on the maps communicating disease  statistics, it would be good in the conclusion to extrapolate beyond that to gain a  broader interest. 
-
-P8, L31-32. I would consider adding to the last sentence to write the following: “The  results are summarized in Section 4, followed by a discussion about the broader  implications for the use of this map style. 
-
-P9, L52. I’m on sure if the text in italics appears in the literature or if this is the author’s  view. If the author’s view then I would replace “doesn’t” with “does not”. If it appears in  the literature, please reference. 
-
-P9, L55. I would suggest replacing “better” with “adequately”.
-
-P9, L77-78. Consider the following: “Figure 1 shows the hexagon tile map, where the  map is coloured from … 
-
-*Completed*
-
-P10, L97. Omit the words “To do”. 
-
-*Completed*
-
-P13, L167-170. Are you able to outline the smoothing procedure. This seems a little  vague. 
-
-P14, L178-183. The process here seems a little subjective. Can you provide some  reasoning as to why these decisions were made? 
-
-P14, L191-192. Why were the locations 1, 7, 10 and 11 not used? 
-
-*Completed*
-
-P14, L193-195. This sentence does not make sense. Please revise. 
-
-P15, L226. Replace “will be” with “were”. 
-
-*Completed*
-
-P15, L234. y_ij = 0,1 represents whether the subject detected the data plot (1) or did not  (0). Please fix. 
-
-P15, L239-240. This could be written better. Should read a “logit” link. I would consider  writing the model as follows: 
-
-y_ij \~ Bernoulli(p_ij), where 
-
-logit(p_ij) = mu + tau_i + delta_j + (tau delta)\_ij i=1,2. J=1,2,3. 
-
-Then discuss the random effects.  
-
-P16, L247. What is a “Figure Eight contributor ID”? : *This was used by the respondent to uniquely identify themselves and allow us to link them to the paid account we used for recruitment and payment. This reference has been removed, and in other places has been replaced with a unique identifier created for each participant.*
-
-P11, Section 3.7. Could this information be captured more succinctly in a table  perhaps? Line 290-293 just lists words. There are no questions relating to these 3  dotpoints. I’m also wondering why participants do not submit their responses as they  go? Do they also have a chance to go back and change a response? It is difficult to  determine what this process is. 
-
-P18, L297-301. The math does not seem to work unless I’m missing something.  Responses were collected from 92 participants. Five were removed which leaves 87 for  evaluation. However you go on to say that Set A were evaluated by 42 participants and  set B, 53 which adds up to 95 participants. Then you go on to say this resulted in 1104  evaluations. Could you please revise and provide a more detailed outline of the  evaluations you performed? 
-
-P22 Discussion through to Conclusions. As highlighted earlier, it would be good to  extrapolate the results to other modelled outputs beyond cancer statistics to obtain  broader coverage. There is considerable value in using a hexagon tile map for showing  statistics and modelled output in statistical area levels across Australia or similar. 

@@ -43,7 +43,17 @@
 %
 %\def\update{2014/01/06 v1.01}
 % Changes made by Rolf Turner 19/05/2016.
-\def\update{2016/19/05 v1.02}
+%\def\update{2016/19/05 v1.02}
+% Changes made by Rolf Turner 05/06/2017.
+%\def\update{2017/06/05 Version 5}
+% Changes made by Rolf Turner 05/07/2017.
+%\def\update{2017/07/05 Version 6}
+% Changes made by Rolf Turner 03/10/2017.
+%\def\update{2017/10/04 Version 7}
+% Changes made by Rolf Turner 30/01/2018.
+%\def\update{2018/01/30 Version 8}
+% Changes made by Rolf Turner 10/12/2018.
+\def\update{2018/01/30 Version 9}
 
 \newcommand{\journalname}{AUSTRALIAN \& NEW ZEALAND JOURNAL OF STATISTICS}
 \newcommand{\journalnamelc}{Australian \& New Zealand Journal of Statistics}
@@ -51,6 +61,41 @@
 \newcommand{\journalclass}{anzsauth.cls}
 \newcommand{\journalclassshort}{anzsauth}
 \newcommand{\DOI}{XXX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Added by Rolf 05/07/2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{Appendix}
+\setcounter{Appendix}{0}
+\renewcommand{\theAppendix}{\Roman{Appendix}}
+\newenvironment{Appendix}{%
+\refstepcounter{Appendix}%
+\section*{Appendix \theAppendix}%
+}{}
+\newenvironment{uniqueAppendix}{
+\section*{Appendix}
+}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Added by Rolf 31/07/2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{undertilde}
+%\newcommand{\utilde}{\undertilde}
+\newcommand{\E}{\mbox{$\textrm{\textup{E}}$}}
+\newcommand{\var}{\mbox{$\textrm{\textup{var}}$}}
+\newcommand{\cov}{\mbox{$\textrm{\textup{cov}}$}}
+\newcommand{\cor}{\mbox{$\textrm{\textup{cor}}$}}
+\newcommand{\bx}{\mbox{$\boldsymbol{x}$}}
+\newcommand{\by}{\mbox{$\boldsymbol{y}$}}
+\newcommand{\bX}{\mbox{$\boldsymbol{X}$}}
+\newcommand{\bY}{\mbox{$\boldsymbol{Y}$}}
+\newcommand{\bM}{\mbox{$\boldsymbol{M}$}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Added by Rolf 29/10/2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\utilde#1{\mathord{\vtop{\ialign{##\crcr
+$\hfil\displaystyle{#1}\hfil$\crcr\noalign{\kern1.5pt\nointerlineskip}
+$\hfil\tilde{}\hfil$\crcr\noalign{\kern1.5pt}}}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{anzsauth}[\update\ \journalclass]
@@ -146,7 +191,8 @@
 \renewcommand{\huge}{\fontsize{20}{25pt}\selectfont}
 \renewcommand{\Huge}{\fontsize{25}{30pt}\selectfont}
 
-\newcommand{\titlesize}{\fontsize{15.0}{16pt}\selectfont}
+%\newcommand{\titlesize}{\fontsize{15.0}{16pt}\selectfont}
+\newcommand{\titlesize}{\fontsize{12.0}{14.5pt}\selectfont}
 \newcommand{\tabsize}{\fontsize{9}{9.5pt}\selectfont}
 \newcommand{\headersize}{\fontsize{8.0}{9pt}\selectfont}
 
@@ -235,7 +281,8 @@
 \def\@maketitle{\vspace*{-18pt}%
 \null%
 \begin{center}
-    {\normalsize{\bf\@title} \par}%
+%   {\normalsize{\bf\@title} \par}%
+    {\titlesize{\bf\@title} \par}%
     \vskip 1.5em %
     {\large
       \lineskip .5em%
