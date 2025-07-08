@@ -30,7 +30,7 @@ Specific Comments:
 
 P7,L7 While the introduction focuses specifically on the maps communicating disease statistics, it would be good in the conclusion to extrapolate beyond that to gain a broader interest.
 
-XXX
+*XXX*
 
 P8, L31-32. I would consider adding to the last sentence to write the following: "The results are summarized in Section 4, followed by a discussion about the broader implications for the use of this map style."
 
@@ -94,9 +94,13 @@ P11, Section 3.7. Could this information be captured more succinctly in a table 
 
 *Re-written. Responses were recorded on each lineup evaluation, but not saved in the Google sheet until the participant clicked Submit.*
 
-P18, L297-301. The math does not seem to work unless I’m missing something.  Responses were collected from 92 participants. Five were removed which leaves 87 for  evaluation. However you go on to say that Set A were evaluated by 42 participants and  set B, 53 which adds up to 95 participants. Then you go on to say this resulted in 1104  evaluations. Could you please revise and provide a more detailed outline of the  evaluations you performed? 
+P18, L297-301. The math does not seem to work unless I'm missing something. Responses were collected from 92 participants. Five were removed which leaves 87 for evaluation. However you go on to say that Set A were evaluated by 42 participants and set B, 53 which adds up to 95 participants. Then you go on to say this resulted in 1104 evaluations. Could you please revise and provide a more detailed outline of the evaluations you performed?
 
-P22 Discussion through to Conclusions. As highlighted earlier, it would be good to  extrapolate the results to other modelled outputs beyond cancer statistics to obtain  broader coverage. There is considerable value in using a hexagon tile map for showing  statistics and modelled output in statistical area levels across Australia or similar. 
+*Fixed. Now generated automatically from the code in the qmd.*
+
+P22 Discussion through to Conclusions. As highlighted earlier, it would be good to extrapolate the results to other modelled outputs beyond cancer statistics to obtain broader coverage. There is considerable value in using a hexagon tile map for showing statistics and modelled output in statistical area levels across Australia or similar.
+
+*XXX*
 
 ## Referee: 2
 
@@ -120,21 +124,29 @@ Other random errors (e.g., uncapitalized start in line 347, unneeded apostrophe 
 
 FIGURES
 
-Figure 1. This is a nice figure! My only suggestion is to adjust the caption to say “Thyroid cancer incidence” instead of “Thyroid incidence.”
+Figure 1. This is a nice figure! My only suggestion is to adjust the caption to say "Thyroid cancer incidence" instead of "Thyroid incidence."
 
-*This change has been applied.*
+*Done.*
 
 Figure 2. In the caption, do you want to say which of the twelve plots is the real data plot? Also, is it possible to include, in the supplementary materials, this same type of figure for a choropleth lineup? I am curious to see what that looks like.
 
-*The location has now been mentioned in the caption, and a reference has been added in the text to direct readers to the alternative view.*
+*The location has now been mentioned in the caption, and a sentence has been added in the text to direct readers to the supplementary materials.*
 
-Figure 3. Would it be clearer to use “Hexagon Tile” and “Choropleth” for the map display labels? In the caption, can you make a note of what “Location” refers to? (It took me a while to figure that out.)
+Figure 3. Would it be clearer to use "Hexagon Tile" and "Choropleth" for the map display labels? In the caption, can you make a note of what "Location" refers to? (It took me a while to figure that out.)
+
+*XXX re-make figure*
 
 Figure 4. I think the trend legend is unnecessary, given that there is a separate panel in the plot for each trend model.
 
-Figure 5. I think the green/orange dot legend for “Choro.” And “Hex.” is unnecessary.
+*Done*
+
+Figure 5. I think the green/orange dot legend for "Choro." And "Hex." is unnecessary.
+
+*Legend removed*
 
 Figure 6. Have you tried placing the bars next to each other instead of overlaying them? What does that look like?
+
+*We have changed this to be a mosaic plot, to focus on the proportion of times the participant chose the different certainty levels relative to both map types. This is better than the side-by-side bars which are hard to read because of different counts.*
 
 PAPER
 
@@ -248,13 +260,21 @@ Page 10 Lines 259 – 264 could be shortened
 
 Page 11: Line 269 what’s the meaning of the levels of Figure Eight participants?
 
-Page 11 3.7 Demographic data collection -\> section could be merged with 3.5 “Web application” the reduce redundancies
+Page 11 3.7 Demographic data collection -\> section could be merged with 3.5 "Web application" the reduce redundancies
 
-Page 12 Lines 297 – 301: 5 participants where remove because they provided not more than 3 unique choices -\> please state a reason for that. The assumption is these participants just “clicked through” the experiment and choose a single location all the time? (see my major concern).
+*Kept in this section but section renamed to be "Data collection" because it concerns all the information recorded.*
+
+Page 12 Lines 297 – 301: 5 participants where remove because they provided not more than 3 unique choices -\> please state a reason for that. The assumption is these participants just "clicked through" the experiment and choose a single location all the time? (see my major concern).
+
+*Explanation is improved, and numbers reported are now automatically calculated in the analysis script, which is part of the qmd file generating the paper.*
 
 Page 12 section 4.1: Are there differences between group A and B? This would be a good place to show that randomization is working. Underlying assumption: there a no group specific influences on test results.
 
+*There is no difference in results from group A and B. XXX*
+
 Page 12 Line 322. Any explanation why the choropleth performed not better?
+
+*The difference is small, at least relative to the other two patterns. We expect it might be due to the large rural polygons might also play a role in obscuring large simple spatial trend, too. But we don't want to speculate.*
 
 Page 18, section 4.2
 

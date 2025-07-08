@@ -324,13 +324,13 @@ disease on the community to be analyzed.
 
 }
 
-\caption{\label{fig-thyroid}Thyroid incidence among females across the
-Statistical Areas of Australia at Level 2, displayed using a choropleth
-(a) and a hexagon tile map (b). Blue indicates lower than average, and
-red indicates higher than average incidence. The choropleth suggests
-high incidence is clustered on the east coast but misses the high
-incidence in Perth and a few locations in inner Melbourne visible in the
-hexagon tile map.}
+\caption{\label{fig-thyroid}Thyroid cancer incidence among females
+across the Statistical Areas of Australia at Level 2, displayed using a
+choropleth (a) and a hexagon tile map (b). Blue indicates lower than
+average, and red indicates higher than average incidence. The choropleth
+suggests high incidence is clustered on the east coast but misses the
+high incidence in Perth and a few locations in inner Melbourne visible
+in the hexagon tile map.}
 
 \end{figure}%
 
@@ -429,7 +429,9 @@ With \(K\) observers, the probability of \(k\) randomly choosing the
 data plot, roughly follows a binomial distribution with \(p=1/m\).
 Figure~\ref{fig-lineup} shows a lineup of the hexagon tile map, of size
 \(m=12\). Plot 3 is the data plot, and the remaining 11 are plots of
-null data.
+null data. The supplementary materials contain all lineups used in the
+study, including the corresponding lineup to this one made using
+choropleth maps.
 
 \begin{figure}
 
@@ -440,8 +442,9 @@ null data.
 }
 
 \caption{\label{fig-lineup}This lineup of twelve hexagon tile map
-displays contains one map with a real population related structure. The
-rest are null plots that contain only spatial dependence.}
+displays contains one map with a real population related structure
+(location 3). The rest are null plots that contain only spatial
+dependence.}
 
 \end{figure}%
 
@@ -517,7 +520,7 @@ the displays.
 \caption{\label{fig-exp-design}The experimental design used in the
 study. Participants are allocated to with group A or B, to evaluate
 either the choropleth or hexagon tile map lineup of each simulated data
-set.}
+set. Place in the lineup is recorded as `Location'.}
 
 \end{figure}%
 
@@ -640,29 +643,21 @@ mixed effect models. The model used includes the two main effects map
 type and trend model, which gives the fixed effects model to be:
 
 \[
-\hat{y}_{ij} \sim Bernoulli(p_ij)
+\hat{y}_{ijk} \sim Bernoulli(p_{ijk})
 \] with
 
 \[
-\text{logit}(p_{ij}) = \mu + \tau_i + \delta_j + (\tau \delta)_{ij} ~~~~ i=1,2; ~~ j=1,2,3
+\text{logit}(p_{ijk}) = \mu_i + \tau_j + \delta_k + (\tau \delta)_{jk} ~~~~ j=1,2; ~~ k=1,2,3
 \]
 
-where \(y_{ij} = 0, 1\) represents whether the subject detected the data
-plot (1) or did not (0), \(\mu\) is the overall mean, \(\tau_i, i=1,2\)
-is the map type effect, \(\delta_j\) is the trend model effect. We are
-allowing for an interaction between map type and trend model as the
-response is binary, so a logistic model was used. As each participant
-provides results from 12 lineups, this model can account for each
-individual participants' abilities as it includes a subject-specific
-random intercept.
-
-The model specifies a logit link, this means the predicted values from
-the \texttt{glmer} model should be back-transformed to fit between 0 and
-1. The predictions \(\widehat{p}(\eta)\) are transformed to be
-probabilities between 0 and 1 with the link specified below:
-
-\[\widehat{p}(\eta) = \frac{e^{\eta}}{1 + e^{\eta}}\]
-\label{eq:transform} \[\eta = f(\tau_i,\delta_j)\]
+where \(y_{ijk} = 0, 1\) represents whether subject \(i\) detected the
+data plot (1) or did not (0), \(\mu_\) is the subject-specific random
+intercept, \(\tau_j\) is the map type effect, \(\delta_k\) is the trend
+model effect. The interaction between map type and trend model allows
+for any map type effect to differ between trend models. As each
+participant provides results from 12 lineups, this model can account for
+each individual participants' abilities with the subject-specific random
+intercept.
 
 \subsection{Web application to collect
 responses}\label{web-application-to-collect-responses}
@@ -719,8 +714,7 @@ Business Statistics Department of Monash University. This allowed us to
 estimate the effect size, and thus decide on number of participants to
 collect responses from.
 
-\subsection{Demographic data
-collection}\label{demographic-data-collection}
+\subsection{Data collection}\label{data-collection}
 
 Each participant answered demographic questions and provided consent
 before evaluating the lineups.
@@ -759,25 +753,27 @@ report:
   on a scale of 1-5.
 \end{itemize}
 
-on each of lineup. These responses are saved after entering, but only
-recorded in the results sheet when the participants clicked the submit
-button on the final page.
+on each of lineup. These responses are saved after entering.
+Participants were expected to click the submit button on the final page.
 
 \section{Results}\label{sec-results}
 
-Responses from 92 participants were collected. Five participants did not
-provide more than three unique choices for the twelve lineups, and their
-data was removed. Set A was evaluated by 42 participants, and 53
-evaluated set B. This resulted in 1104 evaluations, corresponding to 92
-subjects, each evaluating 12 lineups, that were analysed on accuracy and
-speed. The certainty and reasons of subjects in their answers is also
-examined.
+A total of 1273 responses were collected from 97 participants. A small
+number of participants, 7, were removed because they did not provide at
+least 11 responses, or left more than 3 at the default value of 0. These
+are participants that stopped early or clicked through without doing the
+evaluation. Set A was evaluated by 39 participants, and 51 evaluated set
+B. This resulted in 1080 evaluations, corresponding to 90 subjects, each
+evaluating 12 lineups, that were analysed on accuracy and speed. The
+certainty and reasons of subjects in their answers is also examined.
 
 \subsection{Participant demographics}\label{participant-demographics}
 
-Of the 92 participants, 67 were male, and 25 female. Most participants
-(56) had a Bachelors degree, 13 had a Masters degree, and the remaining
-23 had high school diplomas.
+Of the 90 participants, 66 were male, and 24 female. Most participants
+(55) had a Bachelors degree, 13 had a Masters degree, and the remaining
+22 had high school diplomas. The age distribution was 13, 36, 21, 11, 6
+for age groups 18-24, 25-34, 35-44, 45-54, 55+, with 3 preferring not to
+answer. Only 1 reported having lived in Australia.
 
 \subsection{Accuracy}\label{accuracy}
 
@@ -923,7 +919,7 @@ lineups for the Three cities and All Cities trends.
 
 \centering{
 
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{kobakian-cook-anzjs_files/figure-pdf/fig-beeswarm-1.pdf}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{kobakian-cook-anzjs_files/figure-pdf/fig-beeswarm-1.pdf}
 
 }
 
@@ -965,12 +961,12 @@ displays, even though many had made the correct choice.
 
 }
 
-\caption{\label{fig-certainty}The amount of times each level of
-certainty was chosen by participants when viewing hexagon tile map or
-choropleth displays. Participants were more likely to choose a high
-certainty when considering a Choropleth map. The mid value of 3 was the
-default certainty, it was chosen most for the Hexagon tile map
-displays.}
+\caption{\label{fig-certainty}The distribution of certainty chosen by
+participants when viewing hexagon tile map or choropleth displays, shown
+as a mosaic plot, faceted by the trend model and whether the plot was
+detected or not. At most trend models and whether the plot was detected
+or not, participants were more likely to choose a high certainty when
+evaluating a choropleth map.}
 
 \end{figure}%
 
@@ -1095,7 +1091,7 @@ significantly more effective for spotting a real population related data
 trend model hidden in a lineup.
 
 The hexagon tile map display should be considered as an alternative
-visualization method when communicating distributions that relate to the
+visualisation method when communicating distributions that relate to the
 population across a set of geographic units. As an additional display to
 the familiar choropleth map, cancer atlas products may benefit from the
 opportunity to allow exploration via an alternative display. The spatial
@@ -1112,11 +1108,14 @@ display is not only relevant to Australia, but all nations or population
 distributions that experience densely populated cities separated by vast
 rural expanses.
 
+Add Election results data + plus other statistics, other hexagon layout
+software
+
 \section*{Acknowledgments}\label{acknowledgments}
 \addcontentsline{toc}{section}{Acknowledgments}
 
 The authors would like to thank the Australian Cancer Atlas team for
-discussions regarding alternative spatial visualizations, and Professor
+discussions regarding alternative spatial visualisations, and Professor
 Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with
 suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the
 taipan \citep{taipan} R package for image tagging, used as the base for
