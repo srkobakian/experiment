@@ -24,7 +24,7 @@ This paper performs a user study to compare and contrast the ability of two visu
 
 The authors do a nice job introducing each map, the benefits of both and outlined how each would be applied to communicate cancer statistics as part of the Cancer Atlas. I think that Section 3 could be tightened up in places, especially with regards to generating the lineups and the section that outlines the analysis (see below for specifics).
 
-Overall, I see this as an important contribution not only to the visualisation community but also to the statistics community who often leave the communication of statistics and modelled outputs as an afterthought. I therefore recommend this paper be published after the authors consider my comments and revisions below, largely relating tao Section 3. I also believe the Cancer Atlas could benefit from such a visualisation and  would encourage the authors to work with the authors of the Atlas to have this considered. As the acknowledgements suggest the Cancer Atlas team were involved in discussions, I suspect this would be an easy ask.
+Overall, I see this as an important contribution not only to the visualisation community but also to the statistics community who often leave the communication of statistics and modelled outputs as an afterthought. I therefore recommend this paper be published after the authors consider my comments and revisions below, largely relating tao Section 3. I also believe the Cancer Atlas could benefit from such a visualisation and would encourage the authors to work with the authors of the Atlas to have this considered. As the acknowledgements suggest the Cancer Atlas team were involved in discussions, I suspect this would be an easy ask.
 
 Specific Comments:
 
@@ -114,6 +114,8 @@ WRITING
 
 Please thoroughly fix the following writing issues, which appear throughout the manuscript and distract from its good content.
 
+*Done.*
+
 Inconsistent use of Australian vs. American spelling (e.g., visualise and visualize, neighbour and neighbor, colour and color, etc.). Please pick one (or check on ANZJS guidelines) and stick with it throughout the entire paper.
 
 *Australian English has now been consistently used in the writing of this article, except where it is necessary in the code to use American English.*
@@ -121,6 +123,8 @@ Inconsistent use of Australian vs. American spelling (e.g., visualise and visual
 Comma splices (e.g., lines 181, 239, 312, etc.).
 
 Other random errors (e.g., uncapitalized start in line 347, unneeded apostrophe in line 212, missing verb in lines 337-338, etc.).
+
+*Fixed and checked.*
 
 FIGURES
 
@@ -134,7 +138,7 @@ Figure 2. In the caption, do you want to say which of the twelve plots is the re
 
 Figure 3. Would it be clearer to use "Hexagon Tile" and "Choropleth" for the map display labels? In the caption, can you make a note of what "Location" refers to? (It took me a while to figure that out.)
 
-*XXX re-make figure*
+*This figure has been re-designed. Location is explained in the caption, also.*
 
 Figure 4. I think the trend legend is unnecessary, given that there is a separate panel in the plot for each trend model.
 
@@ -154,55 +158,83 @@ Introduction.
 
 A couple more sentences about the lineup protocol might be nice.
 
+*Done.*
+
 Background.
 
 Lines 41-45. This part feels out of place, if you do not make it clear that visualizing communicable disease patterns is just one example use of a spatial data display. This is especially the case because the rest of the paper is about visualizing noncommunicable diseases (i.e., cancer).
 
-Line 82. The word “perceived” here made me think about who is doing the perceiving and whether a discussion somewhere about the different audiences of spatial data displays is warranted / would be helpful. For example, who are the users of the Australian Cancer Atlas?
+*Rephrased*
+
+Line 82. The word "perceived" here made me think about who is doing the perceiving and whether a discussion somewhere about the different audiences of spatial data displays is warranted / would be helpful. For example, who are the users of the Australian Cancer Atlas?
+
+*This is not especially about the Atlas, albeit motivated and grounded by the Atlas. We don't think it is relevant to discuss users of the Atlas. From our perspective, though, it would be ideal if the Atlas adopted this different display, and perhaps publication of this study might help to achieve this. We have modified the text in this paragraph to put the focus on the hexagon tile map vs the choropleth.*
 
 Methodology.
 
-Lines 128-129. I am not sure this claim is legitimate: “The results should apply broadly to any other geographic area of interest.” What about a choropleth map in which the geographic areas are more equally sized? (Not all choropleth maps are as extreme as the SA3 Australian one!)
+Lines 128-129. I am not sure this claim is legitimate: "The results should apply broadly to any other geographic area of interest." What about a choropleth map in which the geographic areas are more equally sized? (Not all choropleth maps are as extreme as the SA3 Australian one!)
+
+*Language has been modified.*
 
 Sections 3.5 - 3.7. Why are these sections, which cover data collection, located after Section 3.4, which covers the analysis? Would it make more sense to place them before Section 3.4?
 
-Section 3.7, lines 291-293. Please provide more information about the nature and structure of these three questions: plot choice, reason, and difficulty. You do not provide information until Section 4, which feels too late. Additionally, should the “certainty” question, referenced in Section 4.4, also be included here? I also wonder if Section 3.7 should be renamed, given that it is about more than just demographic data collection.
+*Sections have been re-organised.*
+
+Section 3.7, lines 291-293. Please provide more information about the nature and structure of these three questions: plot choice, reason, and difficulty. You do not provide information until Section 4, which feels too late. Additionally, should the "certainty" question, referenced in Section 4.4, also be included here? I also wonder if Section 3.7 should be renamed, given that it is about more than just demographic data collection.
+
+*Done. The section was re-named to "Data collection". "Difficulty" was replaced by "Certainty", making terminology consistent.*
 
 Results.
 
 Lines 361-368. This is an interesting finding!
 
+*Yes, but it is relatively weak. It's something found from other studies that people were often more confident with sub-optimal plots!*
+
 Discussion.
 
 Please spend some time discussing limitations of the study. Please also spend some time discussing future work, related to this study.
+
+*XXX*
 
 Acknowledgment.
 
 Please move the pointers to the supplementary and replication materials out of this section to a more appropriate place. Please also move the ethics approval out of this section to a more appropriate place.
 
+*Done.*
+
 CONCLUDING THOUGHTS
 
 I think the conducted study is well-done, interesting, and an important contribution to the literature. However, the writing of the manuscript requires substantial revision/work. Please spend some time cleaning up the paper, so that the content can be better understood, assessed, appreciated, and utilized!
+
+*Thanks and we appreciate the careful reading.*
 
 Referee: 3
 
 Comments to the Author
 
-I appreciate the opportunity to review this interesting paper that describes an experimental study comparing the effectiveness of hexagon tile maps against choropleth maps using “the lineup protocol.” While choropleth maps are a widely used visualization technique, newly proposed methods of displaying spatial data, such as hexagon tile maps, are not widely known to recipients of such data displays. In this context, the paper addresses the important question of the usability of this new plot type. With the exception of Kawakami et al., 2024, which analyzes a different type of hexagon maps, there are to my knowledge no findings on the effectiveness of hexagon tile maps so far.
+I appreciate the opportunity to review this interesting paper that describes an experimental study comparing the effectiveness of hexagon tile maps against choropleth maps using "the lineup protocol." While choropleth maps are a widely used visualization technique, newly proposed methods of displaying spatial data, such as hexagon tile maps, are not widely known to recipients of such data displays. In this context, the paper addresses the important question of the usability of this new plot type. With the exception of Kawakami et al., 2024, which analyzes a different type of hexagon maps, there are to my knowledge no findings on the effectiveness of hexagon tile maps so far.
 
 The paper analyzes the effectiveness of different types of plots with respect to two aspects: First, whether a specific type of spatial distribution, namely disease trends that impact highly populated small areas, is detected with higher accuracy when viewed in a hexagon tile map compared to a choropleth map. Additionally, the paper aims to analyze whether recipients detect these disease trends faster in hexagon tile maps than in choropleth maps. The paper focuses on the first question and uses an innovative methodological approach. Findings from a lineup experiment using simulated data for Australia suggest that the probability of detecting this specific type of spatial distribution in hexagon tile maps is higher than in choropleth maps.
 
 I enjoyed reading the manuscript and commend the authors for several strengths of their work, especially their research question, which covers an often neglected aspect in visualization practice, and their thoughtful experimental setup.
 
+*Thank you.*
+
 Considering these strengths, though, as I read the manuscript I found some areas in which I would have appreciated greater clarity. Starting with some major concerns, I’ll list my comments in order of appearance:
 
-1\) The section “Visual Inference” (Page 4) covers the background of visual inference and the lineup protocol, focusing on its use as a tool for statistical inference. I would like to see the reasoning for using it as a method to compare effectiveness made more clear. From the later text, I understand the argumentation as follows: Because the data is simulated in a way that one location shows the same significant result in two different visualizations (hexagon and choropleth), the detection rate indicates how easily participants can make the detection with respect to the map type.
+1\) The section "Visual Inference" (Page 4) covers the background of visual inference and the lineup protocol, focusing on its use as a tool for statistical inference. I would like to see the reasoning for using it as a method to compare effectiveness made more clear. From the later text, I understand the argumentation as follows: Because the data is simulated in a way that one location shows the same significant result in two different visualizations (hexagon and choropleth), the detection rate indicates how easily participants can make the detection with respect to the map type.
+
+*XXX*
 
 2\) I had some difficulties following the data simulation process in section 3.2 (Page 6). Specifically, the smoothing process and the reasoning behind this process should be explained more thoroughly.
+
+*XXX*
 
 3\) The analysis of detection accuracy and the presentation of the findings could be improved:
 
 While there is clearly a difference between map types (Page 12, Lines 306-316), the overall level of detection rates is low. I would expect some discussion of these low results. Are these a result of the data simulation process (i.e., the “true” signal might not be different enough)? How do the results compare to the expected detection rates if selected by chance, as discussed in Section 2.2?
+
+*XXX*
 
 The model definition in Section 3.4.3 on Page 9, as well as the reporting of the results (Page 12 and Table 2), need some work.
 
@@ -210,17 +242,23 @@ First: The model formulation on Page 9 is confusing. I would expect a model form
 
 hat(y_ij) = mu + beta1 \* maptype + beta2\*trend + beta3\*maptype\*trend + alpha_j + epsilon_ij with i=1,2, …,n decisions from j=1,2, …, 92 participants.
 
+*XXX*
+
 Table 2 on Page 22 should include the variance of the random error.
 
-Second: The interpretation of the interaction effects on Page 13 Line 329 is a as follows:  “Allowing for the interaction effect, the difference in detection rate decreases for population-related displays for a choropleth map lineup but increases for a hexagon tile map display.“
+*XXX*
 
-I’m not sure if I understand that statement correctly. In my understanding, the interaction in Table 2 shows that the difference between choropleth and hexagon tiles differs between trend models, but it’s in favor of the hexagon models among all trends (full effect for hexagon with NW-SE trend:  1.63; full effect for hexagon all cities trend: 1.63 + 1.34 -1.16 = 1.81; full effect for hexagon tree cities trend 1.63 – 2.07 + 1.28 = 0.84).
+Second: The interpretation of the interaction effects on Page 13 Line 329 is a as follows: "Allowing for the interaction effect, the difference in detection rate decreases for population-related displays for a choropleth map lineup but increases for a hexagon tile map display."
 
-Additionally, I can’t replicate the detection probabilities mentioned in the text, e.g., Page 13, Lines 333f.: “For the NW-SE distribution, the predicted detection rate for the hexagon tile map display increases the predicted probability of detection
+I’m not sure if I understand that statement correctly. In my understanding, the interaction in Table 2 shows that the difference between choropleth and hexagon tiles differs between trend models, but it’s in favor of the hexagon models among all trends (full effect for hexagon with NW-SE trend: 1.63; full effect for hexagon all cities trend: 1.63 + 1.34 -1.16 = 1.81; full effect for hexagon tree cities trend 1.63 – 2.07 + 1.28 = 0.84).
 
-to 0.63 from 0.52 for choropleths, this is almost exactly the difference seen in the table of means and is significant only at the 0.05 level.”
+Additionally, I can’t replicate the detection probabilities mentioned in the text, e.g., Page 13, Lines 333f.: "For the NW-SE distribution, the predicted detection rate for the hexagon tile map display increases the predicted probability of detection
 
-Are these fixed effects estimates? I can’t replicate this and the following results from Table 2, but maybe I’m missing something?
+to 0.63 from 0.52 for choropleths, this is almost exactly the difference seen in the table of means and is significant only at the 0.05 level."
+
+*XXX*
+
+Are these fixed effects estimates? I can't replicate this and the following results from Table 2, but maybe I’m missing something?
 
 P(detection =1 \| choropleth; NWSE) = exp(-1.27)/(1 + exp(-1.27)) = 0.22
 
@@ -234,31 +272,53 @@ P(detection =1 \| choropleth; all cities) = exp(-1.27 + 1.34)/(1 + exp(-1.27 +1.
 
 P(detection =1 \| hex; all cities) = exp(-1.27 + 1.63  +1.34 -1.16)/(1 + exp(-1.27 + 1.63 +1.34 -1.16)) = 0.63
 
+*XXX*
+
 4\) My last major concern is the discussion of data quality from the experiment. While data from participants with fewer than three uniquely chosen locations were excluded from the results, the findings for detection speed on Page 14 made me curious about the participants who took only a few seconds. There is a clear gap between these participants and those who took longer to complete the experiment. Does the accuracy differ between these two groups? If the accuracy is significantly lower for the quicker participants, this might indicate that they chose a location by chance to finish the task as quickly as possible. What is the experience from the pilot study? Are these times taken plausible? If not, one might consider removing those cases with implausibly short decision times from the sample to eliminate randomly chosen locations. Regardless of how you deal with these cases, this detail should be discussed in the text.
+
+*XXX*
 
 Here are some additional comments, that might be useful to improve the paper:
 
-Page 1 line 16: “None of the existing approaches for creating cartograms or hexagon tiling perform well for the Australian landscape”
+Page 1 line 16: "None of the existing approaches for creating cartograms or hexagon tiling perform well for the Australian landscape"
 
 and
 
-Page 3 62 “For Australia, the transformations warp the country so that it is no longer recognizable” -\> maybe cite Kobakian, Cook & Roberts 2020 to make clear why this statement is made?
+Page 3 62 "For Australia, the transformations warp the country so that it is no longer recognizable" -\> maybe cite Kobakian, Cook & Roberts 2020 to make clear why this statement is made?
 
-Page 3 Line 78: what’s “substantially above”?
+*XXX*
+
+Page 3 Line 78: what's "substantially above"?
+
+*XXX*
 
 Figure 3: Explain term location in caption
 
-Page 7 Line 164: “smoothed several times”; specify
+*Done.*
+
+Page 7 Line 164: "smoothed several times"; specify
+
+*Re-worded.*
 
 Page 7 Line 169: express smoothing process in math: 0.5 \* value of area + 0.5 MEAN(value\| area is neighbour)
 
+*Re-worded.*
+
 Page 9 Line 206: population-related displays; explain which displays
 
-Page 9 Line 201: “The first step in the data cleaning process involved checking that survey responses collected for each participant were only included once in the data set.” Why is this necessary? Without context this sentence is confusing.
+*XXX*
+
+Page 9 Line 201: "The first step in the data cleaning process involved checking that survey responses collected for each participant were only included once in the data set." Why is this necessary? Without context this sentence is confusing.
+
+*XXX*
 
 Page 10 Lines 259 – 264 could be shortened
 
-Page 11: Line 269 what’s the meaning of the levels of Figure Eight participants?
+*XXX*
+
+Page 11: Line 269 what's the meaning of the levels of Figure Eight participants?
+
+*XXX*
 
 Page 11 3.7 Demographic data collection -\> section could be merged with 3.5 "Web application" the reduce redundancies
 
@@ -278,13 +338,21 @@ Page 12 Line 322. Any explanation why the choropleth performed not better?
 
 Page 18, section 4.2
 
-It would be interesting to see results under control of socio demographics. A second model including those variables could give some hints (direct effects, reduction intra-participant variance).  For reference see: (Vanderplas & Hofmann, 2016)
+It would be interesting to see results under control of socio demographics. A second model including those variables could give some hints (direct effects, reduction intra-participant variance). For reference see: (Vanderplas & Hofmann, 2016)
+
+*XXX*
 
 Figure 4: use color to distinguish between replicates (facets and color for trend models is redundant)
 
-Page 14: The section “Reason” is extremely short and might be merged with section 4.3 (Speed) on page 14.
+*XXX*
+
+Page 14: The section "Reason" is extremely short and might be merged with section 4.3 (Speed) on page 14.
+
+*XXX*
 
 There is no reference to table 3 on page 22 in the text.
+
+*Fixed.*
 
 Literature
 
@@ -293,4 +361,6 @@ Kawakami, Y., Yuniar, S., & Ma, K.-L. (2024). HexTiles and Semantic Icons for MA
 Reference as broader lit:
 
 Vanderplas, S., & Hofmann, H. (2016). Spatial Reasoning and Data Displays. IEEE Transactions on Visualization and Computer Graphics, 22(1), 459–468. IEEE Transactions on Visualization and Computer Graphics. https://doi.org/10.1109/TVCG.2015.2469125
+
+*XXX*
 
