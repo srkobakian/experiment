@@ -8,11 +8,15 @@ editor: visual
 
 Thank you for the careful reviews of our paper. Please find *our responses to provided in italics* point-by-point with the comments.
 
+*Note that we have changed the title slightly to make it more general than cancer statistics, and we have added many more references in response to the review comments. This has made the paper longer by three pages. The revision has also been converted to a quarto document, which means that all numbers are automatically calculated from the analysis code in the document.*
+
 Comments to the Author:
 
 While the contents and findings are interesting, and it is great to see more research done in the areas of visual inference and visualization of spatial areal data, all three reviewers expressed serious concerns about the writing and the lack of clarity throughout. I must say I agree: the manuscript is let down greatly by sloppiness and unpolished writing, lack of clarity in the mathematics and statistical modeling details (two reviewers pointed out potential basic mistakes in the maths), and occasional claims and statements which appear unsubstantiated.
 
 I encourage the authors to respond to all the comments by the three reviewers in a substantive manner, and in doing so go through the manuscript with a very "fine pen" to ensure the writing and overall messaging is as clear as possible.
+
+*We are very sorry that the reviewers found the writing to be inadequate. We did not expect this! In this revision, we have tightened up the language substantially, provided additional references to support statements, and tidied the math and calculations.*
 
 Referee(s)' Comments to Author:
 
@@ -220,21 +224,21 @@ I enjoyed reading the manuscript and commend the authors for several strengths o
 
 *Thank you.*
 
-Considering these strengths, though, as I read the manuscript I found some areas in which I would have appreciated greater clarity. Starting with some major concerns, I’ll list my comments in order of appearance:
+Considering these strengths, though, as I read the manuscript I found some areas in which I would have appreciated greater clarity. Starting with some major concerns, I'll list my comments in order of appearance:
 
 1\) The section "Visual Inference" (Page 4) covers the background of visual inference and the lineup protocol, focusing on its use as a tool for statistical inference. I would like to see the reasoning for using it as a method to compare effectiveness made more clear. From the later text, I understand the argumentation as follows: Because the data is simulated in a way that one location shows the same significant result in two different visualizations (hexagon and choropleth), the detection rate indicates how easily participants can make the detection with respect to the map type.
 
-*XXX*
+*Added additional text.*
 
 2\) I had some difficulties following the data simulation process in section 3.2 (Page 6). Specifically, the smoothing process and the reasoning behind this process should be explained more thoroughly.
 
-*XXX*
+*This has been revised.*
 
 3\) The analysis of detection accuracy and the presentation of the findings could be improved:
 
-While there is clearly a difference between map types (Page 12, Lines 306-316), the overall level of detection rates is low. I would expect some discussion of these low results. Are these a result of the data simulation process (i.e., the “true” signal might not be different enough)? How do the results compare to the expected detection rates if selected by chance, as discussed in Section 2.2?
+While there is clearly a difference between map types (Page 12, Lines 306-316), the overall level of detection rates is low. I would expect some discussion of these low results. Are these a result of the data simulation process (i.e., the "true" signal might not be different enough)? How do the results compare to the expected detection rates if selected by chance, as discussed in Section 2.2?
 
-*XXX*
+*Sentence added to results explaining this.*
 
 The model definition in Section 3.4.3 on Page 9, as well as the reporting of the results (Page 12 and Table 2), need some work.
 
@@ -242,21 +246,19 @@ First: The model formulation on Page 9 is confusing. I would expect a model form
 
 hat(y_ij) = mu + beta1 \* maptype + beta2\*trend + beta3\*maptype\*trend + alpha_j + epsilon_ij with i=1,2, …,n decisions from j=1,2, …, 92 participants.
 
-*XXX*
+*The model formulation has been revised.*
 
 Table 2 on Page 22 should include the variance of the random error.
 
-*XXX*
+*Done, in the text.*
 
 Second: The interpretation of the interaction effects on Page 13 Line 329 is a as follows: "Allowing for the interaction effect, the difference in detection rate decreases for population-related displays for a choropleth map lineup but increases for a hexagon tile map display."
 
-I’m not sure if I understand that statement correctly. In my understanding, the interaction in Table 2 shows that the difference between choropleth and hexagon tiles differs between trend models, but it’s in favor of the hexagon models among all trends (full effect for hexagon with NW-SE trend: 1.63; full effect for hexagon all cities trend: 1.63 + 1.34 -1.16 = 1.81; full effect for hexagon tree cities trend 1.63 – 2.07 + 1.28 = 0.84).
+I'm not sure if I understand that statement correctly. In my understanding, the interaction in Table 2 shows that the difference between choropleth and hexagon tiles differs between trend models, but it’s in favor of the hexagon models among all trends (full effect for hexagon with NW-SE trend: 1.63; full effect for hexagon all cities trend: 1.63 + 1.34 -1.16 = 1.81; full effect for hexagon tree cities trend 1.63 – 2.07 + 1.28 = 0.84).
 
-Additionally, I can’t replicate the detection probabilities mentioned in the text, e.g., Page 13, Lines 333f.: "For the NW-SE distribution, the predicted detection rate for the hexagon tile map display increases the predicted probability of detection
+*Statement on interactions is removed, because the summary of the model estimates shows the different effects between the different treatments.*
 
-to 0.63 from 0.52 for choropleths, this is almost exactly the difference seen in the table of means and is significant only at the 0.05 level."
-
-*XXX*
+Additionally, I can't replicate the detection probabilities mentioned in the text, e.g., Page 13, Lines 333f.: "For the NW-SE distribution, the predicted detection rate for the hexagon tile map display increases the predicted probability of detection to 0.63 from 0.52 for choropleths, this is almost exactly the difference seen in the table of means and is significant only at the 0.05 level."
 
 Are these fixed effects estimates? I can't replicate this and the following results from Table 2, but maybe I’m missing something?
 
@@ -272,11 +274,11 @@ P(detection =1 \| choropleth; all cities) = exp(-1.27 + 1.34)/(1 + exp(-1.27 +1.
 
 P(detection =1 \| hex; all cities) = exp(-1.27 + 1.63  +1.34 -1.16)/(1 + exp(-1.27 + 1.63 +1.34 -1.16)) = 0.63
 
-*XXX*
+*There were errors in the hand-coded numbers. All of these are now computed using the emmeans package now.*
 
 4\) My last major concern is the discussion of data quality from the experiment. While data from participants with fewer than three uniquely chosen locations were excluded from the results, the findings for detection speed on Page 14 made me curious about the participants who took only a few seconds. There is a clear gap between these participants and those who took longer to complete the experiment. Does the accuracy differ between these two groups? If the accuracy is significantly lower for the quicker participants, this might indicate that they chose a location by chance to finish the task as quickly as possible. What is the experience from the pilot study? Are these times taken plausible? If not, one might consider removing those cases with implausibly short decision times from the sample to eliminate randomly chosen locations. Regardless of how you deal with these cases, this detail should be discussed in the text.
 
-*XXX*
+*The explanation of data cleaning has been revised to make it clearer. There is no difference in XXX*
 
 Here are some additional comments, that might be useful to improve the paper:
 
@@ -286,11 +288,11 @@ and
 
 Page 3 62 "For Australia, the transformations warp the country so that it is no longer recognizable" -\> maybe cite Kobakian, Cook & Roberts 2020 to make clear why this statement is made?
 
-*XXX*
+*Done.*
 
 Page 3 Line 78: what's "substantially above"?
 
-*XXX*
+*Language changed.*
 
 Figure 3: Explain term location in caption
 
@@ -306,19 +308,19 @@ Page 7 Line 169: express smoothing process in math: 0.5 \* value of area + 0.5 M
 
 Page 9 Line 206: population-related displays; explain which displays
 
-*XXX*
+*Re-worded*
 
 Page 9 Line 201: "The first step in the data cleaning process involved checking that survey responses collected for each participant were only included once in the data set." Why is this necessary? Without context this sentence is confusing.
 
-*XXX*
+*Explained.*
 
 Page 10 Lines 259 – 264 could be shortened
 
-*XXX*
+*Done.*
 
 Page 11: Line 269 what's the meaning of the levels of Figure Eight participants?
 
-*XXX*
+*Explained.*
 
 Page 11 3.7 Demographic data collection -\> section could be merged with 3.5 "Web application" the reduce redundancies
 
@@ -334,21 +336,21 @@ Page 12 section 4.1: Are there differences between group A and B? This would be 
 
 Page 12 Line 322. Any explanation why the choropleth performed not better?
 
-*The difference is small, at least relative to the other two patterns. We expect it might be due to the large rural polygons might also play a role in obscuring large simple spatial trend, too. But we don't want to speculate.*
+*The difference is small, at least relative to the other two patterns. We expect it might be due to the large rural polygons might also play a role in obscuring large simple spatial trend, too. We don't want to speculate.*
 
 Page 18, section 4.2
 
 It would be interesting to see results under control of socio demographics. A second model including those variables could give some hints (direct effects, reduction intra-participant variance). For reference see: (Vanderplas & Hofmann, 2016)
 
-*XXX*
+*A reference to Majumder, Cook and Hofmann (2025) showing that demographic background has little effect on performance of participants reading lineups. The primary variation is individual. This study was actually done in 2012 but only just published. The Vanderplas paper reports on a different type of experiment where math ability is collected as part of a larger visual testing process, and the type of plots used were ones typically seen in statistics classes. Maps are a bit different from this. Anyway, we did not collect enough data to fit demographics, because it is not the main purpose of this experiment. Majumder et al suggests that as long as a suitable range of backgrounds is included in the study results are reliable and replicable. This has been explained in the text.*
 
 Figure 4: use color to distinguish between replicates (facets and color for trend models is redundant)
 
-*XXX*
+*We disagree with this comment. Replicates are indicated by line segments. The primary factor, map type, is represented by a point, with paired measurements (replicates) connected by lines. This maps the primary information to position along a common axis, which is best graphical practice. Colour redundant with the facets draws attention to the secondary key element of the design, the different types of spatial patterns, and makes the plot more interesting to read.*
 
 Page 14: The section "Reason" is extremely short and might be merged with section 4.3 (Speed) on page 14.
 
-*XXX*
+*We have kept is separate for clarity. Speed is qute different from reason.*
 
 There is no reference to table 3 on page 22 in the text.
 
@@ -362,5 +364,6 @@ Reference as broader lit:
 
 Vanderplas, S., & Hofmann, H. (2016). Spatial Reasoning and Data Displays. IEEE Transactions on Visualization and Computer Graphics, 22(1), 459–468. IEEE Transactions on Visualization and Computer Graphics. https://doi.org/10.1109/TVCG.2015.2469125
 
-*XXX*
+*Thank you for the suggestions. The Kawakami reference is out of scope. The Vanderplas et al has been included in the Introduction to point to work on how ability to read a lineup it most related to a subject's visual aptitude. Many more references to the visual inference literature have been added.*
+
 
