@@ -182,7 +182,7 @@ d <- d %>%
   mutate(type = case_when(
     type == "hex" ~"Hex.",
     TRUE~"Choro.")) %>% 
-    mutate(detect_f = factor(detect, levels = c(0,1), labels = c("Detected? No", "Detected? Yes")))
+    mutate(detect_f = factor(detect, levels = c(1, 0), labels = c("Detected? Yes", "Detected? No")))
 
 plots <- d %>% group_by(group, trend, type, location) %>%
   # pdetect measures the aggregated accuracy of the choices
@@ -811,20 +811,20 @@ The estimated detection proportion from the model fit, computed using the `emmea
 ```{r}
 #| label: fig-beeswarm
 #| fig-cap: "The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using horizontally jittered dotplots. The coloured point indicates average time taken for each map type. Although some participants take just a few seconds per evaluation, and some take as much as 60 seconds, but there is very little difference in time taken between map types."
-#| fig-height: 6
-#| fig-width: 5
-#| out-width: 80%
+#| fig-height: 4
+#| fig-width: 6
+#| out-width: 100%
 s <- d %>% group_by(type, trend, detect_f) %>%
   summarise(m=median(time_taken), 
             q1=quantile(time_taken, 0.25), 
-            q3=quantile(time_taken, 0.75))
+            q3=quantile(time_taken, 0.75)) 
 ggplot() + 
   geom_quasirandom(data=d, aes(x=type, y=time_taken), alpha=0.9) + 
   #geom_hline(data=s, aes(yintercept=m, color=type)) +
-  geom_point(data=s, aes(x=type, y=m, color=type), size=5, alpha=0.7) +
+  geom_point(data=s, aes(x=type, y=m, color=type), size=3, alpha=0.7) +
   #geom_errorbar(data=s, aes(x=type, ymin=q1, ymax=q3, color=type), width=0.3, size=2) +
   scale_color_manual("", values = type_colors) +
-  facet_grid(trend~detect_f) + 
+  facet_grid(detect_f~trend) + 
   ylab("Time taken (seconds)") + xlab("") +
   theme(legend.position="none")
 ```
@@ -845,8 +845,11 @@ d %>% group_by(education) %>%
   summarise(m=mean(time_taken), 
             s=sd(time_taken))
 
+```
+
+```{r}
 # Check time difference between default choice
-d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
+d_zeros <- d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
   group_by(zeros) %>%   
   summarise(m=median(time_taken), 
             mn=min(time_taken),
@@ -855,7 +858,7 @@ d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
             q3=quantile(time_taken, 0.75),
             n=n())
 
-d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
+d_zeros_detect <- d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
   group_by(zeros, detect_f) %>%   
   summarise(m=median(time_taken), 
             mn=min(time_taken),
@@ -863,13 +866,16 @@ d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
             q1=quantile(time_taken, 0.25), 
             q3=quantile(time_taken, 0.75),
             n=n())
-
 # Summarise across subjects
 contributor_smry <- d %>% group_by(contributor) %>%   
   summarise(m_d=mean(detect), 
             s_d=sd(detect),
             m_t=mean(time_taken), 
             s_t=sd(time_taken)) 
+```
+
+```{r}
+#| eval: false
 ggplot(contributor_smry, aes(m_t, m_d)) +
   geom_point() +
   ylab("Detection rate") +
@@ -890,7 +896,9 @@ ggplot(contributor_smry, aes(m_d, s_d)) +
 
 ## Speed
 
-@fig-beeswarm shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup when viewing each type of display. The time are also separated by trend model and whether the data plot was detected or not detected. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is shown as a large coloured dot on each plot. When considering the heights of the green and orange dots, there is little difference in the average time taken to read a choropleth or hexagon tile map. Comparing the same coloured dot across each trend model row, there is a slight increase in the time taken to correctly detected the data plot in the hexagon tile map lineup, but little difference in evaluation time for the choropleth display. However, there were substantially less correct detections for choropleth lineups for the Three cities and All Cities trends.
+@fig-beeswarm shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup facetted by map type and trend model. Each dot is an evaluation. The time taken to complete an evaluation ranged from fractions of a second to 60 seconds. The average time taken for type of display is shown as a large coloured dot on each plot, and show there is little difference in the average time taken to read a lineup made with either a choropleth or hexagon tile map. 
+
+That some evaluations occurred within milliseconds is a little surprising. Investigating whether this was related the `r d_zeros$n[1]` of `r d_zeros$n[1]+d_zeros$n[2]` evaluations where participants left the default choice of 0, and we find it is not; most of these people took the routine time to examine, and then left it at the default suggesting that they just could not pick one as different. This is the same as a non-detect. On a per participant basis, the average time per lineup over the 12 evaluations ranged between `r round(min(contributor_smry$m_t), 2)` and `r round(max(contributor_smry$m_t), 2)` seconds. The correlation between average detection rate and time taken across subjects `r round(cor(contributor_smry$m_d, contributor_smry$m_t), 2)` which is weakly positive. This is similar to what we have found in other studies, some subjects are especially fast and accurate in visual evaluation, and conversely some subjects are quite slow but inaccurate.
 
 
 ```{r}
@@ -954,7 +962,8 @@ The choice "None of these reasons" was used as the default value to minimise noi
 # Qualitative analysis of reason
 reasons_smry <- d %>% 
   mutate(reason = ifelse(reason =="0.0", "no reason", reason)) %>% 
-  mutate(Detected = ifelse(detect_f == "Detected? Yes", "Yes", "No"),
+  mutate(Detected = ifelse(detect_f == "Detected? Yes", 
+                           "Yes", "No"),
     Trend = trend) %>% 
   group_by(Trend, Detected, type) %>% 
   count(reason) %>%
@@ -1061,7 +1070,7 @@ The analysis of the work was completed in R [@RCore] with the use of the followi
  - Document creation: quarto [@Allaire_Quarto_2025], anzjs template [@quarto-anzjs], knitr [@knitr].
  - Lineup creation: nullabor [@nullabor], gstat [@gstat].
  - Data analysis: tidyverse [@tidyverse], ggthemes [@ggthemes], RColorBrewer [@RColorBrewer].
- - Plots: ggplot2 [@ggplot2], cowplot [@cowplot], png [@png], grid [@grid].
+ - Plots: ggplot2 [@ggplot2], cowplot [@cowplot], png [@png], grid [@grid], ggbeeswarm [@ggbeeswarm], ggmosaic [@ggmosaic].
  - Modelling and summary presentation: lme4 [@lme4], kableExtra [@kableExtra].
 
 # Ethics Declaration {-}
