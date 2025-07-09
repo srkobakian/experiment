@@ -365,7 +365,7 @@ The choropleth map is an effective spatial display if the size of the geographic
 A cartogram is a general solution for adequately displaying a population-based statistic. It transforms the geographic map base to reflect the population in the geographic region, while preserving some aspects of the geographic location. There are several cartogram algorithms [@ACTUC;@CBATCC]; each involves shifting the boundaries of geographic units, using the value of the statistic to increase or decrease the area taken by the geographic unit on the map. The changes to the boundaries result in cartograms that accurately communicate population by map area for each of the geographic units but can result in losing the familiar geographic information. For Australia, the transformations warp the country so that it is no longer recognisable (see @KCR for details).
 
 <!-- Other cartograms -->
-Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method [@NAC] keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram [@ACTUC] represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by @RSCW, using rectangles that tile to align borders of neighbours [@CDWCS]. There have been thorough reviews of the array of methods, as suitable for cancer atlas displays [@review;@BCM].
+Alternative algorithms make various trade offs between familiar shapes and representation of geographic units. The non-contiguous cartogram method [@NAC] keeps the shapes of geographic units intact, and changes the size of the shape. This method disconnects areas creating empty space on the display losing the continuity of the spatial display of the statistic. The Dorling cartogram [@ACTUC] represents each unit as a circle, sized according to the value of the statistic. The neighbour relationships are mostly maintained by how the circles touch. A similar approach was pioneered by @RSCW, using rectangles that tile to align borders of neighbours [@CDWCS]. There have been thorough reviews of the array of methods, as suitable for cancer atlas displays [e.g. @KCR;@BCM], and experiments demonstrating cartograms to be more effective than choropleth maps [@KFIF].
 
 ```{r thyroid-hex, eval=FALSE, out.height = "30%", fig.height = 3, fig.width = 4, fig.align='center', fig.cap = "A hexagon tile map of female thyroid cancer incidence in Australia, the same data as shown in the choropleth map in Figure 1. The high incidence in several of the metropolitan regions (Brisbane, Sydney and Perth) can now be seen, along with numerous isolated spots."}
 aus_hexmap_plot
@@ -565,7 +565,7 @@ Demographics were collected regarding the study participants:
 Participants then moved to the evaluation phase. The set of images differed for Group A and Group B. After being allocated to a group, each individual was shown the 12 lineups in randomised order, and asked to report:
 
  - **Plot choice**: the number of the plot that they deemed to be most different from the others.
- - **Reason**: one of "Clusters of colour", "Colour trend across the areas", "Big differences between neighbouring areas", "All areas have similar colours" or "None of these reasons". 
+ - **Reason**: one of "Clusters of colour", "Colour trend across the areas", "Big differences between neighbouring areas", "All areas have similar colours" or "None of these reasons". Note providing restricted list of reasons rather than free text encourages a response because it is easy. The list needs to contain the primary expected reasons and other potential reasons need to be added so that it does not bias the participants' behaviour.
  - **Certainty**: how certain that their choice is different from the others, on a scale of 1-5.
 
 on each of lineup. These responses are saved after entering. Participants were expected to click the submit button on the final page.
@@ -806,9 +806,6 @@ detect_props |>
 
 The estimated detection proportion from the model fit, computed using the `emmeans` package [@Lenth2025] are shown in @tbl-detect-prop. For the All Cities trend participants were about three times more likely to detect the cluster pattern with the hexagon tile map than the choropleth. The Three Cities trend was practically not detectable in the choropleth map. The dection rates were more similar for the NW-SE trend, but slightly higher for the hexagon tile map, which was a surprise. Note that, these detection rates are all substantially higher than chance, except for the choropleth map on the Three Cities. For a single evaluation the detection rate of the data plot selected by chance is $1/20=0.05$ because the lineups used in this experiment had 20 plots. When designing an experiment like this it is important to produce lineups that strike a balance between simple and hard, so that there is a chance of discovering the effect of interest. This experiment has managed to do this extremely well, which is a result of pilot studies, careful null data generation, and power calculations to determine appropriate sample size.
 
-## Speed
-
-@fig-beeswarm shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup when viewing each type of display. The time are also separated by trend model and whether the data plot was detected or not detected. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is shown as a large coloured dot on each plot. When considering the heights of the green and orange dots, there is little difference in the average time taken to read a choropleth or hexagon tile map. Comparing the same coloured dot across each trend model row, there is a slight increase in the time taken to correctly detected the data plot in the hexagon tile map lineup, but little difference in evaluation time for the choropleth display. However, there were substantially less correct detections for choropleth lineups for the Three cities and All Cities trends.
 
 
 ```{r}
@@ -891,9 +888,10 @@ ggplot(contributor_smry, aes(m_d, s_d)) +
   theme(aspect.ratio = 1)
 ```
 
-## Certainty
+## Speed
 
-Participants provided their level of certainty regarding their choice using a five point scale. Unlike the accuracy and speed of responses that were derived during the data processing phase, this was a subjective assessment by the participant prompted by the question: "How certain are you about your choice?". @fig-certainty shows a mosaic plot summarising how participants reported their certainty with their decision. The plots are made separately for each combination of trend models and whether the data plot was detected or not. Colour indicates the type of map display. The proportion of subjects evaluating the choropleth version increases as certainty increases, which suggests overconfidence in their detection ability when using a choropleth map display. Participants were less likely to be certain when their choice was incorrect and they were viewing a hexagon tile map.
+@fig-beeswarm shows horizontally jittered dot plots to contrast the time taken by participants to evaluate each lineup when viewing each type of display. The time are also separated by trend model and whether the data plot was detected or not detected. The time taken to complete an evaluation ranged from milliseconds to 60 seconds. The average time taken for type of display is shown as a large coloured dot on each plot. When considering the heights of the green and orange dots, there is little difference in the average time taken to read a choropleth or hexagon tile map. Comparing the same coloured dot across each trend model row, there is a slight increase in the time taken to correctly detected the data plot in the hexagon tile map lineup, but little difference in evaluation time for the choropleth display. However, there were substantially less correct detections for choropleth lineups for the Three cities and All Cities trends.
+
 
 ```{r}
 #| label: fig-certainty 
@@ -932,19 +930,27 @@ d |>
 ```
 
 
+## Certainty
+
+Participants provided their level of certainty regarding their choice using a five point scale. Unlike the accuracy and speed of responses that were derived during the data processing phase, this was a subjective assessment by the participant prompted by the question: "How certain are you about your choice?". @fig-certainty shows a mosaic plot summarising how participants reported their certainty with their decision. The plots are made separately for each combination of trend models and whether the data plot was detected or not. Colour indicates the type of map display. The proportion of subjects evaluating the choropleth version increases as certainty increases, which suggests overconfidence in their detection ability when using a choropleth map display. Participants were less likely to be certain when their choice was incorrect and they were viewing a hexagon tile map.
+
 ## Reason
 
-Participants were asked why they had made their plot choice and were able to select from a set of suggested reasons. 
+@tbl-reason summarises the reasons that participants gave for their choices: "clusters" = "Clusters of colour", "trend" = "Colour trend across the areas", "consistent" = "All areas have similar colours", "hotpots" = "Big differences between neighbouring areas", "none" = "None of these reasons". These proportions are computed separately for each trend, map type and whether the participant detected the data plot. With All Cities and Three Cities, when correct, participants tended to select 'consistent' with the choropleth, and 'clusters' with the hexagon tile map. With the NW-SE trend, 'trend' was primarily selected for the choropleth, but 'clusters' was the primary reason for the hexgon tile map. The primary reasons are similar when the participant did not detect the data plot.
+
+The results when the data plot was detected are as expected, but that they are similar to the not detected group is interesting. It suggests that with the choropleth people are trying to read contiguous patterns, while the hexagon tile map is being read for pockets of differences. This may be due the hexagon tile map being non-contiguous. 
+
+<!--Participants were asked why they had made their plot choice and were able to select from a set of suggested reasons. 
 "Colour trend across the areas" was the most common selection for NW-SE trend displays (@tbl-reason).
 
 The reasons chosen by participants from the list provided to them varied more when viewing choropleth displays than the hexagon tile map.
 The hexagon tile map displays resulted in "Clusters of colour" as the most common choice made by participants.
 
-The choice "None of these reasons" was used as the default value to minimise noise from participants who did not select a response. 
+The choice "None of these reasons" was used as the default value to minimise noise from participants who did not select a response. -->
 
 ```{r}
 #| label: tbl-reason
-#| tbl-cap: "Summary of the reasons that participants wrote for their choice of plot when looking at each trend model shown in choropleth and hexagon tile maps."
+#| tbl-cap: "Proportion of participants chose each reason for their choice of plot, computed separately for each Trend and Map Type level, and whether the data plot was detected. The primary reason when participants were evaluating the choropleth map was 'consistent' or 'trend', but for the hexagon tile map it was 'clusters', when they detected the data plot."
 # Qualitative analysis of reason
 reasons_smry <- d %>% 
   mutate(reason = ifelse(reason =="0.0", "no reason", reason)) %>% 
@@ -952,20 +958,31 @@ reasons_smry <- d %>%
     Trend = trend) %>% 
   group_by(Trend, Detected, type) %>% 
   count(reason) %>%
-  mutate(prop = round(n/sum(n), 2)) %>% 
+  ungroup() %>%
+  group_by(Trend, Detected, type) %>%
+  mutate(prop = n/sum(n)) %>% 
+  ungroup() %>%
+  select(Trend, Detected, type, reason, prop) %>%
+  mutate(prop = round(prop, 2)) %>%
   pivot_wider(names_from = reason, 
               values_from = prop, 
-              values_fill = 0) 
+              values_fill = 0) %>%
+  select(Trend, Detected, type, clusters, trend, consistent, hotspots, `no reason`)
   
 #  mutate(prop = round(n/sum(n), 2), r_prop = paste0(reason, ":", prop)) %>% 
 #  top_n(1, n) %>% summarise(reasons = paste(reason, collapse=", ")) %>% 
 #  pivot_wider(names_from = c("type"), values_from = c("reasons")) %>% 
 #  ungroup() %>% 
 reasons_smry |>  
+  arrange(desc(Detected), Trend, type) |>
   knitr::kable(format = "latex", booktabs = TRUE,
-    linesep = c("", "\\addlinespace", "", "\\addlinespace","")) %>% 
+               col.names = c("Trend", "Detect", "Type", 
+                             "clusters", "trend", "consistent",
+                             "hotspots", "none"),
+                 align = "lllrrrrr",
+    linesep = c("", "\\addlinespace", "", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","")) #%>% 
   #kable_styling(bootstrap_options = "hold_position") %>% 
-  collapse_rows(., columns = 1)
+  #collapse_rows(., columns = 1)
 ```
 
 ## Participant demographics
@@ -977,8 +994,21 @@ Summary statistics (not included here, but available in the analysis code) show 
 
 # Discussion
 
-The intention of this study was to contrast the use of the choropleth map and the hexagon tile map.
-The visual inference lineup protocol was employed to contrast the effectiveness of the displays.
+This study provides evidence that the hexagon tile map is superior to a choropleth map for communicating population statistics, for Australia. While the cartogram has been established as better than a choropleth map, cartograms do not work for the vast disparity between population density and geographic area in Australia. The hexagon tile map was developed to provide a possible solution, and this study demonstrates that it has potential. 
+
+The R package `sugarbag` can be used to generate a hexagon tile map. It can be used for any spatial polygon data, so is applicable to other countries or geographic areas. 
+
+One of the strengths but weaknesses of the hexagon tile map is that it is non-contiguous. Large rural areas are represented by isolated hexagons. This is why we expected that the hexagon tile map might not work well to detect large-scale spatial trend ("NW-SE"). The primary reason for producing the non-contiguous display was to preserve geography sufficiently for the reader to easily recognise the location. This is a strength, and allows a map of the country to be drawn underneath the hexagons. It appears to not inhibit reading of the spatial distribution based on this experiment. However, there is considerable room for improving the algorithm and exploring some variations. These might include increasing the size of isolated hexagons, or collecting multiple hexagons together. 
+
+The manner in which hexagons are exploded out from the city centres is another direction of research. Ideally, the location of the hexagons should be close to their original location but this is hard to control and measure. The current algorithm works sequentially to place hexagons, radially from a provided centre. There are likely better optimisation procedures that could impve the layout. For reading the spatial distribution, this is less important, but if the hexagon tile map is provided to users as an interactive tool, they will want to locate themselves in the plot. If the hexagon is not close to the true location it could be disconcerting.
+
+Hexagon displays are growing in popularity. Two media outlets used variations of the hexagon displays to communicate the 2025 Australian federal election results [@abc-election2025;guardian-election2025]. Both are effective, but have inadequacies. The Guardian preserves geography and allows inner city results to be seen but the overall sense of the result is skewed because the large rural areas dominate the display. The ABC's contiguous hexagon tile map gives the correct sense of the final results but loses the shape of Australia, and some hexagons are far from their true location.
+
+This experiment focused on comparing a new display, the hexagon tile map, against the standard display, choropleth. There are other options that could have been included in the study, such as the use of insets of dense population areas along with the chorpleth map, or the use of interactive graphics linking statistical charts with the choropleth. Keeping the scope of the study small was important to understand whether it was reasonable to recommend use of the hexagon tile map. Although we only tested on the Australian geography, the results should hold for other regions that have similarly disparities between population size and geographic size. 
+
+We would recommend doing follow-up studies that allow deeper understanding of how the different displays are read. For example, to understand the differences in how people read the choropleth map and the hexagon tile map as indicated by the different reasons given, could be done using an eyetracking experiment. @ZCHMR is an example of such an experiment where the manner in which people read lineups was examined.
+
+<!--The visual inference lineup protocol was employed to contrast the effectiveness of the displays.
 The results have shown that overall the use of the hexagon tile map display allows participants to find the data plot in the lineup more often. Using the visual inference protocol this result can be extended to show that it is a valid alternative display to communicate spatial distributions of population related data.
 
 We expected that the choropleth map would be superior for communicating the spatial pattern of geographic distributions. The data suggest that the participants perform slightly better or equally as well for each replicate in each trend model across the two displays. Table II shows that the difference in the mean detection rate for the two trend models was 0.10.
@@ -1007,12 +1037,7 @@ The hexagon tile map display should be considered as an alternative visualisatio
 
 The increasing population densities of capital cities despite large land area exacerbates the difference in the smallest and largest communities.
 The population density structure of Australia can be considered similar to that of Canada, New Zealand and many other countries. Therefore, this display is not only relevant to Australia, but all nations or population distributions that experience densely populated cities separated by vast rural expanses.
-
-- Add Election results data + plus other statistics, 
-- new and better hexagon layout software 
-- Other plot/map type comparisons, insets, cartograms, statistical plots along with maps, especially interactive
-- eye-tracking in association with lineups
-
+-->
 
 # Acknowledgments {-}
 
