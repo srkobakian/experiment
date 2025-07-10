@@ -89,11 +89,11 @@ detect_colors <- c(
   "Detected? Yes" = "#FC8D62")
 
   # Downloaded data
-d <- read_xlsx("data/experiment-export.xlsx", sheet=2) %>%
-  filter(!is.na(contributor)) %>%
+d <- read_xlsx("data/experiment-export.xlsx", sheet=2) |>
+  filter(!is.na(contributor)) |>
   mutate(contributor = factor(contributor))
 
-n_all_contributors <- d %>% count(contributor, sort=TRUE) %>% 
+n_all_contributors <- d |> count(contributor, sort=TRUE) |> 
   summarise(n_contributors = length(contributor))
   
 n_all_evals <- nrow(d)
@@ -101,36 +101,36 @@ n_all_evals <- nrow(d)
 # Check data set 
 # Need to clean multiple entries, 48, 24
 # remove duplicated entries due to submit button
-d <- d %>% group_by(group, contributor, image_name) %>%
-  slice(1) %>% ungroup() %>% 
+d <- d |> group_by(group, contributor, image_name) |>
+  slice(1) |> ungroup() |> 
   arrange(group, contributor, plot_order)
 
 # Remove contributors who did not provide answers to most questions
-keep <- d %>% count(contributor, sort = TRUE) %>% filter(n > 10)
-d <- d %>% 
-  filter(contributor %in% keep$contributor) %>%
+keep <- d |> count(contributor, sort = TRUE) |> filter(n > 10)
+d <- d |> 
+  filter(contributor %in% keep$contributor) |>
   filter(contributor != "1234567890") # Testing id
 
 # Remove contributors who did not provide any choices
 # Or an insufficient amount of responses
-bad_contribs <- d %>% group_by(contributor) %>% 
-  #summarise(sum0 = sum(choice)) %>% 
-  summarise(n_zero = sum(if_else(choice == 0, 1, 0))) %>%
-  #filter(sum0 < 13) %>% 
-  filter(n_zero > 8) %>%
+bad_contribs <- d |> group_by(contributor) |> 
+  #summarise(sum0 = sum(choice)) |> 
+  summarise(n_zero = sum(if_else(choice == 0, 1, 0))) |>
+  #filter(sum0 < 13) |> 
+  filter(n_zero > 8) |>
   pull(contributor)
 
 # Person is in list above
-same_answer <- d %>% group_by(contributor) %>% 
+same_answer <- d |> group_by(contributor) |> 
   summarise(v = sd(choice))
 
 # check range of choices
 choice_range <- d |> group_by(contributor) |> summarise(m1 = min(choice), m2 = max(choice))
 
-d <- d %>% 
+d <- d |> 
   filter(!(contributor %in% bad_contribs))
 
-n_contributors <- d %>% count(contributor, sort=TRUE) %>% 
+n_contributors <- d |> count(contributor, sort=TRUE) |> 
   summarise(n_contributors = length(contributor))
 
 n_AB <- d |> count(contributor, group) |> count(group) 
@@ -141,7 +141,7 @@ n_aus <- d |> count(contributor, australia) |> count(australia)
 
 n_evals <- nrow(d)
   
-d <- d %>% mutate(certainty = factor(as.character(certainty),
+d <- d |> mutate(certainty = factor(as.character(certainty),
   levels = c("1", "2", "3", "4","5"), ordered=TRUE))
 ```
 
@@ -163,28 +163,28 @@ replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.p
                                   1, 1, 2, 2, 3, 3, 4, 4,
                                   1, 1, 2, 2, 3, 3, 4, 4))
 # Add rep info to data
-d <- d %>% left_join(., replicate, by = "image_name")
+d <- d |> left_join(replicate, by = "image_name")
 ```
 
 ```{r pdetection_group}
 # Tidy for analysis
-d <- d %>% 
-  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) %>%
-  select(-nothing, -extra) %>%
+d <- d |> 
+  separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) |>
+  select(-nothing, -extra) |>
   mutate(location = as.numeric(location), 
     # detect measures the accuracy of the choice
-         detect = ifelse(location == choice, 1, 0)) %>% 
+         detect = ifelse(location == choice, 1, 0)) |> 
   mutate(trend = case_when(
     trend == "nwse" ~ "NW-SE",
     trend == "cities" ~ "All Cities",
-    trend == "three" ~ "Three Cities")) %>% 
-  mutate(trend = fct_relevel(trend,"All Cities","Three Cities", "NW-SE")) %>% 
+    trend == "three" ~ "Three Cities")) |> 
+  mutate(trend = fct_relevel(trend,"All Cities","Three Cities", "NW-SE")) |> 
   mutate(type = case_when(
     type == "hex" ~"Hex.",
-    TRUE~"Choro.")) %>% 
+    TRUE~"Choro.")) |> 
     mutate(detect_f = factor(detect, levels = c(1, 0), labels = c("Detected? Yes", "Detected? No")))
 
-plots <- d %>% group_by(group, trend, type, location) %>%
+plots <- d |> group_by(group, trend, type, location) |>
   # pdetect measures the aggregated accuracy of the choices
   summarise(pdetect = length(detect[detect == 1])/length(detect)) 
 ```
@@ -214,30 +214,29 @@ aus_colours <- function(sir_p50){
   return(value)
 }
 
-sa2 <- sa22011 %>% 
-  filter(!st_is_empty(geometry)) %>% 
-  filter(!state_name_2011 == "Other Territories") %>% 
+sa2 <- sa22011 |> 
+  filter(!st_is_empty(geometry)) |> 
+  filter(!state_name_2011 == "Other Territories") |> 
   filter(!sa2_name_2011 == "Lord Howe Island")
 
-SIR <- read_csv("data/SIR Downloadable Data.csv") %>% 
-  filter(SA2_name %in% sa2$sa2_name_2011) %>% 
-  dplyr::select(Cancer_name, SA2_name, Sex_name, p50) %>% 
+SIR <- read_csv("data/SIR Downloadable Data.csv") |> 
+  filter(SA2_name %in% sa2$sa2_name_2011) |> 
+  dplyr::select(Cancer_name, SA2_name, Sex_name, p50) |> 
   filter(Cancer_name == "Thyroid", Sex_name == "Females")
-ERP <- read_csv("data/ERP.csv") %>%
-  filter(REGIONTYPE == "SA2", Time == 2011, Region %in% SIR$SA2_name) %>% 
+ERP <- read_csv("data/ERP.csv") |>
+  filter(REGIONTYPE == "SA2", Time == 2011, Region %in% SIR$SA2_name) |> 
   dplyr::select(Region, Value)
 # Alternative maps
 # Join with sa2 sf object
-sa2thyroid_ERP <- SIR %>% 
-  left_join(sa2, ., by = c("sa2_name_2011" = "SA2_name")) %>%
-  left_join(., ERP %>% 
+sa2thyroid_ERP <- left_join(sa2, SIR, by = c("sa2_name_2011" = "SA2_name")) |>
+  left_join(ERP |> 
               dplyr::select(Region, 
-              Population = Value), by = c("sa2_name_2011"= "Region")) %>% 
+              Population = Value), by = c("sa2_name_2011"= "Region")) |> 
   filter(!st_is_empty(geometry))
-sa2thyroid_ERP <- sa2thyroid_ERP %>% 
-  #filter(!is.na(Population)) %>% 
-  filter(!sa2_name_2011 == "Lord Howe Island") %>% 
-  mutate(SIR = map_chr(p50, aus_colours)) %>% 
+sa2thyroid_ERP <- sa2thyroid_ERP |> 
+  #filter(!is.na(Population)) |> 
+  filter(!sa2_name_2011 == "Lord Howe Island") |> 
+  mutate(SIR = map_chr(p50, aus_colours)) |> 
   st_as_sf() 
 
 # Make choropleth
@@ -251,8 +250,7 @@ if (!file.exists("data/aus_hexmap.rda")) {
 
 ## Check the projection uses long and lat
 ## Create centroids set
-sa2centroids <- sa2 %>% 
-  create_centroids(., "sa2_name_2011")
+sa2centroids <- create_centroids(sa2, "sa2_name_2011")
 ## Create hexagon grid
 # For speed, consider if the buffer distance beyond the centroids is necessary
 grid <- create_grid(centroids = sa2centroids,
@@ -278,10 +276,10 @@ load("data/aus_hexmap.rda")
 ## Prepare to plot
 fort_hex <- fortify_hexagon(data = aus_hexmap,
                             sf_id = "sa2_name_2011",
-                            hex_size = 0.3) %>% 
-            left_join(sa2thyroid_ERP %>%
+                            hex_size = 0.3) |> 
+            left_join(sa2thyroid_ERP |>
             select(sa2_name_2011, SIR, p50))
-fort_aus <- sa2thyroid_ERP %>%
+fort_aus <- sa2thyroid_ERP |>
   fortify_sfc()
 ## Make a plot
 aus_hexmap_plot <- ggplot() +
@@ -446,7 +444,7 @@ ggplot(expt_design, ) +
   scale_fill_manual("", values = type_colors) +
   theme_minimal() +
   theme(axis.text.y = element_blank(),
-        axis.ticks.y = element_blank())
+        axis.ticks = element_blank())
 ```
 
 ## Generating null data
@@ -484,10 +482,10 @@ spatial_smoother <- function(area_number,
   return(smoothed_value)
 }
 
-var.sim1 <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 12) %>% 
+var.sim1 <- predict(var.g.dummy, newdata = sa3_centroids, nsim = 12) |> 
   left_join(sa3_centroids, ., by=c("longitude", "latitude"))
 
-sa3_sims1_1 <- as_tibble(var.sim1) %>% 
+sa3_sims1_1 <- as_tibble(var.sim1) |> 
   mutate_at(sims, ~map_dbl(1:nrow(sa3), spatial_smoother, 
                            values_vector = ., area_weight = 0.5, neighbours_list = sa3_neighbours))
 
@@ -673,13 +671,13 @@ A total of `r n_all_evals` responses were collected from `r n_all_contributors` 
 #| fig-width: 6
 #| out-width: 100%
 # Detectability rate for each lineup (image)
-d_smry <- d %>% group_by(trend, type, replicate) %>%
+d_smry <- d |> group_by(trend, type, replicate) |>
   # pdetect measures the aggregated accuracy of the choices
-  summarise(pdetect = length(detect[detect == 1])/length(detect)) %>%
+  summarise(pdetect = length(detect[detect == 1])/length(detect)) |>
   ungroup()
 
 # Numerical summary
-diffs <- d_smry %>% spread(type, pdetect) %>%
+diffs <- d_smry |> spread(type, pdetect) |>
   mutate(dif = `Hex.` - `Choro.`)
 
 # Plot summary
@@ -698,9 +696,9 @@ ggplot(d_smry, aes(x = type, y = pdetect, color = trend)) +
 ```{r}
 #| eval: false
 # Check detection rate across groups
-d %>% group_by(group) %>%
+d |> group_by(group) |>
     # pdetect measures the aggregated accuracy of the choices
-    summarise(pdetect = length(detect[detect == 1])/length(detect)) %>%
+    summarise(pdetect = length(detect[detect == 1])/length(detect)) |>
     ungroup()
 ```
 
@@ -715,14 +713,14 @@ The North-West to South-East (NW-SE) trend model unexpectedly had a higher mean 
 #| tbl-cap: "The mean and standard deviation of the rate of detection for each trend model, calculated for the choropleth and hexagon tile map displays."
 types <- c("Choro.", "", "Hex.", "")
 
-d %>% group_by(type, trend) %>%
+d |> group_by(type, trend) |>
   summarise(m = as.character(round(mean(detect), 2)),
-      std.dev = as.character(round(sd(detect), 2))) %>% 
-  mutate(std.dev = ifelse(std.dev == 0.5, "(0.50)", paste0("(", std.dev, ")"))) %>%   mutate(m = ifelse(m == 0.4, "0.40", m)) %>% 
-  gather(stat, value, m, std.dev) %>% 
-  pivot_wider(names_from = "trend", values_from = "value") %>% 
-  arrange(type) %>% ungroup() %>% 
-  mutate(Type = types) %>% select(Type, `NW-SE`, `Three Cities`, `All Cities`) %>%
+      std.dev = as.character(round(sd(detect), 2))) |> 
+  mutate(std.dev = ifelse(std.dev == 0.5, "(0.50)", paste0("(", std.dev, ")"))) |>   mutate(m = ifelse(m == 0.4, "0.40", m)) |> 
+  gather(stat, value, m, std.dev) |> 
+  pivot_wider(names_from = "trend", values_from = "value") |> 
+  arrange(type) |> ungroup() |> 
+  mutate(Type = types) |> select(Type, `NW-SE`, `Three Cities`, `All Cities`) |>
   knitr::kable(., format = "latex", align = "lccc", booktabs = TRUE, 
     linesep = c("", "\\addlinespace"))
 ```
@@ -739,30 +737,30 @@ detect_fit <- glmer(detect ~ type*trend + (1|contributor),
 glmer_terms <- c("Intercept", "Hex.", "Three Cities", "All Cities",
   "Hex:Three Cities", "Hex:All Cities")
 
-detection_rates <- tidy(detect_fit) %>%
-  mutate(detection_rates = round(exp(estimate)/(1+exp(estimate)),2)) %>%
-  select(term, estimate, detection_rates) %>% pull(detection_rates)
+detection_rates <- tidy(detect_fit) |>
+  mutate(detection_rates = round(exp(estimate)/(1+exp(estimate)),2)) |>
+  select(term, estimate, detection_rates) |> pull(detection_rates)
 
 detect_fit_smry <- summary(detect_fit)
 
-tidy(detect_fit) %>%
-  mutate_at(.vars = c("estimate", "std.error"), round, 2) %>% 
-  mutate(p.value = round(p.value, digits=2)) %>% 
-  rowwise() %>%
+tidy(detect_fit) |>
+  mutate_at(.vars = c("estimate", "std.error"), round, 2) |> 
+  mutate(p.value = round(p.value, digits=2)) |> 
+  rowwise() |>
   mutate(sig = case_when(
   p.value <= 0.001 ~ "$^{***}$",
   p.value <= 0.01 ~  "$^{**}$",
   p.value <= 0.05 ~  "$^{*}$",
   p.value <= 0.01 ~  "$^{.}$",
-  TRUE ~ "$^{ }$")) %>%
-  ungroup() %>% 
-  filter(!is.na(std.error)) %>%
-  mutate(term = glmer_terms) %>% 
+  TRUE ~ "$^{ }$")) |>
+  ungroup() |> 
+  filter(!is.na(std.error)) |>
+  mutate(term = glmer_terms) |> 
   select(Term = term, 
     Est. = estimate,
     `Std. Err.` = std.error, 
     `P-val.` = p.value, 
-    Sig. = sig) %>% 
+    Sig. = sig) |> 
   knitr::kable(format = "latex", escape = FALSE, align= "rrlrr", 
     booktabs = T, linesep = c("", "\\addlinespace", "", "\\addlinespace", ""))
 ```
@@ -814,7 +812,7 @@ The estimated detection proportion from the model fit, computed using the `emmea
 #| fig-height: 4
 #| fig-width: 6
 #| out-width: 100%
-s <- d %>% group_by(type, trend, detect_f) %>%
+s <- d |> group_by(type, trend, detect_f) |>
   summarise(m=median(time_taken), 
             q1=quantile(time_taken, 0.25), 
             q3=quantile(time_taken, 0.75)) 
@@ -832,16 +830,16 @@ ggplot() +
 ```{r}
 #| eval: false
 # Check groups and demographics
-d %>% group_by(group) %>%   
+d |> group_by(group) |>   
   summarise(m=mean(time_taken), 
             s=sd(time_taken))
-d %>% group_by(gender) %>%   
+d |> group_by(gender) |>   
   summarise(m=mean(time_taken), 
             s=sd(time_taken))
-d %>% group_by(age) %>%   
+d |> group_by(age) |>   
   summarise(m=mean(time_taken), 
             s=sd(time_taken))
-d %>% group_by(education) %>%   
+d |> group_by(education) |>   
   summarise(m=mean(time_taken), 
             s=sd(time_taken))
 
@@ -849,8 +847,8 @@ d %>% group_by(education) %>%
 
 ```{r}
 # Check time difference between default choice
-d_zeros <- d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
-  group_by(zeros) %>%   
+d_zeros <- d |> mutate(zeros = if_else(choice == 0, 0, 1)) |>
+  group_by(zeros) |>   
   summarise(m=median(time_taken), 
             mn=min(time_taken),
             mx=max(time_taken),
@@ -858,8 +856,8 @@ d_zeros <- d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
             q3=quantile(time_taken, 0.75),
             n=n())
 
-d_zeros_detect <- d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
-  group_by(zeros, detect_f) %>%   
+d_zeros_detect <- d |> mutate(zeros = if_else(choice == 0, 0, 1)) |>
+  group_by(zeros, detect_f) |>   
   summarise(m=median(time_taken), 
             mn=min(time_taken),
             mx=max(time_taken),
@@ -867,7 +865,7 @@ d_zeros_detect <- d %>% mutate(zeros = if_else(choice == 0, 0, 1)) %>%
             q3=quantile(time_taken, 0.75),
             n=n())
 # Summarise across subjects
-contributor_smry <- d %>% group_by(contributor) %>%   
+contributor_smry <- d |> group_by(contributor) |>   
   summarise(m_d=mean(detect), 
             s_d=sd(detect),
             m_t=mean(time_taken), 
@@ -907,14 +905,14 @@ That some evaluations occurred within milliseconds is a little surprising. Inves
 #| fig-height: 5
 #| fig-width: 10
 #| out-width: 100%
-d <- d %>% 
-  mutate(certainty = as_factor(certainty)) %>% 
+d <- d |> 
+  mutate(certainty = as_factor(certainty)) |> 
   mutate(replicate_f = as_factor(replicate)) 
  
-#d %>% 
+#d |> 
 #  mutate(Detected = factor(detect_f, 
 #    levels = c("Detected? Yes", "Detected? No"), 
-#    labels = c("Yes", "No"))) %>% 
+#    labels = c("Yes", "No"))) |> 
 #ggplot(aes(x = certainty, fill = Detected)) +  
 #  scale_fill_manual(values = detect_f_colors) +
 #  geom_bar(position="dodge") + 
@@ -960,28 +958,28 @@ The choice "None of these reasons" was used as the default value to minimise noi
 #| label: tbl-reason
 #| tbl-cap: "Proportion of participants chose each reason for their choice of plot, computed separately for each Trend and Map Type level, and whether the data plot was detected. The primary reason when participants were evaluating the choropleth map was 'consistent' or 'trend', but for the hexagon tile map it was 'clusters', when they detected the data plot."
 # Qualitative analysis of reason
-reasons_smry <- d %>% 
-  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) %>% 
+reasons_smry <- d |> 
+  mutate(reason = ifelse(reason =="0.0", "no reason", reason)) |> 
   mutate(Detected = ifelse(detect_f == "Detected? Yes", 
                            "Yes", "No"),
-    Trend = trend) %>% 
-  group_by(Trend, Detected, type) %>% 
-  count(reason) %>%
-  ungroup() %>%
-  group_by(Trend, Detected, type) %>%
-  mutate(prop = n/sum(n)) %>% 
-  ungroup() %>%
-  select(Trend, Detected, type, reason, prop) %>%
-  mutate(prop = round(prop, 2)) %>%
+    Trend = trend) |> 
+  group_by(Trend, Detected, type) |> 
+  count(reason) |>
+  ungroup() |>
+  group_by(Trend, Detected, type) |>
+  mutate(prop = n/sum(n)) |> 
+  ungroup() |>
+  select(Trend, Detected, type, reason, prop) |>
+  mutate(prop = round(prop, 2)) |>
   pivot_wider(names_from = reason, 
               values_from = prop, 
-              values_fill = 0) %>%
+              values_fill = 0) |>
   select(Trend, Detected, type, clusters, trend, consistent, hotspots, `no reason`)
   
-#  mutate(prop = round(n/sum(n), 2), r_prop = paste0(reason, ":", prop)) %>% 
-#  top_n(1, n) %>% summarise(reasons = paste(reason, collapse=", ")) %>% 
-#  pivot_wider(names_from = c("type"), values_from = c("reasons")) %>% 
-#  ungroup() %>% 
+#  mutate(prop = round(n/sum(n), 2), r_prop = paste0(reason, ":", prop)) |> 
+#  top_n(1, n) |> summarise(reasons = paste(reason, collapse=", ")) |> 
+#  pivot_wider(names_from = c("type"), values_from = c("reasons")) |> 
+#  ungroup() |> 
 reasons_smry |>  
   arrange(desc(Detected), Trend, type) |>
   knitr::kable(format = "latex", booktabs = TRUE,
@@ -989,8 +987,8 @@ reasons_smry |>
                              "clusters", "trend", "consistent",
                              "hotspots", "none"),
                  align = "lllrrrrr",
-    linesep = c("", "\\addlinespace", "", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","")) #%>% 
-  #kable_styling(bootstrap_options = "hold_position") %>% 
+    linesep = c("", "\\addlinespace", "", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","")) #|> 
+  #kable_styling(bootstrap_options = "hold_position") |> 
   #collapse_rows(., columns = 1)
 ```
 
@@ -1054,7 +1052,7 @@ The authors would like to thank the Australian Cancer Atlas team for discussions
 
 # Supplementary materials and reproducibility {-}
 
-The source code to produce this document can be found on [GitHub](https://github.com/srkobakian/experiment/paper).
+This document was written using quarto. This document contains the code to produce the summaries, plots and additional checks in the paper.  and all the code to reproduce the analysis, and do additional checks can be found on [GitHub](https://github.com/srkobakian/experiment/paper).
 Supplementary materials have been included to discuss the survey procedures and the lineups that were used.
 The full set of images can be found here, too. 
 
@@ -1070,7 +1068,7 @@ The analysis of the work was completed in R [@RCore] with the use of the followi
  - Document creation: quarto [@Allaire_Quarto_2025], anzjs template [@quarto-anzjs], knitr [@knitr].
  - Lineup creation: nullabor [@nullabor], gstat [@gstat].
  - Data analysis: tidyverse [@tidyverse], ggthemes [@ggthemes], RColorBrewer [@RColorBrewer].
- - Plots: ggplot2 [@ggplot2], cowplot [@cowplot], png [@png], grid [@grid], ggbeeswarm [@ggbeeswarm], ggmosaic [@ggmosaic].
+ - Plots: ggplot2 [@ggplot2], cowplot [@cowplot], png [@png], ggbeeswarm [@ggbeeswarm], ggmosaic [@ggmosaic].
  - Modelling and summary presentation: lme4 [@lme4], kableExtra [@kableExtra].
 
 # Ethics Declaration {-}
