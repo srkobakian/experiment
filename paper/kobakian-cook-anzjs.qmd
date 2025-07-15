@@ -24,9 +24,9 @@ author:
           - name: Monash University
             department: Econometrics and Business Statistics Faculty
             address: 29 Ancora Imparo Way, Clayton, VIC 3800, Australia
-keywords: ["data visualisation", "visual inference", "geospatial", "statistical graphics"]
+keywords: ["data visualisation", "visual inference", "geospatial", "statistical graphics", "designed experiment"]
 abstract: |
-  The choropleth map display is commonly used for communicating spatial distributions across geographic areas. However, when choropleths are used the size of the geographic units will influence the understanding of the distribution derived by map users. The hexagon tile map is presented as an alternative display for visualizing population related distributions effectively. Visual inference is used to measure the power of the hexagon tile map design, and the choropleth is used as a comparison. The hexagon tile map display is tested using a distribution that is directly related to the geography, with values monotonically increasing from the North-West to South-East areas of Australia. This study finds in a hexagon tile map lineup the single map that contains a population related distribution is detected with greater probability than the same data displayed in a choropleth map. These findings should encourage map creators to implement alternative displays and consider a hexagon tile map when presenting spatial distributions of heterogeneous areas.
+  The choropleth map is a common tool for communicating spatial distributions across geographic areas. However, the size of geographic units can distort interpretation, influencing how users perceive the distribution. A common alternative is the cartogram, which resizes areas based on population. Yet, in Australia, the stark disparities in geography and population make cartograms less suitable. This study explores the hexagon tile map as an alternative. We report results from a task-based experiment involving human participants, using the lineup protocol to assess how well hexagon tile maps and choropleths convey spatial patterns. Three spatial patterns were tested: one reflecting geography, with values increasing monotonically from the northwest to southeast of Australia, and two with clustered high concentrations. Results show that the hexagon tile map outperforms the choropleth. These findings support the use of alternative map displays and suggest that hexagon tile maps are effective for visualising spatial distributions in heterogeneous regions.
 bibliography: paper.bib
 ---
 
@@ -768,7 +768,7 @@ tidy(detect_fit) |>
 
 ```{r}
 #| label: tbl-detect-prop
-#| tbl-cap: "Model estimates for the proportion of detection in each of the trend models (standard error). Note that selecting the data plot by chance would produce a detection rate of 0.05."
+#| tbl-cap: "Model estimates for the proportion of detection in each of the trend models (standard error). Note that selecting the data plot by chance would produce a detection rate of 0.083, for each lineup."
 # Proportions of detections, estimated from model
 detect_props <- emmeans(detect_fit, specs = ~ type*trend, type = "response") |>
   as_tibble() |>
@@ -803,7 +803,7 @@ detect_props |>
 
 @tbl-detect-glmer1 presents a summary of the generalised linear mixed effects model, testing the effect of map type and trend model on the detection rate. The results support the summary from @fig-detect-compare. Overall, the hexagon tile map performs marginally better than the choropleth for all trend models, and with differing magnitudes of effects. The subject-specific random intercepts have mean `r round(detect_fit_smry$varcor$contributor[[1]], 2)` and standard devation `r round(attr(detect_fit_smry$varcor$contributor, "stddev")[[1]], 2)`.
 
-The estimated detection proportion from the model fit, computed using the `emmeans` package [@Lenth2025] are shown in @tbl-detect-prop. For the All Cities trend participants were about three times more likely to detect the cluster pattern with the hexagon tile map than the choropleth. The Three Cities trend was practically not detectable in the choropleth map. The detection rates were more similar for the NW-SE trend, but slightly higher for the hexagon tile map, which was a surprise. Note that, these detection rates are all substantially higher than chance, except for the choropleth map on the Three Cities. For a single evaluation the detection rate of the data plot selected by chance is $1/20=0.05$ because the lineups used in this experiment had 20 plots. When designing an experiment like this it is important to produce lineups that strike a balance between simple and hard, so that there is a chance of discovering the effect of interest. This experiment has managed to do this extremely well, which is a result of pilot studies, careful null data generation, and power calculations to determine appropriate sample size.
+The estimated detection proportion from the model fit, computed using the `emmeans` package [@Lenth2025] are shown in @tbl-detect-prop. For the All Cities trend participants were about three times more likely to detect the cluster pattern with the hexagon tile map than the choropleth. The Three Cities trend was practically not detectable in the choropleth map. The detection rates were more similar for the NW-SE trend, but slightly higher for the hexagon tile map, which was a surprise. Note that, these detection rates are all substantially higher than chance, except for the choropleth map on the Three Cities. For a single evaluation, the detection rate of the data plot selected by chance is $1/12=0.083$ because the lineups used in this experiment had 12 plots. The choice of 12 plots in the lineups instead of the usual 20, which would have produced the by chance detection rate of 0.05, is because reading a map is relatively complex, and pilot studies suggested that 12 was a reasonable cognitive load but 20 was not. When designing an experiment like this it is important to produce lineups that strike a balance between simple and hard, so that there is a chance of discovering the effect of interest. This experiment has managed to do this extremely well, which is a result of pilot studies, careful null data generation, and power calculations to determine appropriate sample size.
 
 
 
@@ -931,6 +931,7 @@ d |>
     scale_fill_manual("", values = type2_colors) +
     scale_y_continuous("proportion", breaks=seq(0,1,0.25)) +
     facet_grid(Detected ~ trend) +
+    theme_bw() +
     theme(aspect.ratio = 0.8, 
       axis.text = element_text(size="10"),
       legend.position = "bottom")
@@ -957,7 +958,7 @@ The choice "None of these reasons" was used as the default value to minimise noi
 
 ```{r}
 #| label: tbl-reason
-#| tbl-cap: "Proportion of participants chose each reason for their choice of plot, computed separately for each Trend and Map Type level, and whether the data plot was detected. The primary reason when participants were evaluating the choropleth map was 'consistent' or 'trend', but for the hexagon tile map it was 'clusters', when they detected the data plot."
+#| tbl-cap: "Proportion of reasons provided by participants for their plot choice, broken down by Trend, Map Type, and data plot detection. The primary reason when participants were evaluating the choropleth map was 'consistent' or 'trend', but for the hexagon tile map it was 'clusters', when they detected the data plot."
 # Qualitative analysis of reason
 reasons_smry <- d |> 
   mutate(reason = ifelse(reason =="0.0", "no reason", reason)) |> 
