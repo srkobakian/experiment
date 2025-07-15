@@ -313,16 +313,7 @@ The paper is organised as follows. The next section discusses the background of 
 ## Spatial data displays
 
 <!-- foundation, tradition -->  
-Spatial visualisations communicate the distribution of statistics over geographic landscapes. The choropleth map [@EI;@BCM] is a traditional display. It is used to present statistics that have been aggregated on geographic units. Creating a choropleth map involves drawing polygons representing the administrative boundaries, and filling with colour mapped to the value of the statistic. The choropleth map places the statistic in the context of the spatial domain, so that the reader can see whether there are spatial trends, clusters or anomalies. This is important for digesting disease patterns. If there is a linear trend it may imply a relationship between disease and geographic location. If there is a cluster, or an anomaly, there may be a localized outbreak of the disease. <!--Aggregating the statistic on administrative units, provides a level of privacy to individuals, while allowing the impact of the disease on the community to be analyzed.-->
-
-<!-- Many sets of Australian statistical areas have a large disparity between the smallest and largest units.
-The rural communities in Australia operate on a much larger geographic space than small inner-city communities. When a spatial distribution is related to the size of the areas, or the population density, the size of the regions can allow erroneous conclusions to be drawn about the state of the statistic over the entire population, when presenting the statistics on a geographic map base. This occurs as large regions filled with a consistent colour or pattern can draw the attention of map readers, and small regions are not paid equal attention [@CTTMB]. An alternative display can be used to honestly communicate a spatial distribution for a set of heterogeneous areas [@NISCC]. 
-This work aims to show that a hexagon tile map display is a viable alternative to the geographic map base for presenting population statistics.
-
-
-A choropleth map is not the only display that can be used for presenting geospatial data. 
-Alternative maps include various cartograms and tessellated tile maps. They allow other variables to be incorporated in the display to highlight the statistical values of various geographic areas.
--->
+Spatial visualisations communicate the distribution of statistics over geographic landscapes. The choropleth map [@EI;@BCM] is a traditional display. It is used to present statistics that have been aggregated on geographic units. Creating a choropleth map involves drawing polygons representing the administrative boundaries, and filling with colour mapped to the value of the statistic. The choropleth map places the statistic in the context of the spatial domain, so that the reader can see whether there are spatial trends, clusters or anomalies. This is important for digesting disease patterns. If there is a linear trend it may imply a relationship between disease and geographic location. If there is a cluster, or an anomaly, there may be a localized outbreak of the disease. 
 
 ```{r liver, eval=FALSE, fig.height = 4, fig.width = 4, fig.cap = "A choropleth map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.", results = "asis"}
 ggdraw() +
@@ -334,15 +325,6 @@ ggdraw() +
 ggdraw() +
   draw_plot(rasterGrob(readPNG("figures/aus_liver_m_hex.png")))
 ```
-<!--
-This will create the figure as needed in the paper, but I can't get the width argument to work properly.
-\begin{figure*}[!t]
-\centering
-\includegraphics{paper_files/figure-latex/liver-1.pdf}
-\caption{A choropleth map (a), and hexagon tile map (b) of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.}
-\label{fig:liver2}
-\end{figure*}
--->
 
 ```{r}
 #| label: fig-thyroid
@@ -409,8 +391,6 @@ Additional considerations when completing this experimental task included the di
 Australia is used for the study, with Statistical Area 3 (SA3) [@abs2016] as the geographic units. The results should apply broadly to any other geographic areas of interest, if there are large differences in area and population size. 
 
 ## Experimental factors
-
-<!-- The variables changed between groups were the type of plot shown and the trend model.-->
 
 The primary factor in the experiment is the map type. The secondary factor is a trend model. Three trend models were developed, one mirroring a large spatial trend for which the choropleth would be expected to do well, and two with differing level of inner city hot spots. These latter two reflect the structure seen in the thyroid cancer incidence data (@fig-thyroid). This produces six treatment levels:
 
@@ -492,20 +472,7 @@ sa3_sims1_1 <- as_tibble(var.sim1) |>
 
 ```
 
-
-<!-- Applying smoothing -->
-
-<!-- The null model imposed by our hypothesis suggests that neighbors are related. The randomness induced when generating the null data was smoothed to mirror the practices employed by the Australian Cancer Atlas statisticians. 
-In these 12 sets of data, each of the 12 maps were smoothed several times to replicate the spatial autocorrelation seen in cancer data sets presented in the Australian Cancer Atlas, without implementing uncertainty via transparency.
-
-A list of neighbors for each geographic unit was generated to use when smoothing the distributions. For each geographic unit the same spatial smoother was applied in each layer of smoothing. It kept half of the units' previous value, and derived the new half as the mean of the values of its neighbors at the previous layer of smoothing.  
-
-This smoothing allowed neighbors to be related to each other, but also allowed outliers, and showed distributions similar to the thyroid cancer incidence distribution (@fig-thyroid). -->
-
-<!-- methods for smoothing spatial_smoother() in 00_pilot.R and used in all the  pilot_cities.R ... files -->
-
 ## Generating lineups 
-
 
 <!-- Discuss simulating the trend data -->
 For each trend model, four real data displays were created by manipulating the centroid values of each of the SA3 geographic units. Each trend model is motivated by patterns observed in spatial data: North West to South East (NW-SE) is a basic spatial trend across the entire country, Three Cities is the existence of clusters of high values, and All Cities is also clusters, but more of them. We would expect that clusters pattern to be more visible with a hexagon tile map but the large spatial trend to be more visible in the choropleth map. 
@@ -538,7 +505,6 @@ After submitting these responses, the survey application switched to the tab of 
 When participants completed the twelve evaluations the survey application triggered a data analysis script. This created a data set with one row per evaluation. Containing the responses to the three questions. The script also added the title of the image, which indicated the type of map display, the type of distribution hidden in the lineup, and the location of the data plot. It also calculated the time taken by participant to view each lineup.
 
 Each participant used the internet to access the survey, and data was transferred by secure link from the web app to a Google sheet using the `googlesheets` package tools [@sheets].
-<!-- The data transfer from the web application to the data set took place using a secure link to the googlesheet used to store results. The application connected to the googlesheet using the googlesheets [@sheets] R package when participants opened the application, and interacted again when participants chose to submit the survey. At this time it added the participant's responses to the twelve lineup displays as twelve rows of data in the googlesheet.-->
 
 ## Participants
 
@@ -567,8 +533,6 @@ Participants then moved to the evaluation phase. The set of images differed for 
  - **Certainty**: how certain that their choice is different from the others, on a scale of 1-5.
 
 on each of lineup. These responses are saved after entering. 
-<!-- Participants were expected to click the submit button on the final page.-->
-
 
 ## Analysis
 
@@ -579,10 +543,6 @@ Data is checked to ensure that survey responses collected for each participants 
 ### Descriptive statistics
 
 Basic descriptive statistics were computed for the different experimental treatments. Basic plots summarising detection rates by map type and trend model type, and feedback and demographic variables against the different experimental design elements.
-
-<!-- Similar plots were made of the feedback and demographic variables - reason for choice, reported difficulty, gender, age, education, having lived in Australia - against the design variables.-->
-
-<!-- Plots will be made in R [@RCore], with the `ggplot2` package [@ggplot2].-->  
 
 ### Modelling
 
@@ -597,67 +557,9 @@ $$
 \text{logit}(p_{ijk}) = \mu_i + \tau_j + \delta_k + (\tau \delta)_{jk}
 $$
 
-<!--
-$$y_{ij} = \mu + \tau_i + \delta_j + (\tau\delta)_{ij} + \varepsilon_{i,j}, ~~~ i=1,2; ~j=1,2,3$$
--->
-
 where $y_{ijk} = 0, 1$ represents whether subject $i$ detected the data plot (1) or did not (0), $\mu_i, ~i=1, \dots n$ is the subject-specific random intercept, $n$ is the number of subjects, $\tau_j, ~j=1,2$ is the map type effect, $\delta_k, ~k=1,2,3$ is the trend model effect. The interaction between map type and trend model allows for any map type effect to differ between trend models. As each participant provides results from 12 lineups, this model can account for each individual participants' abilities with the subject-specific random intercept. 
 
-<!-- 
-The model specifies a logit link, this means the predicted values from the `glmer` model should be back-transformed to fit between 0 and 1. The predictions  $\widehat{p}(\eta)$ are transformed to be probabilities between 0 and 1 with the link specified below:
-
-
-$$\widehat{p}(\eta) = \frac{e^{\eta}}{1 + e^{\eta}}$$ \label{eq:transform}
-$$\eta = f(\tau_i,\delta_j)$$
--->
-
-
-<!--
-## Experimental design
-
-
-The choropleth map was used as the comparative visualization for presenting the lineups [@VVSIALM] as this is the common display for spatial cancer data.
-Geographic distributions usually have some degree of spatial autocorrelation between neighbors.
-This feature was incorporated in all maps shown in the lineup displays, the map that contained the trend feature shown in only one set of data was also affected by spatial autocorrelation.
-A line up protocol was implemented to arrange $N$ maps in each display. 
-A reasonable amount of null plots $N-1$ in the lineup was chosen to ensure the real data map was well hidden. A reasonable number of plots to show in each lineup, $N = 12$ was chosen to not overwhelm participants due to the detailed choropleth maps of Australian SA3 areas.
-
-The hypotheses for each lineup are
-$H_0$ : All plots look the same
-$H_a$ : One plot looks different to the other plots 
-
-
-The same data was visualized on a choropleth map, and on a hexagon tile map, however in this study the participants only saw one of these two displays. The accuracy and times taken were aggregated for Groups and.
-Comparing the results of participants who see the choropleth to those who see a hexagon tile map will show that population related distributions are spotted more frequently in a hexagon tile map display.
-
-
-Let $n$ be the number of independent observers and $x_i$ the
-number of observers who picked plot $i$, $i = \{1,...,m\}$
-
-Then $x_i, x_2, ..., x_m$ follows a multinomial
-distribution$Mult_{\pi_1, \pi_2, ...., \pi_m}(x_i, x_2, ..., x_m)$ with 
-$\sum_i \pi_i = 1$, where $\pi_i$ is the probability that plot $i$ is picked by an
-observer, which we can estimate as $\hat{\pi}_i = x_i/n$.
-The researchers compared the length of time taken, and the accuracy of the participants choices.
-The power of a lineup can therefore be estimated as the ratio of correct
-identifications $x$ out of $n$ viewings.
-
-## The methods of data analysis used
-The data analysis methods used in order to analyse and collate the results included downloading the survey submissions and opening them into the analysis software R [@RCore].
-   
-For each of the 12 lineup displays the researchers calculated:
-
- - accuracy: the proportion of subjects who detected the data plot
- - efficiency: average time taken to respond
--->
-
 # Results {#sec-results}
-
-<!--
-The results section explores the [Accuracy] and contrasts the detection rate of the real data plot in the lineups.
-The second section considers the [Speed] participants had when submitting their responses to the three questions asked regarding each display.
-The [Certainty] participants felt about their decisions and the [Reason] for their choice in plot is also discussed.
--->
 
 A total of `r n_all_evals` responses were collected from `r n_all_contributors` participants. A small number of participants, `r n_all_contributors-n_contributors`,  were removed because they did not provide at least 11 responses, or left more than 3 at the default value of 0. These are participants that stopped early or clicked through without doing the evaluation. Set A was evaluated by `r n_AB$n[1]` participants, and `r n_AB$n[2]` evaluated set B. This resulted in `r n_evals` evaluations, corresponding to `r n_contributors` subjects, each evaluating 12 lineups, that were analysed on accuracy and speed. The certainty and reasons of subjects in their answers is also examined. 
 
@@ -702,31 +604,6 @@ d |> group_by(group) |>
     summarise(pdetect = length(detect[detect == 1])/length(detect)) |>
     ungroup()
 ```
-
-<!-- @tbl-desc-stats shows the means and standard deviations of the detection rate for each type of plot and each trend model. This also gives the standard deviations, the smallest standard deviation for all sets of replicates was the Three Cities trend model shown in a Choropleth display. This group of displays had a very small detection rate of 0.04. The mean detection rate for the Three Cities trend model shown as choropleth map lineups was also the smallest at 0.40.
-The North-West to South-East (NW-SE) trend model unexpectedly had a higher mean detection rate for the hexagon tile map displays, but the difference in the means of detection rate was only 0.10.
--->
-
-
-```{r}
-#| eval: false
-#| label: tbl-desc-stats
-#| tbl-cap: "The mean and standard deviation of the rate of detection for each trend model, calculated for the choropleth and hexagon tile map displays."
-types <- c("Choro.", "", "Hex.", "")
-
-d |> group_by(type, trend) |>
-  summarise(m = as.character(round(mean(detect), 2)),
-      std.dev = as.character(round(sd(detect), 2))) |> 
-  mutate(std.dev = ifelse(std.dev == 0.5, "(0.50)", paste0("(", std.dev, ")"))) |>   mutate(m = ifelse(m == 0.4, "0.40", m)) |> 
-  gather(stat, value, m, std.dev) |> 
-  pivot_wider(names_from = "trend", values_from = "value") |> 
-  arrange(type) |> ungroup() |> 
-  mutate(Type = types) |> select(Type, `NW-SE`, `Three Cities`, `All Cities`) |>
-  knitr::kable(., format = "latex", align = "lccc", booktabs = TRUE, 
-    linesep = c("", "\\addlinespace"))
-```
-
-
 
 ```{r}
 #| label: tbl-detect-glmer1
@@ -948,13 +825,6 @@ Participants provided their level of certainty regarding their choice using a fi
 
 The results when the data plot was detected are as expected, but that they are similar to the not detected group is interesting. It suggests that with the choropleth people are trying to read contiguous patterns, while the hexagon tile map is being read for pockets of differences. This may be due the hexagon tile map being non-contiguous. 
 
-<!--Participants were asked why they had made their plot choice and were able to select from a set of suggested reasons. 
-"Colour trend across the areas" was the most common selection for NW-SE trend displays (@tbl-reason).
-
-The reasons chosen by participants from the list provided to them varied more when viewing choropleth displays than the hexagon tile map.
-The hexagon tile map displays resulted in "Clusters of colour" as the most common choice made by participants.
-
-The choice "None of these reasons" was used as the default value to minimise noise from participants who did not select a response. -->
 
 ```{r}
 #| label: tbl-reason
@@ -1016,9 +886,6 @@ Hexagon displays are growing in popularity. Two media outlets used variations of
 This experiment focused on comparing a new display, the hexagon tile map, against the standard display, choropleth. There are other options that could have been included in the study, such as the use of insets of dense population areas along with the choropleth map, or the use of interactive graphics linking statistical charts with the choropleth. Keeping the scope of the study small was important to understand whether it was reasonable to recommend use of the hexagon tile map. Although we only tested on the Australian geography, the results should hold for other regions that have similarly disparities between population size and geographic size. 
 
 We would recommend doing follow-up studies that allow deeper understanding of how the different displays are read. For example, to understand the differences in how people read the choropleth map and the hexagon tile map as indicated by the different reasons given, could be done using an eyetracking experiment. @ZCHMR is an example of such an experiment where the manner in which people read lineups was examined.
-
-<!--The visual inference lineup protocol was employed to contrast the effectiveness of the displays.
-The results have shown that overall the use of the hexagon tile map display allows participants to find the data plot in the lineup more often. Using the visual inference protocol this result can be extended to show that it is a valid alternative display to communicate spatial distributions of population related data.
 
 We expected that the choropleth map would be superior for communicating the spatial pattern of geographic distributions. The data suggest that the participants perform slightly better or equally as well for each replicate in each trend model across the two displays. Table II shows that the difference in the mean detection rate for the two trend models was 0.10.
 
