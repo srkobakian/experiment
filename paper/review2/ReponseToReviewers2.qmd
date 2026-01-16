@@ -1,0 +1,84 @@
+---
+title: "Response to Reviews"
+author: "Stephanie Kobakian and Dianne Cook"
+format: pdf
+editor: visual
+---
+
+Thank you for the careful reviews of our paper. Please find *our responses provided point-by-point with the comments in italics*.
+
+Associate Editor
+
+Comments to the Author:
+
+Both reviewers are happy with the revision made, and I commend the authors for addressing the comments in a thoughtful manner. There are a few outstanding both reviewers raised that need to be addressed, before a final decision is confirmed.
+
+*Thank you*
+
+Referee(s)' Comments to Author:
+
+Referee: 3
+
+Comments to the Author
+
+Dear Authors,
+
+Thank you for your revisions to the manuscript, "Comparing the Effectiveness of the Choropleth Map with a Hexagon Tile Map for Communicating Patterns in Australian Spatial Statistics."
+
+I am pleased to say that the manuscript has improved significantly with your revisions. The paper is a valuable contribution to the field, and I recommend its acceptance for publication.
+
+I have a few minor, suggestions for further refinement that you may wish to consider before final publication. These are not critical for acceptance but could enhance the clarity and impact of your work:
+
+Section 4.3 Certainty:
+
+Figure 6: I interpret Figure 6 as a stacked bar plot where the width of the bar depicts the number of respondents for each certainty level. I wonder if the message of the figure would be clearer if the axis distinguished between choropleth and hexagon tile maps, and the filling represented the certainty levels. In its current state, the plot seems to show the percentage of "certain" respondents who rated a hex or choropleth tile.
+
+Related to the above, the statement "The distribution of certainty chosen by participants when viewing hexagon tile map or choropleth displays" would be more effective if it allowed for a direct comparison of the percentage of hexagon viewers who were certain versus the percentage of choropleth viewers who were certain.
+
+Section 5 Discussion:
+
+Lines 469-475: The digression in these lines discussing spatial data displays might fit more appropriately in Section 4 Spatial Data Displays.
+
+Line 494: Please clarify the reference to "Table II". Is this Table 2 from your manuscript, or another table? Also, a difference of 0.1 is mentioned – could you be more specifig if you are referencing that specific result for the NW-SE trend?
+
+Line 495: Regarding "The differences seen in the Figure 4 plot," please clarify whether this paragraph summarizes the model results from Table 1 or describes Figure 4. I would personally prefer the first variant, summarizing the model results.
+
+Line 507: There is a reference to Table 3 here; however, I assume this paragraph actually refers to Figure 6. The summary provided in this paragraph further strengthens my suggestion for a modified plot in Section 4.3.
+
+Thank you again for your hard work on this manuscript. I look forward to seeing it published.
+
+
+Referee: 2
+
+Comments to the Author
+
+SUMMARY
+
+This paper contributes a lineup protocol study that assesses the utility of the hexagon tile map (as an alternative to the choropleth map) for communicating Australian spatial statistics. Unlike choropleth maps, hexagon tile maps represent each geographic/administrative area with the same amount of space on the map. In turn, densely populated areas of interest, which are small geographically (and thus hard to see), become more visible to the map reader. Ultimately, the study provides compelling evidence to support the use of the hexagon tile map as an alternative to the choropleth map, in the context of communicating spatial statistics in Australia.
+
+COMMENTS
+
+Thank you for addressing my previous comments. Overall, this is a substantial improvement from the last draft I read. Below are some issues/changes to address/consider.
+
+Line 17. The sentence “This type of display may be useful for other countries…” is confusing, as you have not yet mentioned a particular country at that point in the main text. \\
+Line 47. Remove “The” before “Section 3”. \\
+Line 49. Change to “summarised” for consistency. \\
+Line 67. Fix “Figure 1 a” to be “Figure 1a” (and fix this throughout). \\
+Line 109. Typo. \\
+Line 116. Typo. \\
+Line 174. Typo. \\
+Line 225. I prefer “choropleth map” compared to just “choropleth.” \\
+Line 233. Typo. \\
+Line 260. Add apostrophe. \\
+Line 261. Add commas. \\
+Line 286. What does “trained using three test displays” mean? \\
+Lines 302 & 313: The big gap between these two is confusing. \\
+Lines 323-324. Add a verb. \\
+Figure 5. Please choose colors for the two larger average dots that are easier to see. Alternatively, you could make them opaque. \\
+Figure 6. I struggled with this figure a lot. It was hard for me to glean any meaningful insights from it. \\
+Line 431. Fix $. \\
+Line 471. Fix citation link. \\
+Line 493. Why is a roman numeral used? \\
+Line 495. I am confused by the first sentence. \\
+Line 500. Capitalize. \\
+Line 504. Remove apostrophe. \\
