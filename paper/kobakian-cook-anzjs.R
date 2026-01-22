@@ -1,4 +1,4 @@
-## ----setup, include=FALSE----------------------------------------------------
+## ----setup, include=FALSE--------------------------------------------------
 knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   out.width = "100%")
 
 
-## ----libraries---------------------------------------------------------------
+## ----libraries-------------------------------------------------------------
 # Load Libraries
 library(tidyverse)
 library(readxl)
@@ -23,7 +23,7 @@ library(lme4)
 library(cartogram)
 library(sugarbag)
 library(sf)
-library(ggmosaic)
+library(ggstats)
 library(emmeans)
 library(ggthemes)
 library(RColorBrewer)
@@ -34,19 +34,19 @@ library(patchwork)
 options(knitr.kable.digits = "2")
 
 
-## ----data--------------------------------------------------------------------
+## ----data------------------------------------------------------------------
 trend_colors <- c(
   "NW-SE" = "#B2DF8A",
   "Three Cities" = "#A6CEE3",
   "All Cities" = "#1F78B4")
   
 type_colors <- c(
-  "Choro." = "#fcae91",
-  "Hex." = "#a50f15")
+  "Choro." = "#a8c0a8",#"#fcae91",
+  "Hex." = "#BD852C")  #"#a50f15")
 
 type2_colors <- c(
-  "choropleth" = "#fcae91",
-  "hexagon tile" = "#a50f15")
+  "choropleth" = "#d95f02",#"#fcae91",
+  "hexagon tile" = "#e7298a")  #"#a50f15")
 
 detect_f_colors <- c(
   "No" = "#66C2A5",
@@ -113,7 +113,7 @@ d <- d |> mutate(certainty = factor(as.character(certainty),
   levels = c("1", "2", "3", "4","5"), ordered=TRUE))
 
 
-## ----reps--------------------------------------------------------------------
+## ----reps------------------------------------------------------------------
 replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.png", 
                                    "aus_cities_3_geo.png", "aus_cities_3_hex.png",
                                    "aus_cities_4_geo.png", "aus_cities_4_hex.png",
@@ -133,7 +133,7 @@ replicate <- tibble(image_name = c("aus_cities_12_geo.png", "aus_cities_12_hex.p
 d <- d |> left_join(replicate, by = "image_name")
 
 
-## ----pdetection_group--------------------------------------------------------
+## ----pdetection_group------------------------------------------------------
 # Tidy for analysis
 d <- d |> 
   separate(image_name, c("nothing", "trend", "location", "type", "extra"), remove = FALSE) |>
@@ -156,7 +156,7 @@ plots <- d |> group_by(group, trend, type, location) |>
   summarise(pdetect = length(detect[detect == 1])/length(detect)) 
 
 
-## ----makethyroidplots--------------------------------------------------------
+## ----makethyroidplots------------------------------------------------------
 # Spatial polygons files sourced from: https://github.com/wfmackey/absmapsdata
 load("data/sa22011.rda")
 load("data/state2011.rda")
@@ -261,35 +261,27 @@ aus_hexmap_plot <- ggplot() +
   ggtitle("b. hexagon tile map")
 
 
-## ----liver, eval=FALSE, fig.height = 4, fig.width = 4, fig.cap = "A choropleth map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.", results = "asis"----
+## ----liver, eval=FALSE, fig.height = 4, fig.width = 4, fig.cap = "A choropleth map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth map.", results = "asis"----
 # ggdraw() +
 #   draw_plot(rasterGrob(readPNG("figures/aus_liver_m.png")))
 
 
-## ----liver-hex, eval=FALSE, fig.height = 4, fig.width = 4, fig.cap = "A hexagon tile map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth.", results = "asis"----
+## ----liver-hex, eval=FALSE, fig.height = 4, fig.width = 4, fig.cap = "A hexagon tile map of the smoothed average of liver cancer diagnoses for Australian males. The diverging colour scheme uses dark blue areas for much lower than average diagnoses, yellow areas with diagnoses around the Australian average, red shows diagnoses much higher than average. The hexagon tile map shows concentrations of higher than expected liver cancer rates in the cities of Melbourne and Sydney, which is not visible from the choropleth map.", results = "asis"----
 # 
 # ggdraw() +
 #   draw_plot(rasterGrob(readPNG("figures/aus_liver_m_hex.png")))
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: fig-thyroid
-#| fig-cap: "Thyroid cancer incidence among females across the Statistical Areas of Australia at Level 2, displayed using a choropleth (a) and a hexagon tile map (b). Blue indicates lower than average, and red indicates higher than average incidence. The choropleth suggests high incidence is clustered on the east coast but misses the high incidence in Perth and a few locations in inner Melbourne visible in the hexagon tile map."
+#| fig-cap: "Thyroid cancer incidence among females across the Statistical Areas of Australia at Level 2, displayed using a choropleth map (a) and a hexagon tile map (b). Blue indicates lower than average, and red indicates higher than average incidence. The choropleth map suggests high incidence is clustered on the east coast but misses the high incidence in Perth and a few locations in inner Melbourne visible in the hexagon tile map."
 #| out-width: 100%
 #| fig-width: 8
 #| fig-height: 3
 aus_ggchoro + aus_hexmap_plot + plot_layout(ncol=2)
 
 
-## ----thyroid-choro, eval=FALSE, out.height = "30%", fig.height = 3, fig.width = 4, fig.align='center', fig.cap = "A choropleth map of thyroid incidence among females across the Statistical Areas of Australia at Level 2. Blue indicates lower than average and red indicates higher than average incidence. A cluster of high incidence is visible on the east coast."----
-# aus_ggchoro
-
-
-## ----thyroid-hex, eval=FALSE, out.height = "30%", fig.height = 3, fig.width = 4, fig.align='center', fig.cap = "A hexagon tile map of female thyroid cancer incidence in Australia, the same data as shown in the choropleth map in Figure 1. The high incidence in several of the metropolitan regions (Brisbane, Sydney and Perth) can now be seen, along with numerous isolated spots."----
-# aus_hexmap_plot
-
-
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: fig-lineup
 #| fig-cap: "This lineup of twelve hexagon tile map displays contains one map with a real population related structure (location 3). The rest are null plots that contain only spatial dependence."
 #| fig-height: 8
@@ -298,14 +290,13 @@ ggdraw() +
   draw_plot(rasterGrob(readPNG("figures/aus_cities_3_hex.png")))
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: fig-exp-design
 #| results: "asis" 
 #| fig-width: 6 
 #| fig-height: 4
 #| out-width: 100%
-#| fig-cap: "The experimental design used in the study. Participants are allocated to group A or B, to evaluate either the choropleth or hexagon tile map lineup of each simulated data set. The text 'loc' refers to the location of the data plot in the lineup."
-#ggdraw(xlim = c(0,1), ylim = c(0,1)) + #draw_plot(rasterGrob(png::readPNG("figures/experiment_design.png")))
+#| fig-cap: "The experimental design used in the study. Participants are allocated to group A or B, to evaluate either the choropleth map or hexagon tile map lineup of each simulated data set. The text 'loc' refers to the location of the data plot in the lineup."
 
 expt_design <- d |>
   count(group, trend, location, type, replicate)
@@ -321,7 +312,7 @@ ggplot(expt_design, ) +
         axis.ticks = element_blank())
 
 
-## ----eval=FALSE, echo=FALSE--------------------------------------------------
+## ----eval=FALSE, echo=FALSE------------------------------------------------
 # # This is example code illustrating the null data generation
 # var.g.dummy <- gstat(formula = z ~ 1,
 #                      locations = ~ longitude + latitude,
@@ -358,7 +349,7 @@ ggplot(expt_design, ) +
 # 
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: fig-detect-compare
 #| fig-cap: "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or hexagon tile map display are linked to show the difference in the detection rate."
 #| fig-height: 4
@@ -387,7 +378,7 @@ ggplot(d_smry, aes(x = type, y = pdetect, color = trend)) +
   theme(legend.position = "none")
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| eval: false
 # # Check detection rate across groups
 # d |> group_by(group) |>
@@ -396,7 +387,7 @@ ggplot(d_smry, aes(x = type, y = pdetect, color = trend)) +
 #     ungroup()
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: tbl-detect-glmer1
 #| tbl-cap: "Parameter estimates of the fitted model fit for  detection rate. All terms are statistically significant  ($^{**}=0.01$, $^{***}=0.001$)."
 # Mixed effects models
@@ -434,7 +425,7 @@ tidy(detect_fit) |>
     booktabs = T, linesep = c("", "\\addlinespace", "", "\\addlinespace", ""))
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: tbl-detect-prop
 #| tbl-cap: "Model estimates for the proportion of detection in each of the trend models (standard error). Note that selecting the data plot by chance would produce a detection rate of 0.083, for each lineup."
 # Proportions of detections, estimated from model
@@ -469,28 +460,31 @@ detect_props |>
     linesep = c("", "\\addlinespace", "", "\\addlinespace", ""))
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: fig-beeswarm
-#| fig-cap: "The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using horizontally jittered dotplots. The coloured point indicates average time taken for each map type. Although some participants take just a few seconds per evaluation, and some take as much as 60 seconds, but there is very little difference in time taken between map types."
+#| fig-cap: "The distribution of the time taken (seconds) to submit a response for each combination of trend, whether the data plot was detected, and type of display, shown using a median value and horizontally jittered dotplots. There are only small differences in time taken between map types. Some participants take under a second per evaluation, and some take as much as 60 seconds, but this occurs with detection and non-detection."
 #| fig-height: 4
 #| fig-width: 6
 #| out-width: 100%
 s <- d |> group_by(type, trend, detect_f) |>
   summarise(m=median(time_taken), 
             q1=quantile(time_taken, 0.25), 
-            q3=quantile(time_taken, 0.75)) 
+            q3=quantile(time_taken, 0.75),
+            s=sd(time_taken),
+            n=n()) |>
+  mutate(lc = m - s*qt(0.975, n-1)/sqrt(n),
+         uc = m + s*qt(0.975, n-1)/sqrt(n))
 ggplot() + 
-  geom_quasirandom(data=d, aes(x=type, y=time_taken), alpha=0.9) + 
-  #geom_hline(data=s, aes(yintercept=m, color=type)) +
-  geom_point(data=s, aes(x=type, y=m, color=type), size=3, alpha=0.7) +
-  #geom_errorbar(data=s, aes(x=type, ymin=q1, ymax=q3, color=type), width=0.3, size=2) +
+  geom_quasirandom(data=d, aes(x=type, y=time_taken, color=type), alpha=0.2) + 
+  geom_point(data=s, aes(x=type, y=m, color=type), size=3) +
   scale_color_manual("", values = type_colors) +
   facet_grid(detect_f~trend) + 
   ylab("Time taken (seconds)") + xlab("") +
+  theme_bw() +
   theme(legend.position="none")
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| eval: false
 # # Check groups and demographics
 # d |> group_by(group) |>
@@ -508,7 +502,7 @@ ggplot() +
 # 
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 # Check time difference between default choice
 d_zeros <- d |> mutate(zeros = if_else(choice == 0, 0, 1)) |>
   group_by(zeros) |>   
@@ -535,7 +529,7 @@ contributor_smry <- d |> group_by(contributor) |>
             s_t=sd(time_taken)) 
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| eval: false
 # ggplot(contributor_smry, aes(m_t, m_d)) +
 #   geom_point() +
@@ -555,9 +549,9 @@ contributor_smry <- d |> group_by(contributor) |>
 #   theme(aspect.ratio = 1)
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: fig-certainty 
-#| fig-cap: "The distribution of certainty chosen by participants when viewing hexagon tile map or choropleth displays, shown as a mosaic plot, faceted by the trend model and whether the plot was detected or not. At most trend models and whether the plot was detected or not, participants were more likely to choose a high certainty when evaluating a choropleth map."
+#| fig-cap: "The distribution of certainty chosen by participants when viewing hexagon tile map or choropleth map displays, shown as centered bar plots, faceted by the trend model and whether the plot was detected or not. Participants tended to choose higher certainty when evaluating a choropleth map, on average, particularly when the data plot was not detected."
 #| fig-height: 5
 #| fig-width: 10
 #| out-width: 100%
@@ -565,34 +559,25 @@ d <- d |>
   mutate(certainty = as_factor(certainty)) |> 
   mutate(replicate_f = as_factor(replicate)) 
  
-#d |> 
-#  mutate(Detected = factor(detect_f, 
-#    levels = c("Detected? Yes", "Detected? No"), 
-#    labels = c("Yes", "No"))) |> 
-#ggplot(aes(x = certainty, fill = Detected)) +  
-#  scale_fill_manual(values = detect_f_colors) +
-#  geom_bar(position="dodge") + 
-#  facet_grid(type ~ trend) +
-#  theme(legend.position = "bottom") + xlab("Level of certainty")
-
-# devtools::install_github("haleyjeppson/ggmosaic")
-d |> 
+d_tbl <- d |> 
   mutate(Detected = factor(detect_f, 
     levels = c("Detected? Yes", "Detected? No"), 
     labels = c("Detected? Yes", "Detected? No"))) |>
   mutate(type = fct_recode(type, "choropleth" = "Choro.", "hexagon tile" = "Hex.")) |>
-  ggplot() +
-    geom_mosaic(aes(x = certainty, fill = type)) +  
-    scale_fill_manual("", values = type2_colors) +
-    scale_y_continuous("proportion", breaks=seq(0,1,0.25)) +
-    facet_grid(Detected ~ trend) +
-    theme_bw() +
-    theme(aspect.ratio = 0.8, 
-      axis.text = element_text(size="10"),
-      legend.position = "bottom")
+  mutate(certainty_f = fct_recode(certainty, "Very uncertain"="1", 
+                                "Uncertain"="2", 
+                                "Neutral"="3",
+                                "Certain"="4",
+                                "Very certain"="5")) |>
+  select(contributor, replicate, certainty_f, type, Detected, trend) |>
+  pivot_wider(names_from=type, values_from=certainty_f)
+gglikert(d_tbl, include=choropleth:`hexagon tile`,
+         facet_rows=vars(Detected), facet_cols=vars(trend),
+         add_labels=FALSE, add_totals=FALSE) +
+  scale_fill_brewer("", palette="PiYG")
 
 
-## ----------------------------------------------------------------------------
+## --------------------------------------------------------------------------
 #| label: tbl-reason
 #| tbl-cap: "Proportion of reasons provided by participants for their plot choice, broken down by Trend, Map Type, and data plot detection. The primary reason when participants were evaluating the choropleth map was 'consistent' or 'trend', but for the hexagon tile map it was 'clusters', when they detected the data plot."
 # Qualitative analysis of reason
@@ -614,10 +599,6 @@ reasons_smry <- d |>
               values_fill = 0) |>
   select(Trend, Detected, type, clusters, trend, consistent, hotspots, `no reason`)
   
-#  mutate(prop = round(n/sum(n), 2), r_prop = paste0(reason, ":", prop)) |> 
-#  top_n(1, n) |> summarise(reasons = paste(reason, collapse=", ")) |> 
-#  pivot_wider(names_from = c("type"), values_from = c("reasons")) |> 
-#  ungroup() |> 
 reasons_smry |>  
   arrange(desc(Detected), Trend, type) |>
   knitr::kable(format = "latex", booktabs = TRUE,
@@ -625,7 +606,5 @@ reasons_smry |>
                              "clusters", "trend", "consistent",
                              "hotspots", "none"),
                  align = "lllrrrrr",
-    linesep = c("", "\\addlinespace", "", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","")) #|> 
-  #kable_styling(bootstrap_options = "hold_position") |> 
-  #collapse_rows(., columns = 1)
+    linesep = c("", "\\addlinespace", "", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","", "\\addlinespace","")) 
 
