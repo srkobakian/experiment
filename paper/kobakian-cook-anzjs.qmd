@@ -558,7 +558,7 @@ A total of `r n_all_evals` responses were collected from `r n_all_contributors` 
 
 ```{r}
 #| label: fig-detect-compare
-#| fig-cap: "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choroleth or hexagon tile map display are linked to show the difference in the detection rate."
+#| fig-cap: "The detection rates achieved by participants are contrasted when viewing the four replicates of the three trend models. Each point shows the probability of detection for the lineup display, the facets separate the trend models hidden in the lineup. The points for the same data set shown in a choropleth or hexagon tile map display are linked to show the difference in the detection rate."
 #| fig-height: 4
 #| fig-width: 6
 #| out-width: 100%
