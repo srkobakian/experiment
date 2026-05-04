@@ -1,12 +1,11 @@
 ---
-title: "Response to Reviewers"
+title: "Response to Reviews"
+author: "Stephanie Kobakian and Dianne Cook"
 format: pdf
 editor: visual
 ---
 
-## Response to Editor and reviewers
-
-Thank you for the careful reviews of our paper. Please find *our responses to provided in italics* point-by-point with the comments.
+Thank you for the careful reviews of our paper. Please find *our responses provided point-by-point with the comments in italics*.
 
 *Note that we have changed the title slightly to make it more general than cancer statistics, and we have added many more references in response to the review comments. This has made the paper longer by three pages. The revision has also been converted to a quarto document, which means that all numbers are automatically calculated from the analysis code in the document.*
 
@@ -38,7 +37,7 @@ P7,L7 While the introduction focuses specifically on the maps communicating dise
 
 P8, L31-32. I would consider adding to the last sentence to write the following: "The results are summarized in Section 4, followed by a discussion about the broader implications for the use of this map style."
 
-*Done*
+*Done.*
 
 P9, L52. I'm on sure if the text in italics appears in the literature or if this is the author's view. If the author's view then I would replace "doesn't" with "does not". If it appears in the literature, please reference.
 
@@ -46,19 +45,19 @@ P9, L52. I'm on sure if the text in italics appears in the literature or if this
 
 P9, L55. I would suggest replacing "better" with "adequately".
 
-*Done*
+*Done.*
 
 P9, L77-78. Consider the following: "Figure 1 shows the hexagon tile map, where the map is coloured from …"
 
-*Done*
+*Done.*
 
 P10, L97. Omit the words "To do".
 
-*Done*
+*Done.*
 
 P13, L167-170. Are you able to outline the smoothing procedure. This seems a little vague.
 
-*We've reduced this part to a single sentence. The exact smoothing procedures for processing the null data sets can be found in the code on the GitHub repo. It is not important enough to report in detail. The `gstat` function produced null sets with insufficient spatial dependence, despite substantial adjusting parameters,  and so further simple smoothing was done. These were compared with the Atlas plots, which had very complicated procedures to produce the cancer maps, that also ensured privacy of information.*
+*We've reduced this part to a single sentence. The exact smoothing procedures for processing the null data sets can be found in the code on the GitHub repo. It is not important enough to report in detail. The `gstat` function produced null sets with insufficient spatial dependence, despite substantial adjusting parameters, and so further simple smoothing was done. These were compared with the Atlas plots, which had very complicated procedures to produce the cancer maps, that also ensured privacy of information.*
 
 P14, L178-183. The process here seems a little subjective. Can you provide some reasoning as to why these decisions were made?
 
@@ -78,7 +77,7 @@ P15, L226. Replace "will be" with "were".
 
 P15, L234. y_ij = 0,1 represents whether the subject detected the data plot (1) or did not (0). Please fix.
 
-*Done*
+*Done.*
 
 P15, L239-240. This could be written better. Should read a "logit" link. I would consider writing the model as follows:
 
@@ -88,9 +87,9 @@ logit(p_ij) = mu + tau_i + delta_j + (tau delta)\_ij i=1,2. J=1,2,3.
 
 Then discuss the random effects.
 
-*Done*
+*Done.*
 
-P16, L247. What is a "Figure Eight contributor ID"?: 
+P16, L247. What is a "Figure Eight contributor ID"?:
 
 *This was used by the respondent to uniquely identify themselves and allow us to link them to the paid account we used for recruitment and payment. This reference has been replaced with a unique identifier created for each participant.*
 
@@ -146,7 +145,7 @@ Figure 3. Would it be clearer to use "Hexagon Tile" and "Choropleth" for the map
 
 Figure 4. I think the trend legend is unnecessary, given that there is a separate panel in the plot for each trend model.
 
-*Done*
+*Done.*
 
 Figure 5. I think the green/orange dot legend for "Choro." And "Hex." is unnecessary.
 
@@ -365,5 +364,3 @@ Reference as broader lit:
 Vanderplas, S., & Hofmann, H. (2016). Spatial Reasoning and Data Displays. IEEE Transactions on Visualization and Computer Graphics, 22(1), 459–468. IEEE Transactions on Visualization and Computer Graphics. https://doi.org/10.1109/TVCG.2015.2469125
 
 *Thank you for the suggestions. The Kawakami reference is out of scope. The Vanderplas et al has been included in the Introduction to point to work on how ability to read a lineup it most related to a subject's visual aptitude. Many more references to the visual inference literature have been added.*
-
-

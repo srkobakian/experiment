@@ -1,0 +1,63 @@
+\def\firstletters{\bgroup \catcode`-=10 \catcode`(=10 \filA}
+\def\filA#1{\filB#1 {\end} }
+\def\filB#1#2 {\ifx\end#1\egroup \else#1 \expandafter\filB\fi}
+
+\runningheads{
+$if(shorttitle)$
+$shorttitle$
+$else$
+$title$
+$endif$
+}{
+$for(authors/allbutlast)$\firstletters{$it.name.given/uppercase$}$it.name.family/uppercase$$sep$, $endfor$$if(authors/allbutlast)$, AND $endif$ $for(authors/last)$\firstletters{$it.name.given/uppercase$}$it.name.family/uppercase$$endfor$
+}
+
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+$if(subtitle)$
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{$subtitle$}
+$endif$
+
+\author{
+$if(by-author/allbutlast)$
+$for(by-author/allbutlast)$
+$by-author.name.literal$\addressnum{$for(by-author.affiliations)$$it.number$$sep$, $endfor$}$sep$,
+$endfor$
+ and
+$for(by-author/last)$
+$by-author.name.literal$\addressnum{$for(by-author.affiliations)$$it.number$$sep$, $endfor$}$if(by-author.attributes.corresponding)$\corrauth$endif$
+$endfor$
+$else$
+$for(authors)$
+$it.name.literal$
+$endfor$
+$endif$
+}
+\affiliation{
+$for(affiliations/allbutlast)$
+$it.name$$sep$,
+$endfor$
+$if(affiliations/allbutlast)$
+ and
+$endif$
+$for(affiliations/last)$
+$it.name$
+$endfor$
+}
+
+\address{
+$for(affiliations)$
+$if(authors/allbutlast)$\addressnum{$it.number$} $endif$$if(it.department)$$it.department$, $endif$$it.name$$if(it.address)$, $it.address$$endif$$sep$\\
+$endfor$\\
+\hspace*{1ex} Email: $for(authors)$$if(authors.attributes.corresponding)$\texttt{$authors.email$}$endif$$sep$ $endfor$
+}
+
+
+\date{$date$}
