@@ -23,6 +23,8 @@ author:
         department: Econometrics and Business Statistics Faculty
         address: 29 Ancora Imparo Way, Clayton, VIC 3800, Australia
     orcid: 0000-0002-3813-7155
+acknowledgement: | 
+  The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualisations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the R package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study. 
 keywords: ["data visualisation", "visual inference", "geospatial", "statistical graphics", "designed experiment"]
 abstract: |
   The choropleth map is a common tool for communicating spatial distributions across geographic areas. However, the size of geographic units can distort interpretation, influencing how users perceive the distribution. A common alternative is the cartogram, which resizes areas based on population. Yet, in Australia, the stark disparities in geography and population make cartograms less suitable. This study explores the hexagon tile map as an alternative. We report results from a task-based experiment involving human participants, using the lineup protocol to assess how well hexagon tile maps and choropleths convey spatial patterns. Three spatial patterns were tested: one reflecting geography, with values increasing monotonically from the northwest to southeast of Australia, and two with clustered high concentrations. Results show that the hexagon tile map outperforms the choropleth map. These findings support the use of alternative map displays and suggest that hexagon tile maps are effective for visualising spatial distributions in heterogeneous regions.
@@ -888,10 +890,6 @@ The hexagon tile map display should be considered as an alternative visualisatio
 
 The increasing population densities of capital cities despite large land area exacerbates the difference in the smallest and largest communities.
 The population density structure of Australia can be considered similar to that of Canada, New Zealand and many other countries. Therefore, this display is not only relevant to Australia, but all nations or population distributions that experience densely populated cities separated by vast rural expanses.
-
-# Acknowledgments {-}
-
-The authors would like to thank the Australian Cancer Atlas team for discussions regarding alternative spatial visualisations, and Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the \textsf{taipan} [@taipan] \textsf{R} package for image tagging, used as the base for the web app constructed to collect participant evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics Team) for participating in the pilot study that helped to assess the experimental design and determine an appropriate sample size for the study. 
 
 # Supplementary materials and reproducibility {-}
 
