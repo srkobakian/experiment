@@ -522,7 +522,7 @@ Participants then moved to the evaluation phase. The set of images differed for 
 
  - **Plot choice**: the number of the plot that they deemed to be most different from the others.
  - **Reason**: one of 'Clusters of colour', 'Colour trend across the areas', 'Big differences between neighbouring areas', 'All areas have similar colours' or 'None of these reasons'. Note providing restricted list of reasons rather than free text encourages a response because it is easy. The list needs to contain the primary expected reasons and other potential reasons need to be added so that it does not bias the participants' behaviour.
- - **Certainty**: how certain that their choice is different from the others, on a scale of 1-5.
+ - **Certainty**: how certain that their choice is different from the others, on a scale of 1--5.
 
 
 ## Analysis
@@ -545,7 +545,7 @@ $$
 with
 
 $$
-\text{logit}(p_{ijk}) = \mu_i + \tau_j + \delta_k + (\tau \delta)_{jk}
+\text{logit}(p_{ijk}) = \mu_i + \tau_j + \delta_k + (\tau \delta)_{jk},
 $$
 
 where $y_{ijk} = 0, 1$ represents whether subject $i$ detected the data plot (1) or did not (0), $\mu_i, ~i=1, \dots n$ is the subject-specific random intercept, $n$ is the number of subjects, $\tau_j, ~j=1,2$ is the map type effect, $\delta_k, ~k=1,2,3$ is the trend model effect. The interaction between map type and trend model allows for any map type effect to differ between trend models. As each participant provides results from 12 lineups, this model can account for each individual participants' abilities with the subject-specific random intercept. 
