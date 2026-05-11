@@ -251,6 +251,16 @@ distributions in heterogeneous regions.
 \keywords{data visualisation; visual inference; geospatial; statistical
 graphics; designed experiment}
           
+\ack{The authors would like to thank the Australian Cancer Atlas team
+for discussions regarding alternative spatial visualisations, and
+Professor Kerrie Mengersen and Dr Earl Duncan for regular meetings
+filled with suggestions and comments. Mitchell O'Hara-Wild was a
+co-developer of the R package for image tagging, used as the base for
+the web app constructed to collect participant evaluations of lineups.
+We are thankful for the NUMBATs (Non-Uniform Monash Business Analytics
+Team) for participating in the pilot study that helped to assess the
+experimental design and determine an appropriate sample size for the
+study.}
 
 \maketitle
 
@@ -767,7 +777,7 @@ report their responses to these three items:
   participants' behaviour.
 \item
   \textbf{Certainty}: how certain that their choice is different from
-  the others, on a scale of 1-5.
+  the others, on a scale of 1--5.
 \end{itemize}
 
 \subsection{Analysis}\label{analysis}
@@ -802,7 +812,7 @@ model to be:
 \] with
 
 \[
-\text{logit}(p_{ijk}) = \mu_i + \tau_j + \delta_k + (\tau \delta)_{jk}
+\text{logit}(p_{ijk}) = \mu_i + \tau_j + \delta_k + (\tau \delta)_{jk},
 \]
 
 where \(y_{ijk} = 0, 1\) represents whether subject \(i\) detected the
@@ -1219,20 +1229,6 @@ to that of Canada, New Zealand and many other countries. Therefore, this
 display is not only relevant to Australia, but all nations or population
 distributions that experience densely populated cities separated by vast
 rural expanses.
-
-\section*{Acknowledgments}\label{acknowledgments}
-\addcontentsline{toc}{section}{Acknowledgments}
-
-The authors would like to thank the Australian Cancer Atlas team for
-discussions regarding alternative spatial visualisations, and Professor
-Kerrie Mengersen and Dr Earl Duncan for regular meetings filled with
-suggestions and comments. Mitchell O'Hara-Wild was a co-developer of the
-\textsf{taipan} \citep{taipan} \textsf{R} package for image tagging,
-used as the base for the web app constructed to collect participant
-evaluations of lineups. We are thankful for the NUMBATs (Non-Uniform
-Monash Business Analytics Team) for participating in the pilot study
-that helped to assess the experimental design and determine an
-appropriate sample size for the study.
 
 \section*{Supplementary materials and
 reproducibility}\label{supplementary-materials-and-reproducibility}
